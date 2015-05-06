@@ -7,12 +7,20 @@ Certain sequence contexts induce errors in next-generation sequencing reads, as 
 
 Manuel Allhoff, Alexander Schoenhuth, Marcel Martin, Ivan G. Costa, Sven Rahmann and Tobias Marschall. Discovering motifs that induce sequencing errors. BMC Bioinformatics (proceedings of RECOMB-seq), 2013, 14(Suppl 5):S1, DOI: [10.1186/1471-2105-14-S5-S1](http://dx.doi.org/10.1186/1471-2105-14-S5-S1).
 
-On this page, we maintain the source code of our program to discover error-causing motifs and provide BED tracks with problematic genomic positions, see [Downloads](https://bitbucket.org/tobiasmarschall/discovering-cse/downloads) page. 
+On this page, we maintain the source code of our program to discover error-causing motifs.
+
+## Dependencies
+
+ * python 2.7 (tested with Python 2.7.3)
+ * HTSeq
+ * pysam
+ * scipy
+ * rpy2 
 
 ## Installation
 
  1. install required python packages (see Dependencies)
- 2. checkout the code from the [git repository](https://bitbucket.org/tobiasmarschall/discovering-cse/overview)
+ 2. checkout the code from the [git repository](https://github.com/zbarni/costalab.git)
 
 ## Analysis
 
@@ -49,11 +57,3 @@ We obtain the 6-gram `CCANTC` wich occurs `12384` times in the genome. It gives 
 | Backward |    37 |        9 |
 
 This table corresponds to a strand bias score of `12.3345029322`.
-Dependencies
-
- * python 2.7 (tested with Python 2.7.3)
- * HTSeq
- * pysam
- * scipy
- * rpy2 
- 
