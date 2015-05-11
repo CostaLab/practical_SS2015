@@ -47,7 +47,7 @@ The output `results.data` is a tab delimited text file and looks like:
 
 | Sequence | Occurrence | Forward Match | Backward Match | Forward Mismatch | Backward Mismatch | Strand Bias Score | FER (Forward Error Rate) | RER (Reverse Error Rate) | ERD (Error rate Difference) |
 |----------|------------|---------------|----------------|------------------|-------------------|-------------------|--------------------------|--------------------------|-----------------------------|
-| CCANTC   |      12384 |            35 |             37 |             331  |                9  |    12.3345029322  |          0.894557485622  |          0.222222222222  |                520215753219 |
+| CCANTC   |      12384 |            35 |             37 |             331  |                9  |    12.3345029322  |          0.894557485622  |          0.222222222222  |                0.520215753219 |
 
 We obtain the 6-gram `CCANTC` wich occurs `12384` times in the genome. It gives the following 2x2 contingency table:
 
