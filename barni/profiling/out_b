@@ -1,0 +1,9 @@
+1000000 reads considered for genome annotation 
+2000000 reads considered for genome annotation 
+3000000 reads considered for genome annotation 
+4000000 reads considered for genome annotation 
+Warning: 100 q-grams of 4658594 contain other letters than A,C,G and T, ignore these q-grams
+Start Strand Bias Score calculation
+<generator object _get_all_qgrams at 0x4805820>
+#Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
+GGGT	23425	1007249	1078703	79090	13069	9223372036854775807	0.0728041615002	0.0119704480423	0.060833713458
