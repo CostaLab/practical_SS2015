@@ -37,10 +37,10 @@ Our tool considers exactly one chromosome in the genome for the analysis. The de
 We run the tool, for instance, with the following command:
 
 ```
-discovering_cse.py hg19.fasta experiment.bam 6 1 -a 1 -c chr10 > results.data
+discovering_cse.py hg19.fasta experiment.bam 6 1 -d 0 -c chr10 > results.data
 ```
 
-Here, we consider chromosome 10 (`-c chr10`) of the human genome (`hg19.fasta`) and search for 6-grams with one allowed N. The analysis is based on the aligned reads which are contained in 'experiment.bam'. Moreover, we do not filter the output (`-a 1`) which is stored in 'results.data'
+Here, we consider chromosome 10 (`-c chr10`) of the human genome (`hg19.fasta`) and search for 6-grams with one allowed N. The analysis is based on the aligned reads which are contained in 'experiment.bam'. Moreover, we do not filter the output (`-d 0`) which is stored in 'results.data'
 
 The output `results.data` is a tab delimited text file and looks like:
 

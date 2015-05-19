@@ -30,6 +30,7 @@ unset SRA
 PLOIDY=1
 FIX=""
 MEM=false
+BWAOPT="-t 4"
 
 while [[ $# > 0 ]]
 do
@@ -54,6 +55,10 @@ do
         -mem|--use-bwa-mem)
             MEM=true
             ;;
+        -mem-pacbio|--use-bwa-mem-for-pacbio)
+            MEM=true
+            BWAOPT=${BWAOPT}" -x pacbio"
+            ;;
         *)
             # unknown option
             ;;
@@ -72,6 +77,9 @@ then
 fi
 ## end option parsing
 
+# generate SRA statistics
+sra-stat --xml -s ${SRA} > ${SRA}.stats
+
 # reference file in FASTA format
 REF=`basename ${FASTA} .fasta`
 
@@ -88,14 +96,14 @@ fastq-dump --split-files $SRA || exit 1
 if [ $MEM == true ]
 then
     bwa index $FASTA || exit 1
-    bwa mem -t 4 $FASTA *.fastq > tmp.sam || exit 1
+    bwa mem $BWAOPT $FASTA *.fastq > tmp.sam || exit 1
 else
     bwa index $FASTA || exit 1
-    bwa aln $FASTA $FASTQ1 > tmp1.sai || exit 1
+    bwa aln $BWAOPT $FASTA $FASTQ1 > tmp1.sai || exit 1
 
     if [ -f $FASTQ2 ]
     then
-        bwa aln $FASTA $FASTQ2 > tmp2.sai || exit 1
+        bwa aln $BWAOPT $FASTA $FASTQ2 > tmp2.sai || exit 1
 
         bwa sampe $FASTA tmp1.sai tmp2.sai $FASTQ1 $FASTQ2 > tmp.sam || exit 1
     else
