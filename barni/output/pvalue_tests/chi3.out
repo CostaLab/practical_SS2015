@@ -1,0 +1,14 @@
+-------------------
+fm, rm, fmm, rmm = 15493, 17481, 15747, 26000
+R test results:			fisher			chi
+		 		 649.689041677		 1.46329255631
+
+New library fisher's:		fisher.py [left]	fisher.py [right]	fisher.py [two]
+		 		 1.0		 1.67189534549e-143		 2.19765607463e-09
+
+New library fisher's with (fm, rm, fmm, rmm) instead of (fm, fmm, rm, rmm), like above 
+		 		 1.0		 1.67189534552e-143		 2.19765607463e-09
+
+Scipy chi-squared		chi2			p_value			dof (degrees of freedom)
+		 		 649.689041677		 2.61058898801e-143		 1
+===================

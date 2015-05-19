@@ -31,8 +31,9 @@ from fisher import pvalue
 import array
 import pickle
 import time
-DEBUG_INDEL = True
-#DEBUG_INDEL = False
+import copy
+DEBUG_INDEL = False
+DEBUG_FISHER= True
 LOG_DEL     = "../output/bsubtilis/del_3_80.log"
 
 class HelpfulOptionParser(OptionParser):
@@ -191,11 +192,12 @@ def reverse_complement(s, rev=True):
         
     return "".join(rc)  # join the elements into a string
 
-#barni
-def computeNewFisher(chi, forward_match, forward_mismatch, reverse_match, reverse_mismatch):
-    fisher_pvalue = pvalue(forward_match, forward_mismatch, reverse_match, reverse_mismatch) #returns (left_t, right_t, two_t)
-    #print(str(chi), str(fisher_pvalue.left_tail), str(fisher_pvalue.right_tail), str(fisher_pvalue.two_tail))
-    return fisher_pvalue.two_tail
+
+def computeNewFisher(fm, fmm, rm, rmm):
+    fisher_pvalue = pvalue(fm, fmm, rm, rmm) #returns (left_t, right_t, two_t)
+    #print("forward",str(chi), str(fisher_pvalue.left_tail), str(fisher_pvalue.right_tail), str(fisher_pvalue.two_tail))
+    return fisher_pvalue
+
 
 def get_pvalue(forward_match, reverse_match, forward_mismatch, reverse_mismatch):
     """Return p-value of given Strand Bias Table"""
@@ -208,14 +210,27 @@ def get_pvalue(forward_match, reverse_match, forward_mismatch, reverse_mismatch)
         f = robjects.r['fisher.test']
         test = 'fisher'
     
+    matrix = [forward_match, reverse_match, forward_mismatch, reverse_mismatch]
+    table = robjects.r.matrix(robjects.IntVector(matrix), nrow=2)
+    p_value_tmp = f(table)[0] if test == 'fisher' else f(table)[2]
+    p_value = tuple(p_value_tmp)[0] #some necessary magic for r object
+
     #TODO remove
-    if True:
-        return computeNewFisher(0,forward_match, forward_mismatch, reverse_match, reverse_mismatch)
-    else:
-        matrix = [forward_match, reverse_match, forward_mismatch, reverse_mismatch]
-        table = robjects.r.matrix(robjects.IntVector(matrix), nrow=2)
-        p_value_tmp = f(table)[0] if test == 'fisher' else f(table)[2]
-        p_value = tuple(p_value_tmp)[0] #some necessary magic for r object
+    if DEBUG_FISHER:
+        table2 = copy.deepcopy(table)
+        rf_pvalue    = tuple(f(table)[0])[0]
+        rchi_pvalue  = tuple(f(table2)[2])[0]
+        libf_pvalue1 = computeNewFisher(forward_match, forward_mismatch, reverse_match, reverse_mismatch)
+        libf_pvalue2 = computeNewFisher(forward_match, reverse_match, forward_mismatch, reverse_mismatch)
+        s = "-------------------\n" 
+        s += "(fm, rm, fmm, rmm) (", str(forward_match), str(reverse_match), str(forward_mismatch), str(reverse_mismatch),")\n"
+        s += "\t\t".join(["fisher", "chi", "fisher.py [left]", "fisher.py [right]", "fisher.py [two]"])
+        s += "\n"
+        s += "\t ".join([str(rf_pvalue), str(rchi_pvalue), str(libf_pvalue1.left_tail), str(libf_pvalue1.right_tail), str(libf_pvalue1.two_tail)])
+        s += "\nlib fisher using fm, rm, fmm, rmm, above was (fm,fmm,rm,rmm) used\n" 
+        s += "\t ".join([' ',' ', str(libf_pvalue2.left_tail), str(libf_pvalue2.right_tail), str(libf_pvalue2.two_tail)])
+        s += "\n==================="
+        print(s)
 
     return p_value
 
