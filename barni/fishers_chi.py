@@ -16,8 +16,8 @@ reverse_match   = 17481
 forward_mismatch= 15747
 reverse_mismatch= 26000
 
-ff      = robjects.r['chisq.test']
-fchi    = robjects.r['fisher.test']
+ff      = robjects.r['fisher.test']
+fchi    = robjects.r['chisq.test']
 
 matrix  = [forward_match, reverse_match, forward_mismatch, reverse_mismatch]
 table   = robjects.r.matrix(robjects.IntVector(matrix), nrow=2)
@@ -35,6 +35,10 @@ libf_pvalue2 = pvalue(forward_match, reverse_match, forward_mismatch, reverse_mi
 arr         = np.array([[forward_match, forward_mismatch],[reverse_match, reverse_mismatch]])
 sc_chi2, sc_p, sc_dof, sc_expected = sps.chi2_contingency(arr)
 
+#scipy fisher's exact test
+sc_odds_l, sc_fish_pv_left = sps.fisher_exact(arr, alternative="less")
+sc_odds_r, sc_fish_pv_right = sps.fisher_exact(arr, alternative="greater")
+sc_odds, sc_fish_pv = sps.fisher_exact(arr, alternative="two-sided")
 
 s = "-------------------\n" 
 s += "fm, rm, fmm, rmm = " + ", ".join([str(forward_match), str(reverse_match), str(forward_mismatch), str(reverse_mismatch)])
@@ -51,5 +55,8 @@ s += "\t\t ".join(["","",str(libf_pvalue2.left_tail), str(libf_pvalue2.right_tai
 s += "\n\nScipy chi-squared\t\t" + "\t\t".join(["chi2", "\tp_value", "\tdof (degrees of freedom)"])
 s += "\n"
 s += "\t\t ".join(["","",str(sc_chi2), str(sc_p), str(sc_dof)])
+s += "\n\nScipy Fisher's Exact\t\tp-value left\tright\t(2-sided)"
+s += "\n"
+s += "\t\t\t\t".join(["","",str(sc_fish_pv_left), str(sc_fish_pv_right), str(sc_fish_pv)])
 s += "\n==================="
 print(s)
