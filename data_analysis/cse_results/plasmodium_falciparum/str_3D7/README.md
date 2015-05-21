@@ -1,10 +1,10 @@
-## Plasmodium Falciparum str. 3D7
+#### Plasmodium Falciparum str. 3D7
 
 | NCBI Reference  | Chromosomes | DNA bps  |
 | --------------- | ----------- | -------- |
 | GCF_000002765.3 | 14          | 23264338 |
 
-## Reads
+#### Reads
 
 |      Method     | SRA Accession |    Run    |  Reads  | Length | Paired? | SNPs |
 |-----------------|---------------|-----------|---------|--------|---------|------|
