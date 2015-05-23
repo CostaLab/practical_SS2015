@@ -31,6 +31,13 @@ PLOIDY=1
 FIX=""
 MEM=false
 BWAOPT="-t 4"
+FORCE_SINGLE=false
+
+if [ $# == 0 ]
+then
+    echo "$0 -ref sequence.fasta -sra reads.sra [-p N] [-fix] [-mem] [-mem-pacbio] [-fs]"
+    exit 1
+fi
 
 while [[ $# > 0 ]]
 do
@@ -52,12 +59,18 @@ do
         -fix|--fix-qualities)
             FIX="--fix_misencoded_quality_scores"
             ;;
+        -nofix|--allow-bad-qualities)
+            FIX="--allow_potentially_misencoded_quality_scores"
+            ;;
         -mem|--use-bwa-mem)
             MEM=true
             ;;
         -mem-pacbio|--use-bwa-mem-for-pacbio)
             MEM=true
             BWAOPT=${BWAOPT}" -x pacbio"
+            ;;
+        -fs|--force-single-reads)
+            FORCE_SINGLE=true
             ;;
         *)
             # unknown option
@@ -89,8 +102,19 @@ READS=`basename ${SRA} .sra`
 FASTQ1=${READS}_1.fastq
 FASTQ2=${READS}_2.fastq
 
-# creates fastq files
-fastq-dump --split-files $SRA || exit 1
+if [ $FORCE_SINGLE == false ]
+then
+    # creates fastq split-files
+    fastq-dump --split-files $SRA || exit 1
+else
+    # some sequencers create strange "paired"
+    # reads, where one mate has 4 bases and the other
+    # has hundreds. Here we forcefully create only one
+    # fastq file, as if we had had single reads
+    fastq-dump $SRA || exit 1
+
+    mv ${READS}.fastq $FASTQ1
+fi
 
 # generate BAM
 if [ $MEM == true ]
@@ -130,6 +154,18 @@ gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T RealignerTargetCreator -o help.i
 gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T IndelRealigner -targetIntervals help.intervals -o ${READS}.bam $FIX || exit 1
 samtools index ${READS}.bam || exit 1
 
-# SNP calling
-gatk -ploidy $PLOIDY -I ${READS}.bam -R $FASTA -T UnifiedGenotyper -o ${READS}-snps.vcf || exit 1
+# generate stats for clean BAM
+echo "##################"
+echo "# Reads coverage #"
+echo "##################"
+GENOME_LENGTH=`samtools view -H ${READS}.bam | grep -P '^@SQ' | cut -f 3 -d ':' | awk '{sum+=$1} END {print sum}'`
+echo "Length: ${GENOME_LENGTH}"
+samtools depth ${READS}.bam | awk -v glen="$GENOME_LENGTH" '{sum+=$3; sumsq+=$3*$3} END { print "Average cov. = ",sum/glen; print "Stdev \t= ",sqrt(sumsq/glen - (sum/glen)**2)}'
+echo
 
+samtools flagstat ${READS}.bam > ${READS}.bam.stats
+echo -e "\nChr\tlength\tmapped\tunmapped" >> ${READS}.bam.stats
+samtools idxstats ${READS}.bam >> ${READS}.bam.stats
+
+# SNP calling
+gatk -ploidy $PLOIDY -I ${READS}.bam -R $FASTA -T UnifiedGenotyper -o ${READS}-snps.vcf $FIX || exit 1
