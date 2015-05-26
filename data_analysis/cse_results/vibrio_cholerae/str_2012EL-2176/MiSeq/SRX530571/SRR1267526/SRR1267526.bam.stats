@@ -1,17 +1,16 @@
-3845181 + 0 in total (QC-passed reads + QC-failed reads)
+3847954 + 0 in total (QC-passed reads + QC-failed reads)
 0 + 0 duplicates
-168765 + 0 mapped (4.39%:-nan%)
-3845181 + 0 paired in sequencing
-1922590 + 0 read1
-1922591 + 0 read2
-127898 + 0 properly paired (3.33%:-nan%)
-163342 + 0 with itself and mate mapped
-5423 + 0 singletons (0.14%:-nan%)
-489 + 0 with mate mapped to a different chr
-1 + 0 with mate mapped to a different chr (mapQ>=5)
+9828 + 0 mapped (0.26%:-nan%)
+3847954 + 0 paired in sequencing
+1923977 + 0 read1
+1923977 + 0 read2
+3554 + 0 properly paired (0.09%:-nan%)
+6796 + 0 with itself and mate mapped
+3032 + 0 singletons (0.08%:-nan%)
+0 + 0 with mate mapped to a different chr
+0 + 0 with mate mapped to a different chr (mapQ>=5)
 
 Chr	length	mapped	unmapped
-gi|749293670|ref|NZ_CP007634.1|	3043139	7904	2486
-gi|749293683|ref|NZ_CP007635.1|	1047617	9	4
-gi|749293690|ref|NZ_CP007636.1|	167267	160852	2936
-*	0	0	3670990
+gi|749293670|ref|NZ_CP007634.1|	3043139	9819	3031
+gi|749293683|ref|NZ_CP007635.1|	1047617	9	1
+*	0	0	3835094

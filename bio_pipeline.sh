@@ -101,19 +101,24 @@ READS=`basename ${SRA} .sra`
 
 FASTQ1=${READS}_1.fastq
 FASTQ2=${READS}_2.fastq
+FASTQ=${READS}.fastq
 
 if [ $FORCE_SINGLE == false ]
 then
-    # creates fastq split-files
-    fastq-dump --split-files $SRA || exit 1
+    if [ ! -z $FASTQ1 ] && [ ! -z $FASTQ2 ]
+    then
+        # creates fastq split-files
+        fastq-dump --split-files $SRA || exit 1
+    fi
 else
-    # some sequencers create strange "paired"
-    # reads, where one mate has 4 bases and the other
-    # has hundreds. Here we forcefully create only one
-    # fastq file, as if we had had single reads
-    fastq-dump $SRA || exit 1
+    if [ ! -z $FASTQ ]
+    then
+        # Here we forcefully create only one
+        # fastq file, as if we had had single reads
+        fastq-dump --split-spot $SRA || exit 1
+    fi
 
-    mv ${READS}.fastq $FASTQ1
+    FASTQ1=$FASTQ
 fi
 
 # generate BAM
