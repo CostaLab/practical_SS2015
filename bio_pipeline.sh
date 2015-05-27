@@ -103,15 +103,15 @@ FASTQ1=${READS}_1.fastq
 FASTQ2=${READS}_2.fastq
 FASTQ=${READS}.fastq
 
-if [ $FORCE_SINGLE == false ]
+if [ ! $FORCE_SINGLE ]
 then
-    if [ ! -z $FASTQ1 ] && [ ! -z $FASTQ2 ]
+    if [ ! -f $FASTQ1 ] && [ ! -f $FASTQ2 ]
     then
         # creates fastq split-files
         fastq-dump --split-files $SRA || exit 1
     fi
 else
-    if [ ! -z $FASTQ ]
+    if [ ! -f $FASTQ ]
     then
         # Here we forcefully create only one
         # fastq file, as if we had had single reads
@@ -122,7 +122,7 @@ else
 fi
 
 # generate BAM
-if [ $MEM == true ]
+if [ $MEM ]
 then
     bwa index $FASTA || exit 1
     bwa mem $BWAOPT $FASTA *.fastq > tmp.sam || exit 1
@@ -160,17 +160,20 @@ gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T IndelRealigner -targetIntervals 
 samtools index ${READS}.bam || exit 1
 
 # generate stats for clean BAM
-echo "##################"
-echo "# Reads coverage #"
-echo "##################"
+echo "##################" | tee ${READS}.bam.stats
+echo "# Reads coverage #" | tee -a ${READS}.bam.stats
+echo "##################" | tee -a ${READS}.bam.stats
+echo "(excluding MAPQ=0)" | tee -a ${READS}.bam.stats
 GENOME_LENGTH=`samtools view -H ${READS}.bam | grep -P '^@SQ' | cut -f 3 -d ':' | awk '{sum+=$1} END {print sum}'`
-echo "Length: ${GENOME_LENGTH}"
-samtools depth ${READS}.bam | awk -v glen="$GENOME_LENGTH" '{sum+=$3; sumsq+=$3*$3} END { print "Average cov. = ",sum/glen; print "Stdev \t= ",sqrt(sumsq/glen - (sum/glen)**2)}'
-echo
+echo "Genome length: ${GENOME_LENGTH}" | tee -a ${READS}.bam.stats
+samtools depth -Q1 ${READS}.bam | awk -v glen="$GENOME_LENGTH" '{sum+=$3; sumsq+=$3*$3} END { print "% cov. = ",(NR/glen)*100; print "Avg. base cov. = ",sum/glen; print "Stdev base cov. = ",sqrt(sumsq/glen - (sum/glen)**2)}' | tee -a ${READS}.bam.stats
+echo | tee -a ${READS}.bam.stats
 
-samtools flagstat ${READS}.bam > ${READS}.bam.stats
-echo -e "\nChr\tlength\tmapped\tunmapped" >> ${READS}.bam.stats
-samtools idxstats ${READS}.bam >> ${READS}.bam.stats
+echo "flagstats:"                         | tee -a ${READS}.bam.stats
+samtools flagstat ${READS}.bam            | tee -a ${READS}.bam.stats
+echo -e "\nidxstats:"                     | tee -a ${READS}.bam.stats
+echo -e "Chr\tlength\tmapped\tunmapped"   | tee -a ${READS}.bam.stats
+samtools idxstats ${READS}.bam            | tee -a ${READS}.bam.stats
 
 # SNP calling
 gatk -ploidy $PLOIDY -I ${READS}.bam -R $FASTA -T UnifiedGenotyper -o ${READS}-snps.vcf $FIX || exit 1
