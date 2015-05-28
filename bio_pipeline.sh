@@ -22,20 +22,27 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ########################################################################
 
+# early fail if programs not installed
+for c in bwa sra-stat fastq-dump samtools picard-tools gatk fastqc
+do
+    command -v $c >/dev/null 2>&1 || { echo >&2 "I require \"$c\" (named in this exact way!) but it's not installed. Aborting."; exit 1; }
+done
+
 ## start option parsing
 unset FASTA
 unset SRA
 
 # defaults
 PLOIDY=1
-FIX=""
+GATKOPT=""
+GATKOPT2=""
 MEM=false
 BWAOPT="-t 4"
 FORCE_SINGLE=false
 
 if [ $# == 0 ]
 then
-    echo "$0 -ref sequence.fasta -sra reads.sra [-p N] [-fix] [-mem] [-mem-pacbio] [-fs]"
+    echo `basename $0` "-ref sequence.fasta -sra reads.sra [-p N] [-fix] [-mem] [-mem-pacbio] [-fs]"
     exit 1
 fi
 
@@ -57,10 +64,10 @@ do
             shift
             ;;
         -fix|--fix-qualities)
-            FIX="--fix_misencoded_quality_scores"
+            GATKOPT="--fix_misencoded_quality_scores"
             ;;
         -nofix|--allow-bad-qualities)
-            FIX="--allow_potentially_misencoded_quality_scores"
+            GATKOPT="--allow_potentially_misencoded_quality_scores"
             ;;
         -mem|--use-bwa-mem)
             MEM=true
@@ -71,6 +78,10 @@ do
             ;;
         -fs|--force-single-reads)
             FORCE_SINGLE=true
+            ;;
+        -dbq|--default-base-qualities)
+            GATKOPT2="--defaultBaseQualities $2"
+            shift
             ;;
         *)
             # unknown option
@@ -103,7 +114,7 @@ FASTQ1=${READS}_1.fastq
 FASTQ2=${READS}_2.fastq
 FASTQ=${READS}.fastq
 
-if [ ! $FORCE_SINGLE ]
+if [ $FORCE_SINGLE == false ]
 then
     if [ ! -f $FASTQ1 ] && [ ! -f $FASTQ2 ]
     then
@@ -122,7 +133,7 @@ else
 fi
 
 # generate BAM
-if [ $MEM ]
+if [ $MEM == true ]
 then
     bwa index $FASTA || exit 1
     bwa mem $BWAOPT $FASTA *.fastq > tmp.sam || exit 1
@@ -155,8 +166,8 @@ samtools index tmp.addrg.rmdup.sorted.bam || exit 1
 picard-tools CreateSequenceDictionary R=$FASTA O=${REF}.dict || exit 1
 samtools faidx $FASTA || exit 1
 
-gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T RealignerTargetCreator -o help.intervals $FIX || exit 1
-gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T IndelRealigner -targetIntervals help.intervals -o ${READS}.bam $FIX || exit 1
+gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T RealignerTargetCreator -o help.intervals $GATKOPT || exit 1
+gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T IndelRealigner -targetIntervals help.intervals -o ${READS}.bam $GATKOPT $GATKOPT2 || exit 1
 samtools index ${READS}.bam || exit 1
 
 # generate stats for clean BAM
@@ -175,5 +186,8 @@ echo -e "\nidxstats:"                     | tee -a ${READS}.bam.stats
 echo -e "Chr\tlength\tmapped\tunmapped"   | tee -a ${READS}.bam.stats
 samtools idxstats ${READS}.bam            | tee -a ${READS}.bam.stats
 
+# generate other statistics
+fastqc ${READS}.bam
+
 # SNP calling
-gatk -ploidy $PLOIDY -I ${READS}.bam -R $FASTA -T UnifiedGenotyper -o ${READS}-snps.vcf $FIX || exit 1
+gatk -ploidy $PLOIDY -I ${READS}.bam -R $FASTA -T UnifiedGenotyper -o ${READS}-snps.vcf $GATKOPT || exit 1
