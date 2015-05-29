@@ -1,0 +1,50 @@
+<Run accession="ERR160036.sra" read_length="variable" spot_count="81741" base_count="112732985" base_count_bio="73248765" spot_count_mates="21225" base_count_bio_mates="49642738" spot_count_bad="6602" base_count_bio_bad="1713762" spot_count_filtered="0" base_count_bio_filtered="0">
+  <Size value="510858412" units="bytes"/>
+  <Bases cs_native="false" count="112732985">
+    <Base value="A" count="20915718"/>
+    <Base value="C" count="40073996"/>
+    <Base value="G" count="35237189"/>
+    <Base value="T" count="16506082"/>
+    <Base value="N" count="0"/>
+  </Bases>
+  <AlignInfo>
+  </AlignInfo>
+  <Statistics nreads="variable"/>
+  <QualityCount>
+    <Quality value="0" count="44268787"/>
+    <Quality value="1" count="4317070"/>
+    <Quality value="2" count="4326678"/>
+    <Quality value="3" count="4350329"/>
+    <Quality value="4" count="4453829"/>
+    <Quality value="5" count="4413034"/>
+    <Quality value="6" count="4438985"/>
+    <Quality value="7" count="4549834"/>
+    <Quality value="8" count="4684502"/>
+    <Quality value="9" count="4775051"/>
+    <Quality value="10" count="4935639"/>
+    <Quality value="11" count="5404766"/>
+    <Quality value="12" count="5661144"/>
+    <Quality value="13" count="5159758"/>
+    <Quality value="14" count="3857093"/>
+    <Quality value="15" count="2179341"/>
+    <Quality value="16" count="834442"/>
+    <Quality value="17" count="122625"/>
+    <Quality value="18" count="78"/>
+  </QualityCount>
+  <Databases>
+    <Database>
+      <Table name="CONSENSUS">
+        <Statistics source="meta">
+          <Rows count="81741"/>
+          <Elements count="2164208"/>
+        </Statistics>
+      </Table>
+      <Table name="SEQUENCE">
+        <Statistics source="meta">
+          <Rows count="81741"/>
+          <Elements count="112732985"/>
+        </Statistics>
+      </Table>
+    </Database>
+  </Databases>
+</Run>
