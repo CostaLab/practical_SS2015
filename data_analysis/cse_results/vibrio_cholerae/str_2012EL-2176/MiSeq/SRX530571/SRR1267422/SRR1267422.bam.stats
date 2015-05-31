@@ -1,0 +1,15 @@
+709620 + 0 in total (QC-passed reads + QC-failed reads)
+0 + 0 duplicates
+504468 + 0 mapped (71.09%:-nan%)
+709620 + 0 paired in sequencing
+354808 + 0 read1
+354812 + 0 read2
+414742 + 0 properly paired (58.45%:-nan%)
+496318 + 0 with itself and mate mapped
+8150 + 0 singletons (1.15%:-nan%)
+0 + 0 with mate mapped to a different chr
+0 + 0 with mate mapped to a different chr (mapQ>=5)
+
+Chr	length	mapped	unmapped
+gi|749293690|ref|NZ_CP007636.1|	167267	504468	8150
+*	0	0	197002

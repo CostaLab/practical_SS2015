@@ -1,0 +1,57 @@
+<Run accession="SRR1267422.sra" read_length="variable" spot_count="362841" base_count="103482648" base_count_bio="103482648" spot_count_mates="362841" base_count_bio_mates="103482648" spot_count_bad="0" base_count_bio_bad="0" spot_count_filtered="0" base_count_bio_filtered="0" cmp_base_count="103482648">
+  <Member member_name="7" spot_count="362841" base_count="103482648" base_count_bio="103482648" spot_count_mates="362841" base_count_bio_mates="103482648" spot_count_bad="0" base_count_bio_bad="0" spot_count_filtered="0" base_count_bio_filtered="0" cmp_base_count="103482648"/>
+  <Size value="65962817" units="bytes"/>
+  <Bases cs_native="false" count="103482648">
+    <Base value="A" count="25268888"/>
+    <Base value="C" count="26409244"/>
+    <Base value="G" count="26580542"/>
+    <Base value="T" count="25141248"/>
+    <Base value="N" count="82726"/>
+  </Bases>
+  <AlignInfo>
+  </AlignInfo>
+  <Statistics nreads="2" nspots="362841">
+    <Read index="0" count="362841" average="142.64" stdev="21.66"/>
+    <Read index="1" count="362841" average="142.56" stdev="21.71"/>
+  </Statistics>
+  <QualityCount>
+    <Quality value="2" count="82726"/>
+    <Quality value="12" count="783247"/>
+    <Quality value="13" count="755185"/>
+    <Quality value="14" count="2397893"/>
+    <Quality value="15" count="1611966"/>
+    <Quality value="16" count="2393328"/>
+    <Quality value="17" count="935770"/>
+    <Quality value="18" count="686334"/>
+    <Quality value="19" count="262758"/>
+    <Quality value="20" count="198080"/>
+    <Quality value="21" count="4698"/>
+    <Quality value="24" count="194659"/>
+    <Quality value="25" count="207934"/>
+    <Quality value="26" count="241632"/>
+    <Quality value="27" count="982282"/>
+    <Quality value="28" count="116138"/>
+    <Quality value="29" count="738116"/>
+    <Quality value="30" count="1458062"/>
+    <Quality value="31" count="756400"/>
+    <Quality value="32" count="2760920"/>
+    <Quality value="33" count="4073248"/>
+    <Quality value="34" count="4090738"/>
+    <Quality value="35" count="2234238"/>
+    <Quality value="36" count="4314024"/>
+    <Quality value="37" count="12703320"/>
+    <Quality value="38" count="27628636"/>
+    <Quality value="39" count="30851730"/>
+    <Quality value="40" count="18586"/>
+  </QualityCount>
+  <Databases>
+    <Database>
+      <Table name="SEQUENCE">
+        <Statistics source="meta">
+          <Rows count="362841"/>
+          <Elements count="103482648"/>
+        </Statistics>
+      </Table>
+    </Database>
+  </Databases>
+</Run>

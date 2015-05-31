@@ -1,0 +1,80 @@
+<Run accession="ERR142615.sra" read_length="fixed" spot_count="27498453" base_count="4124767950" base_count_bio="4124767950" spot_count_mates="27498453" base_count_bio_mates="4124767950" spot_count_bad="1424919" base_count_bio_bad="213737850" spot_count_filtered="0" base_count_bio_filtered="0" cmp_base_count="92766900">
+  <Member member_name="1#2" spot_count="27498453" base_count="4124767950" base_count_bio="4124767950" spot_count_mates="27498453" base_count_bio_mates="4124767950" spot_count_bad="1424919" base_count_bio_bad="213737850" spot_count_filtered="0" base_count_bio_filtered="0" cmp_base_count="92766900" library="3960021" sample="Bordetella Pertussis"/>
+  <Size value="1964178561" units="bytes"/>
+  <Bases cs_native="false" count="4124767950">
+    <Base value="A" count="679580131"/>
+    <Base value="C" count="1378755284"/>
+    <Base value="G" count="1392428959"/>
+    <Base value="T" count="672504248"/>
+    <Base value="N" count="1499328"/>
+  </Bases>
+  <AlignInfo>
+    <Ref seqId="HE965805.1" name="bpst24-12j16.q1k" circular="false" local="remote" path="/home/fabio/ncbi/public/refseq/HE965805.1"/>
+  </AlignInfo>
+  <Statistics nreads="2" nspots="27498453">
+    <Read index="0" count="27498453" average="75" stdev="0"/>
+    <Read index="1" count="27498453" average="75" stdev="0"/>
+  </Statistics>
+  <QualityCount>
+    <Quality value="0" count="1499328"/>
+    <Quality value="5" count="28952470"/>
+    <Quality value="6" count="7811141"/>
+    <Quality value="7" count="24795560"/>
+    <Quality value="8" count="22175694"/>
+    <Quality value="9" count="1891900"/>
+    <Quality value="10" count="14220043"/>
+    <Quality value="11" count="4830099"/>
+    <Quality value="12" count="8310839"/>
+    <Quality value="13" count="2592999"/>
+    <Quality value="14" count="2589523"/>
+    <Quality value="15" count="23163566"/>
+    <Quality value="16" count="4781410"/>
+    <Quality value="17" count="9337497"/>
+    <Quality value="18" count="14449711"/>
+    <Quality value="19" count="5045962"/>
+    <Quality value="20" count="34778596"/>
+    <Quality value="21" count="8148996"/>
+    <Quality value="22" count="17711002"/>
+    <Quality value="23" count="29752969"/>
+    <Quality value="24" count="22631285"/>
+    <Quality value="25" count="21360104"/>
+    <Quality value="26" count="36317566"/>
+    <Quality value="27" count="39017982"/>
+    <Quality value="28" count="15329152"/>
+    <Quality value="29" count="39931253"/>
+    <Quality value="30" count="59949272"/>
+    <Quality value="31" count="116285469"/>
+    <Quality value="32" count="60593603"/>
+    <Quality value="33" count="257991511"/>
+    <Quality value="34" count="259152993"/>
+    <Quality value="35" count="977261823"/>
+    <Quality value="36" count="94062308"/>
+    <Quality value="37" count="377852108"/>
+    <Quality value="38" count="131303447"/>
+    <Quality value="39" count="393453825"/>
+    <Quality value="40" count="279241738"/>
+    <Quality value="41" count="676193206"/>
+  </QualityCount>
+  <Databases>
+    <Database>
+      <Table name="PRIMARY_ALIGNMENT">
+        <Statistics source="meta">
+          <Rows count="53760014"/>
+          <Elements count="4032001050"/>
+        </Statistics>
+      </Table>
+      <Table name="REFERENCE">
+        <Statistics source="meta">
+          <Rows count="809"/>
+          <Elements count="4043846"/>
+        </Statistics>
+      </Table>
+      <Table name="SEQUENCE">
+        <Statistics source="meta">
+          <Rows count="27498453"/>
+          <Elements count="4124767950"/>
+        </Statistics>
+      </Table>
+    </Database>
+  </Databases>
+</Run>

@@ -22,15 +22,29 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ########################################################################
 
+# early fail if programs not installed
+for c in bwa sra-stat fastq-dump samtools picard-tools gatk fastqc
+do
+    command -v $c >/dev/null 2>&1 || { echo >&2 "I require \"$c\" (named in this exact way!) but it's not installed. Aborting."; exit 1; }
+done
+
 ## start option parsing
 unset FASTA
 unset SRA
 
 # defaults
 PLOIDY=1
-FIX=""
+GATKOPT=""
+GATKOPT2=""
 MEM=false
 BWAOPT="-t 4"
+FORCE_SINGLE=false
+
+if [ $# == 0 ]
+then
+    echo `basename $0` "-ref sequence.fasta -sra reads.sra [-p N] [-fix] [-mem] [-mem-pacbio] [-fs]"
+    exit 1
+fi
 
 while [[ $# > 0 ]]
 do
@@ -50,7 +64,10 @@ do
             shift
             ;;
         -fix|--fix-qualities)
-            FIX="--fix_misencoded_quality_scores"
+            GATKOPT="--fix_misencoded_quality_scores"
+            ;;
+        -nofix|--allow-bad-qualities)
+            GATKOPT="--allow_potentially_misencoded_quality_scores"
             ;;
         -mem|--use-bwa-mem)
             MEM=true
@@ -58,6 +75,13 @@ do
         -mem-pacbio|--use-bwa-mem-for-pacbio)
             MEM=true
             BWAOPT=${BWAOPT}" -x pacbio"
+            ;;
+        -fs|--force-single-reads)
+            FORCE_SINGLE=true
+            ;;
+        -dbq|--default-base-qualities)
+            GATKOPT2="--defaultBaseQualities $2"
+            shift
             ;;
         *)
             # unknown option
@@ -88,9 +112,25 @@ READS=`basename ${SRA} .sra`
 
 FASTQ1=${READS}_1.fastq
 FASTQ2=${READS}_2.fastq
+FASTQ=${READS}.fastq
 
-# creates fastq files
-fastq-dump --split-files $SRA || exit 1
+if [ $FORCE_SINGLE == false ]
+then
+    if [ ! -f $FASTQ1 ] && [ ! -f $FASTQ2 ]
+    then
+        # creates fastq split-files
+        fastq-dump --split-files $SRA || exit 1
+    fi
+else
+    if [ ! -f $FASTQ ]
+    then
+        # Here we forcefully create only one
+        # fastq file, as if we had had single reads
+        fastq-dump --split-spot $SRA || exit 1
+    fi
+
+    FASTQ1=$FASTQ
+fi
 
 # generate BAM
 if [ $MEM == true ]
@@ -126,10 +166,28 @@ samtools index tmp.addrg.rmdup.sorted.bam || exit 1
 picard-tools CreateSequenceDictionary R=$FASTA O=${REF}.dict || exit 1
 samtools faidx $FASTA || exit 1
 
-gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T RealignerTargetCreator -o help.intervals $FIX || exit 1
-gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T IndelRealigner -targetIntervals help.intervals -o ${READS}.bam $FIX || exit 1
+gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T RealignerTargetCreator -o help.intervals $GATKOPT || exit 1
+gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T IndelRealigner -targetIntervals help.intervals -o ${READS}.bam $GATKOPT $GATKOPT2 || exit 1
 samtools index ${READS}.bam || exit 1
 
-# SNP calling
-gatk -ploidy $PLOIDY -I ${READS}.bam -R $FASTA -T UnifiedGenotyper -o ${READS}-snps.vcf || exit 1
+# generate stats for clean BAM
+echo "##################" | tee ${READS}.bam.stats
+echo "# Reads coverage #" | tee -a ${READS}.bam.stats
+echo "##################" | tee -a ${READS}.bam.stats
+echo "(excluding MAPQ=0)" | tee -a ${READS}.bam.stats
+GENOME_LENGTH=`samtools view -H ${READS}.bam | grep -P '^@SQ' | cut -f 3 -d ':' | awk '{sum+=$1} END {print sum}'`
+echo "Genome length: ${GENOME_LENGTH}" | tee -a ${READS}.bam.stats
+samtools depth -Q1 ${READS}.bam | awk -v glen="$GENOME_LENGTH" '{sum+=$3; sumsq+=$3*$3} END { print "% cov. = ",(NR/glen)*100; print "Avg. base cov. = ",sum/glen; print "Stdev base cov. = ",sqrt(sumsq/glen - (sum/glen)**2)}' | tee -a ${READS}.bam.stats
+echo | tee -a ${READS}.bam.stats
 
+echo "flagstats:"                         | tee -a ${READS}.bam.stats
+samtools flagstat ${READS}.bam            | tee -a ${READS}.bam.stats
+echo -e "\nidxstats:"                     | tee -a ${READS}.bam.stats
+echo -e "Chr\tlength\tmapped\tunmapped"   | tee -a ${READS}.bam.stats
+samtools idxstats ${READS}.bam            | tee -a ${READS}.bam.stats
+
+# generate other statistics
+fastqc ${READS}.bam
+
+# SNP calling
+gatk -ploidy $PLOIDY -I ${READS}.bam -R $FASTA -T UnifiedGenotyper -o ${READS}-snps.vcf $GATKOPT || exit 1
