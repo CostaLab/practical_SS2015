@@ -6,7 +6,8 @@
 
 #### Reads
 
-|      Method     | SRA Accession |    Run    | Mapped | Unmapped | Length | Paired? | SNPs |
-|-----------------|---------------|-----------|--------|----------|--------|---------|------|
-| Ion Torrent PGM | SRX155930     | SRR515965 |        |          |        | N       | 3692 |
-| Illumina MiSeq  | ERX657886     | ERR713964 |        |          |        | Y       | 2527 |
+|      Method     | SRA Accession |    Run    | Cov. % | Mapped | Unmapped | Length | Paired? | SNPs |
+|-----------------|---------------|-----------|--------|--------|----------|--------|---------|------|
+| GAIIx           | ERX289553     | ERR316405 |        |        |          |        | Y       |      |
+| Ion Torrent PGM |               |           |        |        |          |        | N       |      |
+
