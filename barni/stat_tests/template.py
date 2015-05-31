@@ -11,10 +11,10 @@ import copy
 import scipy.stats as sps
 import numpy as np
 
-forward_match   = 15493
-reverse_match   = 17481
-forward_mismatch= 15747
-reverse_mismatch= 26000
+forward_match   = 27
+reverse_match   = 198
+forward_mismatch= 241
+reverse_mismatch= 10
 
 ff      = robjects.r['fisher.test']
 fchi    = robjects.r['chisq.test']
@@ -28,16 +28,17 @@ rf_pvalue    = tuple(ff(table)[0])[0]
 rchi_pvalue  = tuple(fchi(table2)[2])[0]
 
 # new fisher's test library
-libf_pvalue1 = pvalue(forward_match, forward_mismatch, reverse_match, reverse_mismatch)
+for i in range(0,10000):
+    libf_pvalue1 = pvalue(forward_match, forward_mismatch, reverse_match, reverse_mismatch)
 libf_pvalue2 = pvalue(forward_match, reverse_match, forward_mismatch, reverse_mismatch)
 
 #scipy chi squared test
 arr         = np.array([[forward_match, forward_mismatch],[reverse_match, reverse_mismatch]])
 sc_chi2, sc_p, sc_dof, sc_expected = sps.chi2_contingency(arr)
 
-#scipy fisher's exact test
 sc_odds_l, sc_fish_pv_left = sps.fisher_exact(arr, alternative="less")
 sc_odds_r, sc_fish_pv_right = sps.fisher_exact(arr, alternative="greater")
+#scipy fisher's exact test
 sc_odds, sc_fish_pv = sps.fisher_exact(arr, alternative="two-sided")
 
 s = "-------------------\n" 
@@ -57,6 +58,6 @@ s += "\n"
 s += "\t\t ".join(["","",str(sc_chi2), str(sc_p), str(sc_dof)])
 s += "\n\nScipy Fisher's Exact\t\tp-value left\tright\t(2-sided)"
 s += "\n"
-s += "\t\t\t\t".join(["","",str(sc_fish_pv_left), str(sc_fish_pv_right), str(sc_fish_pv)])
+s += "\t\t".join(["","",str(sc_fish_pv_left), str(sc_fish_pv_right), str(sc_fish_pv)])
 s += "\n==================="
 print(s)
