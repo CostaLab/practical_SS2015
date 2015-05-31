@@ -11,10 +11,10 @@ import copy
 import scipy.stats as sps
 import numpy as np
 
-forward_match   = 154930
-reverse_match   = 17481
-forward_mismatch= 15747
-reverse_mismatch= 260000
+forward_match   = 0
+reverse_match   = 0
+forward_mismatch= 41
+reverse_mismatch= 77
 
 ff      = robjects.r['fisher.test']
 fchi    = robjects.r['chisq.test']
@@ -24,7 +24,7 @@ table   = robjects.r.matrix(robjects.IntVector(matrix), nrow=2)
 
 # R values
 rf_pvalue    = -1
-for i in range (100000):
+for i in range (10):
     rchi_pvalue  = tuple(fchi(table)[2])[0]
 
 

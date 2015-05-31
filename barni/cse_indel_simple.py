@@ -27,14 +27,16 @@ from optparse import OptionParser
 import math, sys, HTSeq, pysam, re
 import scipy.misc as sc
 import rpy2.robjects as robjects
-from fisher import pvalue
 import array
 import pickle
 import time
 import copy
-DEBUG_INDEL = False
-DEBUG_FISHER= True
-LOG_DEL     = "../output/bsubtilis/del_3_80.log"
+import scipy.stats as sps
+import numpy as np
+DEBUG_INDEL         = True
+DEBUG_FISHER        = False
+DEBUG_ASSERTIONS    = False
+LOG_INDEL     = "output/bsubtilis/indel#6.log"
 
 class HelpfulOptionParser(OptionParser):
     """An OptionParser that prints full help on errors."""
@@ -48,8 +50,9 @@ def get_annotate_qgram(genome, genome_annotate, q):
     Consider therefore the q-gram as well as its reverse complement."""
     """#barni returns a dictionary with a 2x2 table for each qgram"""
     #consider separately pileups of q-grams last and first positions
-    qgram_last  = {}
-    qgram_first = {}
+    qgram_counts    = {}
+    qgram_last      = {}
+    qgram_first     = {}
     qgram_ins_last  = {}    #insertions
     qgram_ins_first = {}    #insertions
     qgram_del_last  = {}    #deletions
@@ -76,6 +79,7 @@ def get_annotate_qgram(genome, genome_annotate, q):
         else:
             l += 1
 
+        qgram_counts[qgram] = qgram_counts[qgram] + 1 if qgram_counts.has_key(qgram) else 1
         #barni: #fm, #fmm, ... on the last position of the qgram
         #barni: list of 4 elem = 2x2 table for position i+q
         qgram_effect_last = [
@@ -110,7 +114,6 @@ def get_annotate_qgram(genome, genome_annotate, q):
             else:
                 qgram_ins_last[qgram] = qgram_ins_effect_last
                 qgram_del_last[qgram] = qgram_del_effect_last
-        
         
         #q-gram on reverse strand, analyse therefore their first positions. Furthermore, switch read direction
         qgram_effect_first = [
@@ -178,7 +181,7 @@ def get_annotate_qgram(genome, genome_annotate, q):
                 print("Key error for reverse qgram ", qgram, "for deletion annotation")
 
     print("Warning: %s q-grams of %s contain other letters than A,C,G and T, ignore these q-grams" %(k, l) ,file=sys.stderr)
-    return (qgram_annotate, qgram_ins_annotate, qgram_del_annotate)
+    return (qgram_annotate, qgram_ins_annotate, qgram_del_annotate, qgram_counts)
 
 
 def reverse_complement(s, rev=True):
@@ -193,44 +196,27 @@ def reverse_complement(s, rev=True):
     return "".join(rc)  # join the elements into a string
 
 
-def computeNewFisher(fm, fmm, rm, rmm):
-    fisher_pvalue = pvalue(fm, fmm, rm, rmm) #returns (left_t, right_t, two_t)
-    #print("forward",str(chi), str(fisher_pvalue.left_tail), str(fisher_pvalue.right_tail), str(fisher_pvalue.two_tail))
-    return fisher_pvalue
-
-
-def get_pvalue(forward_match, reverse_match, forward_mismatch, reverse_mismatch):
+def get_pvalue(fm, rm, fmm, rmm):
     """Return p-value of given Strand Bias Table"""
         #decide whether Fisher's exact Test or ChiSq-Test should be used
     limit = 5000
-    if forward_match > limit or reverse_match > limit or forward_mismatch > limit or reverse_mismatch > limit:
-        f = robjects.r['chisq.test']
-        test = 'chisq'
-    else:
-        f = robjects.r['fisher.test']
-        test = 'fisher'
-    
-    matrix = [forward_match, reverse_match, forward_mismatch, reverse_mismatch]
-    table = robjects.r.matrix(robjects.IntVector(matrix), nrow=2)
-    p_value_tmp = f(table)[0] if test == 'fisher' else f(table)[2]
-    p_value = tuple(p_value_tmp)[0] #some necessary magic for r object
+    if ((fm > limit or rm > limit or fmm > limit or rmm > limit)
+        and (fm > 0 or fmm > 0) and (rm > 0 or rmm > 0) 
+        and (fm > 0 or rm > 0) and (fmm > 0 or rmm > 0)): #for correct chi squared test
+        arr = np.array([[fm, fmm],[rm, rmm]])
+        try:
+            sc_chi2, p_value, sc_dof, sc_expected = sps.chi2_contingency(arr)
+            return p_value
+        except ValueError:
+            print("Chi calculation error. fm, rm, fmm, rmm: ",str(fm), str(rm),
+                    str(fmm),str(rmm))
+            exit(-1)
 
-    #TODO remove
-    if DEBUG_FISHER:
-        table2 = copy.deepcopy(table)
-        rf_pvalue    = tuple(f(table)[0])[0]
-        rchi_pvalue  = tuple(f(table2)[2])[0]
-        libf_pvalue1 = computeNewFisher(forward_match, forward_mismatch, reverse_match, reverse_mismatch)
-        libf_pvalue2 = computeNewFisher(forward_match, reverse_match, forward_mismatch, reverse_mismatch)
-        s = "-------------------\n" 
-        s += "(fm, rm, fmm, rmm) (", str(forward_match), str(reverse_match), str(forward_mismatch), str(reverse_mismatch),")\n"
-        s += "\t\t".join(["fisher", "chi", "fisher.py [left]", "fisher.py [right]", "fisher.py [two]"])
-        s += "\n"
-        s += "\t ".join([str(rf_pvalue), str(rchi_pvalue), str(libf_pvalue1.left_tail), str(libf_pvalue1.right_tail), str(libf_pvalue1.two_tail)])
-        s += "\nlib fisher using fm, rm, fmm, rmm, above was (fm,fmm,rm,rmm) used\n" 
-        s += "\t ".join([' ',' ', str(libf_pvalue2.left_tail), str(libf_pvalue2.right_tail), str(libf_pvalue2.two_tail)])
-        s += "\n==================="
-        print(s)
+    f = robjects.r['fisher.test']
+    matrix = [fm, rm, fmm, rmm]
+    table = robjects.r.matrix(robjects.IntVector(matrix), nrow=2)
+    p_value_tmp = f(table)[0] 
+    p_value = tuple(p_value_tmp)[0] #some necessary magic for r object
 
     return p_value
 
@@ -267,34 +253,34 @@ def get_annotate_genome(genome, bampath, learn_chrom):
     samfile = pysam.Samfile(bampath, "rb")
 
     #initialize
-    fm = array.array('H')
-    fmm = array.array('H')
-    rm = array.array('H')
-    rmm = array.array('H')
+    fm = array.array('H',[0])
+    fmm = array.array('H',[0])
+    rm = array.array('H',[0])
+    rmm = array.array('H',[0])
     #insertions
-    f_ins_m = array.array('H')  # insertion to the ref
-    f_ins_mm = array.array('H') # no insertion to the ref
-    r_ins_m = array.array('H')
-    r_ins_mm = array.array('H')
+    f_ins_m = array.array('h',[0])  # insertion to the ref
+    f_ins_mm = array.array('h',[0]) # no insertion to the ref
+    r_ins_m = array.array('h',[0])
+    r_ins_mm = array.array('h',[0])
     #deletions
-    f_del_m = array.array('H')
-    f_del_mm = array.array('H')
-    r_del_m = array.array('H')
-    r_del_mm = array.array('H')
+    f_del_m = array.array('H',[0])
+    f_del_mm = array.array('H',[0])
+    r_del_m = array.array('H',[0])
+    r_del_mm = array.array('H',[0])
     
-    for i in range(len(genome)):
-        fm.append(0)
-        fmm.append(0)
-        rm.append(0)
-        rmm.append(0)
-        f_ins_m.append(0)
-        f_ins_mm.append(0) 
-        r_ins_m.append(0)
-        r_ins_mm.append(0)
-        f_del_m.append(0)
-        f_del_mm.append(0)
-        r_del_m.append(0)
-        r_del_mm.append(0)
+    len_genome = len(genome)
+    fm          *= len_genome 
+    fmm         *= len_genome 
+    rm          *= len_genome 
+    rmm         *= len_genome 
+    f_ins_m     *= len_genome 
+    f_ins_mm    *= len_genome
+    r_ins_m     *= len_genome
+    r_ins_mm    *= len_genome
+    f_del_m     *= len_genome
+    f_del_mm    *= len_genome
+    r_del_m     *= len_genome
+    r_del_mm    *= len_genome
     
     j = 0 #counter for status info
     #consider each read
@@ -317,67 +303,112 @@ def get_annotate_genome(genome, bampath, learn_chrom):
                     if read.is_reverse:
                         for i in range(length):
                             pos = ref_pos + bias + current_pos_ref + i
+                            if pos == 100391:
+                                print("Cigar rev M: ", read.cigar, "i", str(i), "bias",str(bias), "cpr", str(current_pos_ref)) 
                             if read.seq[i + current_pos_read + bias] == genome[pos]:
-                                rm[pos] += 1
+                                rm[pos]     += 1
                             else:
-                                rmm[pos] += 1
-                            #there is a mismatch for insertion and deletion as well
-                            r_del_mm[pos] += 1
-                            r_ins_mm[pos] += 1
+                                rmm[pos]    += 1
+                            r_del_mm[pos]   += 1 #mismatch deletion
+                            #mismatch insertion, corrected later if necessary
+                            r_ins_mm[pos]   += 1 
                     else:
                         for i in range(length):
                             pos = ref_pos + bias + current_pos_ref + i
+                            if pos == 100391:
+                                print("Cigar fwd M: ", read.cigar, "i", str(i), "bias",str(bias), "cpr", str(current_pos_ref)) 
                             if read.seq[i + current_pos_read + bias] == genome[pos]:
-                                fm[pos] += 1
+                                fm[pos]     += 1
                             else:
-                                fmm[pos] += 1
-                            #there is a mismatch for insertion and deletion as well
-                            f_del_mm[pos] += 1
-                            f_ins_mm[pos] += 1
+                                fmm[pos]    += 1
+                            f_del_mm[pos]   += 1
+                            f_ins_mm[pos]   += 1
                     bias += length
                 elif code is cigar_codes['I']: 
+                    # we only care about the first indel, so no loop required
+                    # pos = last position in the genome where the read had M or D
                     if read.is_reverse:
-                        for i in range(length):
-                            pos = ref_pos + bias + current_pos_ref + i
-                            r_ins_m[pos] += 1
-                            #still mismatch for 
-                            r_del_mm[pos] += 1
+                        pos = ref_pos + bias + current_pos_ref 
+                        if pos == 100391:
+                            print("Cigar rev I: ", read.cigar) 
+                        r_ins_m[pos]    += 1
+                        # insert actually belongs to previous pos so delete error
+                        try:
+                            #only if insertion is not the first
+                            if bias != 0 or current_pos_ref != 0: 
+                                if pos == 100391:
+                                    print("Cigar rev I decrease mismatch pos ", pos + 1, " r_ins_mm: ",r_ins_mm[pos+1]) 
+                                r_ins_mm[pos+1] -= 1 
+                        except OverflowError:
+                            print("Overflow. rev DEtails below")
+                            print(str(pos),str(r_ins_mm[pos-1]), str(r_ins_mm[pos+1]), str(r_ins_mm[pos]))
+                            print(read.cigar)
+                            exit(0)
                     else:
-                        for i in range(length):
-                            pos = ref_pos + bias + current_pos_ref + i
-                            f_ins_m[pos] += 1
-                            #still mismatch for 
-                            f_del_mm[pos] += 1
+                        pos = ref_pos + bias + current_pos_ref
+                        f_ins_m[pos]    += 1
+                        if pos == 100391:
+                            print("Cigar fwd I: ", read.cigar) 
+                        try:
+                            if bias != 0 or current_pos_ref != 0: 
+                                if pos == 100391:
+                                    print("Cigar fwd I decrease mismatch pos ", pos + 1, " f_ins_mm: ",f_ins_mm[pos+1]) 
+                                f_ins_mm[pos+1] -= 1
+                        except OverflowError:
+                            print("Overflow. DEtails below")
+                            print(str(pos), str(f_ins_mm[pos]), str(f_ins_mm[pos]))
+                            print(read.cigar)
+                            exit(0)
                     current_pos_read += length #manuel
+
                 elif code is cigar_codes['D']: 
                     if read.is_reverse:
                         for i in range(length):
                             pos = ref_pos + bias + current_pos_ref + i
-                            r_del_m[pos] += 1
-                            #still mismatch for
-                            r_ins_mm[pos] += 1
+                            r_del_m[pos]    += 1
+                            r_ins_mm[pos]   += 1 #still mismatch for
                     else:
                         for i in range(length):
                             pos = ref_pos + bias + current_pos_ref + i
-                            f_del_m[pos] += 1
-                            #still mismatch for 
-                            f_ins_mm[pos] += 1
+                            f_del_m[pos]    += 1
+                            f_ins_mm[pos]   += 1
                     current_pos_ref += length #manuel
                 else:
                     print(code, length, file=sys.stderr)
-                    
+    
+    if DEBUG_ASSERTIONS:
+        print("Starting debug assertions...")
+        for i in range(len_genome):
+            if (f_ins_m[i] <= 0 and f_ins_mm[i] <= 0) or (r_ins_m[i] <= 0 and r_ins_mm[i] <= 0):
+                print("Assertion INSERTION failed: match = mismatch = 0. Genome pos:",str(i),
+                        "(f_ins_m, f_ins_mm, r_ins_m, r_ins_mm): ",
+                        str(f_ins_m[i]),str(f_ins_mm[i]),str(r_ins_m[i]),str(r_ins_mm[i]))
+
+            if (f_del_m[i] <= 0 and f_del_mm[i] <= 0) or (r_del_m[i] <= 0 and r_del_mm[i] <= 0):
+                print("Assertion DELETION failed: match = mismatch = 0. Genome pos:",str(i),
+                        "(f_del_m, f_del_mm, r_del_m, r_del_mm): ",
+                        str(f_del_m[i]),str(f_del_mm[i]),str(r_del_m[i]),str(r_del_mm[i]))
+
+            if (fm[i] == 0 and fmm[i] == 0) or (rm[i] == 0 and rmm[i] == 0):
+                print("Assertion SNP (original fm, fmm, rm, rmm) failed: match = mismatch = 0. Genome pos:",str(i),
+                        "(fm, fmm, rm, rmm): ", str(fm[i]),str(fmm[i]),str(rm[i]),str(rmm[i]))
+        #print("All debug assertions passed!")
+        #exit(-1)
+
     return (fm, rm, fmm, rmm, 
             f_ins_m, r_ins_m, f_ins_mm, r_ins_mm, 
             f_del_m, r_del_m, f_del_mm, r_del_mm)
 
 
-def add_n(qgram_annotate, n, q):
-    """Extend qgram_annotate by adding q-grams which contain Ns."""
-    to_add = {}
+def add_n(qgram_annotate, qgram_ins_annotate, qgram_del_annotate, n, q):
+    """Extend qgram_annotate (+ qgrams for indels) by adding q-grams which contain Ns."""
+    to_add      = {}
+    to_add_ins  = {}
+    to_add_del  = {}
     
     if n == 0:
         print('No q-grams with Ns to add' , file = sys.stderr)
-        return qgram_annotate
+        return (qgram_annotate, qgram_ins_annotate, qgram_del_annotate)
 
     i = 0 #counter for status info    
     #consider each possible q-gram for the given length q and number n
@@ -389,19 +420,30 @@ def add_n(qgram_annotate, n, q):
 
         #compute all concrete q-grams of n_qgram
         possible_qgrams = get_qgramlist(qgram_with_n)
-        sb_table = [0,0,0,0] #initialize strand bias table
+        sb_table     = [0,0,0,0] #initialize strand bias table
+        sb_table_ins = [0,0,0,0] 
+        sb_table_del = [0,0,0,0]
         for p_qgram in possible_qgrams:
+            #each qgram key is present in all three annotations (snp, ins, del)
             if qgram_annotate.has_key(p_qgram):
-                sb_table = _add_listelements(sb_table, qgram_annotate[p_qgram][:])
+                sb_table     = _add_listelements(sb_table, qgram_annotate[p_qgram][:])
+                sb_table_ins = _add_listelements(sb_table_ins, qgram_ins_annotate[p_qgram][:])
+                sb_table_del = _add_listelements(sb_table_del, qgram_del_annotate[p_qgram][:])
         
         #does n containing q-gram corresponds to a combosed strand bias table?
         if sb_table != [0,0,0,0]: 
             to_add[qgram_with_n] = sb_table
+        if sb_table_ins != [0,0,0,0]: 
+            to_add_ins[qgram_with_n] = sb_table_ins
+        if sb_table_del != [0,0,0,0]: 
+            to_add_del[qgram_with_n] = sb_table_del
 
     #extend qgram_annotate
     qgram_annotate.update(to_add)
+    qgram_ins_annotate.update(to_add_ins)
+    qgram_del_annotate.update(to_add_del)
     
-    return qgram_annotate
+    return (qgram_annotate, qgram_ins_annotate, qgram_del_annotate)
 
 
 def _add_listelements(a, b):
@@ -449,6 +491,7 @@ def _get_all_qgrams(alphabet, erg, length, level, n):
                 for r in _get_all_qgrams(alphabet, [el + letter], length, level+1, n):
                     yield r
 
+
 def get_sb_score(qgram_annotate):
     """Calculate Strand Bias score (based on p-value) for each q-gram"""
     results = []
@@ -470,17 +513,15 @@ def get_sb_score(qgram_annotate):
     return results
 
 
-def output(results, genome, task):
+def output(results, genome, task, qgram_counts):
     """Output the results"""
-    print("Time before output: ",str(time.time()))
     print("###############################",task,"#########################")
-    print("#Sequence", "Occurrence", "Forward Match", "Backward Match", "Forward Mismatch", "Backward Mismatch", "Strand Bias Score", "FER (Forward Error Rate)", 
+    print("#Sequence", "Occurrence", "Forward Match", "Backward Match", 
+            "Forward Mismatch", "Backward Mismatch", "Strand Bias Score", "FER (Forward Error Rate)", 
             "RER (Reverse Error Rate), ERD (Error rate Difference)", sep = '\t')
-    
     for seq, f_m, r_m, f_mm, r_mm, sb_score, fer, rer, erd in results:
-        occ = count(seq, genome)
+        occ = count_app(seq, qgram_counts)
         print(seq, occ, f_m, r_m, f_mm, r_mm, sb_score, fer, rer, erd, sep = '\t')
-    print("Time after output: ",str(time.time()))
 
 
 def get_motifspace_size(q,n):
@@ -488,21 +529,37 @@ def get_motifspace_size(q,n):
     return reduce(lambda x, y: x + (int(sc.comb(q, y, exact=True)) * 4**(q-y)), 
             [i for i in range(1, n+1)], int(sc.comb(q,0,exact=True)) * 4**(q-0))
 
+#new count function
+def count_app(qgram_, qgram_counts):
+    res = 0
+    rev = reverse_complement(qgram_)
+    #forward
+    for qgram in get_qgramlist(qgram_):
+        if qgram_counts.has_key(qgram):
+            res += qgram_counts[qgram]
+    #backward
+    for qgram in get_qgramlist(rev):
+        if qgram_counts.has_key(qgram):
+            res += qgram_counts[qgram]
+
+    return res
+
+
 def count(qgram, genome):
     """Count number of q-grams and its reverse complement in genome"""
     rev = reverse_complement(qgram)
     rev = rev.replace('N', '.')
     qgram = qgram.replace('N', '.')
     
-    return  len([m.start() for m in re.finditer(r'(?=(%s))' %qgram, genome)] 
-            + [m.start() for m in re.finditer(r'(?=(%s))' %rev, genome)])
+    return  len([m.start() for m in re.finditer(r'(?=(%s))' %qgram, genome)] + [m.start() for m in re.finditer(r'(?=(%s))' %rev, genome)])
+
 
 def log(results, s, genome):
     """Result is a list [(seq, fm, rm, fmm, rmm, p_value)] """
     if not DEBUG_INDEL:
         return
-    if s == "deletions":
-        with open(LOG_DEL, 'w') as f:
+    try:
+        with open(LOG_INDEL, 'a') as f:
             print("#Sequence", "Occurrence", "Forward Match", "Backward Match", 
                   "Forward Mismatch", "Backward Mismatch", "Strand Bias Score",
                   "FER","RER", sep = '\t', file = f)
@@ -512,24 +569,30 @@ def log(results, s, genome):
                 rer = float(r[4]) / (r[2] + r[4]) #forward error rate
                 print(seq,count(seq,genome),str(r[1]),str(r[2]),str(r[3]),
                         str(r[4]),str(r[5]),str(fer),str(rer),sep='\t',file=f)
+    except IOError:
+        print("Could not open indel log file.")
 
 
 def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05):
     """Identify critical <q>-grams (with <n> Ns) with reference to significance and error rate""" 
     motifspacesize_log = math.log(get_motifspace_size(q, n), 10)
     alpha_log = math.log(float(alpha), 10)
-    
-    qgram_annotate, qgram_ins_annotate, qgram_del_annotate = get_annotate_qgram(
-            genome, genome_annotate, q) #annotate each q-gram with Strand Bias Table
-    add_n(qgram_annotate, n, q) #extend set of q-grams with q-grams containing Ns
+
+    #annotate each q-gram with Strand Bias Table
+    qgram_annotate, qgram_ins_annotate, qgram_del_annotate, qgram_counts = \
+            get_annotate_qgram(genome, genome_annotate, q) 
     print("Number of in-, del keys before all_results [should match!]: ",
             len(qgram_annotate), len(qgram_ins_annotate), len(qgram_del_annotate))
+
+    #extend set of q-grams with q-grams containing Ns
+    add_n(qgram_annotate, qgram_ins_annotate, qgram_del_annotate, n, q) 
     #annotate each q-gram with Strand Bias Score
     all_results = (get_sb_score(qgram_annotate),
             get_sb_score(qgram_ins_annotate),
             get_sb_score(qgram_del_annotate))
     print("Number of in-, del keys after all_results [should match!]: ",
             len(all_results[0]),len(all_results[1]), len(all_results[2]))
+    log(all_results[1], "insertions", genome)
     log(all_results[2], "deletions", genome)
     #filter statistically significant motifs (Bonferroni Correction)
     all_sig_results = (filter(lambda x: x[5] > motifspacesize_log - alpha_log, all_results[0]),
@@ -544,7 +607,7 @@ def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05):
             try:
                 fer = float(f_mm) / (f_m + f_mm) #forward error rate
             except ZeroDivisionError:
-                print("ZeroDivisionError fer:",count(seq,genome),tasks[index],
+                print("ZeroDivisionError fer:",count_app(seq,genome),tasks[index],
                         seq,str(f_m),str(r_m),str(f_mm),str(r_mm),str(p_value_score))
                 continue
             try:
@@ -565,7 +628,7 @@ def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05):
                     results.append((seq, f_m, r_m, f_mm, r_mm, p_value_score, fer, rer, erd)) 
             
         results.sort(key=lambda x: x[8],reverse=True) #sort by erd (error rate difference)
-        output(results, genome, tasks[index])
+        output(results, genome, tasks[index], qgram_counts)
 
 
 if __name__ == '__main__':
@@ -599,23 +662,16 @@ if __name__ == '__main__':
     if options.serialize == "":
         print("Annotating (parsing) genome...")
         genome_annotate = get_annotate_genome(genome, bampath, options.learn_chrom)
-        #barni TODO remove
         #object serialization
-        with open('../serialized/genome_annotate_bsubtilis_indels.pkl', 'wb') as outpkl:
+        print("Dumping serialized object in 3 seconds...")
+        time.sleep(3)
+        genome_annotate = get_annotate_genome(genome, bampath, options.learn_chrom)
+        with open('serialized/genome_annotate_bsubtilis_indels.pkl', 'wb') as outpkl:
             pickle.dump(genome_annotate, outpkl, pickle.HIGHEST_PROTOCOL)
     else:
         #load input from serialized file
         print("Loading serialized object instead of annotating (parsing) genome...")
         with open(options.serialize, 'rb') as inpkl:
             genome_annotate = pickle.load(inpkl)
-   # print(genome_annotate[4][165747],
-   #        genome_annotate[5][165747],
-   #        genome_annotate[6][165747],
-   #        genome_annotate[7][165747])
-   # print(genome_annotate[8][165747],
-   #        genome_annotate[9][165747],
-   #        genome_annotate[10][165747],
-   #        genome_annotate[11][165747])
-
 
     ident(genome, genome_annotate, q, n, options.alpha, options.epsilon, options.delta)

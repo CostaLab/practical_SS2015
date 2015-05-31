@@ -11,15 +11,15 @@ import copy
 import scipy.stats as sps
 import numpy as np
 
-forward_match   = 2874
+forward_match   = 0
 reverse_match   = 3871
-forward_mismatch= 157
-reverse_mismatch= 2
+forward_mismatch= 0
+reverse_mismatch= 0
 
 #scipy chi squared test
 arr         = np.array([[forward_match, forward_mismatch],[reverse_match, reverse_mismatch]])
 #scipy fisher's exact test
-for i in range (10000):
+for i in range (10):
     sc_odds, sc_fish_pv = sps.fisher_exact(arr)
 
 s = "-------------------\n" 
