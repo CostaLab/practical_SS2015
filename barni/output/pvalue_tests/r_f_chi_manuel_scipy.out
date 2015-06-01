@@ -1,0 +1,17 @@
+Warning: 0 q-grams of 4215598 contain other letters than A,C,G and T, ignore these q-grams
+Start Strand Bias Score calculation
+Start Strand Bias Score calculation
+Loading serialized object instead of annotating (parsing) genome...
+Number of in-, del keys before all_results [should match!]:  311292 65532 65532
+Traceback (most recent call last):
+  File "./tmpindel.py", line 596, in <module>
+    ident(genome, genome_annotate, q, n, options.alpha, options.epsilon, options.delta)
+  File "./tmpindel.py", line 504, in ident
+    get_sb_score(qgram_ins_annotate),
+  File "./tmpindel.py", line 440, in get_sb_score
+    p_value = get_pvalue(qgram_annotate[k][0], qgram_annotate[k][1], qgram_annotate[k][2], qgram_annotate[k][3])
+  File "./tmpindel.py", line 204, in get_pvalue
+    sc_chi2, p_value, sc_dof, sc_expected = sps.chi2_contingency(arr)
+  File "/usr/local/lib/python2.7/dist-packages/scipy/stats/contingency.py", line 251, in chi2_contingency
+    "frequencies has a zero element at %s." % (zeropos,))
+ValueError: The internally computed table of expected frequencies has a zero element at (0, 0).

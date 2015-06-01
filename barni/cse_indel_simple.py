@@ -33,7 +33,7 @@ import time
 import copy
 import scipy.stats as sps
 import numpy as np
-DEBUG_INDEL         = True
+DEBUG_INDEL         = False
 DEBUG_FISHER        = False
 DEBUG_ASSERTIONS    = False
 LOG_INDEL     = "output/bsubtilis/indel#6.log"
@@ -61,7 +61,6 @@ def get_annotate_qgram(genome, genome_annotate, q):
     k = 0
     l = 0
     len_genome  = len(genome)
-    offset      = 0 #if 0 search for last position of motif,else last + offset
     #pass through entire genome to analyse each q-grams' pileup
     for i in range(len(genome) - q):
         j += 1
@@ -82,11 +81,12 @@ def get_annotate_qgram(genome, genome_annotate, q):
         qgram_counts[qgram] = qgram_counts[qgram] + 1 if qgram_counts.has_key(qgram) else 1
         #barni: #fm, #fmm, ... on the last position of the qgram
         #barni: list of 4 elem = 2x2 table for position i+q
+        #barni FIXME TODO remove -1 even though it's correct
         qgram_effect_last = [
-                genome_annotate[0][i + q], 
-                genome_annotate[1][i + q],
-                genome_annotate[2][i + q], 
-                genome_annotate[3][i + q] ]
+                genome_annotate[0][i + q - 1], 
+                genome_annotate[1][i + q - 1],
+                genome_annotate[2][i + q - 1], 
+                genome_annotate[3][i + q - 1] ]
 
         #q-grams on forward direction, analyse therefore their last positions
         if qgram_last.has_key(qgram):
@@ -96,17 +96,17 @@ def get_annotate_qgram(genome, genome_annotate, q):
 
         ################################################
         #indels forward direction
-        if i + q + offset <= len_genome:
+        if i + q <= len_genome:
             qgram_ins_effect_last = [
-                    genome_annotate[4][i + q + offset], 
-                    genome_annotate[5][i + q + offset], 
-                    genome_annotate[6][i + q + offset], 
-                    genome_annotate[7][i + q + offset] ]
+                    genome_annotate[4][i + q - 1], 
+                    genome_annotate[5][i + q - 1], 
+                    genome_annotate[6][i + q - 1], 
+                    genome_annotate[7][i + q - 1] ]
             qgram_del_effect_last = [
-                    genome_annotate[8] [i + q + offset], 
-                    genome_annotate[9] [i + q + offset], 
-                    genome_annotate[10][i + q + offset], 
-                    genome_annotate[11][i + q + offset] ]
+                    genome_annotate[8] [i + q - 1], 
+                    genome_annotate[9] [i + q - 1], 
+                    genome_annotate[10][i + q - 1], 
+                    genome_annotate[11][i + q - 1] ]
 
             if qgram_ins_last.has_key(qgram):
                 qgram_ins_last[qgram] = _add_listelements(qgram_ins_last[qgram], qgram_ins_effect_last) 
@@ -128,17 +128,17 @@ def get_annotate_qgram(genome, genome_annotate, q):
 
         ################################################
         #indels reverse direction
-        if i - offset >= 0:
+        if i >= 0:
             qgram_ins_effect_first = [
-                    genome_annotate[5][i - offset], 
-                    genome_annotate[4][i - offset], 
-                    genome_annotate[7][i - offset], 
-                    genome_annotate[6][i - offset] ]
+                    genome_annotate[5][i], 
+                    genome_annotate[4][i], 
+                    genome_annotate[7][i], 
+                    genome_annotate[6][i] ]
             qgram_del_effect_first = [
-                    genome_annotate[9] [i - offset], 
-                    genome_annotate[8] [i - offset], 
-                    genome_annotate[11][i - offset], 
-                    genome_annotate[10][i - offset] ]
+                    genome_annotate[9] [i], 
+                    genome_annotate[8] [i], 
+                    genome_annotate[11][i], 
+                    genome_annotate[10][i] ]
 
             if qgram_ins_first.has_key(qgram):
                 qgram_ins_first[qgram] = _add_listelements(qgram_ins_first[qgram], qgram_ins_effect_first) 
@@ -303,8 +303,6 @@ def get_annotate_genome(genome, bampath, learn_chrom):
                     if read.is_reverse:
                         for i in range(length):
                             pos = ref_pos + bias + current_pos_ref + i
-                            if pos == 100391:
-                                print("Cigar rev M: ", read.cigar, "i", str(i), "bias",str(bias), "cpr", str(current_pos_ref)) 
                             if read.seq[i + current_pos_read + bias] == genome[pos]:
                                 rm[pos]     += 1
                             else:
@@ -315,8 +313,6 @@ def get_annotate_genome(genome, bampath, learn_chrom):
                     else:
                         for i in range(length):
                             pos = ref_pos + bias + current_pos_ref + i
-                            if pos == 100391:
-                                print("Cigar fwd M: ", read.cigar, "i", str(i), "bias",str(bias), "cpr", str(current_pos_ref)) 
                             if read.seq[i + current_pos_read + bias] == genome[pos]:
                                 fm[pos]     += 1
                             else:
@@ -329,15 +325,11 @@ def get_annotate_genome(genome, bampath, learn_chrom):
                     # pos = last position in the genome where the read had M or D
                     if read.is_reverse:
                         pos = ref_pos + bias + current_pos_ref 
-                        if pos == 100391:
-                            print("Cigar rev I: ", read.cigar) 
                         r_ins_m[pos]    += 1
                         # insert actually belongs to previous pos so delete error
                         try:
                             #only if insertion is not the first
                             if bias != 0 or current_pos_ref != 0: 
-                                if pos == 100391:
-                                    print("Cigar rev I decrease mismatch pos ", pos + 1, " r_ins_mm: ",r_ins_mm[pos+1]) 
                                 r_ins_mm[pos+1] -= 1 
                         except OverflowError:
                             print("Overflow. rev DEtails below")
@@ -351,8 +343,6 @@ def get_annotate_genome(genome, bampath, learn_chrom):
                             print("Cigar fwd I: ", read.cigar) 
                         try:
                             if bias != 0 or current_pos_ref != 0: 
-                                if pos == 100391:
-                                    print("Cigar fwd I decrease mismatch pos ", pos + 1, " f_ins_mm: ",f_ins_mm[pos+1]) 
                                 f_ins_mm[pos+1] -= 1
                         except OverflowError:
                             print("Overflow. DEtails below")
@@ -666,7 +656,7 @@ if __name__ == '__main__':
         print("Dumping serialized object in 3 seconds...")
         time.sleep(3)
         genome_annotate = get_annotate_genome(genome, bampath, options.learn_chrom)
-        with open('serialized/genome_annotate_bsubtilis_indels.pkl', 'wb') as outpkl:
+        with open('../serialized/genome_annotate_bordetella_pertussis_indels.pkl', 'wb') as outpkl:
             pickle.dump(genome_annotate, outpkl, pickle.HIGHEST_PROTOCOL)
     else:
         #load input from serialized file
@@ -674,4 +664,7 @@ if __name__ == '__main__':
         with open(options.serialize, 'rb') as inpkl:
             genome_annotate = pickle.load(inpkl)
 
+    #print("genome: ", str(len(genome)), " 0th: ", str(genome[0]))
+    #print("genome annotate: ", str(len(genome_annotate[0].tolist())), " 0th: ", str(genome_annotate[0][0]))
+    #exit(0)
     ident(genome, genome_annotate, q, n, options.alpha, options.epsilon, options.delta)
