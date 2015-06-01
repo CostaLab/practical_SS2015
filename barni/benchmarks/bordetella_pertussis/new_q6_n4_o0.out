@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "../reference_manuel_scipy_chi.py", line 405, in <module>
+    genome_annotate = get_annotate_genome(genome, bampath, options.learn_chrom)
+  File "../reference_manuel_scipy_chi.py", line 161, in get_annotate_genome
+    fm.append(0)
+KeyboardInterrupt
