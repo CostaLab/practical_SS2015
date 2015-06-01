@@ -1,0 +1,11 @@
+Reference,Name,Chromosomes,Genome Length,Sequencer,Coverage,Mapped Reads,Unmapped Reads,Reads Length,Paired,SNPs
+NC_018518.1,Bordetella Pertussis str. 18323,1,4043846,Illumina HiSeq 2000,99.3873,50771817,490754,75,Y,3
+NC_018518.1,Bordetella Pertussis str. 18323,1,4043846,Illumina MiSeq,98.9336,4847189,193181,151,Y,4
+NC_018518.1,Bordetella Pertussis str. 18323,1,4043846,Illumina GAIIx,98.7686,1546523,47813,76,Y,2
+NC_018518.1,Bordetella Pertussis str. 18323,1,4043846,Ion Torrent PGM,90.6966,219818,0,14-1269,N,72
+NC_018518.1,Bordetella Pertussis str. 18323,1,4043846,PacBio RS,99.2649,51471,0,1-3207,N,591
+NC_002695.1,Escherichia Coli O157:H7 str. Sakai,1,5498450,Illumina MiSeq,N/A,3122925,54530,35-251,Y,82
+NC_002695.1,Escherichia Coli O157:H7 str. Sakai,1,5498450,Ion Torrent PGM,N/A,5342480,0,4-658,N,55
+NZ_CM001153.1,Salmonella Enterica sub. Enterica serovar Gallinarum str. SG9,1,4658698,Illumina GAIIx,98.8911,4170814,64958,110,Y,9
+GCA_000765415.1,Vibrio Cholerae str. 2012EL-2176,2+1,4258023,Illumina MiSeq,4.01238,18288 + 10 + 644912,3624 + 25 + 11020,35-151,Y,150
+GCA_000765415.1,Vibrio Cholerae str. 2012EL-2176,2+1,4258023,PacBio RS,99.7208,28719 + 9759 + 2832,0 + 0 + 0,52-8886,N,214
