@@ -1,0 +1,11 @@
+-------------------
+fm, rm, fmm, rmm = 2, 12, 13, 0
+R test results:			fisher			chi
+		 		 16.7359203297		 0.0
+
+New library fisher's:		fisher.py [left]	fisher.py [right]	fisher.py [two]
+		 		 5.23474073077e-06		 1.0		 5.98256083517e-06
+
+New library fisher's with (fm, rm, fmm, rmm) instead of (fm, fmm, rm, rmm), like above 
+		 		 5.23474073077e-06		 1.0		 5.98256083517e-06
+===================

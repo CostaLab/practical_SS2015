@@ -1,9 +1,0 @@
-Loading serialized object instead of annotating (parsing) genome...
-Traceback (most recent call last):
-  File "../cse_indel_simple.py", line 670, in <module>
-    ident(genome, genome_annotate, q, n, options.alpha, options.epsilon, options.delta)
-  File "../cse_indel_simple.py", line 573, in ident
-    get_annotate_qgram(genome, genome_annotate, q) 
-  File "../cse_indel_simple.py", line 123, in get_annotate_qgram
-    genome_annotate[2][i] ]
-MemoryError
