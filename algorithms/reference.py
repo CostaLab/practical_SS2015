@@ -56,7 +56,6 @@ def get_annotate_qgram(genome, genome_annotate, q):
         
         qgram = genome [i : i+q]
         qgram = qgram.upper()
-        
 
         if len(qgram) != qgram.count('A') + qgram.count('C') + qgram.count('G') + qgram.count('T'):
             #print("Warning: q-gram contains other letters than A,C,G and T, ignore q-gram" ,file=sys.stderr)
@@ -67,7 +66,12 @@ def get_annotate_qgram(genome, genome_annotate, q):
             l += 1
 
         qgram_counts[qgram] = qgram_counts[qgram] + 1 if qgram_counts.has_key(qgram) else 1
-        qgram_effect_last = [genome_annotate[0][i + q], genome_annotate[1][i + q], genome_annotate[2][i + q], genome_annotate[3][i + q]]
+        offset = 0 if fallback else 1
+        qgram_effect_last = [
+                genome_annotate[0][i + q - offset], 
+                genome_annotate[1][i + q - offset], 
+                genome_annotate[2][i + q - offset], 
+                genome_annotate[3][i + q - offset]]
         
         #q-grams on forward direction, analyse therefore their last positions
         qgram_last[qgram] = _add_listelements(qgram_last[qgram], qgram_effect_last) if qgram_last.has_key(qgram) else qgram_effect_last
@@ -76,6 +80,7 @@ def get_annotate_qgram(genome, genome_annotate, q):
         qgram_effect_first = [genome_annotate[1][i], genome_annotate[0][i], genome_annotate[3][i], genome_annotate[2][i]]
         qgram_first[qgram] = _add_listelements(qgram_first[qgram], qgram_effect_first) if qgram_first.has_key(qgram) else qgram_effect_first
         
+    print("#dbg offset is ", str(offset))
     #combine the q-grams on the forward and reverse strand
     qgram_annotate = {}
     for qgram in qgram_last:
@@ -105,19 +110,28 @@ def get_pvalue(forward_match, reverse_match, forward_mismatch, reverse_mismatch)
     """Return p-value of given Strand Bias Table"""
         #decide whether Fisher's exact Test or ChiSq-Test should be used
     limit = 5000
-    if forward_match > limit or reverse_match > limit or forward_mismatch > limit or reverse_mismatch > limit:
-        arr = np.array([[forward_match, forward_mismatch],[reverse_match, reverse_mismatch]])
-        try:
-            sc_chi2, p_value, sc_dof, sc_expected = sps.chi2_contingency(arr)
-        except ValueError:
-            print("Scipy chi test value error:", str(arr))
-            exit(-1)
+    if forward_match > limit or reverse_match > limit \
+            or forward_mismatch > limit or reverse_mismatch > limit:
+
+        if fallback:
+            f = robjects.r['chisq.test']
+            test = 'chisq'
+        else:
+            arr = np.array([[forward_match, forward_mismatch],[reverse_match, reverse_mismatch]])
+            try:
+                sc_chi2, p_value, sc_dof, sc_expected = sps.chi2_contingency(arr)
+                return p_value
+            except ValueError:
+                print("Scipy chi test value error:", str(arr))
+                exit(-1)
     else:
         f = robjects.r['fisher.test']
-        matrix = [forward_match, reverse_match, forward_mismatch, reverse_mismatch]
-        table = robjects.r.matrix(robjects.IntVector(matrix), nrow=2)
-        p_value_tmp = f(table)[0] 
-        p_value = tuple(p_value_tmp)[0] #some necessary magic for r object
+        test = 'fisher'
+
+    matrix = [forward_match, reverse_match, forward_mismatch, reverse_mismatch]
+    table = robjects.r.matrix(robjects.IntVector(matrix), nrow=2)
+    p_value_tmp = f(table)[0] if test == 'fisher' else f(table)[2]
+    p_value = tuple(p_value_tmp)[0] #some necessary magic for r object
 
     return p_value
 
@@ -312,8 +326,7 @@ def output(results, genome, qgram_counts):
           "RER (Reverse Error Rate), ERD (Error rate Difference)", sep = '\t')
     
     for seq, forward_match, reverse_match, forward_mismatch, reverse_mismatch, sb_score, fer, rer, erd in results:
-        #occ = count(seq, genome)
-        occ = count_app(seq, qgram_counts)
+        occ = count_app(seq, qgram_counts) if not fallback else count(seq, genome) 
         print(seq, occ, forward_match, reverse_match, forward_mismatch, reverse_mismatch, sb_score, fer, rer, erd, sep = '\t')
 
 
@@ -334,7 +347,6 @@ def count_app(qgram_, qgram_counts):
     for qgram in get_qgramlist(rev):
         if qgram_counts.has_key(qgram):
             res += qgram_counts[qgram]
-
     return res
 
 
@@ -358,7 +370,6 @@ def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05):
     add_n(qgram_annotate, n, q) #extend set of q-grams with q-grams containing Ns
     
     all_results = get_sb_score(qgram_annotate) #annotate each q-gram with Strand Bias Score
-
     sig_results = filter(lambda x: x[5] > motifspacesize_log - alpha_log, all_results) #filter statistically significant motifs (Bonferroni Correction)
 
     #filter motifs with regards to background error rate (epsilon) error rate difference (delta)
@@ -371,7 +382,6 @@ def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05):
                 results.append((seq, forward_match, reverse_match, forward_mismatch, reverse_mismatch, p_value_score, fer, rer, erd)) 
             
     results.sort(key=lambda x: x[8],reverse=True) #sort by erd (error rate difference)
-    
     output(results, genome, qgram_counts)
 
 
@@ -383,6 +393,7 @@ if __name__ == '__main__':
     parser.add_option("-d", dest="delta", default=0.05, type="float", help="error rate difference cutoff delta, default: 0.05")
     parser.add_option("-c", dest="learn_chrom", default="chr1", help="chromosome that is used to derive Context Specific Errors, default: chr1")
     parser.add_option("-v", dest="version", default=False, action="store_true", help="show script's version")
+    parser.add_option("-f", dest="fallback_", default=False, action="store_true", help="use the original implementation (regex count, R's chi, last_pos + 1 on forward strands)")
     
     (options, args) = parser.parse_args()
     
@@ -400,6 +411,10 @@ if __name__ == '__main__':
     bampath = args[1]
     q = int(args[2])
     n = int(args[3])
+
+    global fallback
+    fallback = options.fallback_
+    print("#dbg Fallback is", fallback)
 
     genome, options.learn_chrom = get_genome(refpath, options.learn_chrom)
     genome_annotate = get_annotate_genome(genome, bampath, options.learn_chrom)

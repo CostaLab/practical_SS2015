@@ -81,12 +81,12 @@ def get_annotate_qgram(genome, genome_annotate, q):
         qgram_counts[qgram] = qgram_counts[qgram] + 1 if qgram_counts.has_key(qgram) else 1
         #barni: #fm, #fmm, ... on the last position of the qgram
         #barni: list of 4 elem = 2x2 table for position i+q
-        #barni FIXME TODO remove -1 even though it's correct
+        offset = 0
         qgram_effect_last = [
-                genome_annotate[0][i + q - 1], 
-                genome_annotate[1][i + q - 1],
-                genome_annotate[2][i + q - 1], 
-                genome_annotate[3][i + q - 1] ]
+                genome_annotate[0][i + q - offset], 
+                genome_annotate[1][i + q - offset],
+                genome_annotate[2][i + q - offset], 
+                genome_annotate[3][i + q - offset] ]
 
         #q-grams on forward direction, analyse therefore their last positions
         if qgram_last.has_key(qgram):
@@ -98,15 +98,15 @@ def get_annotate_qgram(genome, genome_annotate, q):
         #indels forward direction
         if i + q <= len_genome:
             qgram_ins_effect_last = [
-                    genome_annotate[4][i + q - 1], 
-                    genome_annotate[5][i + q - 1], 
-                    genome_annotate[6][i + q - 1], 
-                    genome_annotate[7][i + q - 1] ]
+                    genome_annotate[4][i + q - offset], 
+                    genome_annotate[5][i + q - offset], 
+                    genome_annotate[6][i + q - offset], 
+                    genome_annotate[7][i + q - offset] ]
             qgram_del_effect_last = [
-                    genome_annotate[8] [i + q - 1], 
-                    genome_annotate[9] [i + q - 1], 
-                    genome_annotate[10][i + q - 1], 
-                    genome_annotate[11][i + q - 1] ]
+                    genome_annotate[8] [i + q - offset], 
+                    genome_annotate[9] [i + q - offset], 
+                    genome_annotate[10][i + q - offset], 
+                    genome_annotate[11][i + q - offset] ]
 
             if qgram_ins_last.has_key(qgram):
                 qgram_ins_last[qgram] = _add_listelements(qgram_ins_last[qgram], qgram_ins_effect_last) 
@@ -656,7 +656,7 @@ if __name__ == '__main__':
         print("Dumping serialized object in 3 seconds...")
         time.sleep(3)
         genome_annotate = get_annotate_genome(genome, bampath, options.learn_chrom)
-        with open('../serialized/genome_annotate_bordetella_pertussis_indels.pkl', 'wb') as outpkl:
+        with open('serialized/genome_annotate_bordetella_pertussis_indels.pkl', 'wb') as outpkl:
             pickle.dump(genome_annotate, outpkl, pickle.HIGHEST_PROTOCOL)
     else:
         #load input from serialized file

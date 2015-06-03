@@ -52,12 +52,19 @@ def get_annotate_qgram(genome, genome_annotate, q, n_order):
     """#barni returns a dictionary with a 2x2 table for each qgram"""
     #consider separately pileups of q-grams last and first positions
     qgram_counts    = {}
-    qgram_last  = {}
-    qgram_first = {}
+    qgram_last      = {}
     qgram_ins_last  = {}    #insertions
-    qgram_ins_first = {}    #insertions
     qgram_del_last  = {}    #deletions
+    qgram_first     = {}
+    qgram_ins_first = {}    #insertions
     qgram_del_first = {}    #deletions
+
+    qgram_effect_last      = []
+    qgram_ins_effect_last  = []    #insertions
+    qgram_del_effect_last  = []    #deletions
+    qgram_effect_first     = []
+    qgram_ins_effect_first = []    #insertions
+    qgram_del_effect_first = []    #deletions
     j = 0 #counter for status info
     k = 0
     l = 0
@@ -222,9 +229,9 @@ def get_pvalue(fm, rm, fmm, rmm):
     
     f = robjects.r['fisher.test']
     matrix = [fm, rm, fmm, rmm]
-        table = robjects.r.matrix(robjects.IntVector(matrix), nrow=2)
+    table = robjects.r.matrix(robjects.IntVector(matrix), nrow=2)
     p_value_tmp = f(table)[0] 
-        p_value = tuple(p_value_tmp)[0] #some necessary magic for r object
+    p_value = tuple(p_value_tmp)[0] #some necessary magic for r object
 
     return p_value
 
@@ -633,7 +640,7 @@ def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05, n
     
     #annotate each q-gram with Strand Bias Table
     qgram_annotate, qgram_ins_annotate, qgram_del_annotate, qgram_counts = \
-            get_annotate_qgram(genome, genome_annotate, q) 
+            get_annotate_qgram(genome, genome_annotate, q, n_order) 
     print("Number of in-, del keys before all_results [should match!]: ",
             len(qgram_annotate), len(qgram_ins_annotate), len(qgram_del_annotate))
 
@@ -669,7 +676,7 @@ if __name__ == '__main__':
     parser.add_option("-c", dest="learn_chrom", default="chr1", help="chromosome that is used to derive Context Specific Errors, default: chr1")
     parser.add_option("-v", dest="version", default=False, action="store_true", help="show script's version")
     parser.add_option("-s", dest="serialize", default="", help="load serialized object instead of creating contingency tables for genome positions")
-    parser.add_option("-o", dest="norder", default=0, help="search for errors up to n positions after the motif")
+    parser.add_option("-o", dest="norder", default=1, help="search for errors up to n positions after the motif")
     
     (options, args) = parser.parse_args()
     

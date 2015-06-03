@@ -1,5 +1,22 @@
 Notes on indels:
 
+*_o0.out means that the contingency tables are built on values at the last
+    position of the motif, including the motif's last base. 
+   
+indel_* files were generated using the corrected index on the forward strands
+
+
+
+
+
+
+
+
+
+
+***********************************************************
+DEPRECATED
+
 * if ['M'] doesn't increase counts
     pos 165747 f  0 34
     pos 165747 r  0 19
