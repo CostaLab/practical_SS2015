@@ -1,0 +1,5 @@
+
+* reference.py defaults to the original implementation with new count function,
+  scipy's chi test and proper indexing for contingency tables.
+
+* use reference.py with -f option to run in fallback mode to original code.
