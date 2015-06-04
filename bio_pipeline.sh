@@ -112,24 +112,79 @@ READS=`basename ${SRA} .sra`
 
 FASTQ1=${READS}_1.fastq
 FASTQ2=${READS}_2.fastq
+FASTQ3=${READS}_3.fastq
+FASTQ4=${READS}_4.fastq
 FASTQ=${READS}.fastq
 
-if [ $FORCE_SINGLE == false ]
+if [ -f $FASTQ ] && [ $FORCE_SINGLE == true ]
 then
-    if [ ! -f $FASTQ1 ] && [ ! -f $FASTQ2 ]
-    then
-        # creates fastq split-files
-        fastq-dump --split-files $SRA || exit 1
-    fi
-else
-    if [ ! -f $FASTQ ]
-    then
-        # Here we forcefully create only one
-        # fastq file, as if we had had single reads
-        fastq-dump --split-spot $SRA || exit 1
-    fi
+    echo "# Using only one fastq file: $FASTQ"
+
+    # fastq files will not be extracted from SRA,
+    # and alignment will proceed as from a non-paired
+    # dataset
+
+    rm $FASTQ1 &>/dev/null
+    rm $FASTQ2 &>/dev/null
+    rm $FASTQ3 &>/dev/null
+    rm $FASTQ4 &>/dev/null
 
     FASTQ1=$FASTQ
+fi
+
+# We should skip the fastq-dump if $FASTQ1 or $FASTQ2
+# exist, but absolutely repeat it if $FASTQ3 or $FASTQ3 exist.
+if [ ! -f $FASTQ1 ] || [ -f $FASTQ3 ] || [ -f $FASTQ4 ]
+then
+    # creates fastq split-files
+    fastq-dump --split-files $SRA || exit 1
+
+    if [ -f $FASTQ4 ]
+    then
+        echo "# Four fastq files generated: removing 1st and 3rd"
+        # 4 fastq files means:
+        # 1. adaptor
+        # 2. real
+        # 3. adaptor
+        # 4. real
+        mv $FASTQ2 $FASTQ1 || exit 1
+        mv $FASTQ4 $FASTQ2 || exit 1
+
+        rm $FASTQ3 || exit 1
+    elif [ -f $FASTQ3 ]
+    then
+        echo "# Three fastq files generated: removing 2nd"
+        # 3 fastq files means:
+        # 1. real
+        # 2. adaptor
+        # 3. real
+        mv $FASTQ3 $FASTQ2 || exit 1
+
+        rm $FASTQ4 &>/dev/null
+    elif [ -f $FASTQ2 ]
+    then
+        echo "# Two fastq files generated"
+    else
+        echo "# One fastq file generated"
+    fi
+
+    if [ $FORCE_SINGLE == true ]
+    then
+        if [ -f $FASTQ2 ]
+        then
+            #echo "# Joining the two paired fastq files into a single file: $FASTQ"
+            #cat $FASTQ1 $FASTQ2 > $FASTQ || exit 1
+            #rm $FASTQ1 $FASTQ2 || exit 1
+            echo "# Removing 1st fastq, using only 2nd"
+            rm $FASTQ1 || exit 1
+            mv $FASTQ2 $FASTQ || exit 1
+        else
+            echo "# Renaming $FASTQ1 into $FASTQ"
+            mv $FASTQ1 $FASTQ || exit 1
+        fi
+
+        FASTQ1=$FASTQ
+    fi
 fi
 
 # generate BAM

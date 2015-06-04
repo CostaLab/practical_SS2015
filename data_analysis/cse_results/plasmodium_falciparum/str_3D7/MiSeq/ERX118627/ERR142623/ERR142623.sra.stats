@@ -1,0 +1,93 @@
+<Run accession="ERR142623.sra" read_length="fixed" spot_count="2061294" base_count="622510788" base_count_bio="622510788" spot_count_mates="2061294" base_count_bio_mates="622510788" spot_count_bad="2077" base_count_bio_bad="627254" spot_count_filtered="0" base_count_bio_filtered="0" cmp_base_count="55967244">
+  <Member member_name="1#6" spot_count="2061294" base_count="622510788" base_count_bio="622510788" spot_count_mates="2061294" base_count_bio_mates="622510788" spot_count_bad="2077" base_count_bio_bad="627254" spot_count_filtered="0" base_count_bio_filtered="0" cmp_base_count="55967244" library="4625541" sample="ERS102967"/>
+  <Size value="310590805" units="bytes"/>
+  <Bases cs_native="false" count="622510788">
+    <Base value="A" count="249145519"/>
+    <Base value="C" count="62954398"/>
+    <Base value="G" count="62731631"/>
+    <Base value="T" count="247110738"/>
+    <Base value="N" count="568502"/>
+  </Bases>
+  <AlignInfo>
+    <Ref seqId="NC_000521.3" name="MAL3" circular="false" local="remote" path="/home/fabio/ncbi/public/refseq/NC_000521.3"/>
+    <Ref seqId="NC_000910.2" name="MAL2" circular="false" local="local"/>
+    <Ref seqId="NC_004314.2" name="MAL10" circular="false" local="remote" path="/home/fabio/ncbi/public/refseq/NC_004314.2"/>
+    <Ref seqId="NC_004315.2" name="MAL11" circular="false" local="remote" path="/home/fabio/ncbi/public/refseq/NC_004315.2"/>
+    <Ref seqId="NC_004316.1" name="MAL12" circular="false" local="remote" path="/home/fabio/ncbi/public/refseq/NC_004316.1"/>
+    <Ref seqId="NC_004317.2" name="MAL14" circular="false" local="remote" path="/home/fabio/ncbi/public/refseq/NC_004317.2"/>
+    <Ref seqId="NC_004318.1" name="MAL4" circular="false" local="remote" path="/home/fabio/ncbi/public/refseq/NC_004318.1"/>
+    <Ref seqId="NC_004325.1" name="MAL1" circular="false" local="local"/>
+    <Ref seqId="NC_004326.1" name="MAL5" circular="false" local="remote" path="/home/fabio/ncbi/public/refseq/NC_004326.1"/>
+    <Ref seqId="NC_004327.2" name="MAL6" circular="false" local="remote" path="/home/fabio/ncbi/public/refseq/NC_004327.2"/>
+    <Ref seqId="NC_004328.2" name="MAL7" circular="false" local="remote" path="/home/fabio/ncbi/public/refseq/NC_004328.2"/>
+    <Ref seqId="NC_004329.2" name="MAL8" circular="false" local="remote" path="/home/fabio/ncbi/public/refseq/NC_004329.2"/>
+    <Ref seqId="NC_004330.1" name="MAL9" circular="false" local="remote" path="/home/fabio/ncbi/public/refseq/NC_004330.1"/>
+    <Ref seqId="NC_004331.2" name="MAL13" circular="false" local="remote" path="/home/fabio/ncbi/public/refseq/NC_004331.2"/>
+  </AlignInfo>
+  <Statistics nreads="2" nspots="2061294">
+    <Read index="0" count="2061294" average="151" stdev="0"/>
+    <Read index="1" count="2061294" average="151" stdev="0"/>
+  </Statistics>
+  <QualityCount>
+    <Quality value="0" count="568502"/>
+    <Quality value="5" count="2228442"/>
+    <Quality value="6" count="228485"/>
+    <Quality value="7" count="13469900"/>
+    <Quality value="8" count="2342673"/>
+    <Quality value="9" count="396748"/>
+    <Quality value="10" count="5573077"/>
+    <Quality value="11" count="558677"/>
+    <Quality value="12" count="389160"/>
+    <Quality value="13" count="895487"/>
+    <Quality value="14" count="209338"/>
+    <Quality value="15" count="1193237"/>
+    <Quality value="16" count="504479"/>
+    <Quality value="17" count="1165089"/>
+    <Quality value="18" count="3190628"/>
+    <Quality value="19" count="4741346"/>
+    <Quality value="20" count="2198827"/>
+    <Quality value="21" count="594134"/>
+    <Quality value="22" count="958762"/>
+    <Quality value="23" count="2160462"/>
+    <Quality value="24" count="2584970"/>
+    <Quality value="25" count="9231638"/>
+    <Quality value="26" count="3234098"/>
+    <Quality value="27" count="4341755"/>
+    <Quality value="28" count="2062756"/>
+    <Quality value="29" count="12653934"/>
+    <Quality value="30" count="6571574"/>
+    <Quality value="31" count="18107462"/>
+    <Quality value="32" count="15052192"/>
+    <Quality value="33" count="16581652"/>
+    <Quality value="34" count="60115739"/>
+    <Quality value="35" count="105183027"/>
+    <Quality value="36" count="50039220"/>
+    <Quality value="37" count="41103544"/>
+    <Quality value="38" count="23970691"/>
+    <Quality value="39" count="41947371"/>
+    <Quality value="40" count="56390470"/>
+    <Quality value="41" count="109771242"/>
+  </QualityCount>
+  <Databases>
+    <Database>
+      <Table name="PRIMARY_ALIGNMENT">
+        <Statistics source="meta">
+          <Rows count="3751944"/>
+          <Elements count="566543544"/>
+        </Statistics>
+      </Table>
+      <Table name="REFERENCE">
+        <Statistics source="meta">
+          <Rows count="4660"/>
+          <Elements count="23264337"/>
+        </Statistics>
+      </Table>
+      <Table name="SEQUENCE">
+        <Statistics source="meta">
+          <Rows count="2061294"/>
+          <Elements count="622510788"/>
+        </Statistics>
+      </Table>
+    </Database>
+  </Databases>
+</Run>
