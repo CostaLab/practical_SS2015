@@ -39,10 +39,11 @@ GATKOPT2=""
 MEM=false
 BWAOPT="-t 4"
 FORCE_SINGLE=false
+MINQ=0
 
 if [ $# == 0 ]
 then
-    echo `basename $0` "-ref sequence.fasta -sra reads.sra [-p N] [-fix] [-mem] [-mem-pacbio] [-fs]"
+    echo `basename $0` "-ref sequence.fasta -sra reads.sra [-p N] [-fix] [-mem] [-mem-pacbio] [-fs] [-dbq N] [-minQ N]"
     exit 1
 fi
 
@@ -81,6 +82,10 @@ do
             ;;
         -dbq|--default-base-qualities)
             GATKOPT2="--defaultBaseQualities $2"
+            shift
+            ;;
+        -minQ|--min-mapping-quality)
+            MINQ="$2"
             shift
             ;;
         *)
@@ -206,7 +211,7 @@ else
     fi
 fi
 
-samtools view -bS tmp.sam > tmp.bam || exit 1
+samtools view -bSq $MINQ tmp.sam > tmp.bam || exit 1
 samtools sort tmp.bam tmp.sorted || exit 1
 samtools index tmp.sorted.bam || exit 1
 
@@ -232,7 +237,7 @@ echo "##################" | tee -a ${READS}.bam.stats
 echo "(excluding MAPQ=0)" | tee -a ${READS}.bam.stats
 GENOME_LENGTH=`samtools view -H ${READS}.bam | grep -P '^@SQ' | cut -f 3 -d ':' | awk '{sum+=$1} END {print sum}'`
 echo "Genome length: ${GENOME_LENGTH}" | tee -a ${READS}.bam.stats
-samtools depth -Q1 ${READS}.bam | awk -v glen="$GENOME_LENGTH" '{sum+=$3; sumsq+=$3*$3} END { print "% cov. = ",(NR/glen)*100; print "Avg. base cov. = ",sum/glen; print "Stdev base cov. = ",sqrt(sumsq/glen - (sum/glen)**2)}' | tee -a ${READS}.bam.stats
+samtools depth -Q1 ${READS}.bam | awk -v glen="$GENOME_LENGTH" '{if(min==""){min=max=$3}; if($3>max) {max=$3}; if($3< min) {min=$3}; sum+=$3; sumsq+=$3*$3} END { print "min = ",min; print "max = ",max; print "% cov. = ",(NR/glen)*100; print "Avg. base cov. = ",sum/glen; print "Stdev base cov. = ",sqrt(sumsq/glen - (sum/glen)**2)}' | tee -a ${READS}.bam.stats
 echo | tee -a ${READS}.bam.stats
 
 echo "flagstats:"                         | tee -a ${READS}.bam.stats
@@ -246,3 +251,5 @@ fastqc ${READS}.bam
 
 # SNP calling
 gatk -ploidy $PLOIDY -I ${READS}.bam -R $FASTA -T UnifiedGenotyper -o ${READS}-snps.vcf $GATKOPT || exit 1
+
+echo "SNPs found: "`egrep -c "^[^#]" *.vcf`

@@ -30,6 +30,8 @@ import rpy2.robjects as robjects
 import array
 import scipy.stats as sps
 import numpy as np
+import pickle
+import time
 
 class HelpfulOptionParser(OptionParser):
     """An OptionParser that prints full help on errors."""
@@ -66,7 +68,7 @@ def get_annotate_qgram(genome, genome_annotate, q):
             l += 1
 
         qgram_counts[qgram] = qgram_counts[qgram] + 1 if qgram_counts.has_key(qgram) else 1
-        offset = 0 if fallback else 1
+        offset = 0 #if fallback else 1
         qgram_effect_last = [
                 genome_annotate[0][i + q - offset], 
                 genome_annotate[1][i + q - offset], 
@@ -106,7 +108,7 @@ def reverse_complement(s, rev=True):
     return "".join(rc)  # join the elements into a string
 
 
-def get_pvalue(forward_match, reverse_match, forward_mismatch, reverse_mismatch):
+def get_pvalue(motif, forward_match, reverse_match, forward_mismatch, reverse_mismatch):
     """Return p-value of given Strand Bias Table"""
         #decide whether Fisher's exact Test or ChiSq-Test should be used
     limit = 5000
@@ -122,7 +124,8 @@ def get_pvalue(forward_match, reverse_match, forward_mismatch, reverse_mismatch)
                 sc_chi2, p_value, sc_dof, sc_expected = sps.chi2_contingency(arr)
                 return p_value
             except ValueError:
-                print("Scipy chi test value error:", str(arr))
+                print(motif, file=sys.stderr)
+                print("Scipy chi test value error:", str(arr), file=sys.stderr)
                 exit(-1)
     else:
         f = robjects.r['fisher.test']
@@ -307,10 +310,10 @@ def get_sb_score(qgram_annotate):
     for k in qgram_annotate.keys():
         i += 1
         if i % 1000000 == 0: 
-            print(" %s / %s Strand Bias Scores calculated" %(i, len(qgram_annotate.keys())))
+            print(" %s / %s Strand Bias Scores calculated" %(i, len(qgram_annotate.keys())), file=sys.stderr)
         
         #get p-value for the strand bias table of q-gram k
-        p_value = get_pvalue(qgram_annotate[k][0], qgram_annotate[k][1], qgram_annotate[k][2], qgram_annotate[k][3])
+        p_value = get_pvalue(k, qgram_annotate[k][0], qgram_annotate[k][1], qgram_annotate[k][2], qgram_annotate[k][3])
         
         #compute negative logarithm (base 10) of p-value or, if necessary, set to maxint
         strand_bias_score = sys.maxint if p_value < 1/10.0**300 else -math.log(p_value, 10)
@@ -394,7 +397,9 @@ if __name__ == '__main__':
     parser.add_option("-c", dest="learn_chrom", default="chr1", help="chromosome that is used to derive Context Specific Errors, default: chr1")
     parser.add_option("-v", dest="version", default=False, action="store_true", help="show script's version")
     parser.add_option("-f", dest="fallback_", default=False, action="store_true", help="use the original implementation (regex count, R's chi, last_pos + 1 on forward strands)")
-    
+    parser.add_option("-s", dest="serialize", default="", help="dump genome annotation, ie contingency tables for genome positions")
+    parser.add_option("-l", dest="load", default="", help="load serialized object instead of creating contingency tables for genome positions")
+
     (options, args) = parser.parse_args()
     
     if options.version:
@@ -417,6 +422,21 @@ if __name__ == '__main__':
     print("#dbg Fallback is", fallback)
 
     genome, options.learn_chrom = get_genome(refpath, options.learn_chrom)
-    genome_annotate = get_annotate_genome(genome, bampath, options.learn_chrom)
+    
+    if options.load != "":
+        #load input from serialized file
+        print("Loading serialized object instead of annotating (parsing) genome...", file=sys.stderr)
+        with open(options.load, 'rb') as inpkl:
+            genome_annotate = pickle.load(inpkl)
+    else:
+        print("Annotating (parsing) genome...", file=sys.stderr)
+        genome_annotate = get_annotate_genome(genome, bampath, options.learn_chrom)
+
+    if options.serialize != "":
+        #object serialization
+        print("Dumping serialized object in 3 seconds...", file=sys.stderr)
+        time.sleep(3)
+        with open(options.serialize, 'wb') as outpkl:
+            pickle.dump(genome_annotate, outpkl, pickle.HIGHEST_PROTOCOL)
 
     ident(genome, genome_annotate, q, n, options.alpha, options.epsilon, options.delta)

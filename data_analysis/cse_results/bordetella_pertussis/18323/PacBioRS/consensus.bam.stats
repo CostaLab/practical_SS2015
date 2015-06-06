@@ -4,13 +4,13 @@
 (excluding MAPQ=0)
 Genome length: 4043846
 % cov. =  99.2649
-Avg. base cov. =  7.63865
-Stdev base cov. =  3.78751
+Avg. base cov. =  6.87324
+Stdev base cov. =  2.9916
 
 flagstats:
-85625 + 0 in total (QC-passed reads + QC-failed reads)
+74368 + 0 in total (QC-passed reads + QC-failed reads)
 0 + 0 duplicates
-51471 + 0 mapped (60.11%:-nan%)
+45426 + 0 mapped (61.08%:-nan%)
 0 + 0 paired in sequencing
 0 + 0 read1
 0 + 0 read2
@@ -22,5 +22,5 @@ flagstats:
 
 idxstats:
 Chr	length	mapped	unmapped
-gi|408414082|ref|NC_018518.1|	4043846	51471	0
-*	0	0	34154
+gi|408414082|ref|NC_018518.1|	4043846	45426	0
+*	0	0	28942
