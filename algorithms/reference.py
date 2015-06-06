@@ -68,7 +68,7 @@ def get_annotate_qgram(genome, genome_annotate, q):
             l += 1
 
         qgram_counts[qgram] = qgram_counts[qgram] + 1 if qgram_counts.has_key(qgram) else 1
-        offset = 0 #if fallback else 1
+        offset = 0 if fallback else 1
         qgram_effect_last = [
                 genome_annotate[0][i + q - offset], 
                 genome_annotate[1][i + q - offset], 
