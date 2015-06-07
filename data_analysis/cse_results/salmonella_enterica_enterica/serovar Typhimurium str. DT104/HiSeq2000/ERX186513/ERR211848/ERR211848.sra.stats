@@ -1,0 +1,86 @@
+<Run accession="ERR211848.sra" read_length="fixed" spot_count="2637560" base_count="527512000" base_count_bio="527512000" spot_count_mates="2637560" base_count_bio_mates="527512000" spot_count_bad="37367" base_count_bio_bad="7473400" spot_count_filtered="0" base_count_bio_filtered="0" cmp_base_count="19037700">
+  <Member member_name="1#54" spot_count="2637560" base_count="527512000" base_count_bio="527512000" spot_count_mates="2637560" base_count_bio_mates="527512000" spot_count_bad="37367" base_count_bio_bad="7473400" spot_count_filtered="0" base_count_bio_filtered="0" cmp_base_count="19037700" library="5806928" sample="ERS157211"/>
+  <Size value="250057235" units="bytes"/>
+  <Bases cs_native="false" count="527512000">
+    <Base value="A" count="127301811"/>
+    <Base value="C" count="136663224"/>
+    <Base value="G" count="137095936"/>
+    <Base value="T" count="126385494"/>
+    <Base value="N" count="65535"/>
+  </Bases>
+  <AlignInfo>
+    <Ref seqId="FN424405.1" name="gi|261245233|emb|FN424405.1|" circular="false" local="remote" path="/home/fabio/ncbi/public/refseq/FN424405.1"/>
+  </AlignInfo>
+  <Statistics nreads="2" nspots="2637560">
+    <Read index="0" count="2637560" average="100" stdev="0"/>
+    <Read index="1" count="2637560" average="100" stdev="0"/>
+  </Statistics>
+  <QualityCount>
+    <Quality value="0" count="67209"/>
+    <Quality value="1" count="36537"/>
+    <Quality value="2" count="48670"/>
+    <Quality value="3" count="90862"/>
+    <Quality value="4" count="106774"/>
+    <Quality value="5" count="107295"/>
+    <Quality value="6" count="882596"/>
+    <Quality value="7" count="768555"/>
+    <Quality value="8" count="506207"/>
+    <Quality value="9" count="857323"/>
+    <Quality value="10" count="3164066"/>
+    <Quality value="11" count="2644315"/>
+    <Quality value="12" count="978856"/>
+    <Quality value="13" count="329156"/>
+    <Quality value="14" count="982737"/>
+    <Quality value="15" count="495921"/>
+    <Quality value="16" count="309935"/>
+    <Quality value="17" count="276258"/>
+    <Quality value="18" count="656963"/>
+    <Quality value="19" count="3673280"/>
+    <Quality value="20" count="3619083"/>
+    <Quality value="21" count="3644907"/>
+    <Quality value="22" count="4001803"/>
+    <Quality value="23" count="3638811"/>
+    <Quality value="24" count="5573323"/>
+    <Quality value="25" count="2160606"/>
+    <Quality value="26" count="1354610"/>
+    <Quality value="27" count="1970335"/>
+    <Quality value="28" count="4329574"/>
+    <Quality value="29" count="6346527"/>
+    <Quality value="30" count="7154793"/>
+    <Quality value="31" count="12353688"/>
+    <Quality value="32" count="15230112"/>
+    <Quality value="33" count="22984305"/>
+    <Quality value="34" count="27680973"/>
+    <Quality value="35" count="53669202"/>
+    <Quality value="36" count="117810983"/>
+    <Quality value="37" count="165584764"/>
+    <Quality value="38" count="44511003"/>
+    <Quality value="39" count="4561734"/>
+    <Quality value="40" count="1736157"/>
+    <Quality value="41" count="293386"/>
+    <Quality value="42" count="252871"/>
+    <Quality value="43" count="64935"/>
+  </QualityCount>
+  <Databases>
+    <Database>
+      <Table name="PRIMARY_ALIGNMENT">
+        <Statistics source="meta">
+          <Rows count="5084743"/>
+          <Elements count="508474300"/>
+        </Statistics>
+      </Table>
+      <Table name="REFERENCE">
+        <Statistics source="meta">
+          <Rows count="976"/>
+          <Elements count="4879400"/>
+        </Statistics>
+      </Table>
+      <Table name="SEQUENCE">
+        <Statistics source="meta">
+          <Rows count="2637560"/>
+          <Elements count="527512000"/>
+        </Statistics>
+      </Table>
+    </Database>
+  </Databases>
+</Run>

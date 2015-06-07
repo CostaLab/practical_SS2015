@@ -1,0 +1,28 @@
+##################
+# Reads coverage #
+##################
+(excluding MAPQ=0)
+Genome length: 4933631
+min =  0
+max =  392
+% cov. =  99.3833
+Avg. base cov. =  116.306
+Stdev base cov. =  19.389
+
+flagstats:
+5999025 + 0 in total (QC-passed reads + QC-failed reads)
+0 + 0 duplicates
+5826321 + 0 mapped (97.12%:-nan%)
+5999025 + 0 paired in sequencing
+2999513 + 0 read1
+2999512 + 0 read2
+5781674 + 0 properly paired (96.38%:-nan%)
+5812497 + 0 with itself and mate mapped
+13824 + 0 singletons (0.23%:-nan%)
+0 + 0 with mate mapped to a different chr
+0 + 0 with mate mapped to a different chr (mapQ>=5)
+
+idxstats:
+Chr	length	mapped	unmapped
+gi|550899431|ref|NC_022569.1|	4933631	5826321	13824
+*	0	0	158880
