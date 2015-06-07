@@ -33,8 +33,6 @@ import numpy as np
 import pickle
 import time
 
-verbosity = 0
-
 #TODO remove this    
 lf = ['TAAAAGCCAC',
 'TAACAGCCAC',
