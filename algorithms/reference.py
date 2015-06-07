@@ -82,7 +82,7 @@ def get_annotate_qgram(genome, genome_annotate, q):
         qgram_effect_first = [genome_annotate[1][i], genome_annotate[0][i], genome_annotate[3][i], genome_annotate[2][i]]
         qgram_first[qgram] = _add_listelements(qgram_first[qgram], qgram_effect_first) if qgram_first.has_key(qgram) else qgram_effect_first
         
-    print("#dbg offset is ", str(offset))
+    print("#dbg offset is ", str(offset), file=sys.stderr)
     #combine the q-grams on the forward and reverse strand
     qgram_annotate = {}
     for qgram in qgram_last:
@@ -108,30 +108,44 @@ def reverse_complement(s, rev=True):
     return "".join(rc)  # join the elements into a string
 
 
-def get_pvalue(motif, forward_match, reverse_match, forward_mismatch, reverse_mismatch):
-    """Return p-value of given Strand Bias Table"""
+def get_pvalue(motif, fm, rm, fmm, rmm):
+    """Return p-value of given Strand Bias Table.
+    In fallback mode, R's chi (any value > 5000) is used, otherwise Scipy chi
+    is used unless a column / row in the contingency tables is 0. Then R's
+    Fisher's test is used.
+    """
         #decide whether Fisher's exact Test or ChiSq-Test should be used
     limit = 5000
-    if forward_match > limit or reverse_match > limit \
-            or forward_mismatch > limit or reverse_mismatch > limit:
+    if fm > limit or rm > limit \
+            or fmm > limit or rmm > limit:
 
         if fallback:
             f = robjects.r['chisq.test']
             test = 'chisq'
         else:
-            arr = np.array([[forward_match, forward_mismatch],[reverse_match, reverse_mismatch]])
-            try:
-                sc_chi2, p_value, sc_dof, sc_expected = sps.chi2_contingency(arr)
-                return p_value
-            except ValueError:
-                print(motif, file=sys.stderr)
-                print("Scipy chi test value error:", str(arr), file=sys.stderr)
-                exit(-1)
+            #for correct chi squared test
+            if ((fm > 0 or fmm > 0) and (rm > 0 or rmm > 0) 
+                    and (fm > 0 or rm > 0) and (fmm > 0 or rmm > 0)): 
+		        arr = np.array([[fm, fmm],[rm, rmm]])
+		        try:
+		            sc_chi2, p_value, sc_dof, sc_expected = sps.chi2_contingency(arr)
+		            return p_value
+		        except ValueError:
+		            print(motif, file=sys.stderr)
+		            print("Scipy chi test value error:", str(arr), file=sys.stderr)
+		            exit(-1)
+            else:
+                print("Error (null row/column in contingency table) causing qgram: ", motif,
+                        "Table (fm, rm, fmm, rmm):", fm, rm, 
+                        fmm, rmm,
+                        "\nReverting to Fisher's test for this calculation",file=sys.stderr)
+                f = robjects.r['fisher.test']
+                test = 'fisher'
     else:
         f = robjects.r['fisher.test']
         test = 'fisher'
 
-    matrix = [forward_match, reverse_match, forward_mismatch, reverse_mismatch]
+    matrix = [fm, rm, fmm, rmm]
     table = robjects.r.matrix(robjects.IntVector(matrix), nrow=2)
     p_value_tmp = f(table)[0] if test == 'fisher' else f(table)[2]
     p_value = tuple(p_value_tmp)[0] #some necessary magic for r object
@@ -329,7 +343,7 @@ def output(results, genome, qgram_counts):
           "RER (Reverse Error Rate), ERD (Error rate Difference)", sep = '\t')
     
     for seq, forward_match, reverse_match, forward_mismatch, reverse_mismatch, sb_score, fer, rer, erd in results:
-        occ = count_app(seq, qgram_counts) if not fallback else count(seq, genome) 
+        occ = count_appearances(seq, qgram_counts) if not fallback else count(seq, genome) 
         print(seq, occ, forward_match, reverse_match, forward_mismatch, reverse_mismatch, sb_score, fer, rer, erd, sep = '\t')
 
 
@@ -339,7 +353,8 @@ def get_motifspace_size(q,n):
 
 
 #new count function
-def count_app(qgram_, qgram_counts):
+def count_appearances(qgram_, qgram_counts):
+    """Count number of q-grams and its reverse complement in genome"""
     res = 0
     rev = reverse_complement(qgram_)
     #forward
@@ -419,7 +434,7 @@ if __name__ == '__main__':
 
     global fallback
     fallback = options.fallback_
-    print("#dbg Fallback is", fallback)
+    print("#dbg Fallback is", fallback, file=sys.stderr)
 
     genome, options.learn_chrom = get_genome(refpath, options.learn_chrom)
     
