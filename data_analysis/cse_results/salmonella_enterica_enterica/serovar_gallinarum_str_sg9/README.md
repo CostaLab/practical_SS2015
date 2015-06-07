@@ -6,7 +6,7 @@
 
 #### Reads
 
-|     Method     | SRA Accession |    Run     |  Cov. % |  Mapped | Unmapped | Length | Paired? | SNPs |
-|----------------|---------------|------------|---------|---------|----------|--------|---------|------|
-| Illumina GAIIx | SRX388883     | SRR1045136 | 98.8911 | 4170814 |    64958 |    110 | Y       |    9 |
+|     Method     | SRA Accession |    Run     |  Cov. % |  Mapped | Half-mapped | Unmapped | Length | Paired? | SNPs |
+|----------------|---------------|------------|---------|---------|-------------|----------|--------|---------|------|
+| Illumina GAIIx | SRX388883     | SRR1045136 | 98.8911 | 4170814 |       64958 |  1435812 |    110 | Y       |    9 |
 
