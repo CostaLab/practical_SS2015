@@ -33,6 +33,26 @@ import numpy as np
 import pickle
 import time
 
+verbosity = 0
+
+#TODO remove this    
+lf = ['TAAAAGCCAC',
+'TAACAGCCAC',
+'TAAGAGCCAC',
+'TAATAGCCAC',
+'TCAAAGCCAC',
+'TCACAGCCAC',
+'TCAGAGCCAC',
+'TCATAGCCAC',
+'TGAAAGCCAC',
+'TGACAGCCAC',
+'TGAGAGCCAC',
+'TGATAGCCAC',
+'TTAAAGCCAC',
+'TTACAGCCAC',
+'TTAGAGCCAC',
+'TTATAGCCAC']
+
 class HelpfulOptionParser(OptionParser):
     """An OptionParser that prints full help on errors."""
     def error(self, msg):
@@ -40,10 +60,25 @@ class HelpfulOptionParser(OptionParser):
         self.exit(2, "\n%s: error: %s\n" % (self.get_prog_name(), msg))
 
 
+def reverse_complement(s, rev=True):
+    """Return the reverse complement of a DNA sequence s"""
+    _complement = dict(A="T", T="A", C="G", G="C", N="N")
+    t = reversed(s) if rev else s
+    try:
+        rc = (_complement[x] for x in t)  # lazy generator expression
+    except KeyError:
+        return s
+        
+    return "".join(rc)  # join the elements into a string
+
+
 def get_annotate_qgram(genome, genome_annotate, q):
     """Compute for each q-gram in the genome its (composed) strand bias table. 
     Consider therefore the q-gram as well as its reverse complement."""
     #consider separately pileups of q-grams last and first positions
+    global lf
+    lr = [reverse_complement(x) for x in lf]
+
     qgram_last   = {}
     qgram_first  = {}
     qgram_counts = {}
@@ -51,7 +86,8 @@ def get_annotate_qgram(genome, genome_annotate, q):
     k = 0
     l = 0
     #pass through entire genome to analyse each q-grams' pileup
-    for i in range(len(genome) - q):
+    #FIXME @done - added +1 to consider the last motif as well
+    for i in range(len(genome) - q + 1):
         j += 1
         if j % 20000000 == 0: 
             print('%s / %s positions considered for q-gram annotation' %(j, len(genome)), file=sys.stderr)
@@ -60,8 +96,8 @@ def get_annotate_qgram(genome, genome_annotate, q):
         qgram = qgram.upper()
 
         if len(qgram) != qgram.count('A') + qgram.count('C') + qgram.count('G') + qgram.count('T'):
-            #print("Warning: q-gram contains other letters than A,C,G and T, ignore q-gram" ,file=sys.stderr)
-            #print(qgram, file=sys.stderr)
+            print("Warning: q-gram contains other letters than A,C,G and T, ignore q-gram" ,file=sys.stderr)
+            print(qgram, file=sys.stderr)
             k += 1
             continue
         else:
@@ -83,29 +119,47 @@ def get_annotate_qgram(genome, genome_annotate, q):
         qgram_first[qgram] = _add_listelements(qgram_first[qgram], qgram_effect_first) if qgram_first.has_key(qgram) else qgram_effect_first
         
     print("#dbg offset is ", str(offset), file=sys.stderr)
-    #combine the q-grams on the forward and reverse strand
     qgram_annotate = {}
+    ######################################################
+    #combine the q-grams on the forward and reverse strand
+    #FIXME @done
+    #just populate qgram_annotate with qgrams on F-strand
     for qgram in qgram_last:
         qgram_annotate[qgram] = qgram_last[qgram]
+
+    #iterate over qgrams on R-strand
+    for qgram in qgram_first:
+        #create corresponding qgram on F-strand
         qgram_rev = reverse_complement(qgram)
-        if qgram_rev in qgram_first:
-            result = qgram_annotate[qgram][:]
-            result = _add_listelements(result, qgram_first[qgram_rev])
-            qgram_annotate[qgram] = result
+        #if also present on the F-strand sum up (present on both F- and R-strands)
+        if qgram_rev in qgram_last:
+            result = qgram_annotate[qgram_rev][:]
+            result = _add_listelements(result, qgram_first[qgram])
+            qgram_annotate[qgram_rev] = result
+        #motif only present on R-strand and not on F-strand
+        else:
+            qgram_annotate[qgram_rev] = qgram_first[qgram]
+
+#    for qgram in lf:
+#        if qgram in qgram_last:
+#            print("qgram %s at pos %s" % (qgram, i))
+#            print ("fwd (fm,rm,fmm,rmm) : %s" % (qgram_last[qgram]))
+#    for qgram in lr:
+#        if qgram in qgram_first:
+#            print("qgram %s at pos %s {REVERSE}" % (qgram, i))
+#            print ("rev (fm,rm,fmm,rmm) : (%s,%s,%s,%s)" % (qgram_first[qgram][0],
+#                    qgram_first[qgram][1],
+#                    qgram_first[qgram][2],
+#                    qgram_first[qgram][3]))
+
+    #debug stuff, maybe remove?
+    if verbosity:
+        for qgram in qgram_annotate:
+            if qgram in lf:
+                print("fwd (fm,rm,fmm,rmm) : %s" % (qgram_annotate[qgram]))
+
     print("Warning: %s q-grams of %s contain other letters than A,C,G and T, ignore these q-grams" %(k, l) ,file=sys.stderr)
     return (qgram_annotate, qgram_counts)
-
-
-def reverse_complement(s, rev=True):
-    """Return the reverse complement of a DNA sequence s"""
-    _complement = dict(A="T", T="A", C="G", G="C", N="N")
-    t = reversed(s) if rev else s
-    try:
-        rc = (_complement[x] for x in t)  # lazy generator expression
-    except KeyError:
-        return s
-        
-    return "".join(rc)  # join the elements into a string
 
 
 def get_pvalue(motif, fm, rm, fmm, rmm):
@@ -330,7 +384,7 @@ def get_sb_score(qgram_annotate):
         p_value = get_pvalue(k, qgram_annotate[k][0], qgram_annotate[k][1], qgram_annotate[k][2], qgram_annotate[k][3])
         
         #compute negative logarithm (base 10) of p-value or, if necessary, set to maxint
-        strand_bias_score = sys.maxint if p_value < 1/10.0**300 else -math.log(p_value, 10)
+        strand_bias_score = sys.maxint if p_value < 1/10.0**300 else -math.log10(p_value)
         
         results.append((k, qgram_annotate[k][0], qgram_annotate[k][1], qgram_annotate[k][2], qgram_annotate[k][3], strand_bias_score))
     
@@ -376,15 +430,31 @@ def count(qgram, genome):
     
     return  len([m.start() for m in re.finditer(r'(?=(%s))' %qgram, genome)] + [m.start() for m in re.finditer(r'(?=(%s))' %rev, genome)])
 
+#TODO remove
+def debug_contingency(qgram_annotate):
+    global lf
+    lfpos = [504960, 1353749, 3558059, 526305, 726000, 3052055]
+    lrpos = [3691930, 3423652, 565572, 650606, 3227505, 139325, 1115591, 3768659]
+    fm, rm, fmm, rmm = 0,0,0,0
+    for q in lf:
+        if q in qgram_annotate:
+            fm += qgram_annotate[q][0]
+            rm += qgram_annotate[q][1]
+            fmm += qgram_annotate[q][2]
+            rmm += qgram_annotate[q][3]
+
+    print("fm, rm, fmm, rmm", str(fm),str(rm),str(fmm),str(rmm))
+    exit(-1)
 
 def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05):
     """Identify critical <q>-grams (with <n> Ns) with reference to significance and error rate"""
     results = []
     
-    motifspacesize_log = math.log(get_motifspace_size(q, n), 10)
-    alpha_log = math.log(float(alpha), 10)
+    motifspacesize_log = math.log10(get_motifspace_size(q, n))
+    alpha_log = math.log10(float(alpha))
     
     qgram_annotate, qgram_counts = get_annotate_qgram(genome, genome_annotate, q) #annotate each q-gram with Strand Bias Table
+    debug_contingency(qgram_annotate)
     add_n(qgram_annotate, n, q) #extend set of q-grams with q-grams containing Ns
     
     all_results = get_sb_score(qgram_annotate) #annotate each q-gram with Strand Bias Score
@@ -414,6 +484,7 @@ if __name__ == '__main__':
     parser.add_option("-f", dest="fallback_", default=False, action="store_true", help="use the original implementation (regex count, R's chi, last_pos + 1 on forward strands)")
     parser.add_option("-s", dest="serialize", default="", help="dump genome annotation, ie contingency tables for genome positions")
     parser.add_option("-l", dest="load", default="", help="load serialized object instead of creating contingency tables for genome positions")
+    parser.add_option("--verbose", dest="verbosity_", default=0, help="print verbose messages")
 
     (options, args) = parser.parse_args()
     
@@ -432,8 +503,9 @@ if __name__ == '__main__':
     q = int(args[2])
     n = int(args[3])
 
-    global fallback
-    fallback = options.fallback_
+    global fallback, verbosity
+    fallback    = options.fallback_
+    verbosity   = options.verbosity_
     print("#dbg Fallback is", fallback, file=sys.stderr)
 
     genome, options.learn_chrom = get_genome(refpath, options.learn_chrom)
@@ -454,4 +526,27 @@ if __name__ == '__main__':
         with open(options.serialize, 'wb') as outpkl:
             pickle.dump(genome_annotate, outpkl, pickle.HIGHEST_PROTOCOL)
 
+#    lf = [504960, 1353749, 3558059, 526305, 726000, 3052055]
+#    lr = [3691930, 3423652, 565572, 650606, 3227505, 139325, 1115591, 3768659]
+#    fm, rm, fmm, rmm = 0,0,0,0
+#    for p in lf:
+#        try:
+#            fm += genome_annotate[0][p]
+#            rm += genome_annotate[1][p]
+#            fmm += genome_annotate[2][p]
+#            rmm += genome_annotate[3][p]
+#        except IndexError:
+#            print("index error",str(p))
+#
+#    for p in lr:
+#        try:
+#            fm += genome_annotate[1][p]
+#            rm += genome_annotate[0][p]
+#            fmm += genome_annotate[3][p]
+#            rmm += genome_annotate[2][p]
+#        except IndexError:
+#            print("index error",str(p))
+#
+#    print("fm, rm, fmm, rmm", str(fm),str(rm),str(fmm),str(rmm))
+#    exit(-1)
     ident(genome, genome_annotate, q, n, options.alpha, options.epsilon, options.delta)
