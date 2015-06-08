@@ -73,17 +73,20 @@ def reverse_complement(s, rev=True):
 def get_annotate_qgram(genome, genome_annotate, q):
     """Compute for each q-gram in the genome its (composed) strand bias table. 
     Consider therefore the q-gram as well as its reverse complement."""
-    #consider separately pileups of q-grams last and first positions
     global lf
     lr = [reverse_complement(x) for x in lf]
 
-    qgram_last   = {}
-    qgram_first  = {}
-    qgram_counts = {}
+    qgram_first     = {}
+    qgram_counts    = {}
+    #initially, qgram_annotate contains only the motifs->sum(contingency_tables) on the F-strand
+    #at the end, motifs on the R-strand are summed up / added
+    qgram_annotate  = {} 
     j = 0 #counter for status info
     k = 0
     l = 0
+
     #pass through entire genome to analyse each q-grams' pileup
+    #consider separately pileups of q-grams last and first positions
     #FIXME @done - added +1 to consider the last motif as well
     for i in range(len(genome) - q + 1):
         j += 1
@@ -110,27 +113,24 @@ def get_annotate_qgram(genome, genome_annotate, q):
                 genome_annotate[3][i + q - offset]]
         
         #q-grams on forward direction, analyse therefore their last positions
-        qgram_last[qgram] = _add_listelements(qgram_last[qgram], qgram_effect_last) if qgram_last.has_key(qgram) else qgram_effect_last
+        qgram_annotate[qgram] = _add_listelements(qgram_annotate[qgram], qgram_effect_last) if qgram_annotate.has_key(qgram) else qgram_effect_last
         
         #q-gram on reverse strand, analyse therefore their first positions. Furthermore, switch read direction
         qgram_effect_first = [genome_annotate[1][i], genome_annotate[0][i], genome_annotate[3][i], genome_annotate[2][i]]
-        qgram_first[qgram] = _add_listelements(qgram_first[qgram], qgram_effect_first) if qgram_first.has_key(qgram) else qgram_effect_first
+        qgram_first[qgram] = _add_listelements(qgram_first[qgram],qgram_effect_first) if qgram_first.has_key(qgram) else qgram_effect_first
         
     print("#dbg offset is ", str(offset), file=sys.stderr)
-    qgram_annotate = {}
     ######################################################
-    #combine the q-grams on the forward and reverse strand
     #FIXME @done
-    #just populate qgram_annotate with qgrams on F-strand
-    for qgram in qgram_last:
-        qgram_annotate[qgram] = qgram_last[qgram]
+    #combine the q-grams on the forward and reverse strand
+    #by now qgram_annotate contains all/only qgrams on F-strand
 
     #iterate over qgrams on R-strand
     for qgram in qgram_first:
         #create corresponding qgram on F-strand
         qgram_rev = reverse_complement(qgram)
         #if also present on the F-strand sum up (present on both F- and R-strands)
-        if qgram_rev in qgram_last:
+        if qgram_rev in qgram_annotate:
             result = qgram_annotate[qgram_rev][:]
             result = _add_listelements(result, qgram_first[qgram])
             qgram_annotate[qgram_rev] = result
@@ -138,23 +138,11 @@ def get_annotate_qgram(genome, genome_annotate, q):
         else:
             qgram_annotate[qgram_rev] = qgram_first[qgram]
 
-#    for qgram in lf:
-#        if qgram in qgram_last:
-#            print("qgram %s at pos %s" % (qgram, i))
-#            print ("fwd (fm,rm,fmm,rmm) : %s" % (qgram_last[qgram]))
-#    for qgram in lr:
-#        if qgram in qgram_first:
-#            print("qgram %s at pos %s {REVERSE}" % (qgram, i))
-#            print ("rev (fm,rm,fmm,rmm) : (%s,%s,%s,%s)" % (qgram_first[qgram][0],
-#                    qgram_first[qgram][1],
-#                    qgram_first[qgram][2],
-#                    qgram_first[qgram][3]))
-
     #debug stuff, maybe remove?
     if verbosity:
         for qgram in qgram_annotate:
             if qgram in lf:
-                print("fwd (fm,rm,fmm,rmm) : %s" % (qgram_annotate[qgram]))
+                print("Contingency table for [%s] (fm,rm,fmm,rmm) : %s" % (qgram, qgram_annotate[qgram]))
 
     print("Warning: %s q-grams of %s contain other letters than A,C,G and T, ignore these q-grams" %(k, l) ,file=sys.stderr)
     return (qgram_annotate, qgram_counts)
@@ -168,9 +156,7 @@ def get_pvalue(motif, fm, rm, fmm, rmm):
     """
         #decide whether Fisher's exact Test or ChiSq-Test should be used
     limit = 5000
-    if fm > limit or rm > limit \
-            or fmm > limit or rmm > limit:
-
+    if fm > limit or rm > limit or fmm > limit or rmm > limit:
         if fallback:
             f = robjects.r['chisq.test']
             test = 'chisq'
@@ -187,12 +173,12 @@ def get_pvalue(motif, fm, rm, fmm, rmm):
 		            print("Scipy chi test value error:", str(arr), file=sys.stderr)
 		            exit(-1)
             else:
-                print("Error (null row/column in contingency table) causing qgram: ", motif,
-                        "Table (fm, rm, fmm, rmm):", fm, rm, 
-                        fmm, rmm,
-                        "\nReverting to Fisher's test for this calculation",file=sys.stderr)
-                f = robjects.r['fisher.test']
-                test = 'fisher'
+                print("Error? (null row/column in contingency table) causing qgram: ", motif,
+                        "Table (fm, rm, fmm, rmm):", fm, rm, fmm, rmm, file=sys.stderr)
+                #pvalue will be 1.0, so return this instead of running fisher's
+                return 1.0
+                #f = robjects.r['fisher.test']
+                #test = 'fisher'
     else:
         f = robjects.r['fisher.test']
         test = 'fisher'
@@ -318,7 +304,6 @@ def add_n(qgram_annotate, n, q):
 
     #extend qgram_annotate
     qgram_annotate.update(to_add)
-    
     return qgram_annotate
 
 
@@ -391,7 +376,8 @@ def get_sb_score(qgram_annotate):
 
 def output(results, genome, qgram_counts):
     """Output the results"""
-    print("#Sequence", "Occurrence", "Forward Match", "Backward Match", "Forward Mismatch", "Backward Mismatch", "Strand Bias Score", "FER (Forward Error Rate)",
+    print("#Sequence", "Occurrence", "Forward Match", "Backward Match", "Forward Mismatch",
+          "Backward Mismatch", "Strand Bias Score", "FER (Forward Error Rate)",
           "RER (Reverse Error Rate), ERD (Error rate Difference)", sep = '\t')
     
     for seq, forward_match, reverse_match, forward_mismatch, reverse_mismatch, sb_score, fer, rer, erd in results:
@@ -401,7 +387,9 @@ def output(results, genome, qgram_counts):
 
 def get_motifspace_size(q,n):
     """return length of search space according to equation which is mentioned in Section 3.1 of the paper"""
-    return reduce(lambda x, y: x + (int(sc.comb(q, y, exact=True)) * 4**(q-y)), [i for i in range(1, n+1)], int(sc.comb(q, 0, exact=True)) * 4**(q-0))
+    return reduce(lambda x, y: x + (int(sc.comb(q, y, exact=True)) * 4**(q-y)), 
+            [i for i in range(1, n+1)], 
+            int(sc.comb(q, 0, exact=True)) * 4**(q-0))
 
 
 #new count function
@@ -524,27 +512,4 @@ if __name__ == '__main__':
         with open(options.serialize, 'wb') as outpkl:
             pickle.dump(genome_annotate, outpkl, pickle.HIGHEST_PROTOCOL)
 
-#    lf = [504960, 1353749, 3558059, 526305, 726000, 3052055]
-#    lr = [3691930, 3423652, 565572, 650606, 3227505, 139325, 1115591, 3768659]
-#    fm, rm, fmm, rmm = 0,0,0,0
-#    for p in lf:
-#        try:
-#            fm += genome_annotate[0][p]
-#            rm += genome_annotate[1][p]
-#            fmm += genome_annotate[2][p]
-#            rmm += genome_annotate[3][p]
-#        except IndexError:
-#            print("index error",str(p))
-#
-#    for p in lr:
-#        try:
-#            fm += genome_annotate[1][p]
-#            rm += genome_annotate[0][p]
-#            fmm += genome_annotate[3][p]
-#            rmm += genome_annotate[2][p]
-#        except IndexError:
-#            print("index error",str(p))
-#
-#    print("fm, rm, fmm, rmm", str(fm),str(rm),str(fmm),str(rmm))
-#    exit(-1)
     ident(genome, genome_annotate, q, n, options.alpha, options.epsilon, options.delta)
