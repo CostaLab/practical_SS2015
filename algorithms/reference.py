@@ -452,7 +452,7 @@ def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05):
     alpha_log = math.log10(float(alpha))
     
     qgram_annotate, qgram_counts = get_annotate_qgram(genome, genome_annotate, q) #annotate each q-gram with Strand Bias Table
-    debug_contingency(qgram_annotate)
+    #debug_contingency(qgram_annotate)
     add_n(qgram_annotate, n, q) #extend set of q-grams with q-grams containing Ns
     
     all_results = get_sb_score(qgram_annotate) #annotate each q-gram with Strand Bias Score
