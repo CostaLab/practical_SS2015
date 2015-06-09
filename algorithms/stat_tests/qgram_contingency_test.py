@@ -8,6 +8,7 @@ from pprint import pprint
 
 #file_fasta  = "/mnt/code/rwth/lab-bioinf/costalab/algorithms/data/bordetella_pertussis/hseq/NC_018518.1.fasta"
 #file_bam  = "/mnt/code/rwth/lab-bioinf/costalab/algorithms/data/bordetella_pertussis/hseq/ERR142615.bam"
+verbose = False
 
 def reverse_complement(s, rev=True):
     """Return the reverse complement of a DNA sequence s"""
@@ -67,7 +68,7 @@ def calc_contingency_table(file_fasta, file_bam, qgram_with_n):
         l = [m.start() for m in re.finditer(r'(?=(%s))' % q, genome)]
         for x in l:
             poslist.append(x) 
-            snppos.append(x + 9) # check base at the end of motif (9 cause length is 10)
+            snppos.append(x + N - 1) # check base at the end of motif (9 cause length is 10)
             pos_to_qgram[x] = q
 #populate lists for complemented
     for q in qgrams_compl:
@@ -77,17 +78,18 @@ def calc_contingency_table(file_fasta, file_bam, qgram_with_n):
             snppos_rev.append(x) 
             pos_to_qgram_rev[x] = q
 
-    print("--- qgrams to consider (forward)")
-    pprint(qgrams)
-    print( "Positions of NCGTNAGAAC qgram:")
-    pprint(poslist)
-    print( "Check bases (pileups) at positions for NCGTNAGAAC qgram:")
-    pprint(snppos)
+    if verbose:
+        print("--- qgrams to consider (forward)")
+        pprint(qgrams)
+        print( "Positions of NCGTNAGAAC qgram:")
+        pprint(poslist)
+        print( "Check bases (pileups) at positions for NCGTNAGAAC qgram:")
+        pprint(snppos)
 
-    print( "--- qgrams (reverse complemented) to consider")
-    print( "Positions of NCGTNAGAAC qgram (complemented):", str(poslist_rev))
-    print( "Check bases (pileups) at positions for NCGTNAGAAC qgram (complemented):", str(snppos_rev))
-    pprint(qgrams_compl)
+        print( "--- qgrams (reverse complemented) to consider")
+        print( "Positions of NCGTNAGAAC qgram (complemented):", str(poslist_rev))
+        print( "Check bases (pileups) at positions for NCGTNAGAAC qgram (complemented):", str(snppos_rev))
+        pprint(qgrams_compl)
 
 ##############################################################################
 # Iterating through pileup
@@ -100,7 +102,8 @@ def calc_contingency_table(file_fasta, file_bam, qgram_with_n):
             qgram_first_pos = pileupcolumn.pos - N + 1
             qgram_last_pos  = pileupcolumn.pos 
             q = pos_to_qgram[qgram_first_pos]
-            print("Pileup at position: %s, \n\tpileup length: %s \n\tmaps to qgram: %s \
+            if verbose:
+                print("Pileup at position: %s, \n\tpileup length: %s \n\tmaps to qgram: %s \
                     \n\tqgram_start_pos: %s\n\tqgram_end_pos (==pileup_pos): %s" % (qgram_last_pos, 
                     len(pileupcolumn.pileups), q, qgram_first_pos, qgram_last_pos), file=sys.stderr)
             if (q != genome[qgram_first_pos : qgram_first_pos + len(q)]):
@@ -134,7 +137,8 @@ def calc_contingency_table(file_fasta, file_bam, qgram_with_n):
         # reverse complemented stuff
         elif (pileupcolumn.pos) in snppos_rev:
             q = pos_to_qgram_rev[pileupcolumn.pos]
-            print("Pileup at position: %s (reverse)\n\tpileup length: %s \n\tmaps to qgram: %s\
+            if verbose:
+                print("Pileup at position: %s (reverse)\n\tpileup length: %s \n\tmaps to qgram: %s\
                     \n\tqgram reverse complemented: %s" \
                     % (pileupcolumn.pos, len(pileupcolumn.pileups), reverse_complement(q), q),
                     file=sys.stderr)
@@ -178,5 +182,6 @@ if __name__ == '__main__':
     
     if len(args) != 3:
         parser.error("Sorry, exactly three parameter (fasta, bam, qgram with N) are required.")  
+    print("Change verbosity in code if you want...")
 
     calc_contingency_table(args[0], args[1], args[2])
