@@ -17,6 +17,16 @@ On this page, we maintain the source code of our program to discover error-causi
  * scipy
  * rpy2 
 
+## Pipeline Dependencies TODO
+## Cluster Dependencies
+
+ * python 2.6 (tested with Python 2.6.6)
+ * HTSeq
+ * pysam
+ * scipy 0.15
+ * numpy > 1.5.1
+ * rpy2 
+
 ## Installation
 
  1. install required python packages (see Dependencies)

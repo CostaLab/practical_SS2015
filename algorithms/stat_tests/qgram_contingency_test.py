@@ -29,7 +29,7 @@ def _get_qgramlist_help(qgram, result):
         for n in ['A','C','G','T']:
             new_qgram = qgram[:i] + n + qgram[i+1:]
             _get_qgramlist_help(new_qgram, result)
-        return result
+    return result
 
 def calc_contingency_table(file_fasta, file_bam, qgram_with_n):
     global ps
