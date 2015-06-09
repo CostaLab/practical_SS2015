@@ -78,6 +78,8 @@ def calc_contingency_table(file_fasta, file_bam, qgram_with_n):
             snppos_rev.append(x) 
             pos_to_qgram_rev[x] = q
 
+    print("#Positions on F-strand to consider: ", str(len(poslist)))
+    print("#Positions on R-strand to consider: ", str(len(poslist_rev)))
     if verbose:
         print("--- qgrams to consider (forward)")
         pprint(qgrams)
@@ -93,10 +95,13 @@ def calc_contingency_table(file_fasta, file_bam, qgram_with_n):
 
 ##############################################################################
 # Iterating through pileup
+    j = 0
     print ("Iterating through pileups...", file=sys.stderr)
 #for pileupcolumn in sam_file.pileup(ref, start, end): 
     for pileupcolumn in sam_file.pileup(None, None, None): 
-
+        j += 1
+        if j % 1000000 == 0:
+            print ("%s iterations so far" % j)
         # forward (not complemented stuff)
         if (pileupcolumn.pos) in snppos: # this is motif_start + motif_length
             qgram_first_pos = pileupcolumn.pos - N + 1

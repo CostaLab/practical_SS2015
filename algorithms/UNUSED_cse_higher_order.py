@@ -37,7 +37,7 @@ import numpy as np
 DEBUG_INDEL         = False
 DEBUG_FISHER        = False
 DEBUG_ASSERTIONS    = False
-LOG_INDEL     = "output/bsubtilis/indel#6.log"
+
 
 class HelpfulOptionParser(OptionParser):
     """An OptionParser that prints full help on errors."""
@@ -59,24 +59,28 @@ def get_annotate_qgram(genome, genome_annotate, q, n_order):
     qgram_ins_first = {}    #insertions
     qgram_del_first = {}    #deletions
 
-    qgram_effect_last      = []
-    qgram_ins_effect_last  = []    #insertions
-    qgram_del_effect_last  = []    #deletions
-    qgram_effect_first     = []
-    qgram_ins_effect_first = []    #insertions
-    qgram_del_effect_first = []    #deletions
     j = 0 #counter for status info
     k = 0
     l = 0
     len_genome  = len(genome)
     #pass through entire genome to analyse each q-grams' pileup
     for i in range(len(genome) - q):
+        qgram_effect_last      = []
+        qgram_ins_effect_last  = []    #insertions
+        qgram_del_effect_last  = []    #deletions
+        qgram_effect_first     = []
+        qgram_ins_effect_first = []    #insertions
+        qgram_del_effect_first = []    #deletions
+
         j += 1
-        if j % 20000000 == 0: 
+        if j % 2000000 == 0: 
             print('%s / %s positions considered for q-gram annotation' %(j, len(genome)), file=sys.stderr)
+            #print(str(qgram_last))
+            #exit(-1)
         
         qgram = genome [i : i+q]
         qgram = qgram.upper()
+        #print("\n----------------- qgram ",qgram)
         
         if len(qgram) != qgram.count('A') + qgram.count('C') + qgram.count('G') + qgram.count('T'):
             #print("Warning: q-gram contains other letters than A,C,G and T, ignore q-gram" ,file=sys.stderr)
@@ -89,41 +93,49 @@ def get_annotate_qgram(genome, genome_annotate, q, n_order):
         qgram_counts[qgram] = qgram_counts[qgram] + 1 if qgram_counts.has_key(qgram) else 1
         #qgram_effect_last: [ [forward and reverse m and mm @(pos q)], ..., [forward and reverse m and mm @(pos q + n_order)] ]
         lim = min(len_genome, i + q - 1 + n_order)
+        #print("lim", str(lim), "range: ", str(i + q - 1)," - ", str(lim), file=sys.stderr)
         for x in range(i + q - 1, lim):
             qgram_effect_last.append([ 
-                    genome_annotate[0][i + x], 
-                    genome_annotate[1][i + x],
-                    genome_annotate[2][i + x], 
-                    genome_annotate[3][i + x]])
+                    genome_annotate[0][x], 
+                    genome_annotate[1][x],
+                    genome_annotate[2][x], 
+                    genome_annotate[3][x]])
             #indels forward direction
             qgram_ins_effect_last.append([
-                    genome_annotate[4][i + x], 
-                    genome_annotate[5][i + x], 
-                    genome_annotate[6][i + x], 
-                    genome_annotate[7][i + x] ])
+                    genome_annotate[4][x], 
+                    genome_annotate[5][x], 
+                    genome_annotate[6][x], 
+                    genome_annotate[7][x] ])
             qgram_del_effect_last.append([
-                    genome_annotate[8] [i + x], 
-                    genome_annotate[9] [i + x], 
-                    genome_annotate[10][i + x], 
-                    genome_annotate[11][i + x] ])
+                    genome_annotate[8] [x], 
+                    genome_annotate[9] [x], 
+                    genome_annotate[10][x], 
+                    genome_annotate[11][x] ])
 
         #q-grams on forward direction, analyse therefore their last positions
-        #qgram key is consistent across the 3 dictionaries
+        #qgram key is consistent across the 3 dictionaries, sum up cont. table
         if qgram_last.has_key(qgram):
-            for ind, elem in qgram_last[qgram]:
+            #print("--- qgram", qgram)
+            #print(str(qgram_last[qgram]))
+            for ind, elem in enumerate(qgram_last[qgram]):
                 qgram_last[qgram][ind] = _add_listelements(elem, qgram_effect_last[ind])  
-            for ind, elem in qgram_ins_last[qgram]:
+            #print(str(qgram_last[qgram]))
+            for ind, elem in enumerate(qgram_ins_last[qgram]):
                 qgram_ins_last[qgram][ind] = _add_listelements(elem, qgram_ins_effect_last[ind]) 
-            for ind, elem in qgram_del_last[qgram]:
+            for ind, elem in enumerate(qgram_del_last[qgram]):
                 qgram_del_last[qgram][ind] = _add_listelements(elem, qgram_del_effect_last[ind]) 
         else:
+            #print("+++ qgram", qgram)
+            #print("before", str(qgram_last[qgram]))
             qgram_last[qgram]     = qgram_effect_last
+            #print("after qgram_last[qgram]", str(qgram_last[qgram]))
+            #print("after qgram_last", str(qgram_last))
             qgram_ins_last[qgram] = qgram_ins_effect_last
             qgram_del_last[qgram] = qgram_del_effect_last
         
-
         #q-gram on reverse strand, analyse therefore their first positions. Furthermore, switch read direction
         lim = max(1, min(i + 1, n_order))
+        #print("min-lim", str(lim), "range (including values): ", str(i)," - ", str(i - lim + 1), file=sys.stderr)
         #for the list addition, on the reversed strand we start @pos i and go 'backwards' (forward on the reversed string)
         #this is done so that items on the same pos in the for/rev qgram_effect list actually match
         for x in range(lim):
@@ -132,26 +144,26 @@ def get_annotate_qgram(genome, genome_annotate, q, n_order):
                     genome_annotate[0][i - x], 
                     genome_annotate[3][i - x], 
                     genome_annotate[2][i - x]])
-            qgram_ins_effect_first = [
+            qgram_ins_effect_first.append([
                     genome_annotate[5][i - x], 
                     genome_annotate[4][i - x], 
                     genome_annotate[7][i - x], 
-                    genome_annotate[6][i - x] ]
-            qgram_del_effect_first = [
+                    genome_annotate[6][i - x]])
+            qgram_del_effect_first.append([
                     genome_annotate[9] [i - x], 
                     genome_annotate[8] [i - x], 
                     genome_annotate[11][i - x], 
-                    genome_annotate[10][i - x] ]
+                    genome_annotate[10][i - x]])
 
         if qgram_first.has_key(qgram):
             #need to do this for all elements in range (q,q-n_order-1)
             #since effect_first might be longer than the previous entry in the 
             #dictionary for the qgram, do it the other way round
-            for ind, elem in qgram_effect_first:
+            for ind, elem in enumerate(qgram_effect_first):
                 qgram_first[qgram][ind] = _add_listelements(qgram_first[qgram][ind], elem)  
-            for ind, elem in qgram_ins_effect_first:
+            for ind, elem in enumerate(qgram_ins_effect_first):
                 qgram_ins_first[qgram][ind] = _add_listelements(qgram_ins_first[qgram][ind], elem)  
-            for ind, elem in qgram_del_effect_first:
+            for ind, elem in enumerate(qgram_del_effect_first):
                 qgram_del_first[qgram][ind] = _add_listelements(qgram_del_first[qgram][ind], elem)  
         else:
             qgram_first[qgram]      = qgram_effect_first
@@ -170,6 +182,7 @@ def get_annotate_qgram(genome, genome_annotate, q, n_order):
 
     for qgram in qgram_last: 
         qgram_annotate[qgram] = qgram_last[qgram]
+        #print(str("qgram_annotate["+qgram+"] : "), qgram_annotate[qgram])
         try:
             qgram_ins_annotate[qgram] = qgram_ins_last[qgram]
             qgram_del_annotate[qgram] = qgram_del_last[qgram]
@@ -178,24 +191,28 @@ def get_annotate_qgram(genome, genome_annotate, q, n_order):
         qgram_rev = reverse_complement(qgram)
 
         if qgram_rev in qgram_first:
-            for ind, elem in qgram_annotate[qgram]:
+            for ind, elem in enumerate(qgram_annotate[qgram]):
                 result = _add_listelements(elem[:], qgram_first[qgram_rev][ind])
                 qgram_annotate[qgram][ind] = result
+                #print("for (ind, elem) (",ind,",",elem,") ",qgram_annotate[qgram][ind],
+                #    "qgram_first[qgram_rev][ind]", qgram_first[qgram_rev][ind])
 
             try: #insertions
-                for ind, elem in qgram_ins_annotate[qgram]:
+                for ind, elem in enumerate(qgram_ins_annotate[qgram]):
                     result = _add_listelements(elem[:], qgram_ins_first[qgram_rev][ind])
                     qgram_ins_annotate[qgram][ind] = result
             except KeyError:
                 print("Key error for reverse qgram ", qgram, "for insert annotation")
             try: #deletions
-                for ind, elem in qgram_del_annotate[qgram]:
+                for ind, elem in enumerate(qgram_del_annotate[qgram]):
                     result = _add_listelements(elem[:], qgram_del_first[qgram_rev][ind])
                     qgram_del_annotate[qgram][ind] = result
             except KeyError:
                 print("Key error for reverse qgram ", qgram, "for deletion annotation")
 
     print("Warning: %s q-grams of %s contain other letters than A,C,G and T, ignore these q-grams" %(k, l) ,file=sys.stderr)
+    print("qgram GGGT", qgram_annotate["GGGT"])
+    print("qgram AGGT", qgram_annotate["AGGT"])
     return (qgram_annotate, qgram_ins_annotate, qgram_del_annotate, qgram_counts)
 
 
@@ -438,11 +455,11 @@ def add_n(qgram_annotate, qgram_ins_annotate, qgram_del_annotate, n, q, n_order)
         for p_qgram in possible_qgrams:
             #each qgram key is present in all three annotations (snp, ins, del)
             if qgram_annotate.has_key(p_qgram):
-                for ind, elem in p_qgram_annotate[p_qgram]:
+                for ind, elem in enumerate(qgram_annotate[p_qgram]):
                     sb_table[ind]     = _add_listelements(sb_table[ind], elem[:])
-                for ind, elem in p_qgram_ins_annotate[p_qgram]:
+                for ind, elem in enumerate(qgram_ins_annotate[p_qgram]):
                     sb_table_ins[ind] = _add_listelements(sb_table_ins[ind], elem[:])
-                for ind, elem in p_qgram_del_annotate[p_qgram]:
+                for ind, elem in enumerate(qgram_del_annotate[p_qgram]):
                     sb_table_del[ind] = _add_listelements(sb_table_del[ind], elem[:])
         
         #does n containing q-gram corresponds to a combosed strand bias table?
@@ -580,25 +597,6 @@ def count(qgram, genome):
             + [m.start() for m in re.finditer(r'(?=(%s))' %rev, genome)])
 
 
-def log(results, s, genome):
-    """Result is a list [(seq, fm, rm, fmm, rmm, p_value)] """
-    if not DEBUG_INDEL:
-        return
-    try:
-        with open(LOG_INDEL, 'a') as f:
-            print("#Sequence", "Occurrence", "Forward Match", "Backward Match", 
-                  "Forward Mismatch", "Backward Mismatch", "Strand Bias Score",
-                  "FER","RER", sep = '\t', file = f)
-            for r in results:
-                seq = r[0]
-                fer = float(r[3]) / (r[1] + r[3]) #forward error rate
-                rer = float(r[4]) / (r[2] + r[4]) #forward error rate
-                print(seq,count(seq,genome),str(r[1]),str(r[2]),str(r[3]),
-                        str(r[4]),str(r[5]),str(fer),str(rer),sep='\t',file=f)
-    except IOError:
-        print("Could not open indel log file.")
-
-
 def processSigResults(all_sig_results, nth_order, genome, qgram_counts):
     tasks = { 0 : 'snps', 1 : 'insertion', 2 : 'deletions' }
 
@@ -652,8 +650,6 @@ def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05, n
             get_sb_score(qgram_del_annotate))
     print("Number of in-, del keys after all_results [should match!]: ",
             len(all_results[0]),len(all_results[1]), len(all_results[2]))
-    #log(all_results[1], "insertions", genome)
-    #log(all_results[2], "deletions", genome)
 
     #filter statistically significant motifs (Bonferroni Correction)
     all_sig_results = []
@@ -663,7 +659,7 @@ def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05, n
                 filter(lambda x: x[5] > motifspacesize_log - alpha_log, all_results[1][i]), 
                 filter(lambda x: x[5] > motifspacesize_log - alpha_log, all_results[2][i])))
 
-    for index, sig_result in all_sig_results:
+    for index, sig_result in enumerate(all_sig_results):
         processSigResults(sig_result, index, genome, qgram_counts)
 
 
@@ -675,9 +671,10 @@ if __name__ == '__main__':
     parser.add_option("-d", dest="delta", default=0.05, type="float", help="error rate difference cutoff delta, default: 0.05")
     parser.add_option("-c", dest="learn_chrom", default="chr1", help="chromosome that is used to derive Context Specific Errors, default: chr1")
     parser.add_option("-v", dest="version", default=False, action="store_true", help="show script's version")
-    parser.add_option("-s", dest="serialize", default="", help="load serialized object instead of creating contingency tables for genome positions")
     parser.add_option("-o", dest="norder", default=1, help="search for errors up to n positions after the motif")
-    
+    parser.add_option("--log-indels", dest="log_indels", default="", help="log indels in file")
+    parser.add_option("--load-serialized", dest="serialize", default="", help="load serialized object instead of creating contingency tables for genome positions")
+    parser.add_option("--dump-genome", dest="dump_genome", default="", help="dump (serialize) annotated genome object to file")
     (options, args) = parser.parse_args()
     
     if options.version:
@@ -700,14 +697,21 @@ if __name__ == '__main__':
         print("Annotating (parsing) genome...")
         genome_annotate = get_annotate_genome(genome, bampath, options.learn_chrom)
         #object serialization
-        print("Dumping serialized object in 3 seconds...")
-        time.sleep(3)
-        genome_annotate = get_annotate_genome(genome, bampath, options.learn_chrom)
-        with open('serialized/genome_annotate_bsubtilis_indels.pkl', 'wb') as outpkl:
-            pickle.dump(genome_annotate, outpkl, pickle.HIGHEST_PROTOCOL)
+        if options.dump_genome != "":
+            print("Dumping serialized object in 3 seconds...")
+            time.sleep(3)
+            with open(options.dump_genome, 'wb') as outpkl:
+                pickle.dump(genome_annotate, outpkl, pickle.HIGHEST_PROTOCOL)
     else:
         #load input from serialized file
-        print("Loading serialized object instead of annotating (parsing) genome...")
+        print("Loading serialized object instead of annotating (parsing) genome...", file=sys.stderr)
         with open(options.serialize, 'rb') as inpkl:
             genome_annotate = pickle.load(inpkl)
+
+    global file_indel_log
+    file_indel_log = options.log_indels
+    if file_indel_log != "":
+        assert(False)
+        print("Warning! Dumping indel details will take a long time...")
+
     ident(genome, genome_annotate, q, n, options.alpha, options.epsilon, options.delta, options.norder)

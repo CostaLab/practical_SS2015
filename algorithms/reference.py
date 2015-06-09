@@ -33,24 +33,6 @@ import numpy as np
 import pickle
 import time
 
-#TODO remove this    
-lf = ['TAAAAGCCAC',
-'TAACAGCCAC',
-'TAAGAGCCAC',
-'TAATAGCCAC',
-'TCAAAGCCAC',
-'TCACAGCCAC',
-'TCAGAGCCAC',
-'TCATAGCCAC',
-'TGAAAGCCAC',
-'TGACAGCCAC',
-'TGAGAGCCAC',
-'TGATAGCCAC',
-'TTAAAGCCAC',
-'TTACAGCCAC',
-'TTAGAGCCAC',
-'TTATAGCCAC']
-
 class HelpfulOptionParser(OptionParser):
     """An OptionParser that prints full help on errors."""
     def error(self, msg):
@@ -73,8 +55,6 @@ def reverse_complement(s, rev=True):
 def get_annotate_qgram(genome, genome_annotate, q):
     """Compute for each q-gram in the genome its (composed) strand bias table. 
     Consider therefore the q-gram as well as its reverse complement."""
-    global lf
-    lr = [reverse_complement(x) for x in lf]
 
     qgram_first     = {}
     qgram_counts    = {}
@@ -138,13 +118,8 @@ def get_annotate_qgram(genome, genome_annotate, q):
         else:
             qgram_annotate[qgram_rev] = qgram_first[qgram]
 
-    #debug stuff, maybe remove?
-    if verbosity:
-        for qgram in qgram_annotate:
-            if qgram in lf:
-                print("Contingency table for [%s] (fm,rm,fmm,rmm) : %s" % (qgram, qgram_annotate[qgram]))
-
-    print("Warning: %s q-grams of %s contain other letters than A,C,G and T, ignore these q-grams" %(k, l) ,file=sys.stderr)
+    print("Warning: %s q-grams of %s contain other letters than A,C,G and T, \
+            ignore these q-grams" %(k, l) ,file=sys.stderr)
     return (qgram_annotate, qgram_counts)
 
 
@@ -416,21 +391,6 @@ def count(qgram, genome):
     
     return  len([m.start() for m in re.finditer(r'(?=(%s))' %qgram, genome)] + [m.start() for m in re.finditer(r'(?=(%s))' %rev, genome)])
 
-#TODO remove
-def debug_contingency(qgram_annotate):
-    global lf
-    lfpos = [504960, 1353749, 3558059, 526305, 726000, 3052055]
-    lrpos = [3691930, 3423652, 565572, 650606, 3227505, 139325, 1115591, 3768659]
-    fm, rm, fmm, rmm = 0,0,0,0
-    for q in lf:
-        if q in qgram_annotate:
-            fm += qgram_annotate[q][0]
-            rm += qgram_annotate[q][1]
-            fmm += qgram_annotate[q][2]
-            rmm += qgram_annotate[q][3]
-
-    print("fm, rm, fmm, rmm", str(fm),str(rm),str(fmm),str(rmm))
-    exit(-1)
 
 def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05):
     """Identify critical <q>-grams (with <n> Ns) with reference to significance and error rate"""
@@ -438,10 +398,10 @@ def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05):
     
     motifspacesize_log = math.log10(get_motifspace_size(q, n))
     alpha_log = math.log10(float(alpha))
-    
-    qgram_annotate, qgram_counts = get_annotate_qgram(genome, genome_annotate, q) #annotate each q-gram with Strand Bias Table
-    debug_contingency(qgram_annotate)
-    add_n(qgram_annotate, n, q) #extend set of q-grams with q-grams containing Ns
+    #annotate each q-gram with Strand Bias Table
+    qgram_annotate, qgram_counts = get_annotate_qgram(genome, genome_annotate, q) 
+    #extend set of q-grams with q-grams containing Ns
+    add_n(qgram_annotate, n, q) 
     
     all_results = get_sb_score(qgram_annotate) #annotate each q-gram with Strand Bias Score
     sig_results = filter(lambda x: x[5] > motifspacesize_log - alpha_log, all_results) #filter statistically significant motifs (Bonferroni Correction)
