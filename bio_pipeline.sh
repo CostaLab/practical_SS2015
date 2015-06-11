@@ -22,6 +22,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ########################################################################
 
+set -o pipefail
+
 # early fail if programs not installed
 for c in bwa sra-stat fastq-dump samtools picard-tools gatk fastqc
 do
@@ -37,15 +39,23 @@ PLOIDY=1
 GATKOPT=""
 GATKOPT2=""
 MEM=false
+SW=false
 BWAOPT="-t 4"
 FORCE_SINGLE=false
-MINQ=0
+JOIN_FASTQ=false
+MINQ="0"
+SRANOCHECK=false
+LOG="output.log"
 
 if [ $# == 0 ]
 then
     echo `basename $0` "-ref sequence.fasta -sra reads.sra [-p N] [-fix] [-mem] [-mem-pacbio] [-fs] [-dbq N] [-minQ N]"
     exit 1
 fi
+
+echo "## Starting pipeline.." | tee $LOG
+echo $0 $@ | tee -a $LOG
+echo -e "######################\n" | tee -a $LOG
 
 while [[ $# > 0 ]]
 do
@@ -64,6 +74,11 @@ do
             SRA="$2"
             shift
             ;;
+        -sra-nocheck|--dont-check-sra-file-exists)
+            # we need the "SRA" file to extract the READS name,
+            # but it doesn't have to exist (assuming we already have the fastq files)
+            SRANOCHECK=true
+            ;;
         -fix|--fix-qualities)
             GATKOPT="--fix_misencoded_quality_scores"
             ;;
@@ -77,8 +92,21 @@ do
             MEM=true
             BWAOPT=${BWAOPT}" -x pacbio"
             ;;
+        -sw|--use-bwa-sw)
+            SW=true
+            ;;
         -fs|--force-single-reads)
+            # if there is a single-reads .fastq file, use only that one.
+            # otherwise, if there are two, remove the first (ie, is an adaptor) and use
+            # the second one as single reads
             FORCE_SINGLE=true
+            ;;
+        -fs-join|--force-single-join)
+            # similar to -fs, but if there are two .fastq files, it "cats" them together.
+            # this is useful for certain SRA files that are technically PAIRED-END,
+            # but too dodgy to be used in that way: we force them to be treated as single.
+            FORCE_SINGLE=true
+            JOIN_FASTQ=true
             ;;
         -dbq|--default-base-qualities)
             GATKOPT2="--defaultBaseQualities $2"
@@ -90,6 +118,9 @@ do
             ;;
         *)
             # unknown option
+            echo "## Unknown option: $key" | tee -a $LOG
+            echo "## Terminating script" | tee -a $LOG
+            exit 1
             ;;
     esac
     shift
@@ -97,17 +128,24 @@ done
 
 if [ -z $FASTA ] || [ ! -f $FASTA ]
 then
-    echo "Must provide a FASTA reference"
-    exit
+    echo "## Error: must provide a FASTA reference" | tee -a $LOG
+    exit 1
 elif [ -z $SRA ] || [ ! -f $SRA ]
 then
-    echo "Must provide a SRA file"
-    exit
+    if [ $SRANOCHECK == false ]
+    then
+        echo "## Error: must provide a SRA file (use -sra together with -sra-nocheck if you already have .fastq files)" | tee -a $LOG
+        exit 1
+    fi
 fi
 ## end option parsing
 
-# generate SRA statistics
-sra-stat --xml -s ${SRA} > ${SRA}.stats
+if [ $SRANOCHECK == false ]
+then
+    echo "## Saving SRA statistics.." | tee -a $LOG
+    # generate SRA statistics
+    sra-stat --xml -s ${SRA} > `basename ${SRA}`.stats || exit 1
+fi
 
 # reference file in FASTA format
 REF=`basename ${FASTA} .fasta`
@@ -123,7 +161,7 @@ FASTQ=${READS}.fastq
 
 if [ -f $FASTQ ] && [ $FORCE_SINGLE == true ]
 then
-    echo "# Using only one fastq file: $FASTQ"
+    echo "## Forcing use of only one fastq file: $FASTQ" | tee -a $LOG
 
     # fastq files will not be extracted from SRA,
     # and alignment will proceed as from a non-paired
@@ -138,15 +176,17 @@ then
 fi
 
 # We should skip the fastq-dump if $FASTQ1 or $FASTQ2
-# exist, but absolutely repeat it if $FASTQ3 or $FASTQ3 exist.
+# exist, but absolutely repeat it if $FASTQ3 or $FASTQ4 exist.
 if [ ! -f $FASTQ1 ] || [ -f $FASTQ3 ] || [ -f $FASTQ4 ]
 then
+    echo "## Dumping fastq files from $SRA" | tee -a $LOG
+
     # creates fastq split-files
     fastq-dump --split-files $SRA || exit 1
 
     if [ -f $FASTQ4 ]
     then
-        echo "# Four fastq files generated: removing 1st and 3rd"
+        echo "## Four fastq files generated: removing 1st and 3rd" | tee -a $LOG
         # 4 fastq files means:
         # 1. adaptor
         # 2. real
@@ -158,7 +198,7 @@ then
         rm $FASTQ3 || exit 1
     elif [ -f $FASTQ3 ]
     then
-        echo "# Three fastq files generated: removing 2nd"
+        echo "## Three fastq files generated: removing 2nd" | tee -a $LOG
         # 3 fastq files means:
         # 1. real
         # 2. adaptor
@@ -168,23 +208,27 @@ then
         rm $FASTQ4 &>/dev/null
     elif [ -f $FASTQ2 ]
     then
-        echo "# Two fastq files generated"
+        echo "## Two fastq files generated" | tee -a $LOG
     else
-        echo "# One fastq file generated"
+        echo "## One fastq file generated" | tee -a $LOG
     fi
 
     if [ $FORCE_SINGLE == true ]
     then
         if [ -f $FASTQ2 ]
         then
-            #echo "# Joining the two paired fastq files into a single file: $FASTQ"
-            #cat $FASTQ1 $FASTQ2 > $FASTQ || exit 1
-            #rm $FASTQ1 $FASTQ2 || exit 1
-            echo "# Removing 1st fastq, using only 2nd"
-            rm $FASTQ1 || exit 1
-            mv $FASTQ2 $FASTQ || exit 1
+            if [ $JOIN_FASTQ == true ]
+            then
+                echo "## Joining the two paired fastq files into a single file: $FASTQ" | tee -a $LOG
+                cat $FASTQ1 $FASTQ2 > $FASTQ || exit 1
+                rm $FASTQ1 $FASTQ2 || exit 1
+            else
+                echo "## Removing 1st fastq, using only 2nd" | tee -a $LOG
+                rm $FASTQ1 || exit 1
+                mv $FASTQ2 $FASTQ || exit 1
+            fi
         else
-            echo "# Renaming $FASTQ1 into $FASTQ"
+            echo "## Renaming $FASTQ1 into $FASTQ" | tee -a $LOG
             mv $FASTQ1 $FASTQ || exit 1
         fi
 
@@ -192,13 +236,21 @@ then
     fi
 fi
 
+echo "## Creating bwa index for ${FASTA}" | tee -a $LOG
+
+bwa index $FASTA || exit 1
+
 # generate BAM
 if [ $MEM == true ]
 then
-    bwa index $FASTA || exit 1
+    echo "## Generating sam file with bwa-mem aligner" | tee -a $LOG
     bwa mem $BWAOPT $FASTA *.fastq > tmp.sam || exit 1
+elif [ $SW == true ]
+then
+    echo "## Generating sam file with bwa-sw aligner" | tee -a $LOG
+    bwa bwasw $BWAOPT $FASTA *.fastq > tmp.sam || exit 1
 else
-    bwa index $FASTA || exit 1
+    echo "## Generating sam file with bwa-backtrack aligner" | tee -a $LOG
     bwa aln $BWAOPT $FASTA $FASTQ1 > tmp1.sai || exit 1
 
     if [ -f $FASTQ2 ]
@@ -211,18 +263,22 @@ else
     fi
 fi
 
-samtools view -bSq $MINQ tmp.sam > tmp.bam || exit 1
+echo "## Converting sam file to BAM, sorting and indexing" | tee -a $LOG
+samtools view -hbSq $MINQ tmp.sam > tmp.bam || exit 1
 samtools sort tmp.bam tmp.sorted || exit 1
 samtools index tmp.sorted.bam || exit 1
 
 # remove duplicates
+echo "## Removing duplicates" | tee -a $LOG
 samtools rmdup tmp.sorted.bam tmp.rmdup.sorted.bam || exit 1
 
 # add readgroup
+echo "## Adding read groups and indexing" | tee -a $LOG
 picard-tools AddOrReplaceReadGroups INPUT=tmp.rmdup.sorted.bam OUTPUT=tmp.addrg.rmdup.sorted.bam RGLB="rglib" RGPL="rgpl" RGPU="rgpu" RGSM="rgsm" VALIDATION_STRINGENCY=SILENT || exit 1
 samtools index tmp.addrg.rmdup.sorted.bam || exit 1
 
 # realign near indels
+echo "## Realigning near indels and re-indexing" | tee -a $LOG
 picard-tools CreateSequenceDictionary R=$FASTA O=${REF}.dict || exit 1
 samtools faidx $FASTA || exit 1
 
@@ -231,25 +287,29 @@ gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T IndelRealigner -targetIntervals 
 samtools index ${READS}.bam || exit 1
 
 # generate stats for clean BAM
-echo "##################" | tee ${READS}.bam.stats
-echo "# Reads coverage #" | tee -a ${READS}.bam.stats
-echo "##################" | tee -a ${READS}.bam.stats
-echo "(excluding MAPQ=0)" | tee -a ${READS}.bam.stats
+echo | tee -a $LOG
+echo "##################" | tee ${READS}.bam.stats | tee -a $LOG
+echo "# Reads coverage #" | tee -a ${READS}.bam.stats | tee -a $LOG
+echo "##################" | tee -a ${READS}.bam.stats | tee -a $LOG
+echo "(only select reads where MAPQ > ${MINQ})" | tee -a ${READS}.bam.stats | tee -a $LOG
+MAPQ=`expr $MINQ + 1`
 GENOME_LENGTH=`samtools view -H ${READS}.bam | grep -P '^@SQ' | cut -f 3 -d ':' | awk '{sum+=$1} END {print sum}'`
-echo "Genome length: ${GENOME_LENGTH}" | tee -a ${READS}.bam.stats
-samtools depth -Q1 ${READS}.bam | awk -v glen="$GENOME_LENGTH" '{if(min==""){min=max=$3}; if($3>max) {max=$3}; if($3< min) {min=$3}; sum+=$3; sumsq+=$3*$3} END { print "min = ",min; print "max = ",max; print "% cov. = ",(NR/glen)*100; print "Avg. base cov. = ",sum/glen; print "Stdev base cov. = ",sqrt(sumsq/glen - (sum/glen)**2)}' | tee -a ${READS}.bam.stats
-echo | tee -a ${READS}.bam.stats
+echo "Genome length: ${GENOME_LENGTH}" | tee -a ${READS}.bam.stats | tee -a $LOG
+samtools depth -Q${MAPQ} ${READS}.bam | awk -v glen="$GENOME_LENGTH" '{if(min==""){min=max=$3}; if($3>max) {max=$3}; if($3< min) {min=$3}; sum+=$3; sumsq+=$3*$3} END { print "min = ",min; print "max = ",max; print "% cov. = ",(NR/glen)*100; print "Avg. base cov. = ",sum/glen; print "Stdev base cov. = ",sqrt(sumsq/glen - (sum/glen)**2)}' | tee -a ${READS}.bam.stats
+echo | tee -a ${READS}.bam.stats | tee -a $LOG
 
-echo "flagstats:"                         | tee -a ${READS}.bam.stats
-samtools flagstat ${READS}.bam            | tee -a ${READS}.bam.stats
-echo -e "\nidxstats:"                     | tee -a ${READS}.bam.stats
-echo -e "Chr\tlength\tmapped\tunmapped"   | tee -a ${READS}.bam.stats
-samtools idxstats ${READS}.bam            | tee -a ${READS}.bam.stats
+echo "flagstats:"                       | tee -a ${READS}.bam.stats | tee -a $LOG
+samtools flagstat ${READS}.bam          | tee -a ${READS}.bam.stats | tee -a $LOG
+echo -e "\nidxstats:"                   | tee -a ${READS}.bam.stats | tee -a $LOG
+echo -e "Chr\tlength\tmapped\tunmapped" | tee -a ${READS}.bam.stats | tee -a $LOG
+samtools idxstats ${READS}.bam          | tee -a ${READS}.bam.stats | tee -a $LOG
 
 # generate other statistics
+echo "## Running fastqc for web-based statistics" | tee -a $LOG
 fastqc ${READS}.bam
 
 # SNP calling
-gatk -ploidy $PLOIDY -I ${READS}.bam -R $FASTA -T UnifiedGenotyper -o ${READS}-snps.vcf $GATKOPT || exit 1
+echo "## SNP calling with GATK" | tee -a $LOG
+gatk -ploidy $PLOIDY -I ${READS}.bam -R $FASTA -T UnifiedGenotyper -o ${READS}-snps.vcf -rf BadCigar $GATKOPT || exit 1
 
-echo "SNPs found: "`egrep -c "^[^#]" *.vcf`
+echo "SNPs found: "`egrep -c "^[^#]" *.vcf` | tee -a $LOG
