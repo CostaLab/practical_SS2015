@@ -14,7 +14,7 @@ int N = -1;
 string getNextWord(const string &line, unsigned &pos) {
     string word = "";
     unsigned j;
-    for (j = pos; (j < line.length()) && (line[j] != ' '); j++) {
+    for (j = pos; (j < line.length()) && (line[j] != ' ') && (line[j] != '\t'); j++) {
         word += line[j];
     }
     pos = j+1;
