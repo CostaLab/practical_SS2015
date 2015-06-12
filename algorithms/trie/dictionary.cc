@@ -1,9 +1,9 @@
 #include "dictionary.hh"
 
 Dict::~Dict() {
-    for (auto it : this->getAllWords()) {
-        trie.del(&trie, &trie, it.c_str());
-    }
+    //for (auto it : this->getAllWords()) {
+    //    trie.del(&trie, &trie, it.c_str());
+    //}
 }
 
 void Dict::insert(std::string w) {

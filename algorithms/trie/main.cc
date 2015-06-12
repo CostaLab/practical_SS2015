@@ -9,7 +9,7 @@
 #include <cmath>
 #include "dictionary.hh"
 using namespace std;
-int N;
+int N = -1;
 
 string getNextWord(const string &line, unsigned &pos) {
     string word = "";
@@ -26,6 +26,7 @@ void readVocabulary(const string &file, Dict &voc) {
     string line, word;
     int cnt = 0;
     unsigned pos;
+
     if (myfile.is_open()) {
         while(getline (myfile,line) && (cnt++ < N || N == -1))  {
             pos = 0;
@@ -37,57 +38,66 @@ void readVocabulary(const string &file, Dict &voc) {
         myfile.close();
     }
     else {
-        cout << "Unable to open vocabulary file";
+        cout << "Unable to open vocabulary file: " << file;
     }
 }
 
 int main (int argc, char *argv[]) {
-    string line;
-    string file1_name;
-    string file2_name;
-    string out_name;
-//    string param;
-    Dict dic1;
-    Dict dic2;
-
-    N = -1;
-    if(argc > 1) {
-//        param = argv[4];
-        file1_name = argv[1];
-        file2_name = argv[2];
-        out_name = argv[3];
+    if (argc < 4)
+    {
+        cout << "Usage: " << argv[0] << " file1 file2 [fileN..] file_out\n";
+        exit(-1);
     }
 
-    readVocabulary(file1_name,dic1);
+    std::vector<Dict> inputs;
 
-//    cout << "length: " << res.size() << endl;
-//    for (unsigned i = 0; i < res.size(); ++i) {
-//        std::cout << res[i] << std::endl;
-//    }
-    ifstream myfile (file2_name);
-    ofstream outfile (out_name);
-    string word;
-    int cnt = 0;
-    unsigned pos;
+    for (int i = 1; i < argc - 1; i++)
+    {
+        Dict temp_dict;
+        readVocabulary(argv[i], temp_dict);
+        inputs.push_back(temp_dict);
+    }
+
+    // load first dictionary in a set
+    std::vector<std::string> first_dict_words = inputs[0].getAllWords();
+    std::set<std::string> common(first_dict_words.begin(), first_dict_words.end());
+
+    // we are going to need a temporary structure for
+    // common words
+    std::set<std::string> temp_common;
+
+    // will keep the results from a single search in the trie
     std::vector<std::string> res;
-    if (myfile.is_open()) {
-        while(getline (myfile,line) && (cnt++ < N || N == -1))  {
-            pos = 0;
-            while (pos < line.length()) {
-                word    = getNextWord(line, pos);
-                res     = dic1.getFrequency(word);
-                if (res.size() > 0) {
-                    outfile << (word);
-                    outfile << (std::endl);
-                    for (unsigned i = 0; i < res.size(); ++i) {
-                        outfile << (res[i]);
-                        outfile << ("\n");
-                    }
-                }
+
+    for (unsigned ii = 1; ii < inputs.size(); ii++)
+    {
+        for (auto word : common)
+        {
+            res = inputs[ii].getFrequency(word);
+
+            if (res.size() > 0)
+            {
+                temp_common.insert(word);
+
+                for (auto common_word : res)
+                    temp_common.insert(common_word);
             }
         }
-        myfile.close();
-        outfile.close();
+
+        common = temp_common;
+
+        temp_common.clear();
     }
+
+    // now we have the common words for all files,
+    // let's write them to file
+    ofstream outfile (argv[argc-1]);
+
+    for (auto word : common)
+    {
+        outfile << word;
+        outfile << std::endl;
+    }
+
     return 0;
 }

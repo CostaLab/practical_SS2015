@@ -1,7 +1,7 @@
 # Compiler binary
 CXX=g++
 # Compiler options
-CXXFLAGS=-Wall -O2 -std=c++0x
+CXXFLAGS=-Wall -O2 -std=c++0x -g
 # The first target will be the default when make is called without arguments
 all: main
 	rm -f *.o
