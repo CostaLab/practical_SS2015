@@ -1,6 +1,35 @@
 # costalab
 Bioinformatics Lab RWTH Aachen SS '15
 
+# Running alignments
+
+The script bio_pipeline.sh allows an easy and almost-painless alignment procedure.
+
+At the very least, it requires two files:
+
+ * a FASTA reference genome (option -ref) (this MUST be in the current directory)
+ * a SRA reads file (option -sra) (this can be in any directory, or even "fake" with option -sra-nocheck)
+
+Without other options, the script will:
+
+ * assume the organism is haploid (ie, only has one set of chromosomes)
+ * extract the SRA file to FASTQ files, and remove (in simple cases) the adaptor-only files
+  * the previous step also infers whether the SRA is paired-ends or single-ends
+ * align the reads to the reference genome, using bwa-backtrack with default options
+ * convert SAM file to BAM
+ * remove duplicates, re-align near indels, produce a clean BAM file
+ * generate plenty of statistics for the final BAM file
+ * run GATK SNP calling and print the final number of SNPs
+
+All the files are kept: it is up to you to delete the temporary files, or the unnecessary ones. A log is generated to output.log, containing both the stdout and stderr produced during the execution of bio_pipeline.sh.
+
+Among the options, some are notable:
+
+ * -mem: use bwa-mem instead of backtrack (very important for Ion Torrent, 454)
+ * -mem-pacbio: a special option for PacBio, instead of the previous one (adds "-x pacbio" to the bwa mem options)
+ * -dbq 0: in the (rare) case that some reads have missing qualities for certain bases, default the quality to 0
+ * -nofix: GATK will complain and terminate if some reads' mapping quality is over ~60. This option will let GATK keep going.
+
 # Discovering Context-Specific Sequencing Errors
 
 Certain sequence contexts induce errors in next-generation sequencing reads, as detailed in our publications:
