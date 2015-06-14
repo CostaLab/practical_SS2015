@@ -1,0 +1,18 @@
+ALIGNMENTS:
+
+	- re-run 454 experiments with bwa-mem, as it was much superior to bwa backtrack (optionally, run also bwa-sw)
+	- re-run PacBio with its own aligner, blasr
+	- re-run some experiments with novoalign
+	- run some MinION experiments with poretools (E.Coli only available, many GBs)
+
+--------------------------------------------------
+
+MOTIF ANALYSIS:
+	- which motifs are "unique" to a specific platform?
+	- which are mostly common (across platforms)?
+	- among the "common" ones, is ERD consistent?
+
+--------------------------------------------------
+
+VARIANT CALLING:
+	- analyse gatk results to see if snps contain motifs

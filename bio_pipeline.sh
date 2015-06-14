@@ -53,8 +53,9 @@ then
     exit 1
 fi
 
-echo "## Starting pipeline.." | tee $LOG
-echo $0 $@ | tee -a $LOG
+echo "######################" | tee -a $LOG
+echo "## Starting pipeline #" | tee $LOG
+echo `basename $0` $@ | tee -a $LOG
 echo -e "######################\n" | tee -a $LOG
 
 while [[ $# > 0 ]]
@@ -182,7 +183,7 @@ then
     echo "## Dumping fastq files from $SRA" | tee -a $LOG
 
     # creates fastq split-files
-    fastq-dump --split-files $SRA || exit 1
+    fastq-dump --split-files $SRA |& tee -a $LOG || exit 1
 
     if [ -f $FASTQ4 ]
     then
@@ -192,10 +193,10 @@ then
         # 2. real
         # 3. adaptor
         # 4. real
-        mv $FASTQ2 $FASTQ1 || exit 1
-        mv $FASTQ4 $FASTQ2 || exit 1
+        mv $FASTQ2 $FASTQ1 |& tee -a $LOG || exit 1
+        mv $FASTQ4 $FASTQ2 |& tee -a $LOG || exit 1
 
-        rm $FASTQ3 || exit 1
+        rm $FASTQ3 |& tee -a $LOG || exit 1
     elif [ -f $FASTQ3 ]
     then
         echo "## Three fastq files generated: removing 2nd" | tee -a $LOG
@@ -203,9 +204,7 @@ then
         # 1. real
         # 2. adaptor
         # 3. real
-        mv $FASTQ3 $FASTQ2 || exit 1
-
-        rm $FASTQ4 &>/dev/null
+        mv $FASTQ3 $FASTQ2 |& tee -a $LOG || exit 1
     elif [ -f $FASTQ2 ]
     then
         echo "## Two fastq files generated" | tee -a $LOG
@@ -221,15 +220,15 @@ then
             then
                 echo "## Joining the two paired fastq files into a single file: $FASTQ" | tee -a $LOG
                 cat $FASTQ1 $FASTQ2 > $FASTQ || exit 1
-                rm $FASTQ1 $FASTQ2 || exit 1
+                rm $FASTQ1 $FASTQ2 |& tee -a $LOG || exit 1
             else
                 echo "## Removing 1st fastq, using only 2nd" | tee -a $LOG
-                rm $FASTQ1 || exit 1
-                mv $FASTQ2 $FASTQ || exit 1
+                rm $FASTQ1 |& tee -a $LOG || exit 1
+                mv $FASTQ2 $FASTQ |& tee -a $LOG || exit 1
             fi
         else
             echo "## Renaming $FASTQ1 into $FASTQ" | tee -a $LOG
-            mv $FASTQ1 $FASTQ || exit 1
+            mv $FASTQ1 $FASTQ |& tee -a $LOG || exit 1
         fi
 
         FASTQ1=$FASTQ
@@ -238,78 +237,78 @@ fi
 
 echo "## Creating bwa index for ${FASTA}" | tee -a $LOG
 
-bwa index $FASTA || exit 1
+bwa index $FASTA |& tee -a $LOG || exit 1
 
 # generate BAM
 if [ $MEM == true ]
 then
     echo "## Generating sam file with bwa-mem aligner" | tee -a $LOG
-    bwa mem $BWAOPT $FASTA *.fastq > tmp.sam || exit 1
+    bwa mem $BWAOPT $FASTA *.fastq 2>&1 > tmp.sam | tee -a $LOG || exit 1
 elif [ $SW == true ]
 then
     echo "## Generating sam file with bwa-sw aligner" | tee -a $LOG
-    bwa bwasw $BWAOPT $FASTA *.fastq > tmp.sam || exit 1
+    bwa bwasw $BWAOPT $FASTA *.fastq 2>&1 > tmp.sam | tee -a $LOG || exit 1
 else
     echo "## Generating sam file with bwa-backtrack aligner" | tee -a $LOG
-    bwa aln $BWAOPT $FASTA $FASTQ1 > tmp1.sai || exit 1
+    bwa aln $BWAOPT $FASTA $FASTQ1 2>&1 > tmp1.sai | tee -a $LOG || exit 1
 
     if [ -f $FASTQ2 ]
     then
-        bwa aln $BWAOPT $FASTA $FASTQ2 > tmp2.sai || exit 1
+        bwa aln $BWAOPT $FASTA $FASTQ2 2>&1 > tmp2.sai | tee -a $LOG || exit 1
 
-        bwa sampe $FASTA tmp1.sai tmp2.sai $FASTQ1 $FASTQ2 > tmp.sam || exit 1
+        bwa sampe $FASTA tmp1.sai tmp2.sai $FASTQ1 $FASTQ2 2>&1 > tmp.sam | tee -a $LOG || exit 1
     else
-        bwa samse $FASTA tmp1.sai $FASTQ1 > tmp.sam || exit 1
+        bwa samse $FASTA tmp1.sai $FASTQ1 > tmp.sam 2>&1 | tee -a $LOG || exit 1
     fi
 fi
 
 echo "## Converting sam file to BAM, sorting and indexing" | tee -a $LOG
-samtools view -hbSq $MINQ tmp.sam > tmp.bam || exit 1
-samtools sort tmp.bam tmp.sorted || exit 1
-samtools index tmp.sorted.bam || exit 1
+samtools view -hbSq $MINQ tmp.sam 2>&1 > tmp.bam | tee -a $LOG || exit 1
+samtools sort tmp.bam tmp.sorted |& tee -a $LOG || exit 1
+samtools index tmp.sorted.bam |& tee -a $LOG || exit 1
 
 # remove duplicates
 echo "## Removing duplicates" | tee -a $LOG
-samtools rmdup tmp.sorted.bam tmp.rmdup.sorted.bam || exit 1
+samtools rmdup tmp.sorted.bam tmp.rmdup.sorted.bam |& tee -a $LOG || exit 1
 
 # add readgroup
 echo "## Adding read groups and indexing" | tee -a $LOG
-picard-tools AddOrReplaceReadGroups INPUT=tmp.rmdup.sorted.bam OUTPUT=tmp.addrg.rmdup.sorted.bam RGLB="rglib" RGPL="rgpl" RGPU="rgpu" RGSM="rgsm" VALIDATION_STRINGENCY=SILENT || exit 1
-samtools index tmp.addrg.rmdup.sorted.bam || exit 1
+picard-tools AddOrReplaceReadGroups INPUT=tmp.rmdup.sorted.bam OUTPUT=tmp.addrg.rmdup.sorted.bam RGLB="rglib" RGPL="rgpl" RGPU="rgpu" RGSM="rgsm" VALIDATION_STRINGENCY=SILENT |& tee -a $LOG || exit 1
+samtools index tmp.addrg.rmdup.sorted.bam |& tee -a $LOG || exit 1
 
 # realign near indels
 echo "## Realigning near indels and re-indexing" | tee -a $LOG
-picard-tools CreateSequenceDictionary R=$FASTA O=${REF}.dict || exit 1
-samtools faidx $FASTA || exit 1
+picard-tools CreateSequenceDictionary R=$FASTA O=${REF}.dict |& tee -a $LOG || exit 1
+samtools faidx $FASTA |& tee -a $LOG || exit 1
 
-gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T RealignerTargetCreator -o help.intervals $GATKOPT || exit 1
-gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T IndelRealigner -targetIntervals help.intervals -o ${READS}.bam $GATKOPT $GATKOPT2 || exit 1
-samtools index ${READS}.bam || exit 1
+gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T RealignerTargetCreator -o help.intervals $GATKOPT |& tee -a $LOG || exit 1
+gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T IndelRealigner -targetIntervals help.intervals -o ${READS}.bam $GATKOPT $GATKOPT2 |& tee -a $LOG || exit 1
+samtools index ${READS}.bam |& tee -a $LOG || exit 1
 
 # generate stats for clean BAM
 echo | tee -a $LOG
-echo "##################" | tee ${READS}.bam.stats | tee -a $LOG
-echo "# Reads coverage #" | tee -a ${READS}.bam.stats | tee -a $LOG
-echo "##################" | tee -a ${READS}.bam.stats | tee -a $LOG
-echo "(only select reads where MAPQ > ${MINQ})" | tee -a ${READS}.bam.stats | tee -a $LOG
-MAPQ=`expr $MINQ + 1`
+echo "##################" | tee ${READS}.bam.stats    | tee -a $LOG
+echo "# Reads coverage #" | tee -a ${READS}.bam.stats $LOG
+echo "##################" | tee -a ${READS}.bam.stats $LOG
+if [ $MINQ == 0 ]; then MAPQ=1; else MAPQ=$MINQ; fi
+echo "(only counts reads where MAPQ >= ${MAPQ})" | tee -a ${READS}.bam.stats $LOG
 GENOME_LENGTH=`samtools view -H ${READS}.bam | grep -P '^@SQ' | cut -f 3 -d ':' | awk '{sum+=$1} END {print sum}'`
-echo "Genome length: ${GENOME_LENGTH}" | tee -a ${READS}.bam.stats | tee -a $LOG
-samtools depth -Q${MAPQ} ${READS}.bam | awk -v glen="$GENOME_LENGTH" '{if(min==""){min=max=$3}; if($3>max) {max=$3}; if($3< min) {min=$3}; sum+=$3; sumsq+=$3*$3} END { print "min = ",min; print "max = ",max; print "% cov. = ",(NR/glen)*100; print "Avg. base cov. = ",sum/glen; print "Stdev base cov. = ",sqrt(sumsq/glen - (sum/glen)**2)}' | tee -a ${READS}.bam.stats
-echo | tee -a ${READS}.bam.stats | tee -a $LOG
+echo "Genome length: ${GENOME_LENGTH}" | tee -a ${READS}.bam.stats $LOG
+samtools depth -Q${MAPQ} ${READS}.bam | awk -v glen="$GENOME_LENGTH" '{if(min==""){min=max=$3}; if($3>max) {max=$3}; if($3< min) {min=$3}; sum+=$3; sumsq+=$3*$3} END { print "min = ",min; print "max = ",max; print "% cov. = ",(NR/glen)*100; print "Avg. base cov. = ",sum/glen; print "Stdev base cov. = ",sqrt(sumsq/glen - (sum/glen)**2)}' | tee -a ${READS}.bam.stats $LOG
+echo | tee -a ${READS}.bam.stats $LOG
 
-echo "flagstats:"                       | tee -a ${READS}.bam.stats | tee -a $LOG
-samtools flagstat ${READS}.bam          | tee -a ${READS}.bam.stats | tee -a $LOG
-echo -e "\nidxstats:"                   | tee -a ${READS}.bam.stats | tee -a $LOG
-echo -e "Chr\tlength\tmapped\tunmapped" | tee -a ${READS}.bam.stats | tee -a $LOG
-samtools idxstats ${READS}.bam          | tee -a ${READS}.bam.stats | tee -a $LOG
+echo "flagstats:"                       | tee -a ${READS}.bam.stats $LOG
+samtools flagstat ${READS}.bam         |& tee -a ${READS}.bam.stats $LOG
+echo -e "\nidxstats:"                   | tee -a ${READS}.bam.stats $LOG
+echo -e "Chr\tlength\tmapped\tunmapped" | tee -a ${READS}.bam.stats $LOG
+samtools idxstats ${READS}.bam         |& tee -a ${READS}.bam.stats $LOG
 
 # generate other statistics
 echo "## Running fastqc for web-based statistics" | tee -a $LOG
-fastqc ${READS}.bam
+fastqc ${READS}.bam |& tee -a $LOG
 
 # SNP calling
 echo "## SNP calling with GATK" | tee -a $LOG
-gatk -ploidy $PLOIDY -I ${READS}.bam -R $FASTA -T UnifiedGenotyper -o ${READS}-snps.vcf -rf BadCigar $GATKOPT || exit 1
+gatk -ploidy $PLOIDY -I ${READS}.bam -R $FASTA -T UnifiedGenotyper -o ${READS}-snps.vcf -rf BadCigar $GATKOPT |& tee -a $LOG || exit 1
 
-echo "SNPs found: "`egrep -c "^[^#]" *.vcf` | tee -a $LOG
+echo "SNPs found: "`egrep -c "^[^#]" *.vcf` |& tee -a $LOG

@@ -1,4 +1,4 @@
-#### Salmonella Enterica sub. Enterica serovar 
+#### Salmonella Enterica sub. Enterica serovar Typhimurium str. DT104
 
 | NCBI Reference | Chromosomes | DNA bps |
 |----------------|-------------|---------|
