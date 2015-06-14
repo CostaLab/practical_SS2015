@@ -33,4 +33,4 @@
 | 454 GS FLX Titanium (mem) | consensus     | *         | 63.7536 |   588081 |           2 |  1542896 | 1-1196  | N       | 1186 |
 
 
-TODO: re-run alignment for ion torrent, using mem
+TODO: re-run alignment for ion torrent, using bwa-sw
