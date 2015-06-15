@@ -1,0 +1,52 @@
+<Run accession="SRR522873.sra" read_length="variable" spot_count="325" base_count="35360" base_count_bio="21265" spot_count_mates="291" base_count_bio_mates="17509" spot_count_bad="0" base_count_bio_bad="0" spot_count_filtered="0" base_count_bio_filtered="0">
+  <Size value="132484" units="bytes"/>
+  <Bases cs_native="false" count="35360">
+    <Base value="A" count="8701"/>
+    <Base value="C" count="8567"/>
+    <Base value="G" count="9574"/>
+    <Base value="T" count="8422"/>
+    <Base value="N" count="96"/>
+  </Bases>
+  <Statistics nreads="4" nspots="325">
+    <Read index="0" count="325" average="4" stdev="0"/>
+    <Read index="1" count="325" average="29.78" stdev="28.36"/>
+    <Read index="2" count="291" average="43.97" stdev="0.37"/>
+    <Read index="3" count="291" average="39.82" stdev="2.84"/>
+  </Statistics>
+  <QualityCount>
+    <Quality value="0" count="96"/>
+    <Quality value="1" count="25"/>
+    <Quality value="2" count="22"/>
+    <Quality value="3" count="86"/>
+    <Quality value="4" count="88"/>
+    <Quality value="5" count="100"/>
+    <Quality value="6" count="90"/>
+    <Quality value="7" count="137"/>
+    <Quality value="8" count="181"/>
+    <Quality value="9" count="167"/>
+    <Quality value="10" count="226"/>
+    <Quality value="11" count="347"/>
+    <Quality value="12" count="339"/>
+    <Quality value="13" count="443"/>
+    <Quality value="14" count="849"/>
+    <Quality value="15" count="486"/>
+    <Quality value="16" count="184"/>
+    <Quality value="17" count="274"/>
+    <Quality value="18" count="349"/>
+    <Quality value="19" count="335"/>
+    <Quality value="20" count="474"/>
+    <Quality value="21" count="740"/>
+    <Quality value="22" count="780"/>
+    <Quality value="23" count="1473"/>
+    <Quality value="24" count="2272"/>
+    <Quality value="25" count="3567"/>
+    <Quality value="26" count="2347"/>
+    <Quality value="27" count="6608"/>
+    <Quality value="28" count="3334"/>
+    <Quality value="29" count="2134"/>
+    <Quality value="30" count="2044"/>
+    <Quality value="31" count="3603"/>
+    <Quality value="32" count="1094"/>
+    <Quality value="33" count="66"/>
+  </QualityCount>
+</Run>

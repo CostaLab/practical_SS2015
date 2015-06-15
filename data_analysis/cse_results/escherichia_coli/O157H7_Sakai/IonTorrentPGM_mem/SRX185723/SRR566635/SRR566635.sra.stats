@@ -1,0 +1,41 @@
+<Run accession="/home/fabio/ncbi/public/sra/SRR566635.sra" read_length="variable" spot_count="1883426" base_count="280885294" base_count_bio="273351590" spot_count_mates="0" base_count_bio_mates="0" spot_count_bad="0" base_count_bio_bad="0" spot_count_filtered="0" base_count_bio_filtered="0">
+  <Size value="676738918" units="bytes"/>
+  <Bases cs_native="false" count="280885294">
+    <Base value="A" count="67529532"/>
+    <Base value="C" count="78459026"/>
+    <Base value="G" count="74854578"/>
+    <Base value="T" count="60042158"/>
+    <Base value="N" count="0"/>
+  </Bases>
+  <Statistics nreads="2" nspots="1883426">
+    <Read index="0" count="1883426" average="4" stdev="0"/>
+    <Read index="1" count="1883426" average="145.14" stdev="15.01"/>
+  </Statistics>
+  <QualityCount>
+    <Quality value="5" count="2644372"/>
+    <Quality value="6" count="1628688"/>
+    <Quality value="7" count="5604913"/>
+    <Quality value="8" count="6880765"/>
+    <Quality value="9" count="1202883"/>
+    <Quality value="10" count="2932449"/>
+    <Quality value="11" count="2465589"/>
+    <Quality value="12" count="4713322"/>
+    <Quality value="13" count="6196355"/>
+    <Quality value="14" count="3862297"/>
+    <Quality value="15" count="4885448"/>
+    <Quality value="16" count="4803442"/>
+    <Quality value="17" count="6997186"/>
+    <Quality value="18" count="6982357"/>
+    <Quality value="19" count="6483121"/>
+    <Quality value="20" count="12002379"/>
+    <Quality value="21" count="6813165"/>
+    <Quality value="22" count="13481664"/>
+    <Quality value="23" count="10732865"/>
+    <Quality value="24" count="9685631"/>
+    <Quality value="25" count="23806043"/>
+    <Quality value="26" count="13088614"/>
+    <Quality value="27" count="20622395"/>
+    <Quality value="28" count="42437945"/>
+    <Quality value="29" count="59931406"/>
+  </QualityCount>
+</Run>

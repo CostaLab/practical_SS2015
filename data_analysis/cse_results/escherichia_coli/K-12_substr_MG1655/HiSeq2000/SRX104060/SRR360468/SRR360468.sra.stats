@@ -1,0 +1,56 @@
+<Run accession="SRR360468.sra" read_length="fixed" spot_count="5124866" base_count="994224004" base_count_bio="953225076" spot_count_mates="5124866" base_count_bio_mates="953225076" spot_count_bad="738898" base_count_bio_bad="137435028" spot_count_filtered="0" base_count_bio_filtered="0">
+  <Member member_name="tagged_800_TACTTAGC" spot_count="5124866" base_count="994224004" base_count_bio="953225076" spot_count_mates="5124866" base_count_bio_mates="953225076" spot_count_bad="738898" base_count_bio_bad="137435028" spot_count_filtered="0" base_count_bio_filtered="0"/>
+  <Size value="625826530" units="bytes"/>
+  <Bases cs_native="false" count="994224004">
+    <Base value="A" count="238748554"/>
+    <Base value="C" count="259105735"/>
+    <Base value="G" count="253994003"/>
+    <Base value="T" count="238170386"/>
+    <Base value="N" count="4205326"/>
+  </Bases>
+  <Statistics nreads="3" nspots="5124866">
+    <Read index="0" count="5124866" average="93" stdev="0"/>
+    <Read index="1" count="5124866" average="8" stdev="0"/>
+    <Read index="2" count="5124866" average="93" stdev="0"/>
+  </Statistics>
+  <QualityCount>
+    <Quality value="2" count="248519266"/>
+    <Quality value="4" count="188542"/>
+    <Quality value="5" count="252361"/>
+    <Quality value="6" count="544954"/>
+    <Quality value="7" count="685556"/>
+    <Quality value="8" count="757452"/>
+    <Quality value="9" count="932006"/>
+    <Quality value="10" count="1248368"/>
+    <Quality value="11" count="1603785"/>
+    <Quality value="12" count="1218206"/>
+    <Quality value="13" count="3609458"/>
+    <Quality value="14" count="1682005"/>
+    <Quality value="15" count="1540141"/>
+    <Quality value="16" count="1902789"/>
+    <Quality value="17" count="2207380"/>
+    <Quality value="18" count="2683759"/>
+    <Quality value="19" count="3365132"/>
+    <Quality value="20" count="5376174"/>
+    <Quality value="21" count="4877619"/>
+    <Quality value="22" count="4803443"/>
+    <Quality value="23" count="5053916"/>
+    <Quality value="24" count="6192296"/>
+    <Quality value="25" count="7691707"/>
+    <Quality value="26" count="7696023"/>
+    <Quality value="27" count="10961819"/>
+    <Quality value="28" count="10323707"/>
+    <Quality value="29" count="12968163"/>
+    <Quality value="30" count="16221882"/>
+    <Quality value="31" count="20999566"/>
+    <Quality value="32" count="18166124"/>
+    <Quality value="33" count="32369783"/>
+    <Quality value="34" count="27838372"/>
+    <Quality value="35" count="45474224"/>
+    <Quality value="36" count="65154711"/>
+    <Quality value="37" count="83607967"/>
+    <Quality value="38" count="65479927"/>
+    <Quality value="39" count="268951698"/>
+    <Quality value="40" count="1073723"/>
+  </QualityCount>
+</Run>

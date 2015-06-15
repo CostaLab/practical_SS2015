@@ -1,0 +1,60 @@
+<Run accession="SRR522874.sra" read_length="variable" spot_count="3" base_count="325" base_count_bio="180" spot_count_mates="3" base_count_bio_mates="180" spot_count_bad="0" base_count_bio_bad="0" spot_count_filtered="0" base_count_bio_filtered="0">
+  <Size value="39216" units="bytes"/>
+  <Bases cs_native="false" count="325">
+    <Base value="A" count="85"/>
+    <Base value="C" count="73"/>
+    <Base value="G" count="92"/>
+    <Base value="T" count="75"/>
+    <Base value="N" count="0"/>
+  </Bases>
+  <Statistics nreads="4" nspots="3">
+    <Read index="0" count="3" average="4" stdev="0"/>
+    <Read index="1" count="3" average="20.33" stdev="0.47"/>
+    <Read index="2" count="3" average="44.33" stdev="0.47"/>
+    <Read index="3" count="3" average="39.67" stdev="0.47"/>
+  </Statistics>
+  <QualityCount>
+    <Quality value="1" count="1"/>
+    <Quality value="2" count="1"/>
+    <Quality value="3" count="1"/>
+    <Quality value="4" count="1"/>
+    <Quality value="11" count="2"/>
+    <Quality value="12" count="2"/>
+    <Quality value="13" count="2"/>
+    <Quality value="14" count="5"/>
+    <Quality value="15" count="6"/>
+    <Quality value="16" count="9"/>
+    <Quality value="17" count="2"/>
+    <Quality value="19" count="4"/>
+    <Quality value="20" count="4"/>
+    <Quality value="21" count="6"/>
+    <Quality value="22" count="21"/>
+    <Quality value="23" count="25"/>
+    <Quality value="24" count="1"/>
+    <Quality value="25" count="2"/>
+    <Quality value="27" count="1"/>
+    <Quality value="28" count="8"/>
+    <Quality value="29" count="8"/>
+    <Quality value="30" count="12"/>
+    <Quality value="31" count="37"/>
+    <Quality value="32" count="30"/>
+    <Quality value="33" count="33"/>
+    <Quality value="34" count="17"/>
+    <Quality value="38" count="1"/>
+    <Quality value="40" count="3"/>
+    <Quality value="41" count="1"/>
+    <Quality value="42" count="17"/>
+    <Quality value="43" count="2"/>
+    <Quality value="44" count="15"/>
+    <Quality value="45" count="20"/>
+    <Quality value="50" count="1"/>
+    <Quality value="51" count="1"/>
+    <Quality value="53" count="3"/>
+    <Quality value="54" count="1"/>
+    <Quality value="55" count="3"/>
+    <Quality value="56" count="6"/>
+    <Quality value="57" count="7"/>
+    <Quality value="58" count="1"/>
+    <Quality value="60" count="2"/>
+  </QualityCount>
+</Run>
