@@ -22,11 +22,11 @@
 | Ion Torrent PGM           | ERX137392     | ERR161542 | 10.5467 |    38859 |           0 |  1954645 | 14-1199 | N       |   131 |
 | Ion Torrent PGM           | ERX137393     | ERR161543 | 8.53941 |    39214 |           0 |  1920350 | 14-1585 | N       |    43 |
 | Ion Torrent PGM           | consensus     | *         | 33.7624 |   277855 |           0 |  8850881 | 14-1803 | N       |   393 |
-| Ion Torrent PGM (mem)     | ERX137388     | ERR161538 | 57.3193 |  1603683 |           0 |   266311 |         | N       |   260 |
-| Ion Torrent PGM (mem)     | ERX137389     | ERR161539 | 58.5595 |  1490743 |           0 |   248909 |         | N       |   241 |
-| Ion Torrent PGM (mem)     | ERX137390     | ERR161540 | 59.4977 |  1616331 |           0 |   298028 |         | N       |   223 |
-| Ion Torrent PGM (mem)     | ERX137392     | ERR161542 | 60.6072 |  1852112 |           0 |   309952 |         | N       |   290 |
-| Ion Torrent PGM (mem)     | ERX137393     | ERR161543 | 81.7496 |  1794370 |           0 |   303234 |         | N       |   343 |
+| Ion Torrent PGM (mem)     | ERX137388     | ERR161538 | 57.3193 |  1603683 |           0 |   266311 | 14-1803 | N       |   260 |
+| Ion Torrent PGM (mem)     | ERX137389     | ERR161539 | 58.5595 |  1490743 |           0 |   248909 | 14-615  | N       |   241 |
+| Ion Torrent PGM (mem)     | ERX137390     | ERR161540 | 59.4977 |  1616331 |           0 |   298028 | 14-992  | N       |   223 |
+| Ion Torrent PGM (mem)     | ERX137392     | ERR161542 | 60.6072 |  1852112 |           0 |   309952 | 14-1199 | N       |   290 |
+| Ion Torrent PGM (mem)     | ERX137393     | ERR161543 | 81.7496 |  1794370 |           0 |   303234 | 14-1585 | N       |   343 |
 | Ion Torrent PGM (mem)     | consensus     | *         | 84.4491 | 45060791 |           0 |  7132295 | 14-1803 | N       | 10439 |
 | PacBio RS                 | consensus     | *         | 86.9751 |    68493 |           0 |    94023 | 1-3344  | N       |   169 |
 | 454 GS FLX Titanium       | consensus     | *         | 63.7536 |   588081 |           2 |  1542896 | 1-1196  | N       |  1186 |
