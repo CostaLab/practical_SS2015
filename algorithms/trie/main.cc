@@ -28,6 +28,8 @@ void readVocabulary(const string &file, Dict &voc) {
     unsigned pos;
 
     if (myfile.is_open()) {
+	    cout << "Loading file: " << file << endl;
+
         while(getline (myfile,line) && (cnt++ < N || N == -1))  {
             pos = 0;
             while (pos < line.length()) {
@@ -35,6 +37,9 @@ void readVocabulary(const string &file, Dict &voc) {
                 voc.insert(word);
             }
         }
+
+        cout << "\t-> Words loaded: " << cnt << endl;
+
         myfile.close();
     }
     else {
@@ -91,13 +96,21 @@ int main (int argc, char *argv[]) {
 
     // now we have the common words for all files,
     // let's write them to file
+
+    cout << "Writing common words to file: " << argv[argc-1] << endl;
+
     ofstream outfile (argv[argc-1]);
 
+    int i = 0;
     for (auto word : common)
     {
         outfile << word;
         outfile << std::endl;
+
+        i++;
     }
+
+    cout << "\t-> Words written: " << i << endl;
 
     return 0;
 }
