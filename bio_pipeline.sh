@@ -93,6 +93,10 @@ do
             MEM=true
             BWAOPT=${BWAOPT}" -x pacbio"
             ;;
+        -mem-ont2d|--use-bwa-mem-for-oxford-nanopore)
+            MEM=true
+            BWAOPT=${BWAOPT}" -x ont2d"
+            ;;
         -sw|--use-bwa-sw)
             SW=true
             ;;
