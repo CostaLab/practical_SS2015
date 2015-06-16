@@ -46,6 +46,7 @@ JOIN_FASTQ=false
 MINQ="0"
 SRANOCHECK=false
 LOG="output.log"
+SKIP_FASTQC=false
 
 if [ $# == 0 ]
 then
@@ -121,6 +122,9 @@ do
             MINQ="$2"
             shift
             ;;
+	-skip-fastqc)
+	    SKIP_FASTQC=true
+	    ;;
         *)
             # unknown option
             echo "## Unknown option: $key" | tee -a $LOG
@@ -307,9 +311,12 @@ echo -e "\nidxstats:"                   | tee -a ${READS}.bam.stats $LOG
 echo -e "Chr\tlength\tmapped\tunmapped" | tee -a ${READS}.bam.stats $LOG
 samtools idxstats ${READS}.bam         |& tee -a ${READS}.bam.stats $LOG
 
-# generate other statistics
-echo "## Running fastqc for web-based statistics" | tee -a $LOG
-fastqc ${READS}.bam |& tee -a $LOG
+if [ $SKIP_FASTQC == false ]
+then
+    # generate other statistics
+    echo "## Running fastqc for web-based statistics" | tee -a $LOG
+    fastqc ${READS}.bam |& tee -a $LOG
+fi
 
 # SNP calling
 echo "## SNP calling with GATK" | tee -a $LOG
