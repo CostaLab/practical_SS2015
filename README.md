@@ -1,9 +1,9 @@
 # costalab
 Bioinformatics Lab RWTH Aachen SS '15
 
-# Running alignments
+# Align, statistics, SNP calling
 
-The script bio_pipeline.sh allows an easy and almost-painless alignment procedure.
+The script bio_pipeline.sh allows an easy and almost-painless alignment procedure, as well as statistics generation and finally SNP calling via GATK.
 
 At the very least, it requires two files:
 
