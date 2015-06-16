@@ -10,6 +10,10 @@ At the very least, it requires two files:
  * a FASTA reference genome (option -ref) (this MUST be in the current directory)
  * a SRA reads file (option -sra) (this can be in any directory, or even "fake" with option -sra-nocheck)
 
+```
+bio_pipeline.sh -ref sequence.fasta -sra reads.sra
+```
+
 Without other options, the script will:
 
  * assume the organism is haploid (ie, only has one set of chromosomes)
@@ -21,14 +25,63 @@ Without other options, the script will:
  * generate plenty of statistics for the final BAM file
  * run GATK SNP calling and print the final number of SNPs
 
+Note: the name of the SRA file determines the prefix for the fastq files, the vcf file and so on.
+
 All the files are kept: it is up to you to delete the temporary files, or the unnecessary ones. A log is generated to output.log, containing both the stdout and stderr produced during the execution of bio_pipeline.sh.
+
+The bare command presented above is OK for Illumina short-reads, either paired or single ends.
 
 Among the options, some are notable:
 
  * -mem: use bwa-mem instead of backtrack (very important for Ion Torrent, 454)
  * -mem-pacbio: a special option for PacBio, instead of the previous one (adds "-x pacbio" to the bwa mem options)
- * -dbq 0: in the (rare) case that some reads have missing qualities for certain bases, default the quality to 0
- * -nofix: GATK will complain and terminate if some reads' mapping quality is over ~60. This option will let GATK keep going.
+ * -mem-ont2d: a special option for Oxford Nanopore reads (it simply adds "-x ont2d" to the bwa mem options)
+ * -dbq 0: in the (rare) case that some reads have missing qualities for certain bases, default the quality of the missing bases to 0 instead of ditching the read. Might be useful for 454 reads
+ * -nofix: GATK will complain and terminate if some reads' mapping quality is over ~60. This option will let GATK keep going. It is advised that you first check if GATK was right to complain (eg, the quality encoding is non-standard)
+
+## Examples
+
+### Remove technical reads
+
+Many SRA files contain multiple sequences, all dumped when using ```fastq-dump --split-files reads.sra```. The cases we have experienced are:
+
+1. 4 files: it means reads_1.fastq is technical, reads_2.fastq is not technical, reads_3.fastq is technical, reads_4.fastq is not technical. The first and third file must be removed, the second and fourth must be used in a paired-end alignment
+2. 3 files: it means reads_1.fastq is not technical, reads_2.fastq is technical, reads_3.fastq is not technical. The second file must be removed and the other two be used in a paired end alignment
+3. 2 files: either they are both non technical, or reads_1.fastq is technical while reads_2.fastq is not. In the first case, both must be used in paired end alignment. In the second case, reads_1.fastq must be removed and reads_2.fastq be used in a single-end alignment
+
+Case 1 and 2 are automatically handled. Case 3, by default, assume the two reads are biological reads and use them in a paired-end alignment. However, if we use the option -fs, it will remove reads_1.fastq and rename reads_2.fastq into reads.fastq, then using it in a single-end alignment.
+
+```
+bio_pipeline.sh -ref sequence.fasta -sra reads.sra -fs
+# the only fastq file present here is reads.fastq
+```
+
+### FASTQ files already present
+
+Suppose you are directly using fastq files instead of SRA files. What you want is to skip the SRA file check or the script won't run. *You need to always have either one fastq or two fastq files, never less or more*.
+
+```
+bio_pipeline.sh -ref sequence.fasta -sra reads.sra -sra-nocheck
+```
+
+Note how you still need to specify the sra file name. This is used to extract the prefix (in this case, "reads") so as to fetch the correct fastq files.
+
+```
+# The above command will look, at least, for:
+reads_1.fastq
+# If the following is also present, it will proceed with
+# a paired-end alignment. Otherwise, it will only use the first
+# and proceed to single-end alignment
+reads_2.fastq
+```
+
+If you have single-end fastq files in the more compact format "reads.fastq", you just need to add the option -fs.
+
+```
+bio_pipeline.sh -ref sequence.fasta -sra reads.sra -sra-nocheck -fs
+```
+
+This will look for reads.fastq and, if found, proceed with a single-end alignment.
 
 # Discovering Context-Specific Sequencing Errors
 
