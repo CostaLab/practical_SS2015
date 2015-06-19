@@ -36,7 +36,7 @@ unset SRA
 
 # defaults
 PLOIDY=1
-GATKOPT=""
+GATKOPT="-filterNoBases -rf BadCigar"
 GATKOPT2=""
 MEM=false
 SW=false
@@ -82,10 +82,10 @@ do
             SRANOCHECK=true
             ;;
         -fix|--fix-qualities)
-            GATKOPT="--fix_misencoded_quality_scores"
+            GATKOPT=${GATKOPT}" --fix_misencoded_quality_scores"
             ;;
         -nofix|--allow-bad-qualities)
-            GATKOPT="--allow_potentially_misencoded_quality_scores"
+            GATKOPT=${GATKOPT}" --allow_potentially_misencoded_quality_scores"
             ;;
         -mem|--use-bwa-mem)
             MEM=true
@@ -320,6 +320,6 @@ fi
 
 # SNP calling
 echo "## SNP calling with GATK" | tee -a $LOG
-gatk -ploidy $PLOIDY -I ${READS}.bam -R $FASTA -T UnifiedGenotyper -o ${READS}-snps.vcf -rf BadCigar $GATKOPT |& tee -a $LOG || exit 1
+gatk -ploidy $PLOIDY -I ${READS}.bam -R $FASTA -T UnifiedGenotyper -o ${READS}-snps.vcf $GATKOPT |& tee -a $LOG || exit 1
 
 echo "SNPs found: "`egrep -c "^[^#]" *.vcf` |& tee -a $LOG
