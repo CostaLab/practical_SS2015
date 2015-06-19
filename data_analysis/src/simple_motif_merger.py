@@ -1,12 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function
+
 import sys
 import itertools
 import scipy.stats as sps
 import scipy.misc as sc
 import numpy as np
 import rpy2.robjects as robjects
+import math
 
 def load_file(filename):
     d = {}
@@ -19,8 +22,7 @@ def load_file(filename):
             fields = line.split()
 
             motif = fields[0]
-            occ   = [int(fields[1])]
-            opts  = occ + [float(x) for x in fields[2:6]]
+            opts  = [int(x) for x in fields[1:6]]
 
             # accumulate tables of same motif (there shouldn't be any here,
             # unless the file was a naive merge of multiple results files)
@@ -53,7 +55,7 @@ def get_motifspace_size(q,n):
     
 def get_pvalue(fm, rm, fmm, rmm):
     """Return p-value of given Strand Bias Table"""
-        #decide whether Fisher's exact Test or ChiSq-Test should be used
+    #decide whether Fisher's exact Test or ChiSq-Test should be used
     limit = 5000
     if (fm > limit or rm > limit or fmm > limit or rmm > limit):
         #for correct chi squared test
@@ -65,7 +67,7 @@ def get_pvalue(fm, rm, fmm, rmm):
                 return p_value
             except ValueError:
                 print("Chi calculation error. fm, rm, fmm, rmm: ",str(fm), str(rm),
-                        str(fmm),str(rmm))
+                        str(fmm),str(rmm), file=sys.stderr)
                 exit(-1)
         else:
             return 1.0
@@ -78,22 +80,61 @@ def get_pvalue(fm, rm, fmm, rmm):
 
     return p_value
 
+def output(results):
+    """Output the results"""
+    print("#Sequence", "Occurrence", "Forward Match", "Backward Match", "Forward Mismatch",
+          "Backward Mismatch", "Strand Bias Score", "FER (Forward Error Rate)",
+          "RER (Reverse Error Rate), ERD (Error rate Difference)", sep = '\t')
+    
+    for seq, occ, forward_match, reverse_match, forward_mismatch, reverse_mismatch, sb_score, fer, rer, erd in results:
+        print(seq, occ, forward_match, reverse_match, forward_mismatch, reverse_mismatch, sb_score, fer, rer, erd, sep = '\t')
+
 if __name__ == '__main__':
-    if len(sys.argv) < 3:
-        print sys.argv[0], "file1 file2 .. fileN"
+    if len(sys.argv) < 5:
+        print(sys.argv[0], "q n file1 file2 .. fileN")
         exit(-1)
 
-    list_of_dicts = [load_file(f) for f in sys.argv[1:]]
+    q = int(sys.argv[1])
+    n = int(sys.argv[2])
 
-    for l in list_of_dicts:
-        print len(l)
+    list_of_dicts = [load_file(f) for f in sys.argv[3:]]
 
     d = merge_dicts(list_of_dicts[1:], list_of_dicts[0])
 
-    print len(d)
+    # FIXME: is this correct? Or are, now, the "hypothesis"
+    # as many as the files (as opposed to the search space)?
+    bnf = 0.05 / get_motifspace_size(q, n)
 
-    # reculate scores
-    # TODO
+    print("Bonferroni threshold:", bnf, file=sys.stderr)
 
-    for motif,fields in d.iteritems():
+    results = []
+    for motif, fields in d.iteritems():
+        occ, fm, rm, fmm, rmm = fields[0:5]
+
+        pv = get_pvalue(fm, rm, fmm, rmm)
         
+        #compute negative logarithm (base 10) of p-value or, if necessary, set to maxint
+        sbs = sys.maxint if pv < 1/10.0**300 else -math.log10(pv)
+
+        fer = float(fmm) / (fm + fmm) #forward error rate
+        rer = float(rmm) / (rm + rmm) #reverse error rate
+        erd = fer - rer #error rate difference
+
+        # Bonferroni correction
+        if pv > bnf:
+            print("Pvalue too high:", motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd, file=sys.stderr, sep='\t')
+            continue
+
+        # background error rate correction
+        if rer >= 0.03:
+            print("RER too big:", motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd, file=sys.stderr, sep='\t')
+            continue
+
+        if erd < 0.05:
+            print("ERD too small:", motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd, file=sys.stderr, sep='\t')
+            continue
+
+        results.append((motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd)) 
+            
+    results.sort(key=lambda x: x[9],reverse=True) #sort by erd (error rate difference)
+    output(results)
