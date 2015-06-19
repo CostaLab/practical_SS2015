@@ -8,8 +8,13 @@
 using namespace std;
 int N = -1;
 
-// FIXME
-// we should extract only one word from a line, ie a specific field
+/**
+ * @brief Extracts the first whole word from a line, starting at position pos
+ * and using spaces/tabs as delimiters
+ * @param line a set of words, space or tab delimited
+ * @param pos the position in the line where to start looking for words
+ * @return the found word, or an empty string
+ */
 string getNextWord(const string &line, unsigned &pos) {
     string word = "";
     unsigned j;
@@ -20,21 +25,33 @@ string getNextWord(const string &line, unsigned &pos) {
     return word;
 }
 
+/**
+ * @brief Extracts the first whole word from a line, using spaces/tabs as delimiters
+ * @param line a set of words, space or tab delimited
+ * @return the found word, or an empty string
+ */
+string getNextWord(const string &line) {
+    unsigned pos = 0;
+    return getNextWord(line, pos);
+}
+
 void readVocabulary(const string &file, Dict &voc) {
     ifstream myfile (file);
     string line, word;
     int cnt = 0;
-    unsigned pos;
 
     if (myfile.is_open()) {
 	    cout << "Loading file: " << file << endl;
 
         while(getline (myfile,line) && (cnt++ < N || N == -1))  {
-            pos = 0;
-            while (pos < line.length()) {
-                word = getNextWord(line, pos);
-                voc.insert(word);
-            }
+            // skip comments
+            if (line[0] == '#')
+                continue;
+
+            // must extract the first whole word from the line
+            word = getNextWord(line);
+
+            voc.insert(word);
         }
 
         cout << "\t-> Words loaded: " << cnt << endl;
