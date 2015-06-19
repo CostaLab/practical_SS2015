@@ -1,6 +1,3 @@
-// FIXME We assume that the training / test data are sorted according 
-// to class names
-
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -11,6 +8,8 @@
 using namespace std;
 int N = -1;
 
+// FIXME
+// we should extract only one word from a line, ie a specific field
 string getNextWord(const string &line, unsigned &pos) {
     string word = "";
     unsigned j;
