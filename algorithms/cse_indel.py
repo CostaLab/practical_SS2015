@@ -575,7 +575,7 @@ def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05, s
             get_sb_score(qgram_ins_annotate),
             get_sb_score(qgram_del_annotate))
     print("Number of in-, del keys after all_results [should match!]: ",
-            len(all_results[0]),len(all_results[1]), len(all_results[2]))
+            len(all_results[1]),len(all_results[1]), len(all_results[2]), file=sys.stderr)
     #log indels
     log(all_results[1], "insertions", genome)
     log(all_results[2], "deletions", genome)
@@ -670,9 +670,9 @@ if __name__ == '__main__':
     file_indel_log  = options.log_indels
 
     if file_indel_log != "":
-        print("Warning! Dumping indel details will take a long time...")
+        print("Warning! Dumping indel details will take a long time...",file=sys.stderr)
 
     print("Searching position is motif[last + %s]" % options.position, file=sys.stderr) 
-    print("Searching position is motif[last + %s]" % options.position)
+    print("#Searching position is motif[last + %s]" % options.position)
     ident(genome, genome_annotate, q, n, options.alpha, options.epsilon, 
             options.delta, int(options.position))
