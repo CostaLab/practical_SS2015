@@ -1,0 +1,301 @@
+Sender: LSF System <lsfadmin@linuxbmc1134>
+Subject: Job 22498222[8]: <cse8q2n[7-14]> in cluster <rcc> Done
+
+Job <cse8q2n[7-14]> was submitted from host <cluster> by user <ft583445> in cluster <rcc>.
+Job was executed on host(s) <linuxbmc1134>, in queue <normal>, as user <ft583445> in cluster <rcc>.
+</home/ft583445> was used as the home directory.
+</home/ft583445/costalab/data_analysis/cse_results/plasmodium_falciparum/str_3D7/HiSeq2000/ERX118621/ERR142617> was used as the working directory.
+Started at Thu Jun 18 17:51:08 2015
+Results reported on Thu Jun 18 18:00:06 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh 
+ 
+### Job name
+#BSUB -J cse8q2n[7-14]
+ 
+### File / path where STDOUT & STDERR will be written
+### %J is the job ID, %I is the array ID
+#BSUB -o cse8q2n.log.%J.%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 3:0
+ 
+### Request memory you need for your job in TOTAL in MB
+#BSUB -M 15000
+ 
+### Change to the work directory
+C=$LSB_JOBINDEX
+cd /home/ft583445/costalab/data_analysis/cse_results/plasmodium_falciparum/str_3D7/HiSeq2000/ERX118621/ERR142617
+BIN=/home/ft583445/.local/bin/reference.py
+
+source /home/ft583445/.zshrc
+
+### Execute your application
+mkdir -p results/ch${C}
+$BIN ../../../*.fasta *.bam 8 2 -d 0 -c ch${C} > results/ch${C}/results_8-grams_2n.data
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   517.12 sec.
+    Max Memory :                                 2302 MB
+    Average Memory :                             1259.56 MB
+    Total Requested Memory :                     15000.00 MB
+    Delta Memory :                               12698.00 MB
+    Max Processes :                              5
+    Max Threads :                                6
+
+The output (if any) follows:
+
+(OK) Loading gcc 4.9.2
+(!!) in order to see the source code in actual debuggers, add to the compile line:
+(!!)    -g -gdwarf-2 
+#dbg Fallback is False
+Annotating (parsing) genome...
+1000000 reads considered for genome annotation 
+2000000 reads considered for genome annotation 
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TTTTTAGN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TTTTAGNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TTTAGNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TTAGNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TAGNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+AGNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+GNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNNG
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNNGT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNNGTT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNNGTTA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNNGTTAA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNGTTAAC
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NGTTAACA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TAAATTTN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+AAATTTNA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+AATTTNAA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ATTTNAAA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TTTNAAAA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TTNAAAAA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TNAAAAAA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NAAAAAAA
+#dbg offset is  1
+Warning: 115 q-grams of 1419441 contain other letters than A,C,G and T,             ignore these q-grams
+Start Strand Bias Score calculation
+Error? (null row/column in contingency table) causing qgram:  TCGTNGTT Table (fm, rm, fmm, rmm): 4673 5004 0 0
+Error? (null row/column in contingency table) causing qgram:  CGTTNCTT Table (fm, rm, fmm, rmm): 5911 5791 0 0
+Error? (null row/column in contingency table) causing qgram:  GGATTAAA Table (fm, rm, fmm, rmm): 5320 5354 0 0

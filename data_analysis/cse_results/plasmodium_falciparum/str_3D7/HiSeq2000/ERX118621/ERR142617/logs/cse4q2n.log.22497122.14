@@ -1,0 +1,344 @@
+Sender: LSF System <lsfadmin@linuxbmc0791>
+Subject: Job 22497122[14]: <cse4q2n[7-14]> in cluster <rcc> Done
+
+Job <cse4q2n[7-14]> was submitted from host <cluster> by user <ft583445> in cluster <rcc>.
+Job was executed on host(s) <linuxbmc0791>, in queue <normal>, as user <ft583445> in cluster <rcc>.
+</home/ft583445> was used as the home directory.
+</home/ft583445/costalab/data_analysis/cse_results/plasmodium_falciparum/str_3D7/HiSeq2000/ERX118621/ERR142617> was used as the working directory.
+Started at Thu Jun 18 17:44:19 2015
+Results reported on Thu Jun 18 17:53:37 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh 
+ 
+### Job name
+#BSUB -J cse4q2n[7-14]
+ 
+### File / path where STDOUT & STDERR will be written
+### %J is the job ID, %I is the array ID
+#BSUB -o cse4q2n.log.%J.%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 3:0
+ 
+### Request memory you need for your job in TOTAL in MB
+#BSUB -M 15000
+ 
+### Change to the work directory
+C=$LSB_JOBINDEX
+cd /home/ft583445/costalab/data_analysis/cse_results/plasmodium_falciparum/str_3D7/HiSeq2000/ERX118621/ERR142617
+BIN=/home/ft583445/.local/bin/reference.py
+
+source /home/ft583445/.zshrc
+
+### Execute your application
+mkdir -p results/ch${C}
+$BIN ../../../*.fasta *.bam 4 2 -d 0 -c ch${C} > results/ch${C}/results_4-grams_2n.data
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   553.65 sec.
+    Max Memory :                                 2274 MB
+    Average Memory :                             1912.22 MB
+    Total Requested Memory :                     15000.00 MB
+    Delta Memory :                               12726.00 MB
+    Max Processes :                              5
+    Max Threads :                                6
+
+The output (if any) follows:
+
+(OK) Loading gcc 4.9.2
+(!!) in order to see the source code in actual debuggers, add to the compile line:
+(!!)    -g -gdwarf-2 
+#dbg Fallback is False
+Annotating (parsing) genome...
+1000000 reads considered for genome annotation 
+2000000 reads considered for genome annotation 
+3000000 reads considered for genome annotation 
+4000000 reads considered for genome annotation 
+5000000 reads considered for genome annotation 
+6000000 reads considered for genome annotation 
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TTTN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TTNA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TNAT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NATT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TTAN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TANA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ANAT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NATN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ATNA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TNAA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NAAT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TAAN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+AANA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ANAT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NATC
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TTGN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TGNA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+GNAA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NAAT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TAAN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+AANA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ANAT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NATA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TATN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ATNT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TNTA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NTAT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TCTN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+CTNG
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TNGA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NGAA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TGTN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+GTNC
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TNCC
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NCCA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ATTN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TTNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TNNA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNAT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NATT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+AAGN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+AGNG
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+GNGG
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NGGA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TACN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ACNN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+CNNT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NNTA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NTAT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TAAN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+AANT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ANTC
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NTCT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ATTN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TTNC
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TNCC
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NCCC
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+CCCN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+CCNA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+CNAC
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NACA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+GGGN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+GGNA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+GNAA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NAAA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TATN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ATNT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TNTA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NTAA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TAAN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+AANG
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ANGT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NGTC
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ACAN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+CANT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ANTT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NTTT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TGGN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+GGNT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+GNTA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NTAA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+CATN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ATNT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TNTA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NTAC
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+AAAN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+AANA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ANAT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NATT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+AAAN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+AANA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ANAA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NAAC
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ATTN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TTNT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TNTC
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NTCN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TCNG
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+CNGA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NGAA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+GGGN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+GGNA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+GNAN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NANA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ANAA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NAAT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+GTTN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TTNC
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TNCA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NCAG
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TTAN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TANG
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ANGT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NGTA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+GTAN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TANA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ANAT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NATT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+AAAN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+AANA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ANAA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NAAA
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TTGN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TGNG
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+GNGG
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NGGT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ATGN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TGNG
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+GNGN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NGNT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+GNTT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NTTG
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+AATN
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+ATNG
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+TNGT
+Warning: q-gram contains other letters than A,C,G and T, ignore q-gram
+NGTA
+#dbg offset is  1
+Warning: 136 q-grams of 3291732 contain other letters than A,C,G and T,             ignore these q-grams
+Start Strand Bias Score calculation

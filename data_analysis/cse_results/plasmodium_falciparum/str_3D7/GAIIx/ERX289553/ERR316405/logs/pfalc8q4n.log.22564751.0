@@ -1,0 +1,64 @@
+Sender: LSF System <lsfadmin@linuxscc105>
+Subject: Job 22564751: <pfalc8q4n> in cluster <rcc> Done
+
+Job <pfalc8q4n> was submitted from host <cluster> by user <ft583445> in cluster <rcc>.
+Job was executed on host(s) <linuxscc105>, in queue <normal>, as user <ft583445> in cluster <rcc>.
+</home/ft583445> was used as the home directory.
+</home/ft583445/costalab/data_analysis/cse_results/plasmodium_falciparum/str_3D7/GAIIx/ERX289553/ERR316405> was used as the working directory.
+Started at Sun Jun 21 15:33:44 2015
+Results reported on Sun Jun 21 15:40:52 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+### Job name
+#BSUB -J pfalc8q4n
+ 
+### File / path where STDOUT & STDERR will be written
+### %J is the job ID, %I is the array ID
+#BSUB -o pfalc8q4n.log.%J.%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 2:0
+ 
+### Request memory you need for your job in TOTAL in MB
+#BSUB -M 15000
+ 
+### Change to the work directory
+C=$LSB_JOBINDEX
+cd /home/ft583445/costalab/data_analysis/cse_results/plasmodium_falciparum/str_3D7/GAIIx/ERX289553/ERR316405
+
+source /home/ft583445/.zshrc
+
+### Execute your application
+/home/ft583445/.local/bin/reference.py ../../../complete.fasta ERR316405.bam 8 4 -d 0 -c ch3 -s genome_ch3.pickle > results/ch3/results_8-grams_4n.data
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   396.56 sec.
+    Max Memory :                                 637 MB
+    Average Memory :                             470.38 MB
+    Total Requested Memory :                     15000.00 MB
+    Delta Memory :                               14363.00 MB
+    Max Processes :                              5
+    Max Threads :                                6
+
+The output (if any) follows:
+
+(OK) Loading gcc 4.9.2
+(!!) in order to see the source code in actual debuggers, add to the compile line:
+(!!)    -g -gdwarf-2 
+#dbg Fallback is False
+Annotating (parsing) genome...
+Dumping serialized object in 3 seconds...
+#dbg offset is  1
+Warning: 0 q-grams of 1060080 contain other letters than A,C,G and T,             ignore these q-grams
+Start Strand Bias Score calculation

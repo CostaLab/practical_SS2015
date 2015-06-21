@@ -1,0 +1,87 @@
+Sender: LSF System <lsfadmin@linuxbmc0142>
+Subject: Job 22498292[9]: <cse10q2n[7-14]> in cluster <rcc> Done
+
+Job <cse10q2n[7-14]> was submitted from host <cluster> by user <ft583445> in cluster <rcc>.
+Job was executed on host(s) <linuxbmc0142>, in queue <normal>, as user <ft583445> in cluster <rcc>.
+</home/ft583445> was used as the home directory.
+</home/ft583445/costalab/data_analysis/cse_results/plasmodium_falciparum/str_3D7/HiSeq2000/ERX118621/ERR142617> was used as the working directory.
+Started at Thu Jun 18 17:54:14 2015
+Results reported on Thu Jun 18 19:50:34 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh 
+ 
+### Job name
+#BSUB -J cse10q2n[7-14]
+ 
+### File / path where STDOUT & STDERR will be written
+### %J is the job ID, %I is the array ID
+#BSUB -o cse10q2n.log.%J.%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 3:0
+ 
+### Request memory you need for your job in TOTAL in MB
+#BSUB -M 15000
+ 
+### Change to the work directory
+C=$LSB_JOBINDEX
+cd /home/ft583445/costalab/data_analysis/cse_results/plasmodium_falciparum/str_3D7/HiSeq2000/ERX118621/ERR142617
+BIN=/home/ft583445/.local/bin/reference.py
+
+source /home/ft583445/.zshrc
+
+### Execute your application
+mkdir -p results/ch${C}
+$BIN ../../../*.fasta *.bam 10 2 -d 0 -c ch${C} > results/ch${C}/results_10-grams_2n.data
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   7024.57 sec.
+    Max Memory :                                 4299 MB
+    Average Memory :                             3742.73 MB
+    Total Requested Memory :                     15000.00 MB
+    Delta Memory :                               10701.00 MB
+    Max Processes :                              5
+    Max Threads :                                6
+
+The output (if any) follows:
+
+(OK) Loading gcc 4.9.2
+(!!) in order to see the source code in actual debuggers, add to the compile line:
+(!!)    -g -gdwarf-2 
+#dbg Fallback is False
+Annotating (parsing) genome...
+1000000 reads considered for genome annotation 
+2000000 reads considered for genome annotation 
+#dbg offset is  1
+Warning: 0 q-grams of 1541714 contain other letters than A,C,G and T,             ignore these q-grams
+Start Strand Bias Score calculation
+Error? (null row/column in contingency table) causing qgram:  TCCTTCNTTT Table (fm, rm, fmm, rmm): 5851 6104 0 0
+Error? (null row/column in contingency table) causing qgram:  TCCTNCTTTT Table (fm, rm, fmm, rmm): 5124 5337 0 0
+Error? (null row/column in contingency table) causing qgram:  TTCCTCNTTT Table (fm, rm, fmm, rmm): 5224 5249 0 0
+ 1000000 / 4839992 Strand Bias Scores calculated
+Error? (null row/column in contingency table) causing qgram:  AGACANAAAA Table (fm, rm, fmm, rmm): 5194 5023 0 0
+Error? (null row/column in contingency table) causing qgram:  TGGANTTTTT Table (fm, rm, fmm, rmm): 4509 5067 0 0
+Error? (null row/column in contingency table) causing qgram:  GTAACTANTA Table (fm, rm, fmm, rmm): 5356 5570 0 0
+Error? (null row/column in contingency table) causing qgram:  TTCCTCNNTT Table (fm, rm, fmm, rmm): 6712 7009 0 0
+ 2000000 / 4839992 Strand Bias Scores calculated
+Error? (null row/column in contingency table) causing qgram:  TGAAATATTT Table (fm, rm, fmm, rmm): 5235 5130 0 0
+Error? (null row/column in contingency table) causing qgram:  NCCTTCTTTT Table (fm, rm, fmm, rmm): 4914 5287 0 0
+Error? (null row/column in contingency table) causing qgram:  TCATCNATTT Table (fm, rm, fmm, rmm): 5454 5634 0 0
+Error? (null row/column in contingency table) causing qgram:  TCTGANNTTT Table (fm, rm, fmm, rmm): 5694 5822 0 0
+ 3000000 / 4839992 Strand Bias Scores calculated
+Error? (null row/column in contingency table) causing qgram:  TNTCTNGAAA Table (fm, rm, fmm, rmm): 7060 6915 0 0
+ 4000000 / 4839992 Strand Bias Scores calculated
+Error? (null row/column in contingency table) causing qgram:  TAGATCNTAA Table (fm, rm, fmm, rmm): 5296 5051 0 0
+Error? (null row/column in contingency table) causing qgram:  CTTCTTANTT Table (fm, rm, fmm, rmm): 5376 5274 0 0
+Error? (null row/column in contingency table) causing qgram:  GTGTNTATTT Table (fm, rm, fmm, rmm): 5525 5319 0 0
