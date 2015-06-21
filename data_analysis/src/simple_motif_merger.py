@@ -15,7 +15,7 @@ def load_file(filename):
     d = {}
     with open(filename) as f:
         for line in f:
-            if line[0] == '#':
+            if line[0] == '#' or line[0] == ' ':
                 continue
 
             # Motif, Occurrences, FM, BM, FMM, BMM, SBS, FER, RER, ERD

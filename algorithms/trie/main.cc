@@ -44,8 +44,9 @@ void readVocabulary(const string &file, Dict &voc) {
 	    cout << "Loading file: " << file << endl;
 
         while(getline (myfile,line) && (cnt++ < N || N == -1))  {
-            // skip comments
-            if (line[0] == '#')
+            // skip comments and lines starting with space,
+            // as they will be in most data files
+            if (line[0] == '#' || line[0] == ' ')
                 continue;
 
             // must extract the first whole word from the line
