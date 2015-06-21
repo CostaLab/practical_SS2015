@@ -160,13 +160,13 @@ def get_annotate_qgram(genome, genome_annotate, q, search_pos):
                 result = _add_listelements(result, qgram_ins_first[qgram_rev])
                 qgram_ins_annotate[qgram] = result
             except KeyError:
-                print("Key error for reverse qgram ", qgram_rev, "for insert annotation")
+                print("Key error for reverse qgram ", qgram_rev, "for insert annotation", file=sys.stderr)
             try: #deletions
                 result = qgram_del_annotate[qgram][:]
                 result = _add_listelements(result, qgram_del_first[qgram_rev])
                 qgram_del_annotate[qgram] = result
             except KeyError:
-                print("Key error for reverse qgram ", qgram_rev, "for deletion annotation")
+                print("Key error for reverse qgram ", qgram_rev, "for deletion annotation", file=sys.stderr)
         else:
             qgram_annotate[qgram]     = qgram_first[qgram_rev]
             qgram_ins_annotate[qgram] = qgram_ins_first[qgram_rev]
@@ -203,7 +203,7 @@ def get_pvalue(fm, rm, fmm, rmm):
                 return p_value
             except ValueError:
                 print("Chi calculation error. fm, rm, fmm, rmm: ",str(fm), str(rm),
-                        str(fmm),str(rmm))
+                        str(fmm),str(rmm), file=sys.stderr)
                 exit(-1)
         else:
             return 1.0
@@ -326,22 +326,22 @@ def get_annotate_genome(genome, bampath, learn_chrom):
                             if bias != 0 or current_pos_ref != 0: 
                                 r_ins_mm[pos+1] -= 1 
                         except OverflowError:
-                            print("Overflow. rev DEtails below")
-                            print(str(pos),str(r_ins_mm[pos-1]), str(r_ins_mm[pos+1]), str(r_ins_mm[pos]))
-                            print(read.cigar)
+                            print("Overflow. rev DEtails below", file=sys.stderr)
+                            print(str(pos),str(r_ins_mm[pos-1]), str(r_ins_mm[pos+1]), str(r_ins_mm[pos]), file=sys.stderr)
+                            print(read.cigar, file=sys.stderr)
                             exit(0)
                     else:
                         pos = ref_pos + bias + current_pos_ref
                         f_ins_m[pos]    += 1
                         if pos == 100391:
-                            print("Cigar fwd I: ", read.cigar) 
+                            print("Cigar fwd I: ", read.cigar, file=sys.stderr) 
                         try:
                             if bias != 0 or current_pos_ref != 0: 
                                 f_ins_mm[pos+1] -= 1
                         except OverflowError:
-                            print("Overflow. DEtails below")
-                            print(str(pos), str(f_ins_mm[pos]), str(f_ins_mm[pos]))
-                            print(read.cigar)
+                            print("Overflow. DEtails below", file=sys.stderr)
+                            print(str(pos), str(f_ins_mm[pos]), str(f_ins_mm[pos]), file=sys.stderr)
+                            print(read.cigar, file=sys.stderr)
                             exit(0)
                     current_pos_read += length #manuel
 
@@ -361,22 +361,22 @@ def get_annotate_genome(genome, bampath, learn_chrom):
                     print(code, length, file=sys.stderr)
     
     if DEBUG_ASSERTIONS:
-        print("Starting debug assertions...")
+        print("Starting debug assertions...", file=sys.stderr)
         for i in range(len_genome):
             if (f_ins_m[i] <= 0 and f_ins_mm[i] <= 0) or (r_ins_m[i] <= 0 and r_ins_mm[i] <= 0):
                 print("Assertion INSERTION failed: match = mismatch = 0. Genome pos:",str(i),
                         "(f_ins_m, f_ins_mm, r_ins_m, r_ins_mm): ",
-                        str(f_ins_m[i]),str(f_ins_mm[i]),str(r_ins_m[i]),str(r_ins_mm[i]))
+                        str(f_ins_m[i]),str(f_ins_mm[i]),str(r_ins_m[i]),str(r_ins_mm[i]), file=sys.stderr)
 
             if (f_del_m[i] <= 0 and f_del_mm[i] <= 0) or (r_del_m[i] <= 0 and r_del_mm[i] <= 0):
                 print("Assertion DELETION failed: match = mismatch = 0. Genome pos:",str(i),
                         "(f_del_m, f_del_mm, r_del_m, r_del_mm): ",
-                        str(f_del_m[i]),str(f_del_mm[i]),str(r_del_m[i]),str(r_del_mm[i]))
+                        str(f_del_m[i]),str(f_del_mm[i]),str(r_del_m[i]),str(r_del_mm[i]), file=sys.stderr)
 
             if (fm[i] == 0 and fmm[i] == 0) or (rm[i] == 0 and rmm[i] == 0):
                 print("Assertion SNP (original fm, fmm, rm, rmm) failed: match = mismatch = 0. Genome pos:",str(i),
-                        "(fm, fmm, rm, rmm): ", str(fm[i]),str(fmm[i]),str(rm[i]),str(rmm[i]))
-        #print("All debug assertions passed!")
+                        "(fm, fmm, rm, rmm): ", str(fm[i]),str(fmm[i]),str(rm[i]),str(rmm[i]), file=sys.stderr)
+        #print("All debug assertions passed!", file=sys.stderr)
         #exit(-1)
 
     return (fm, rm, fmm, rmm, 
@@ -484,7 +484,7 @@ def get_sb_score(qgram_annotate):
     for k in qgram_annotate.keys():
         i += 1
         if i % 1000000 == 0: 
-            print(" %s / %s Strand Bias Scores calculated" %(i, len(qgram_annotate.keys())))
+            print(" %s / %s Strand Bias Scores calculated" %(i, len(qgram_annotate.keys())), file=sys.stderr)
         
         #get p-value for the strand bias table of q-gram k
         p_value = get_pvalue(qgram_annotate[k][0], qgram_annotate[k][1], qgram_annotate[k][2], qgram_annotate[k][3])
@@ -554,7 +554,7 @@ def log(results, s, genome):
                 print(seq,count(seq,genome),str(r[1]),str(r[2]),str(r[3]),
                         str(r[4]),str(r[5]),str(fer),str(rer),sep='\t',file=f)
     except IOError:
-        print("Could not open indel log file.")
+        print("Could not open indel log file.", file=sys.stderr)
 
 
 def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05, search_pos=0):
@@ -593,19 +593,19 @@ def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05, s
                 fer = float(f_mm) / (f_m + f_mm) #forward error rate
             except ZeroDivisionError:
                 print("ZeroDivisionError fer:",count_app(seq,genome),tasks[index],
-                        seq,str(f_m),str(r_m),str(f_mm),str(r_mm),str(p_value_score))
+                        seq,str(f_m),str(r_m),str(f_mm),str(r_mm),str(p_value_score), file=sys.stderr)
                 continue
             try:
                 rer = float(r_mm) / (r_m + r_mm) #reverse error rate
             except ZeroDivisionError:
                 print("ZeroDivisionError rer:",count(seq,genome),tasks[index],
-                        seq,str(f_m),str(r_m),str(f_mm),str(r_mm),str(p_value_score))
+                        seq,str(f_m),str(r_m),str(f_mm),str(r_mm),str(p_value_score), file=sys.stderr)
                 continue
 
             #TODO remove, debug output
             if index > 0 and DEBUG_INDEL is True:
                 print("(",tasks[index],count(seq,genome),seq,str(f_m),str(r_m),
-                        str(f_mm),str(r_mm),str(p_value_score),str(fer),str(rer),")")
+                        str(f_mm),str(r_mm),str(p_value_score),str(fer),str(rer),")", file=sys.stderr)
 
             if rer < epsilon: #filter sequences with too high epsilon (background error rate)
                 erd = fer - rer #error rate difference

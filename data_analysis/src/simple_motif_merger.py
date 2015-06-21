@@ -105,7 +105,7 @@ if __name__ == '__main__':
     # as many as the files (as opposed to the search space)?
     bnf = 0.05 / get_motifspace_size(q, n)
 
-    print("Bonferroni threshold:", bnf, file=sys.stderr)
+    #print("Bonferroni threshold:", bnf, file=sys.stderr)
 
     results = []
     for motif, fields in d.iteritems():
@@ -122,16 +122,16 @@ if __name__ == '__main__':
 
         # Bonferroni correction
         if pv > bnf:
-            print("Pvalue too high:", motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd, file=sys.stderr, sep='\t')
+            #print("Pvalue too high:", motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd, file=sys.stderr, sep='\t')
             continue
 
         # background error rate correction
         if rer >= 0.03:
-            print("RER too big:", motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd, file=sys.stderr, sep='\t')
+            #print("RER too big:", motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd, file=sys.stderr, sep='\t')
             continue
 
         if erd < 0.05:
-            print("ERD too small:", motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd, file=sys.stderr, sep='\t')
+            #print("ERD too small:", motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd, file=sys.stderr, sep='\t')
             continue
 
         results.append((motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd)) 
