@@ -1,0 +1,22 @@
+#Searching position is motif[last + 0]
+ 1000000 / 5893711 Strand Bias Scores calculated
+ 2000000 / 5893711 Strand Bias Scores calculated
+ 3000000 / 5893711 Strand Bias Scores calculated
+ 4000000 / 5893711 Strand Bias Scores calculated
+ 5000000 / 5893711 Strand Bias Scores calculated
+ 1000000 / 5884465 Strand Bias Scores calculated
+ 2000000 / 5884465 Strand Bias Scores calculated
+ 3000000 / 5884465 Strand Bias Scores calculated
+ 4000000 / 5884465 Strand Bias Scores calculated
+ 5000000 / 5884465 Strand Bias Scores calculated
+ 1000000 / 5902692 Strand Bias Scores calculated
+ 2000000 / 5902692 Strand Bias Scores calculated
+ 3000000 / 5902692 Strand Bias Scores calculated
+ 4000000 / 5902692 Strand Bias Scores calculated
+ 5000000 / 5902692 Strand Bias Scores calculated
+############################### snps #########################
+#Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
+############################### insertion #########################
+#Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
+############################### deletions #########################
+#Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
