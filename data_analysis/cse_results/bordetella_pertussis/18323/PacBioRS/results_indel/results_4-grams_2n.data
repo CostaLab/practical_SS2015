@@ -1,0 +1,13 @@
+#Searching position is motif[last + 0]
+############################### snps #########################
+#Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
+CCGA	56857	198057	200534	6369	5953	4.88840945566	0.0311555281618	0.0288299021246	0.00232562603719
+CNGA	125003	438040	440692	13997	13212	6.63318492025	0.0309642794727	0.0291074764708	0.0018568030019
+NCGA	199210	696988	700033	22182	21100	7.57850567721	0.0308438894837	0.0292595124616	0.00158437702207
+CCNC	202477	676272	685126	21239	20522	5.71359109711	0.0304496990012	0.0290824887196	0.00136721028157
+CNNC	994712	3415496	3435750	104627	101773	13.230014651	0.0297225409453	0.0287695655972	0.000952975348132
+TNNC	411841	1424122	1433321	44592	43625	4.46870664778	0.030361254812	0.0295373019731	0.000823952838907
+############################### insertion #########################
+#Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
+############################### deletions #########################
+#Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
