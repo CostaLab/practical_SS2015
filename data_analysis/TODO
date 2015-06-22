@@ -3,10 +3,8 @@ ALIGNMENTS:
 	- re-run 454 experiments with bwa-mem, as it was much superior to bwa backtrack (optionally, run also bwa-sw)
 		- S. enterica serovar_enteritidis_str_EC20090193
 		- E. Coli K-12 substr. MG1655
-	- re-run PacBio with its own aligner, blasr
-	- re-run some experiments with novoalign
-	- run some MinION experiments with poretools (E.Coli only available, many GBs)
-	- run some comparisons with novoalign
+	- re-run PacBio with its own aligner, blasr (and compare)
+	- re-run some experiments with novoalign (and compare)
 
 --------------------------------------------------
 

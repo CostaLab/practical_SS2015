@@ -90,14 +90,16 @@ def output(results):
         print(seq, occ, forward_match, reverse_match, forward_mismatch, reverse_mismatch, sb_score, fer, rer, erd, sep = '\t')
 
 if __name__ == '__main__':
-    if len(sys.argv) < 5:
-        print(sys.argv[0], "q n file1 file2 .. fileN")
+    if len(sys.argv) < 6:
+        print(sys.argv[0], "d q n file1 file2 .. fileN")
         exit(-1)
 
-    q = int(sys.argv[1])
-    n = int(sys.argv[2])
+    erd_thr = float(sys.argv[1])
+    q = int(sys.argv[2])
+    n = int(sys.argv[3])
+    files = sys.argv[4:]
 
-    list_of_dicts = [load_file(f) for f in sys.argv[3:]]
+    list_of_dicts = [load_file(f) for f in files]
 
     d = merge_dicts(list_of_dicts[1:], list_of_dicts[0])
 
@@ -130,7 +132,7 @@ if __name__ == '__main__':
             #print("RER too big:", motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd, file=sys.stderr, sep='\t')
             continue
 
-        if erd < 0.05:
+        if erd < erd_thr:
             #print("ERD too small:", motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd, file=sys.stderr, sep='\t')
             continue
 
