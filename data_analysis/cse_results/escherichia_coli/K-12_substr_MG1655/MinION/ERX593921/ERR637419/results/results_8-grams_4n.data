@@ -1,0 +1,2 @@
+#Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
+ACCTAAGA	12	158	203	34	4	7.56773277561	0.177083333333	0.0193236714976	0.157759661836
