@@ -18,7 +18,7 @@ Based on code from: Manuel Allhoff
 """
 
 from __future__ import print_function
-from optparse import OptionParser
+from argparse import ArgumentParser
 
 import sys
 import itertools
@@ -28,14 +28,16 @@ import numpy as np
 import rpy2.robjects as robjects
 import math
 
-class HelpfulOptionParser(OptionParser):
-    """An OptionParser that prints full help on errors."""
+class HelpfulOptionParser(ArgumentParser):
+    """An ArgumentParser that prints full help on errors."""
     def error(self, msg):
         self.print_help(sys.stderr)
         self.exit(2, "\n%s: error: %s\n" % (self.get_prog_name(), msg))
 
 def load_file(filename):
+    """Loads a .data file into a dictionary (motifs are the keys)"""
     d = {}
+
     with open(filename) as f:
         for line in f:
             if line[0] == '#' or line[0] == ' ':
@@ -47,30 +49,61 @@ def load_file(filename):
             motif = fields[0]
             opts  = [int(x) for x in fields[1:6]]
 
-            # accumulate tables of same motif (there shouldn't be any here,
-            # unless the file was a naive merge of multiple results files)
             if motif in d:
-                d[motif].append(opts)
+                print("ERROR: motif %s is not unique in file %s, aborting" % (motif, filename), file=sys.stderr)
+                exit(-1)
             else:
+                # we wrap the list of numbers in a list to simplify
+                # merging in other parts of the code
                 d[motif] = [opts]
-
-    # if there are any duplicate motifs, we merge their tables together
-    for l in d:
-        d[l] = [sum(sb) for sb in itertools.izip(*(d[l]))]
 
     return d
 
-def merge_dicts(list_of_dicts, d):
-    if not list_of_dicts:
-        return d
-    
-    d2 = list_of_dicts[0]
-    
-    d3 = {k:[v, d2[k]] for k,v in d.iteritems() if k in d2}
-    d = {k:[sum(sb) for sb in itertools.izip(*(v))] for k,v in d3.iteritems()}
+def merge_dicts(list_of_dicts, mode):
+    """Takes a list of dictionaries and merges them into a single one, according to 'mode'"""
 
-    return merge_dicts(list_of_dicts[1:], d)
+    if mode == "strict":
+        d = merge_dicts_strict(list_of_dicts[1:], list_of_dicts[0].copy())
+    else:
+        d = merge_dict_simple(list_of_dicts[1:], list_of_dicts[0].copy())
+
+    # merge_dict_* returns a dictionary whose values are lists of lists of numbers.
+    # For every such value, we need to sum its lists together, element by element.
+    return {k:[sum(sb) for sb in itertools.izip(*(v))] for k,v in d.iteritems()}
+
+def merge_dicts_strict(list_of_dicts, accumulator):
+    if not list_of_dicts:
+        return accumulator
     
+    # extract first element from list, and get the remaining elements
+    d0, new_list = list_of_dicts[0], list_of_dicts[1:]
+
+    # strict merge: iterate over the accumulator and, if the key
+    # is present in d0 too, add together the values
+    # Note: this creates a new dictionary with keys equal to the intersection
+    # of the accumulator and d0 keys.
+    accumulator = {k:v + d0[k] for k,v in accumulator.iteritems() if k in d0}
+
+    # recurse over the remaining elements
+    return merge_dicts_strict(new_list, accumulator)
+
+def merge_dict_simple(list_of_dicts, accumulator):
+    if not list_of_dicts:
+        return accumulator
+    
+    # extract first element from list, and get the remaining elements
+    d0, new_list = list_of_dicts[0], list_of_dicts[1:]
+
+    # simple merge: iterate over new dict and updates the accumulator.
+    # It merges the values if key is present in accumulator
+    for k, v in d0.iteritems():
+        if k in accumulator:
+            accumulator[k] += v
+        else:
+            accumulator[k] = v
+
+    return merge_dict_simple(new_list, accumulator)
+
 def get_motifspace_size(q,n):
     """return length of search space according to equation which is mentioned in Section 3.1 of the paper"""
     return reduce(lambda x, y: x + (int(sc.comb(q, y, exact=True)) * 4**(q-y)), 
@@ -113,36 +146,42 @@ def output(results):
         print(seq, occ, forward_match, reverse_match, forward_mismatch, reverse_mismatch, sb_score, fer, rer, erd, sep = '\t')
 
 if __name__ == '__main__':
-    parser = HelpfulOptionParser(usage=__doc__)
+    #parser = HelpfulOptionParser(usage=__doc__)
+    parser = ArgumentParser()
     
-    parser.add_option("-a", dest="alpha", default=0.05, type="float", help="FWER (family-wise error rate) alpha, default: 0.05")
-    parser.add_option("-e", dest="epsilon", default=0.03, type="float", help="background error rate cutoff epsilon, default: 0.03")
-    parser.add_option("-d", dest="delta", default=0.05, type="float", help="error rate difference cutoff delta, default: 0.05")
-    
-    (options, args) = parser.parse_args()
+    parser.add_argument("q", metavar="q", type=int, nargs=1, help="length of motifs in the input files")
+    parser.add_argument("n", metavar="N", type=int, nargs=1, help="allowed Ns in the input files")
+    parser.add_argument("files", metavar="file.data", type=str, nargs="+", help="data file as generated by discovery_cse")
+    parser.add_argument("-a", dest="alpha", default=0.05, type=float, help="FWER (family-wise error rate) alpha, default: 0.05")
+    parser.add_argument("-e", dest="epsilon", default=0.03, type=float, help="background error rate cutoff epsilon, default: 0.03")
+    parser.add_argument("-d", dest="delta", default=0.05, type=float, help="error rate difference cutoff delta, default: 0.05")
+    parser.add_argument("-r", dest="rule", default="strict", type=str, help="Merge rule. strict: takes the common motifs, loose: takes common motifs using N"
+                                                                               " as wildcard, simple: takes all motifs [default: default]")    
+    args = parser.parse_args()
 
+    q = args.q[0]
+    n = args.n[0]
 
-    if len(sys.argv) < 5:
-        parser.error("must provide at least four arguments")
-        parser.print_help(sys.stderr)
+    if args.rule != "strict" and args.rule != "simple":
+        print("mode %s not supported yet" % rule, file=sys.stderr)
+        exit(-1)
 
-    q = int(sys.argv[1])
-    n = int(sys.argv[2])
-    files = sys.argv[3:]
+    list_of_dicts = [load_file(f) for f in args.files]
 
-    list_of_dicts = [load_file(f) for f in files]
-
-    d = merge_dicts(list_of_dicts[1:], list_of_dicts[0])
+    # returns a dictionary in the following format:
+    # key   = motif
+    # value = [occ,fm,rm,fmm,rmm]
+    d = merge_dicts(list_of_dicts, args.rule)
 
     # FIXME: is this correct? Or are, now, the "hypothesis"
     # as many as the files (as opposed to the search space)?
-    bnf = alpha / get_motifspace_size(q, n)
+    bnf = args.alpha / get_motifspace_size(q, n)
 
-    #print("Bonferroni threshold:", bnf, file=sys.stderr)
+    print("Bonferroni threshold:", bnf, file=sys.stderr)
 
     results = []
     for motif, fields in d.iteritems():
-        occ, fm, rm, fmm, rmm = fields[0:5]
+        occ, fm, rm, fmm, rmm = fields
 
         pv = get_pvalue(fm, rm, fmm, rmm)
         
@@ -155,15 +194,15 @@ if __name__ == '__main__':
 
         # Bonferroni correction
         if pv > bnf:
-            #print("Pvalue too high:", motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd, file=sys.stderr, sep='\t')
+            print("(bonferroni) P-value too high, skipping motif:", motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd, file=sys.stderr, sep='\t')
             continue
 
         # background error rate correction
-        if rer >= epsilon:
+        if rer >= args.epsilon:
             #print("RER too big:", motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd, file=sys.stderr, sep='\t')
             continue
 
-        if erd < delta:
+        if erd < args.delta:
             #print("ERD too small:", motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd, file=sys.stderr, sep='\t')
             continue
 
