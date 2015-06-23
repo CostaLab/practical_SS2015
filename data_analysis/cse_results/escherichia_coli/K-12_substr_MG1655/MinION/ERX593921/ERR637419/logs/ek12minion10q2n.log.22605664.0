@@ -1,12 +1,12 @@
-Sender: LSF System <lsfadmin@linuxbmc0242>
-Subject: Job 22575307: <ek12minion10q2n> in cluster <rcc> Exited
+Sender: LSF System <lsfadmin@linuxbmc0400>
+Subject: Job 22605664: <ek12minion10q2n> in cluster <rcc> Done
 
 Job <ek12minion10q2n> was submitted from host <cluster> by user <ft583445> in cluster <rcc>.
-Job was executed on host(s) <linuxbmc0242>, in queue <normal>, as user <ft583445> in cluster <rcc>.
+Job was executed on host(s) <linuxbmc0400>, in queue <lecture>, as user <ft583445> in cluster <rcc>.
 </home/ft583445> was used as the home directory.
 </home/ft583445/costalab/data_analysis/cse_results/escherichia_coli/K-12_substr_MG1655/MinION/ERX593921/ERR637419> was used as the working directory.
-Started at Sun Jun 21 23:31:24 2015
-Results reported on Mon Jun 22 05:33:08 2015
+Started at Tue Jun 23 10:42:28 2015
+Results reported on Tue Jun 23 16:32:59 2015
 
 Your job looked like:
 
@@ -15,6 +15,8 @@ Your job looked like:
 #!/usr/bin/env zsh
 ### Job name
 #BSUB -J ek12minion10q2n
+
+#BSUB -P lect0008
  
 ### File / path where STDOUT & STDERR will be written
 ### %J is the job ID, %I is the array ID
@@ -23,7 +25,7 @@ Your job looked like:
 ### Request the time you need for execution in minutes
 ### The format for the parameter is: [hour:]minute,
 ### that means for 80 minutes you could also use this: 1:20
-#BSUB -W 6:0
+#BSUB -W 10:0
  
 ### Request memory you need for your job in TOTAL in MB
 #BSUB -M 15000
@@ -39,16 +41,15 @@ source /home/ft583445/.zshrc
 
 ------------------------------------------------------------
 
-TERM_RUNLIMIT: job killed after reaching LSF run time limit.
-Exited with exit code 140.
+Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   21755.47 sec.
-    Max Memory :                                 3304 MB
-    Average Memory :                             2492.82 MB
+    CPU time :                                   21118.65 sec.
+    Max Memory :                                 3440 MB
+    Average Memory :                             2577.79 MB
     Total Requested Memory :                     15000.00 MB
-    Delta Memory :                               11696.00 MB
+    Delta Memory :                               11560.00 MB
     Max Processes :                              5
     Max Threads :                                6
 
@@ -7428,4 +7429,3 @@ Start Strand Bias Score calculation
  4000000 / 6533322 Strand Bias Scores calculated
  5000000 / 6533322 Strand Bias Scores calculated
  6000000 / 6533322 Strand Bias Scores calculated
-User defined signal 2
