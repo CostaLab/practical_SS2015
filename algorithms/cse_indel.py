@@ -557,7 +557,7 @@ def log(results, s, genome):
         print("Could not open indel log file.", file=sys.stderr)
 
 
-def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05, search_pos=0):
+def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05, search_pos=0, only_indels=False):
     """Identify critical <q>-grams (with <n> Ns) with reference to significance and error rate""" 
     motifspacesize_log = math.log10(get_motifspace_size(q, n))
     alpha_log = math.log10(float(alpha))
@@ -586,6 +586,12 @@ def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05, s
 
     tasks = { 0 : 'snps', 1 : 'insertion', 2 : 'deletions' }
     for index, sig_results in enumerate(all_sig_results):
+        # skip SNPs output
+        # TODO: this should be done in a more generic way, so as to avoid calculating
+        # SNP-inducing motifs at all
+        if index == 0 and only_indels:
+            continue
+
         #filter motifs with regards to background error rate (epsilon) error rate difference (delta)
         results = []
         for seq, f_m, r_m, f_mm, r_mm, p_value_score in sig_results:
@@ -629,6 +635,7 @@ if __name__ == '__main__':
     parser.add_option("--verbose", dest="verbosity_", default=0, help="print verbose messages")
     parser.add_option("-s", dest="serialize", default="", help="dump genome annotation, ie contingency tables for genome positions")
     parser.add_option("-l", dest="load", default="", help="load serialized object instead of creating contingency tables for genome positions")
+    parser.add_option("--only-indels", dest="only_indels", default=False, action="store_true", help="only output indels-inducing motifs, not SNPs")
     
     (options, args) = parser.parse_args()
     
@@ -639,7 +646,8 @@ if __name__ == '__main__':
             sys.exit()
     
     if len(args) != 4:
-        parser.error("Sorry, exactly four parameters are required.")  
+        parser.error("Sorry, exactly four parameters are required.")
+        parser.print_help(sys.stderr)
     
     #map arguments
     refpath = args[0]
@@ -675,4 +683,4 @@ if __name__ == '__main__':
     print("Searching position is motif[last + %s]" % options.position, file=sys.stderr) 
     print("#Searching position is motif[last + %s]" % options.position)
     ident(genome, genome_annotate, q, n, options.alpha, options.epsilon, 
-            options.delta, int(options.position))
+            options.delta, int(options.position),options.only_indels)

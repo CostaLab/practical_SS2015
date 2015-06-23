@@ -1,7 +1,24 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+"""
+%prog [options] <INT q> <INT n> <FILE> <FILE> ... <FILE>
+
+Takes a list of .data files (from the CSE discovery script) and,
+for common motifs, recalculates the congintency tables, applies
+the cutoff thresholds and outputs the new motif data.
+
+You must provide at least two files.
+
+<INT q>      Length of <q>-gram to search for
+<INT n>      Maximal allowed number of Ns that the <q>-gram contains
+<FILE>       Tab-separated data file from discovery_cse script
+
+Author: Fabio Ticconi
+Based on code from: Manuel Allhoff
+"""
 
 from __future__ import print_function
+from optparse import OptionParser
 
 import sys
 import itertools
@@ -10,6 +27,12 @@ import scipy.misc as sc
 import numpy as np
 import rpy2.robjects as robjects
 import math
+
+class HelpfulOptionParser(OptionParser):
+    """An OptionParser that prints full help on errors."""
+    def error(self, msg):
+        self.print_help(sys.stderr)
+        self.exit(2, "\n%s: error: %s\n" % (self.get_prog_name(), msg))
 
 def load_file(filename):
     d = {}
@@ -90,14 +113,22 @@ def output(results):
         print(seq, occ, forward_match, reverse_match, forward_mismatch, reverse_mismatch, sb_score, fer, rer, erd, sep = '\t')
 
 if __name__ == '__main__':
-    if len(sys.argv) < 6:
-        print(sys.argv[0], "d q n file1 file2 .. fileN")
-        exit(-1)
+    parser = HelpfulOptionParser(usage=__doc__)
+    
+    parser.add_option("-a", dest="alpha", default=0.05, type="float", help="FWER (family-wise error rate) alpha, default: 0.05")
+    parser.add_option("-e", dest="epsilon", default=0.03, type="float", help="background error rate cutoff epsilon, default: 0.03")
+    parser.add_option("-d", dest="delta", default=0.05, type="float", help="error rate difference cutoff delta, default: 0.05")
+    
+    (options, args) = parser.parse_args()
 
-    erd_thr = float(sys.argv[1])
-    q = int(sys.argv[2])
-    n = int(sys.argv[3])
-    files = sys.argv[4:]
+
+    if len(sys.argv) < 5:
+        parser.error("must provide at least four arguments")
+        parser.print_help(sys.stderr)
+
+    q = int(sys.argv[1])
+    n = int(sys.argv[2])
+    files = sys.argv[3:]
 
     list_of_dicts = [load_file(f) for f in files]
 
@@ -105,7 +136,7 @@ if __name__ == '__main__':
 
     # FIXME: is this correct? Or are, now, the "hypothesis"
     # as many as the files (as opposed to the search space)?
-    bnf = 0.05 / get_motifspace_size(q, n)
+    bnf = alpha / get_motifspace_size(q, n)
 
     #print("Bonferroni threshold:", bnf, file=sys.stderr)
 
@@ -128,11 +159,11 @@ if __name__ == '__main__':
             continue
 
         # background error rate correction
-        if rer >= 0.03:
+        if rer >= epsilon:
             #print("RER too big:", motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd, file=sys.stderr, sep='\t')
             continue
 
-        if erd < erd_thr:
+        if erd < delta:
             #print("ERD too small:", motif, occ, fm, rm, fmm, rmm, sbs, fer, rer, erd, file=sys.stderr, sep='\t')
             continue
 
