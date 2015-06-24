@@ -122,9 +122,9 @@ do
             MINQ="$2"
             shift
             ;;
-	-skip-fastqc)
-	    SKIP_FASTQC=true
-	    ;;
+	    -skip-fastqc)
+	       SKIP_FASTQC=true
+	       ;;
         *)
             # unknown option
             echo "## Unknown option: $key" | tee -a $LOG

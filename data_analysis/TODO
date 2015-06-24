@@ -9,9 +9,23 @@ ALIGNMENTS:
 --------------------------------------------------
 
 MOTIF ANALYSIS:
-	- which motifs are "unique" to a specific platform?
-	- which are mostly common (across platforms)?
+	- which motifs are "unique" to a specific platform, and which are common?
+		- select highest ERDs, to only show a few motifs
+	- are motifs consistent between runs/experiments (same platform)?
+		- extract common ones and produce a measure of "similarity"
+	- are motifs consistent between organisms (same platform)?
+		- extract common ones and produce a measure of "similarity"
 	- among the "common" ones, is ERD consistent?
+
+Define "common":
+	- strict: exact match
+	- loose:  match with wildcards (Ns)
+
+	For every set to compare (ie, a group of Runs/Experiments or multiple organisms while fixing platform):
+		- compute common motifs (recalculating tables etc)
+		- calculate overlap coefficient: size(A & B) / min(size(A), size(B))
+			- it tells us how much certain sets are overlapped: if a set is included in another, the overlap is 1
+		- calculate Jaccard similarity: size(A & B) / size(A | B)
 
 --------------------------------------------------
 
