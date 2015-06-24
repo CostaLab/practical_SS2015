@@ -27,7 +27,7 @@
 | Ion Torrent PGM (sw)      | ERX137390     | ERR161540 | 58.3577 |  1494106 |           0 |   395238 | 31-992  | N       |   183 |
 | Ion Torrent PGM (sw)      | ERX137392     | ERR161542 |  59.668 |  1739259 |           0 |   386238 | 31-1098 | N       |   227 |
 | Ion Torrent PGM (sw)      | ERX137393     | ERR161543 | 80.0097 |  1576780 |           0 |   477510 | 31-1047 | N       |   268 |
-| Ion Torrent PGM (sw)      | consensus     | *         |         |          |             |          |         | N       |       |
+| Ion Torrent PGM (sw)      | consensus     | *         | 82.9407 |  8724383 |           0 |  1902279 | 31-1803 | N       |   761 |
 | Ion Torrent PGM (mem)     | ERX137388     | ERR161538 | 57.3193 |  1603683 |           0 |   266311 | 14-1803 | N       |   260 |
 | Ion Torrent PGM (mem)     | ERX137389     | ERR161539 | 58.5595 |  1490743 |           0 |   248909 | 14-615  | N       |   241 |
 | Ion Torrent PGM (mem)     | ERX137390     | ERR161540 | 59.4977 |  1616331 |           0 |   298028 | 14-992  | N       |   223 |
