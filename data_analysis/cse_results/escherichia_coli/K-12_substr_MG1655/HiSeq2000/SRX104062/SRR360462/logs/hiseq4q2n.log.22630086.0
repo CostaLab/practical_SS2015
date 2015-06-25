@@ -1,0 +1,76 @@
+Sender: LSF System <lsfadmin@linuxbmc0840>
+Subject: Job 22630086: <hiseq4q2n> in cluster <rcc> Done
+
+Job <hiseq4q2n> was submitted from host <cluster> by user <ft583445> in cluster <rcc>.
+Job was executed on host(s) <linuxbmc0840>, in queue <lecture>, as user <ft583445> in cluster <rcc>.
+</home/ft583445> was used as the home directory.
+</home/ft583445/costalab/data_analysis/cse_results/escherichia_coli/K-12_substr_MG1655/HiSeq2000/SRX104062/SRR360462> was used as the working directory.
+Started at Thu Jun 25 18:12:52 2015
+Results reported on Thu Jun 25 18:32:22 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+### Job name
+#BSUB -J hiseq4q2n
+
+#BSUB -P lect0008
+ 
+### File / path where STDOUT & STDERR will be written
+### %J is the job ID, %I is the array ID
+#BSUB -o hiseq4q2n.log.%J.%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 8:0
+ 
+### Request memory you need for your job in TOTAL in MB
+#BSUB -M 8000
+ 
+### Change to the work directory
+C=$LSB_JOBINDEX
+cd /home/ft583445/costalab/data_analysis/cse_results/escherichia_coli/K-12_substr_MG1655/HiSeq2000/SRX104062/SRR360462
+
+source /home/ft583445/.zshrc
+
+### Execute your application
+/home/ft583445/.local/bin/cse_indel.py ../../../NZ_CP009685.1.fasta SRR360462.bam 4 2 -d 0 --only-indels > results_indel/results_4-grams_2n.data
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   1116.86 sec.
+    Max Memory :                                 1125 MB
+    Average Memory :                             654.26 MB
+    Total Requested Memory :                     8000.00 MB
+    Delta Memory :                               6875.00 MB
+    Max Processes :                              5
+    Max Threads :                                6
+
+The output (if any) follows:
+
+(OK) Loading gcc 4.9.2
+(!!) in order to see the source code in actual debuggers, add to the compile line:
+(!!)    -g -gdwarf-2 
+Annotating (parsing) genome...
+1000000 reads considered for genome annotation 
+2000000 reads considered for genome annotation 
+3000000 reads considered for genome annotation 
+4000000 reads considered for genome annotation 
+5000000 reads considered for genome annotation 
+6000000 reads considered for genome annotation 
+7000000 reads considered for genome annotation 
+8000000 reads considered for genome annotation 
+Searching position is motif[last + 0]
+Warning: 0 q-grams of 4636828 contain other letters than A,C,G and T, ignore these             q-grams
+Number of in-, del keys before all_results [should match!]:  256 256 256
+Start Strand Bias Score calculation
+Start Strand Bias Score calculation
+Start Strand Bias Score calculation
+Number of in-, del keys after all_results [should match!]:  608 608 608

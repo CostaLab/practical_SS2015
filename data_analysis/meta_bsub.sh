@@ -19,7 +19,7 @@ $1 <<EOF
 ### Job name
 #BSUB -J $name
 
-#BSUB -P lect0008
+##BSUB -P lect0008
  
 ### File / path where STDOUT & STDERR will be written
 ### %J is the job ID, %I is the array ID
@@ -31,7 +31,7 @@ $1 <<EOF
 #BSUB -W $W
  
 ### Request memory you need for your job in TOTAL in MB
-#BSUB -M 8000
+#BSUB -M 15000
  
 ### Change to the work directory
 C=\$LSB_JOBINDEX

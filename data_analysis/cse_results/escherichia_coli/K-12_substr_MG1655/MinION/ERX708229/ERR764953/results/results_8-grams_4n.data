@@ -1,0 +1,3 @@
+#Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
+TGCTAAGA	28	97	146	29	4	6.91451558376	0.230158730159	0.0266666666667	0.203492063492
+TCCGAACA	69	284	378	77	10	16.1195337961	0.213296398892	0.0257731958763	0.187523203016
