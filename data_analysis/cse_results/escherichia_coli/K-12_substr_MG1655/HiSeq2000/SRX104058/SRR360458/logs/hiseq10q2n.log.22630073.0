@@ -1,0 +1,97 @@
+Sender: LSF System <lsfadmin@linuxbmc1188>
+Subject: Job 22630073: <hiseq10q2n> in cluster <rcc> Done
+
+Job <hiseq10q2n> was submitted from host <cluster> by user <ft583445> in cluster <rcc>.
+Job was executed on host(s) <linuxbmc1188>, in queue <lecture>, as user <ft583445> in cluster <rcc>.
+</home/ft583445> was used as the home directory.
+</home/ft583445/costalab/data_analysis/cse_results/escherichia_coli/K-12_substr_MG1655/HiSeq2000/SRX104058/SRR360458> was used as the working directory.
+Started at Thu Jun 25 07:09:09 2015
+Results reported on Thu Jun 25 10:41:30 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+### Job name
+#BSUB -J hiseq10q2n
+
+#BSUB -P lect0008
+ 
+### File / path where STDOUT & STDERR will be written
+### %J is the job ID, %I is the array ID
+#BSUB -o hiseq10q2n.log.%J.%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 8:0
+ 
+### Request memory you need for your job in TOTAL in MB
+#BSUB -M 8000
+ 
+### Change to the work directory
+C=$LSB_JOBINDEX
+cd /home/ft583445/costalab/data_analysis/cse_results/escherichia_coli/K-12_substr_MG1655/HiSeq2000/SRX104058/SRR360458
+
+source /home/ft583445/.zshrc
+
+### Execute your application
+/home/ft583445/.local/bin/cse_indel.py ../../../NZ_CP009685.1.fasta SRR360458.bam 10 2 -d 0 --only-indels > results_indel/results_10-grams_2n.data
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   12807.38 sec.
+    Max Memory :                                 8000 MB
+    Average Memory :                             6068.26 MB
+    Total Requested Memory :                     8000.00 MB
+    Delta Memory :                               0.00 MB
+    Max Processes :                              5
+    Max Threads :                                6
+
+The output (if any) follows:
+
+(OK) Loading gcc 4.9.2
+(!!) in order to see the source code in actual debuggers, add to the compile line:
+(!!)    -g -gdwarf-2 
+Annotating (parsing) genome...
+1000000 reads considered for genome annotation 
+2000000 reads considered for genome annotation 
+3000000 reads considered for genome annotation 
+4000000 reads considered for genome annotation 
+5000000 reads considered for genome annotation 
+6000000 reads considered for genome annotation 
+7000000 reads considered for genome annotation 
+8000000 reads considered for genome annotation 
+9000000 reads considered for genome annotation 
+10000000 reads considered for genome annotation 
+11000000 reads considered for genome annotation 
+Searching position is motif[last + 0]
+Warning: 0 q-grams of 4636822 contain other letters than A,C,G and T, ignore these             q-grams
+Number of in-, del keys before all_results [should match!]:  979915 979915 979915
+Start Strand Bias Score calculation
+ 1000000 / 6533322 Strand Bias Scores calculated
+ 2000000 / 6533322 Strand Bias Scores calculated
+ 3000000 / 6533322 Strand Bias Scores calculated
+ 4000000 / 6533322 Strand Bias Scores calculated
+ 5000000 / 6533322 Strand Bias Scores calculated
+ 6000000 / 6533322 Strand Bias Scores calculated
+Start Strand Bias Score calculation
+ 1000000 / 6533322 Strand Bias Scores calculated
+ 2000000 / 6533322 Strand Bias Scores calculated
+ 3000000 / 6533322 Strand Bias Scores calculated
+ 4000000 / 6533322 Strand Bias Scores calculated
+ 5000000 / 6533322 Strand Bias Scores calculated
+ 6000000 / 6533322 Strand Bias Scores calculated
+Start Strand Bias Score calculation
+ 1000000 / 6533322 Strand Bias Scores calculated
+ 2000000 / 6533322 Strand Bias Scores calculated
+ 3000000 / 6533322 Strand Bias Scores calculated
+ 4000000 / 6533322 Strand Bias Scores calculated
+ 5000000 / 6533322 Strand Bias Scores calculated
+ 6000000 / 6533322 Strand Bias Scores calculated
+Number of in-, del keys after all_results [should match!]:  6533322 6533322 6533322

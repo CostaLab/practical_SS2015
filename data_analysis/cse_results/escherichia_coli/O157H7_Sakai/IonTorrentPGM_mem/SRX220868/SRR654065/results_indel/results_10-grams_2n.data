@@ -1,0 +1,7 @@
+#Searching position is motif[last + 0]
+############################### insertion #########################
+#Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
+############################### deletions #########################
+#Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
+CCGACTAGGG	1	0	109	138	3	67.7139498982	1.0	0.0267857142857	0.973214285714
+CCNACTAGGG	1	0	109	138	3	67.7139498982	1.0	0.0267857142857	0.973214285714
