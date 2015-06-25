@@ -1,0 +1,261 @@
+##fileformat=VCFv4.1
+##FILTER=<ID=LowQual,Description="Low quality">
+##FORMAT=<ID=AD,Number=.,Type=Integer,Description="Allelic depths for the ref and alt alleles in the order listed">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth (reads with MQ=255 or with bad mates are filtered)">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=MLPSAC,Number=A,Type=Integer,Description="Maximum likelihood expectation (MLE) for the alternate allele count, in the same order as listed, for each individual sample">
+##FORMAT=<ID=MLPSAF,Number=A,Type=Float,Description="Maximum likelihood expectation (MLE) for the alternate allele fraction, in the same order as listed, for each individual sample">
+##FORMAT=<ID=PL,Number=G,Type=Integer,Description="Normalized, Phred-scaled likelihoods for genotypes as defined in the VCF specification">
+##GATKCommandLine.UnifiedGenotyper=<ID=UnifiedGenotyper,Version=3.4-0-g7e26428,Date="Wed Jun 24 17:53:32 CEST 2015",Epoch=1435161212703,CommandLineOptions="analysis_type=UnifiedGenotyper input_file=[ERR161539.bam] showFullBamList=false read_buffer_size=null phone_home=AWS gatk_key=null tag=NA read_filter=[BadCigar] disable_read_filter=[] intervals=null excludeIntervals=null interval_set_rule=UNION interval_merging=ALL interval_padding=0 reference_sequence=complete.fasta nonDeterministicRandomSeed=false disableDithering=false maxRuntime=-1 maxRuntimeUnits=MINUTES downsampling_type=BY_SAMPLE downsample_to_fraction=null downsample_to_coverage=250 baq=OFF baqGapOpenPenalty=40.0 refactor_NDN_cigar_string=false fix_misencoded_quality_scores=false allow_potentially_misencoded_quality_scores=true useOriginalQualities=false defaultBaseQualities=-1 performanceLog=null BQSR=null quantize_quals=0 disable_indel_quals=false emit_original_quals=false preserve_qscores_less_than=6 globalQScorePrior=-1.0 validation_strictness=SILENT remove_program_records=false keep_program_records=false sample_rename_mapping_file=null unsafe=null disable_auto_index_creation_and_locking_when_reading_rods=false no_cmdline_in_header=false sites_only=false never_trim_vcf_format_field=false bcf=false bam_compression=null simplifyBAM=false disable_bam_indexing=false generate_md5=false num_threads=1 num_cpu_threads_per_data_thread=1 num_io_threads=0 monitorThreadEfficiency=false num_bam_file_handles=null read_group_black_list=null pedigree=[] pedigreeString=[] pedigreeValidationType=STRICT allow_intervals_with_unindexed_bam=false generateShadowBCF=false variant_index_type=DYNAMIC_SEEK variant_index_parameter=-1 logging_level=INFO log_to_file=null help=false version=false genotype_likelihoods_model=SNP pcr_error_rate=1.0E-4 computeSLOD=false pair_hmm_implementation=LOGLESS_CACHING min_base_quality_score=17 max_deletion_fraction=0.05 min_indel_count_for_genotyping=5 min_indel_fraction_per_sample=0.25 indelGapContinuationPenalty=10 indelGapOpenPenalty=45 indelHaplotypeSize=80 indelDebug=false ignoreSNPAlleles=false allReadsSP=false ignoreLaneInfo=false reference_sample_calls=(RodBinding name= source=UNBOUND) reference_sample_name=null min_quality_score=1 max_quality_score=40 site_quality_prior=20 min_power_threshold_for_calling=0.95 annotateNDA=false heterozygosity=0.001 indel_heterozygosity=1.25E-4 standard_min_confidence_threshold_for_calling=30.0 standard_min_confidence_threshold_for_emitting=30.0 max_alternate_alleles=6 input_prior=[] sample_ploidy=1 genotyping_mode=DISCOVERY alleles=(RodBinding name= source=UNBOUND) contamination_fraction_to_filter=0.0 contamination_fraction_per_sample_file=null p_nonref_model=null exactcallslog=null output_mode=EMIT_VARIANTS_ONLY allSitePLs=false dbsnp=(RodBinding name= source=UNBOUND) comp=[] out=/home/fabio/Coding/Python/bioinformatics/data_analysis_project/costalab/data_analysis/cse_results/plasmodium_falciparum/str_3D7/IonTorrentPGM_sw/ERX137389/ERR161539/ERR161539-snps.vcf onlyEmitSamples=[] debug_file=null metrics_file=null annotation=[] excludeAnnotation=[] filter_reads_with_N_cigar=false filter_mismatching_base_and_quals=false filter_bases_not_stored=true">
+##INFO=<ID=AC,Number=A,Type=Integer,Description="Allele count in genotypes, for each ALT allele, in the same order as listed">
+##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency, for each ALT allele, in the same order as listed">
+##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
+##INFO=<ID=BaseQRankSum,Number=1,Type=Float,Description="Z-score from Wilcoxon rank sum test of Alt Vs. Ref base qualities">
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth; some reads may have been filtered">
+##INFO=<ID=DS,Number=0,Type=Flag,Description="Were any of the samples downsampled?">
+##INFO=<ID=Dels,Number=1,Type=Float,Description="Fraction of Reads Containing Spanning Deletions">
+##INFO=<ID=FS,Number=1,Type=Float,Description="Phred-scaled p-value using Fisher's exact test to detect strand bias">
+##INFO=<ID=HaplotypeScore,Number=1,Type=Float,Description="Consistency of the site with at most two segregating haplotypes">
+##INFO=<ID=InbreedingCoeff,Number=1,Type=Float,Description="Inbreeding coefficient as estimated from the genotype likelihoods per-sample when compared against the Hardy-Weinberg expectation">
+##INFO=<ID=MLEAC,Number=A,Type=Integer,Description="Maximum likelihood expectation (MLE) for the allele counts (not necessarily the same as the AC), for each ALT allele, in the same order as listed">
+##INFO=<ID=MLEAF,Number=A,Type=Float,Description="Maximum likelihood expectation (MLE) for the allele frequency (not necessarily the same as the AF), for each ALT allele, in the same order as listed">
+##INFO=<ID=MQ,Number=1,Type=Float,Description="RMS Mapping Quality">
+##INFO=<ID=MQ0,Number=1,Type=Integer,Description="Total Mapping Quality Zero Reads">
+##INFO=<ID=MQRankSum,Number=1,Type=Float,Description="Z-score From Wilcoxon rank sum test of Alt vs. Ref read mapping qualities">
+##INFO=<ID=QD,Number=1,Type=Float,Description="Variant Confidence/Quality by Depth">
+##INFO=<ID=RPA,Number=.,Type=Integer,Description="Number of times tandem repeat unit is repeated, for each allele (including reference)">
+##INFO=<ID=RU,Number=1,Type=String,Description="Tandem repeat unit (bases)">
+##INFO=<ID=ReadPosRankSum,Number=1,Type=Float,Description="Z-score from Wilcoxon rank sum test of Alt vs. Ref read position bias">
+##INFO=<ID=SOR,Number=1,Type=Float,Description="Symmetric Odds Ratio of 2x2 contingency table to detect strand bias">
+##INFO=<ID=STR,Number=0,Type=Flag,Description="Variant is a short tandem repeat">
+##contig=<ID=ch1,length=643292>
+##contig=<ID=ch2,length=947102>
+##contig=<ID=ch3,length=1060087>
+##contig=<ID=ch4,length=1204112>
+##contig=<ID=ch5,length=1343552>
+##contig=<ID=ch6,length=1418244>
+##contig=<ID=ch7,length=1501717>
+##contig=<ID=ch8,length=1419563>
+##contig=<ID=ch9,length=1541723>
+##contig=<ID=ch10,length=1687655>
+##contig=<ID=ch11,length=2038337>
+##contig=<ID=ch12,length=2271478>
+##contig=<ID=ch13,length=2895605>
+##contig=<ID=ch14,length=3291871>
+##reference=file:///home/fabio/Coding/Python/bioinformatics/data_analysis_project/costalab/data_analysis/cse_results/plasmodium_falciparum/str_3D7/IonTorrentPGM_sw/ERX137389/ERR161539/complete.fasta
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	rgsm
+ch1	3268	.	C	T	35.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.091;DP=18;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=11.45;MQ0=4;MQRankSum=-1.187;QD=1.94;ReadPosRankSum=1.369;SOR=1.981	GT:AD:DP:GQ:PL	1:5,13:18:65:65,0
+ch1	152829	.	A	T	217	.	AC=1;AF=1.00;AN=1;DP=10;Dels=0.00;FS=0.000;HaplotypeScore=1.9025;MLEAC=1;MLEAF=1.00;MQ=153.96;MQ0=0;QD=21.70;SOR=2.303	GT:AD:DP:GQ:PL	1:0,10:10:99:247,0
+ch1	154443	.	A	G	114	.	AC=1;AF=1.00;AN=1;DP=7;Dels=0.00;FS=0.000;HaplotypeScore=1.9243;MLEAC=1;MLEAF=1.00;MQ=176.92;MQ0=0;QD=16.29;SOR=0.941	GT:AD:DP:GQ:PL	1:0,7:7:99:144,0
+ch1	190712	.	G	A	60	.	AC=1;AF=1.00;AN=1;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.8941;MLEAC=1;MLEAF=1.00;MQ=187.36;MQ0=0;QD=20.00;SOR=1.179	GT:AD:DP:GQ:PL	1:0,3:3:90:90,0
+ch1	219399	.	G	T	117	.	AC=1;AF=1.00;AN=1;DP=7;Dels=0.00;FS=0.000;HaplotypeScore=0.9947;MLEAC=1;MLEAF=1.00;MQ=185.66;MQ0=0;QD=16.71;SOR=1.609	GT:AD:DP:GQ:PL	1:0,7:7:99:147,0
+ch1	227851	.	T	C	327	.	AC=1;AF=1.00;AN=1;DP=13;Dels=0.00;FS=0.000;HaplotypeScore=3.7007;MLEAC=1;MLEAF=1.00;MQ=167.51;MQ0=0;QD=25.15;SOR=1.179	GT:AD:DP:GQ:PL	1:0,13:13:99:357,0
+ch1	227866	.	T	C	134	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.456;DP=14;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=167.06;MQ0=0;MQRankSum=0.091;QD=9.57;ReadPosRankSum=1.734;SOR=0.180	GT:AD:DP:GQ:PL	1:2,12:14:99:164,0
+ch1	227871	.	T	C	198	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.822;DP=14;Dels=0.00;FS=0.000;HaplotypeScore=3.8660;MLEAC=1;MLEAF=1.00;MQ=167.06;MQ0=0;MQRankSum=0.274;QD=14.14;ReadPosRankSum=1.734;SOR=0.180	GT:AD:DP:GQ:PL	1:2,12:14:99:228,0
+ch1	238751	.	C	T	36.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=29.07;MQ0=0;QD=18.00;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:66:66,0
+ch1	294954	.	G	T	122	.	AC=1;AF=1.00;AN=1;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=0.9332;MLEAC=1;MLEAF=1.00;MQ=159.38;MQ0=0;QD=24.40;SOR=1.022	GT:AD:DP:GQ:PL	1:0,5:5:99:152,0
+ch1	338317	.	C	T	62	.	AC=1;AF=1.00;AN=1;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=182.67;MQ0=0;QD=20.67;SOR=1.179	GT:AD:DP:GQ:PL	1:0,3:3:92:92,0
+ch1	352083	.	T	C	97	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.000;DP=10;Dels=0.00;FS=0.000;HaplotypeScore=6.2127;MLEAC=1;MLEAF=1.00;MQ=122.74;MQ0=0;MQRankSum=0.696;QD=9.70;ReadPosRankSum=-1.393;SOR=0.525	GT:AD:DP:GQ:PL	1:1,9:10:99:127,0
+ch1	357262	.	G	T	82	.	AC=1;AF=1.00;AN=1;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=188.66;MQ0=0;QD=16.40;SOR=1.609	GT:AD:DP:GQ:PL	1:0,4:5:99:112,0
+ch1	380328	.	T	A	77	.	AC=1;AF=1.00;AN=1;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=1.9048;MLEAC=1;MLEAF=1.00;MQ=80.61;MQ0=0;QD=15.40;SOR=1.981	GT:AD:DP:GQ:PL	1:0,5:5:99:107,0
+ch1	380398	.	A	T	128	.	AC=1;AF=1.00;AN=1;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=80.76;MQ0=0;QD=25.60;SOR=3.611	GT:AD:DP:GQ:PL	1:0,5:5:99:158,0
+ch1	385724	.	A	T	200	.	AC=1;AF=1.00;AN=1;DP=10;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=162.92;MQ0=0;QD=20.00;SOR=3.258	GT:AD:DP:GQ:PL	1:0,10:10:99:230,0
+ch1	436754	.	C	A	37.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=126.37;MQ0=0;QD=18.50;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:67:67,0
+ch1	436760	.	T	A	35.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=126.37;MQ0=0;QD=17.50;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:65:65,0
+ch1	447443	.	C	T	48	.	AC=1;AF=1.00;AN=1;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=179.94;MQ0=0;QD=16.00;SOR=2.833	GT:AD:DP:GQ:PL	1:0,3:3:78:78,0
+ch1	448108	.	C	A	266	.	AC=1;AF=1.00;AN=1;DP=12;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=165.33;MQ0=0;QD=22.17;SOR=2.494	GT:AD:DP:GQ:PL	1:0,11:12:99:296,0
+ch1	448169	.	G	T	43	.	AC=1;AF=1.00;AN=1;DP=6;Dels=0.00;FS=0.000;HaplotypeScore=4.7601;MLEAC=1;MLEAF=1.00;MQ=162.70;MQ0=0;QD=7.17;SOR=2.303	GT:AD:DP:GQ:PL	1:0,6:6:73:73,0
+ch1	448309	.	A	T	201	.	AC=1;AF=1.00;AN=1;DP=8;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=139.31;MQ0=0;QD=25.13;SOR=1.863	GT:AD:DP:GQ:PL	1:0,8:8:99:231,0
+ch1	448311	.	A	C	186	.	AC=1;AF=1.00;AN=1;DP=8;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=139.31;MQ0=0;QD=23.25;SOR=1.863	GT:AD:DP:GQ:PL	1:0,8:8:99:216,0
+ch1	448335	.	A	T	162	.	AC=1;AF=1.00;AN=1;DP=7;Dels=0.00;FS=0.000;HaplotypeScore=1.9330;MLEAC=1;MLEAF=1.00;MQ=148.50;MQ0=0;QD=23.14;SOR=1.609	GT:AD:DP:GQ:PL	1:0,7:7:99:192,0
+ch1	448953	.	G	A	56	.	AC=1;AF=1.00;AN=1;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.8667;MLEAC=1;MLEAF=1.00;MQ=77.38;MQ0=0;QD=14.00;SOR=3.258	GT:AD:DP:GQ:PL	1:0,4:4:86:86,0
+ch1	448967	.	C	T	179	.	AC=1;AF=1.00;AN=1;DP=7;Dels=0.00;FS=0.000;HaplotypeScore=0.9665;MLEAC=1;MLEAF=1.00;MQ=82.78;MQ0=0;QD=25.57;SOR=2.584	GT:AD:DP:GQ:PL	1:0,7:7:99:209,0
+ch1	448969	.	C	T	177	.	AC=1;AF=1.00;AN=1;DP=7;Dels=0.00;FS=0.000;HaplotypeScore=1.8606;MLEAC=1;MLEAF=1.00;MQ=82.78;MQ0=0;QD=25.29;SOR=2.584	GT:AD:DP:GQ:PL	1:0,7:7:99:207,0
+ch1	449003	.	G	A	118	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.348;DP=10;Dels=0.00;FS=0.000;HaplotypeScore=4.5889;MLEAC=1;MLEAF=1.00;MQ=70.78;MQ0=0;MQRankSum=-1.393;QD=11.80;ReadPosRankSum=-1.741;SOR=1.022	GT:AD:DP:GQ:PL	1:1,9:10:99:148,0
+ch1	449008	.	G	T	255	.	AC=1;AF=1.00;AN=1;DP=10;Dels=0.00;FS=0.000;HaplotypeScore=3.7568;MLEAC=1;MLEAF=1.00;MQ=70.78;MQ0=0;QD=25.50;SOR=2.303	GT:AD:DP:GQ:PL	1:0,10:10:99:285,0
+ch1	449013	.	C	G	196	.	AC=1;AF=1.00;AN=1;DP=10;Dels=0.00;FS=0.000;HaplotypeScore=0.9578;MLEAC=1;MLEAF=1.00;MQ=70.78;MQ0=0;QD=19.60;SOR=2.303	GT:AD:DP:GQ:PL	1:0,10:10:99:226,0
+ch1	449016	.	G	T	229	.	AC=1;AF=1.00;AN=1;DP=10;Dels=0.00;FS=0.000;HaplotypeScore=10.7736;MLEAC=1;MLEAF=1.00;MQ=70.78;MQ0=0;QD=22.90;SOR=2.303	GT:AD:DP:GQ:PL	1:0,10:10:99:259,0
+ch1	449021	.	G	C	195	.	AC=1;AF=1.00;AN=1;DP=10;Dels=0.00;FS=0.000;HaplotypeScore=2.8184;MLEAC=1;MLEAF=1.00;MQ=70.78;MQ0=0;QD=19.50;SOR=2.303	GT:AD:DP:GQ:PL	1:0,10:10:99:225,0
+ch1	503691	.	G	A	35.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=184.02;MQ0=0;QD=17.50;SOR=0.693	GT:AD:DP:GQ:PL	1:0,2:2:65:65,0
+ch1	503694	.	T	C	33.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=184.02;MQ0=0;QD=16.50;SOR=0.693	GT:AD:DP:GQ:PL	1:0,2:2:63:63,0
+ch1	558087	.	C	A	69	.	AC=1;AF=1.00;AN=1;DP=6;Dels=0.00;FS=0.000;HaplotypeScore=1.6643;MLEAC=1;MLEAF=1.00;MQ=87.48;MQ0=0;QD=11.50;SOR=1.329	GT:AD:DP:GQ:PL	1:0,6:6:99:99,0
+ch2	380299	.	A	T	44	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.099;DP=13;Dels=0.00;FS=0.000;HaplotypeScore=9.8448;MLEAC=1;MLEAF=1.00;MQ=146.66;MQ0=0;MQRankSum=0.888;QD=3.38;ReadPosRankSum=0.099;SOR=0.141	GT:AD:DP:GQ:PL	1:2,11:13:74:74,0
+ch2	433945	.	A	T	32.01	.	AC=1;AF=1.00;AN=1;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=184.15;MQ0=0;QD=8.00;SOR=0.693	GT:AD:DP:GQ:PL	1:0,4:4:62:62,0
+ch2	575764	.	A	T	31.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=128.84;MQ0=0;QD=15.50;SOR=0.693	GT:AD:DP:GQ:PL	1:0,2:2:61:61,0
+ch2	699588	.	T	A	49	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.495;DP=7;Dels=0.00;FS=0.000;HaplotypeScore=3.4955;MLEAC=1;MLEAF=1.00;MQ=176.34;MQ0=0;MQRankSum=0.198;QD=7.00;ReadPosRankSum=0.198;SOR=1.022	GT:AD:DP:GQ:PL	1:2,5:7:79:79,0
+ch2	863721	.	G	A	37.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.736;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=166.13;MQ0=0;MQRankSum=-0.736;QD=12.34;ReadPosRankSum=0.736;SOR=1.179	GT:AD:DP:GQ:PL	1:1,2:3:67:67,0
+ch2	874200	.	T	G	76	.	AC=1;AF=1.00;AN=1;BaseQRankSum=2.815;DP=30;Dels=0.00;FS=0.000;HaplotypeScore=5.6209;MLEAC=1;MLEAF=1.00;MQ=139.87;MQ0=0;MQRankSum=-1.069;QD=2.53;ReadPosRankSum=1.026;SOR=0.593	GT:AD:DP:GQ:PL	1:15,14:30:99:106,0
+ch2	874288	.	A	G	36.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=-0.246;DP=23;Dels=0.00;FS=0.000;HaplotypeScore=0.9665;MLEAC=1;MLEAF=1.00;MQ=93.14;MQ0=2;MQRankSum=0.528;QD=1.57;ReadPosRankSum=0.739;SOR=0.330	GT:AD:DP:GQ:PL	1:13,10:23:66:66,0
+ch2	874293	.	G	T	80	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.176;DP=25;Dels=0.00;FS=0.000;HaplotypeScore=0.9665;MLEAC=1;MLEAF=1.00;MQ=89.34;MQ0=4;MQRankSum=0.528;QD=3.20;ReadPosRankSum=0.387;SOR=0.330	GT:AD:DP:GQ:PL	1:15,10:25:99:110,0
+ch3	129284	.	G	A	124	.	AC=1;AF=1.00;AN=1;DP=8;Dels=0.00;FS=0.000;HaplotypeScore=0.8667;MLEAC=1;MLEAF=1.00;MQ=158.48;MQ0=0;QD=15.50;SOR=1.179	GT:AD:DP:GQ:PL	1:0,8:8:99:154,0
+ch3	237559	.	G	A	83	.	AC=1;AF=1.00;AN=1;DP=8;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=170.93;MQ0=0;QD=10.38;SOR=0.693	GT:AD:DP:GQ:PL	1:0,8:8:99:113,0
+ch3	248154	.	G	A	137	.	AC=1;AF=1.00;AN=1;DP=7;Dels=0.00;FS=0.000;HaplotypeScore=0.8941;MLEAC=1;MLEAF=1.00;MQ=178.51;MQ0=0;QD=19.57;SOR=0.941	GT:AD:DP:GQ:PL	1:0,7:7:99:167,0
+ch3	248155	.	G	A	56	.	AC=1;AF=1.00;AN=1;DP=7;Dels=0.00;FS=0.000;HaplotypeScore=0.8941;MLEAC=1;MLEAF=1.00;MQ=178.51;MQ0=0;QD=8.00;SOR=0.941	GT:AD:DP:GQ:PL	1:0,7:7:86:86,0
+ch3	285356	.	G	A	188	.	AC=1;AF=1.00;AN=1;DP=11;Dels=0.00;FS=0.000;HaplotypeScore=3.7016;MLEAC=1;MLEAF=1.00;MQ=165.30;MQ0=0;QD=17.09;SOR=0.859	GT:AD:DP:GQ:PL	1:0,11:11:99:218,0
+ch3	501686	.	A	T	31.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.537;DP=7;Dels=0.00;FS=0.000;HaplotypeScore=18.7956;MLEAC=1;MLEAF=1.00;MQ=145.18;MQ0=0;MQRankSum=0.406;QD=4.43;ReadPosRankSum=-0.988;SOR=0.991	GT:AD:DP:GQ:PL	1:3,4:7:61:61,0
+ch3	570447	.	C	T	89	.	AC=1;AF=1.00;AN=1;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=0.8941;MLEAC=1;MLEAF=1.00;MQ=109.56;MQ0=0;QD=17.80;SOR=3.611	GT:AD:DP:GQ:PL	1:0,5:5:99:119,0
+ch3	602239	.	A	G	103	.	AC=1;AF=1.00;AN=1;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=1.9330;MLEAC=1;MLEAF=1.00;MQ=160.81;MQ0=0;QD=20.60;SOR=3.611	GT:AD:DP:GQ:PL	1:0,5:5:99:133,0
+ch3	622222	.	C	G	99	.	AC=1;AF=1.00;AN=1;DP=6;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=142.62;MQ0=0;QD=16.50;SOR=1.329	GT:AD:DP:GQ:PL	1:0,6:6:99:129,0
+ch3	622229	.	C	A	123	.	AC=1;AF=1.00;AN=1;DP=6;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=142.62;MQ0=0;QD=20.50;SOR=1.329	GT:AD:DP:GQ:PL	1:0,6:6:99:153,0
+ch3	622239	.	C	T	210	.	AC=1;AF=1.00;AN=1;DP=9;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=141.34;MQ0=0;QD=23.33;SOR=0.892	GT:AD:DP:GQ:PL	1:0,9:9:99:240,0
+ch3	622243	.	C	T	200	.	AC=1;AF=1.00;AN=1;DP=9;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=141.34;MQ0=0;QD=22.22;SOR=0.892	GT:AD:DP:GQ:PL	1:0,9:9:99:230,0
+ch3	622335	.	G	T	222	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.393;DP=10;Dels=0.00;FS=0.000;HaplotypeScore=4.4619;MLEAC=1;MLEAF=1.00;MQ=175.88;MQ0=0;MQRankSum=1.393;QD=22.20;ReadPosRankSum=1.393;SOR=0.307	GT:AD:DP:GQ:PL	1:1,9:10:99:252,0
+ch3	653874	.	C	A	351	.	AC=1;AF=1.00;AN=1;DP=13;Dels=0.00;FS=0.000;HaplotypeScore=1.9638;MLEAC=1;MLEAF=1.00;MQ=140.00;MQ0=0;QD=27.00;SOR=2.147	GT:AD:DP:GQ:PL	1:0,13:13:99:381,0
+ch3	655213	.	T	C	120	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.751;DP=9;Dels=0.00;FS=0.000;HaplotypeScore=0.8941;MLEAC=1;MLEAF=1.00;MQ=160.64;MQ0=0;MQRankSum=0.751;QD=13.33;ReadPosRankSum=0.751;SOR=0.223	GT:AD:DP:GQ:PL	1:1,8:9:99:150,0
+ch3	736334	.	T	A	32.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.736;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=94.04;MQ0=1;MQRankSum=0.736;QD=8.00;ReadPosRankSum=0.736;SOR=1.179	GT:AD:DP:GQ:PL	1:2,2:4:62:62,0
+ch3	736338	.	A	T	32.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.736;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=94.04;MQ0=1;MQRankSum=0.736;QD=8.00;ReadPosRankSum=0.736;SOR=1.179	GT:AD:DP:GQ:PL	1:2,2:4:62:62,0
+ch3	736350	.	A	T	93	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.731;DP=6;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=133.30;MQ0=1;MQRankSum=0.731;QD=15.50;ReadPosRankSum=0.731;SOR=1.981	GT:AD:DP:GQ:PL	1:2,4:6:99:123,0
+ch3	759013	.	C	T	67	.	AC=1;AF=1.00;AN=1;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.9665;MLEAC=1;MLEAF=1.00;MQ=142.78;MQ0=0;QD=22.33;SOR=1.179	GT:AD:DP:GQ:PL	1:0,3:3:97:97,0
+ch3	807198	.	G	A	167	.	AC=1;AF=1.00;AN=1;DP=7;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=154.92;MQ0=0;QD=23.86;SOR=2.584	GT:AD:DP:GQ:PL	1:0,7:7:99:197,0
+ch3	807207	.	T	A	177	.	AC=1;AF=1.00;AN=1;DP=7;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=154.92;MQ0=0;QD=25.29;SOR=2.584	GT:AD:DP:GQ:PL	1:0,7:7:99:207,0
+ch3	826793	.	A	G	158	.	AC=1;AF=1.00;AN=1;DP=10;Dels=0.00;FS=0.000;HaplotypeScore=0.8941;MLEAC=1;MLEAF=1.00;MQ=116.49;MQ0=0;QD=15.80;SOR=1.609	GT:AD:DP:GQ:PL	1:0,10:10:99:188,0
+ch3	888128	.	C	T	160	.	AC=1;AF=1.00;AN=1;DP=8;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=180.63;MQ0=0;QD=20.00;SOR=1.179	GT:AD:DP:GQ:PL	1:0,8:8:99:190,0
+ch3	888466	.	C	T	233	.	AC=1;AF=1.00;AN=1;DP=9;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=153.64;MQ0=0;QD=25.89;SOR=0.892	GT:AD:DP:GQ:PL	1:0,9:9:99:263,0
+ch3	889194	.	C	T	133	.	AC=1;AF=1.00;AN=1;DP=6;Dels=0.00;FS=0.000;HaplotypeScore=0.7340;MLEAC=1;MLEAF=1.00;MQ=151.19;MQ0=0;QD=22.17;SOR=2.303	GT:AD:DP:GQ:PL	1:0,6:6:99:163,0
+ch3	893217	.	A	T	58	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.727;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=153.89;MQ0=0;MQRankSum=0.727;QD=14.50;ReadPosRankSum=-0.727;SOR=0.916	GT:AD:DP:GQ:PL	1:1,3:4:88:88,0
+ch3	933235	.	C	T	279	.	AC=1;AF=1.00;AN=1;DP=14;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=167.14;MQ0=0;QD=19.93;SOR=0.976	GT:AD:DP:GQ:PL	1:0,14:14:99:309,0
+ch3	933256	.	C	T	279	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.248;DP=14;Dels=0.00;FS=0.000;HaplotypeScore=2.7167;MLEAC=1;MLEAF=1.00;MQ=161.14;MQ0=0;MQRankSum=0.496;QD=19.93;ReadPosRankSum=1.240;SOR=0.442	GT:AD:DP:GQ:PL	1:1,13:14:99:309,0
+ch3	933282	.	G	A	346	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.194;DP=18;Dels=0.00;FS=0.000;HaplotypeScore=4.8120;MLEAC=1;MLEAF=1.00;MQ=157.82;MQ0=0;MQRankSum=-0.070;QD=19.22;ReadPosRankSum=1.335;SOR=1.244	GT:AD:DP:GQ:PL	1:2,16:18:99:376,0
+ch3	933283	.	A	T	335	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.335;DP=18;Dels=0.00;FS=0.000;HaplotypeScore=3.8455;MLEAC=1;MLEAF=1.00;MQ=157.82;MQ0=0;MQRankSum=0.070;QD=18.61;ReadPosRankSum=1.335;SOR=1.244	GT:AD:DP:GQ:PL	1:2,16:18:99:365,0
+ch3	933286	.	G	T	376	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.964;DP=18;Dels=0.00;FS=0.000;HaplotypeScore=3.8455;MLEAC=1;MLEAF=1.00;MQ=157.82;MQ0=0;MQRankSum=1.349;QD=20.89;ReadPosRankSum=0.385;SOR=0.387	GT:AD:DP:GQ:PL	1:1,17:18:99:406,0
+ch3	933298	.	C	T	525	.	AC=1;AF=1.00;AN=1;DP=20;Dels=0.00;FS=0.000;HaplotypeScore=0.9665;MLEAC=1;MLEAF=1.00;MQ=150.47;MQ0=0;QD=26.25;SOR=0.892	GT:AD:DP:GQ:PL	1:0,20:20:99:555,0
+ch3	933299	.	T	C	473	.	AC=1;AF=1.00;AN=1;DP=20;Dels=0.00;FS=0.000;HaplotypeScore=0.9665;MLEAC=1;MLEAF=1.00;MQ=150.47;MQ0=0;QD=23.65;SOR=0.892	GT:AD:DP:GQ:PL	1:0,20:20:99:503,0
+ch3	939464	.	C	T	449	.	AC=1;AF=1.00;AN=1;DP=21;Dels=0.00;FS=0.000;HaplotypeScore=5.2748;MLEAC=1;MLEAF=1.00;MQ=155.00;MQ0=0;QD=21.38;SOR=2.200	GT:AD:DP:GQ:PL	1:0,21:21:99:479,0
+ch3	947992	.	A	G	33.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=181.00;MQ0=0;QD=16.50;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:63:63,0
+ch3	952006	.	A	C	31.01	.	AC=1;AF=1.00;AN=1;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=136.39;MQ0=0;QD=10.34;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:3:61:61,0
+ch3	952012	.	C	G	58	.	AC=1;AF=1.00;AN=1;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=136.39;MQ0=0;QD=19.33;SOR=2.833	GT:AD:DP:GQ:PL	1:0,3:3:88:88,0
+ch3	973043	.	A	G	47	.	AC=1;AF=1.00;AN=1;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=1.7206;MLEAC=1;MLEAF=1.00;MQ=106.26;MQ0=0;QD=15.67;SOR=1.179	GT:AD:DP:GQ:PL	1:0,3:3:77:77,0
+ch3	973086	.	T	G	61	.	AC=1;AF=1.00;AN=1;DP=6;Dels=0.00;FS=0.000;HaplotypeScore=0.8941;MLEAC=1;MLEAF=1.00;MQ=95.49;MQ0=0;QD=10.17;SOR=1.329	GT:AD:DP:GQ:PL	1:0,6:6:91:91,0
+ch3	974502	.	G	A	118	.	AC=1;AF=1.00;AN=1;DP=7;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=162.09;MQ0=0;QD=16.86;SOR=0.941	GT:AD:DP:GQ:PL	1:0,7:7:99:148,0
+ch3	974842	.	T	A	340	.	AC=1;AF=1.00;AN=1;DP=15;Dels=0.00;FS=0.000;HaplotypeScore=0.9665;MLEAC=1;MLEAF=1.00;MQ=156.09;MQ0=0;QD=22.67;SOR=0.818	GT:AD:DP:GQ:PL	1:0,15:15:99:370,0
+ch3	987105	.	G	C	318	.	AC=1;AF=1.00;AN=1;DP=14;Dels=0.00;FS=0.000;HaplotypeScore=1.9048;MLEAC=1;MLEAF=1.00;MQ=160.18;MQ0=0;QD=22.71;SOR=1.329	GT:AD:DP:GQ:PL	1:0,14:14:99:348,0
+ch3	987106	.	C	A	298	.	AC=1;AF=1.00;AN=1;DP=14;Dels=0.00;FS=0.000;HaplotypeScore=0.9578;MLEAC=1;MLEAF=1.00;MQ=160.18;MQ0=0;QD=21.29;SOR=1.329	GT:AD:DP:GQ:PL	1:0,14:14:99:328,0
+ch3	995530	.	C	G	81	.	AC=1;AF=1.00;AN=1;DP=6;Dels=0.00;FS=0.000;HaplotypeScore=0.9789;MLEAC=1;MLEAF=1.00;MQ=157.23;MQ0=0;QD=13.50;SOR=1.329	GT:AD:DP:GQ:PL	1:0,6:6:99:111,0
+ch4	152931	.	T	C	350	.	AC=1;AF=1.00;AN=1;DP=17;Dels=0.00;FS=0.000;HaplotypeScore=0.9789;MLEAC=1;MLEAF=1.00;MQ=166.73;MQ0=0;QD=20.59;SOR=1.061	GT:AD:DP:GQ:PL	1:0,17:17:99:380,0
+ch4	152936	.	T	C	339	.	AC=1;AF=1.00;AN=1;DP=18;Dels=0.00;FS=0.000;HaplotypeScore=1.5362;MLEAC=1;MLEAF=1.00;MQ=162.18;MQ0=0;QD=18.83;SOR=0.804	GT:AD:DP:GQ:PL	1:1,17:18:99:369,0
+ch4	153090	.	T	C	341	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.960;DP=21;Dels=0.00;FS=0.000;HaplotypeScore=2.9360;MLEAC=1;MLEAF=1.00;MQ=172.03;MQ0=0;MQRankSum=1.658;QD=16.24;ReadPosRankSum=1.156;SOR=0.509	GT:AD:DP:GQ:PL	1:3,18:21:99:371,0
+ch4	381340	.	T	C	55	.	AC=1;AF=1.00;AN=1;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=157.23;MQ0=0;QD=13.75;SOR=1.609	GT:AD:DP:GQ:PL	1:0,4:4:85:85,0
+ch4	876381	.	C	T	62	.	AC=1;AF=1.00;AN=1;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=179.84;MQ0=0;QD=20.67;SOR=1.179	GT:AD:DP:GQ:PL	1:0,3:3:92:92,0
+ch4	894588	.	C	T	135	.	AC=1;AF=1.00;AN=1;DP=8;Dels=0.00;FS=0.000;HaplotypeScore=2.7273;MLEAC=1;MLEAF=1.00;MQ=164.69;MQ0=0;QD=16.88;SOR=0.693	GT:AD:DP:GQ:PL	1:0,8:8:99:165,0
+ch4	921527	.	C	A	33.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=173.62;MQ0=0;QD=16.50;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:63:63,0
+ch4	938436	.	A	T	32.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=26.54;MQ0=0;QD=16.00;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:62:62,0
+ch4	938437	.	C	T	32.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=26.54;MQ0=0;QD=16.00;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:62:62,0
+ch4	938499	.	A	T	59	.	AC=1;AF=1.00;AN=1;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=152.89;MQ0=0;QD=14.75;SOR=1.609	GT:AD:DP:GQ:PL	1:0,4:4:89:89,0
+ch4	938547	.	A	T	201	.	AC=1;AF=1.00;AN=1;DP=9;Dels=0.00;FS=0.000;HaplotypeScore=0.8941;MLEAC=1;MLEAF=1.00;MQ=142.18;MQ0=0;QD=22.33;SOR=0.892	GT:AD:DP:GQ:PL	1:0,9:9:99:231,0
+ch4	938548	.	C	T	217	.	AC=1;AF=1.00;AN=1;DP=9;Dels=0.00;FS=0.000;HaplotypeScore=0.8941;MLEAC=1;MLEAF=1.00;MQ=142.18;MQ0=0;QD=24.11;SOR=0.892	GT:AD:DP:GQ:PL	1:0,9:9:99:247,0
+ch4	938552	.	A	T	185	.	AC=1;AF=1.00;AN=1;DP=9;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=142.18;MQ0=0;QD=20.56;SOR=0.892	GT:AD:DP:GQ:PL	1:0,9:9:99:215,0
+ch4	989306	.	A	T	210	.	AC=1;AF=1.00;AN=1;DP=8;Dels=0.00;FS=0.000;HaplotypeScore=0.8667;MLEAC=1;MLEAF=1.00;MQ=158.90;MQ0=0;QD=26.25;SOR=2.833	GT:AD:DP:GQ:PL	1:0,8:8:99:240,0
+ch4	989415	.	A	T	185	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.791;DP=11;Dels=0.00;FS=0.000;HaplotypeScore=1.7882;MLEAC=1;MLEAF=1.00;MQ=176.48;MQ0=0;MQRankSum=-1.107;QD=16.82;ReadPosRankSum=1.423;SOR=0.399	GT:AD:DP:GQ:PL	1:1,10:11:99:215,0
+ch4	1095683	.	T	A	32.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.026;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=2.8830;MLEAC=1;MLEAF=1.00;MQ=148.20;MQ0=0;MQRankSum=-1.026;QD=8.00;ReadPosRankSum=1.026;SOR=2.209	GT:AD:DP:GQ:PL	1:2,2:4:62:62,0
+ch5	75475	.	C	T	219	.	AC=1;AF=1.00;AN=1;DP=15;Dels=0.00;FS=0.000;HaplotypeScore=1.7128;MLEAC=1;MLEAF=1.00;MQ=42.62;MQ0=3;QD=14.60;SOR=2.494	GT:AD:DP:GQ:PL	1:2,11:15:99:249,0
+ch5	79494	.	A	C	120	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.561;DP=25;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=28.29;MQ0=5;MQRankSum=0.694;QD=4.80;ReadPosRankSum=1.387;SOR=1.447	GT:AD:DP:GQ:PL	1:6,19:25:99:150,0
+ch5	79527	.	A	T	195	.	AC=1;AF=1.00;AN=1;DP=21;Dels=0.00;FS=0.000;HaplotypeScore=8.8114;MLEAC=1;MLEAF=1.00;MQ=77.11;MQ0=0;QD=9.29;SOR=1.508	GT:AD:DP:GQ:PL	1:0,21:21:99:225,0
+ch5	225044	.	C	T	32.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=190.13;MQ0=0;QD=16.00;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:62:62,0
+ch5	637782	.	G	A	35.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.731;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=0.9159;MLEAC=1;MLEAF=1.00;MQ=110.19;MQ0=0;MQRankSum=-0.731;QD=7.00;ReadPosRankSum=0.731;SOR=1.447	GT:AD:DP:GQ:PL	1:1,4:5:65:65,0
+ch5	697346	.	T	C	36.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.736;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=135.55;MQ0=0;MQRankSum=0.736;QD=12.00;ReadPosRankSum=0.736;SOR=2.225	GT:AD:DP:GQ:PL	1:1,2:3:66:66,0
+ch5	886046	.	T	G	30.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=181.52;MQ0=0;QD=15.00;SOR=0.693	GT:AD:DP:GQ:PL	1:0,2:2:60:60,0
+ch5	1039351	.	C	A	151	.	AC=1;AF=1.00;AN=1;DP=7;Dels=0.00;FS=0.000;HaplotypeScore=0.8667;MLEAC=1;MLEAF=1.00;MQ=158.38;MQ0=0;QD=21.57;SOR=1.609	GT:AD:DP:GQ:PL	1:0,7:7:99:181,0
+ch6	131887	.	A	T	34.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.736;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=194.51;MQ0=0;MQRankSum=-0.736;QD=11.34;ReadPosRankSum=-0.736;SOR=0.223	GT:AD:DP:GQ:PL	1:1,2:3:64:64,0
+ch6	131894	.	C	A	35.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.736;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=194.51;MQ0=0;MQRankSum=-0.736;QD=11.67;ReadPosRankSum=-0.736;SOR=0.223	GT:AD:DP:GQ:PL	1:1,2:3:65:65,0
+ch6	768748	.	A	T	31.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=170.00;MQ0=0;QD=15.50;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:61:61,0
+ch6	776162	.	T	C	38.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=-0.358;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=84.53;MQ0=0;MQRankSum=0.358;QD=7.60;ReadPosRankSum=0.358;SOR=2.204	GT:AD:DP:GQ:PL	1:3,2:5:68:68,0
+ch6	776163	.	G	A	38.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.358;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=84.53;MQ0=0;MQRankSum=0.358;QD=7.60;ReadPosRankSum=0.358;SOR=2.204	GT:AD:DP:GQ:PL	1:3,2:5:68:68,0
+ch6	776167	.	G	A	38.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.358;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=84.53;MQ0=0;MQRankSum=0.358;QD=7.60;ReadPosRankSum=0.358;SOR=2.204	GT:AD:DP:GQ:PL	1:3,2:5:68:68,0
+ch7	86515	.	C	A	359	.	AC=1;AF=1.00;AN=1;DP=17;Dels=0.00;FS=0.000;HaplotypeScore=1.8606;MLEAC=1;MLEAF=1.00;MQ=157.19;MQ0=0;QD=21.12;SOR=0.804	GT:AD:DP:GQ:PL	1:0,17:17:99:389,0
+ch7	86563	.	G	A	330	.	AC=1;AF=1.00;AN=1;DP=12;Dels=0.00;FS=0.000;HaplotypeScore=2.5946;MLEAC=1;MLEAF=1.00;MQ=136.07;MQ0=0;QD=27.50;SOR=1.022	GT:AD:DP:GQ:PL	1:0,12:12:99:360,0
+ch7	86606	.	T	C	291	.	AC=1;AF=1.00;AN=1;DP=15;Dels=0.00;FS=0.000;HaplotypeScore=2.8075;MLEAC=1;MLEAF=1.00;MQ=151.97;MQ0=0;QD=19.40;SOR=0.818	GT:AD:DP:GQ:PL	1:0,15:15:99:321,0
+ch7	86612	.	A	G	296	.	AC=1;AF=1.00;AN=1;DP=15;Dels=0.00;FS=0.000;HaplotypeScore=4.5683;MLEAC=1;MLEAF=1.00;MQ=151.97;MQ0=0;QD=19.73;SOR=0.818	GT:AD:DP:GQ:PL	1:0,15:15:99:326,0
+ch7	87087	.	G	A	360	.	AC=1;AF=1.00;AN=1;DP=19;Dels=0.00;FS=0.000;HaplotypeScore=4.8325;MLEAC=1;MLEAF=1.00;MQ=177.45;MQ0=0;QD=18.95;SOR=1.022	GT:AD:DP:GQ:PL	1:0,19:19:99:390,0
+ch7	99431	.	G	T	58	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.731;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=1.7608;MLEAC=1;MLEAF=1.00;MQ=96.45;MQ0=0;MQRankSum=-0.731;QD=11.60;ReadPosRankSum=-0.731;SOR=3.229	GT:AD:DP:GQ:PL	1:1,4:5:88:88,0
+ch7	106487	.	T	A	114	.	AC=1;AF=1.00;AN=1;DP=6;Dels=0.00;FS=0.000;HaplotypeScore=4.8239;MLEAC=1;MLEAF=1.00;MQ=176.76;MQ0=0;QD=19.00;SOR=1.329	GT:AD:DP:GQ:PL	1:0,6:6:99:144,0
+ch7	819506	.	G	T	35.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.026;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=2.5612;MLEAC=1;MLEAF=1.00;MQ=166.46;MQ0=0;MQRankSum=0.000;QD=7.00;ReadPosRankSum=1.026;SOR=2.303	GT:AD:DP:GQ:PL	1:2,2:5:65:65,0
+ch7	917377	.	G	T	67	.	AC=1;AF=1.00;AN=1;DP=7;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=147.56;MQ0=0;QD=9.57;SOR=0.941	GT:AD:DP:GQ:PL	1:0,7:7:97:97,0
+ch7	1193678	.	G	A	38.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=177.03;MQ0=0;QD=19.00;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:68:68,0
+ch7	1193719	.	G	A	33.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=177.03;MQ0=0;QD=16.50;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:63:63,0
+ch7	1500156	.	C	T	33.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.495;DP=16;Dels=0.00;FS=0.000;HaplotypeScore=1.8332;MLEAC=1;MLEAF=1.00;MQ=37.54;MQ0=9;MQRankSum=1.495;QD=2.06;ReadPosRankSum=-0.198;SOR=2.258	GT:AD:DP:GQ:PL	1:13,3:16:63:63,0
+ch8	196727	.	G	T	192	.	AC=1;AF=1.00;AN=1;DP=11;Dels=0.00;FS=0.000;HaplotypeScore=1.8100;MLEAC=1;MLEAF=1.00;MQ=184.54;MQ0=0;QD=17.45;SOR=1.270	GT:AD:DP:GQ:PL	1:0,11:11:99:222,0
+ch8	336030	.	G	T	34.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=125.32;MQ0=0;QD=17.00;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:64:64,0
+ch8	356759	.	T	G	378	.	AC=1;AF=1.00;AN=1;DP=16;Dels=0.00;FS=0.000;HaplotypeScore=1.9399;MLEAC=1;MLEAF=1.00;MQ=169.93;MQ0=0;QD=23.63;SOR=1.244	GT:AD:DP:GQ:PL	1:0,16:16:99:408,0
+ch8	539376	.	C	A	93	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.589;DP=8;Dels=0.00;FS=0.000;HaplotypeScore=9.0601;MLEAC=1;MLEAF=1.00;MQ=150.51;MQ0=0;MQRankSum=0.000;QD=11.63;ReadPosRankSum=-1.067;SOR=2.209	GT:AD:DP:GQ:PL	1:2,6:8:99:123,0
+ch8	557340	.	A	T	68	.	AC=1;AF=1.00;AN=1;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=1.8907;MLEAC=1;MLEAF=1.00;MQ=133.82;MQ0=0;QD=22.67;SOR=2.833	GT:AD:DP:GQ:PL	1:0,3:3:98:98,0
+ch8	685365	.	T	A	30.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=119.85;MQ0=0;QD=15.00;SOR=0.693	GT:AD:DP:GQ:PL	1:0,2:2:60:60,0
+ch8	685383	.	G	T	58	.	AC=1;AF=1.00;AN=1;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=140.66;MQ0=0;QD=19.33;SOR=1.179	GT:AD:DP:GQ:PL	1:0,3:3:88:88,0
+ch8	685385	.	G	T	57	.	AC=1;AF=1.00;AN=1;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=140.66;MQ0=0;QD=19.00;SOR=1.179	GT:AD:DP:GQ:PL	1:0,3:3:87:87,0
+ch8	770941	.	A	G	31.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.670;DP=13;Dels=0.00;FS=0.000;HaplotypeScore=24.4782;MLEAC=1;MLEAF=1.00;MQ=134.69;MQ0=0;MQRankSum=0.212;QD=2.39;ReadPosRankSum=1.256;SOR=1.022	GT:AD:DP:GQ:PL	1:8,5:13:61:61,0
+ch8	770944	.	A	T	61	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.583;DP=13;Dels=0.00;FS=0.000;HaplotypeScore=23.9810;MLEAC=1;MLEAF=1.00;MQ=134.69;MQ0=0;MQRankSum=0.259;QD=4.69;ReadPosRankSum=0.259;SOR=1.144	GT:AD:DP:GQ:PL	1:7,6:13:91:91,0
+ch8	770953	.	T	C	30.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.289;DP=12;Dels=0.00;FS=2.632;HaplotypeScore=13.0153;MLEAC=1;MLEAF=1.00;MQ=134.06;MQ0=0;MQRankSum=0.825;QD=2.50;ReadPosRankSum=1.835;SOR=0.916	GT:AD:DP:GQ:PL	1:4,8:12:60:60,0
+ch8	817992	.	G	T	182	.	AC=1;AF=1.00;AN=1;DP=8;Dels=0.00;FS=0.000;HaplotypeScore=1.9330;MLEAC=1;MLEAF=1.00;MQ=161.95;MQ0=0;QD=22.75;SOR=1.179	GT:AD:DP:GQ:PL	1:0,8:8:99:212,0
+ch8	846991	.	T	C	83	.	AC=1;AF=1.00;AN=1;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=156.00;MQ0=0;QD=16.60;SOR=1.022	GT:AD:DP:GQ:PL	1:0,5:5:99:113,0
+ch8	847006	.	C	A	113	.	AC=1;AF=1.00;AN=1;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=156.00;MQ0=0;QD=22.60;SOR=1.022	GT:AD:DP:GQ:PL	1:0,5:5:99:143,0
+ch8	847012	.	T	C	57	.	AC=1;AF=1.00;AN=1;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=153.40;MQ0=0;QD=14.25;SOR=1.609	GT:AD:DP:GQ:PL	1:0,4:4:87:87,0
+ch8	898306	.	C	T	32.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.026;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=93.24;MQ0=0;MQRankSum=1.026;QD=8.00;ReadPosRankSum=0.000;SOR=2.303	GT:AD:DP:GQ:PL	1:2,2:4:62:62,0
+ch8	1063342	.	A	G	33.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.026;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=178.15;MQ0=0;MQRankSum=0.000;QD=8.25;ReadPosRankSum=-1.026;SOR=0.693	GT:AD:DP:GQ:PL	1:2,2:4:63:63,0
+ch8	1378673	.	T	C	311	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.542;DP=18;Dels=0.00;FS=0.000;HaplotypeScore=4.6547;MLEAC=1;MLEAF=1.00;MQ=74.10;MQ0=0;MQRankSum=1.349;QD=17.28;ReadPosRankSum=1.349;SOR=0.761	GT:AD:DP:GQ:PL	1:1,17:18:99:341,0
+ch8	1418508	.	A	T	30.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.599;DP=20;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=42.26;MQ0=8;MQRankSum=1.134;QD=1.50;ReadPosRankSum=0.600;SOR=0.223	GT:AD:DP:GQ:PL	1:11,9:20:60:60,0
+ch9	1015532	.	T	A	31.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.727;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=1.3123;MLEAC=1;MLEAF=1.00;MQ=96.58;MQ0=0;MQRankSum=0.727;QD=7.75;ReadPosRankSum=0.727;SOR=0.446	GT:AD:DP:GQ:PL	1:1,3:4:61:61,0
+ch9	1051147	.	T	C	30.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.727;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=189.73;MQ0=0;MQRankSum=0.727;QD=7.50;ReadPosRankSum=-0.727;SOR=0.446	GT:AD:DP:GQ:PL	1:1,3:4:60:60,0
+ch9	1078129	.	A	T	34.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.736;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=129.57;MQ0=0;MQRankSum=0.736;QD=11.34;ReadPosRankSum=-0.736;SOR=2.225	GT:AD:DP:GQ:PL	1:1,2:3:64:64,0
+ch10	54200	.	A	G	33.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.736;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=114.77;MQ0=0;MQRankSum=0.736;QD=11.00;ReadPosRankSum=0.736;SOR=2.225	GT:AD:DP:GQ:PL	1:1,2:3:63:63,0
+ch10	54202	.	A	T	35.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.736;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=114.77;MQ0=0;MQRankSum=0.736;QD=11.67;ReadPosRankSum=0.736;SOR=2.225	GT:AD:DP:GQ:PL	1:1,2:3:65:65,0
+ch10	811766	.	A	T	54	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.727;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.6651;MLEAC=1;MLEAF=1.00;MQ=178.79;MQ0=0;MQRankSum=0.727;QD=13.50;ReadPosRankSum=0.727;SOR=1.609	GT:AD:DP:GQ:PL	1:1,3:4:84:84,0
+ch10	813261	.	T	A	33.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=2.262;DP=12;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=139.90;MQ0=0;MQRankSum=-1.708;QD=2.75;ReadPosRankSum=1.708;SOR=2.833	GT:AD:DP:GQ:PL	1:9,3:12:63:63,0
+ch10	1045783	.	T	A	34.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=125.10;MQ0=0;QD=17.00;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:64:64,0
+ch10	1408550	.	A	G	31.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=30.50;MQ0=0;QD=15.50;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:61:61,0
+ch10	1436789	.	G	A	238	.	AC=1;AF=1.00;AN=1;BaseQRankSum=-1.519;DP=19;Dels=0.00;FS=0.000;HaplotypeScore=0.9578;MLEAC=1;MLEAF=1.00;MQ=77.26;MQ0=3;MQRankSum=1.302;QD=12.53;ReadPosRankSum=1.085;SOR=1.284	GT:AD:DP:GQ:PL	1:3,16:19:99:268,0
+ch10	1436794	.	A	G	211	.	AC=1;AF=1.00;AN=1;BaseQRankSum=-1.267;DP=21;Dels=0.00;FS=0.000;HaplotypeScore=0.9578;MLEAC=1;MLEAF=1.00;MQ=73.49;MQ0=4;MQRankSum=2.162;QD=10.05;ReadPosRankSum=1.714;SOR=1.473	GT:AD:DP:GQ:PL	1:5,16:21:99:241,0
+ch10	1436795	.	A	G	80	.	AC=1;AF=1.00;AN=1;BaseQRankSum=-2.079;DP=23;Dels=0.00;FS=0.000;HaplotypeScore=0.9578;MLEAC=1;MLEAF=1.00;MQ=70.22;MQ0=5;MQRankSum=2.457;QD=3.48;ReadPosRankSum=2.457;SOR=0.804	GT:AD:DP:GQ:PL	1:7,16:23:99:110,0
+ch10	1437964	.	G	A	59	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.192;DP=53;Dels=0.00;FS=0.000;HaplotypeScore=3.1000;MLEAC=1;MLEAF=1.00;MQ=19.22;MQ0=10;MQRankSum=0.146;QD=1.11;ReadPosRankSum=-0.439;SOR=0.404	GT:AD:DP:GQ:PL	1:11,42:53:89:89,0
+ch10	1544158	.	A	C	198	.	AC=1;AF=1.00;AN=1;BaseQRankSum=-1.730;DP=45;Dels=0.00;FS=0.000;HaplotypeScore=8.2549;MLEAC=1;MLEAF=1.00;MQ=35.63;MQ0=12;MQRankSum=2.422;QD=4.40;ReadPosRankSum=0.492;SOR=0.955	GT:AD:DP:GQ:PL	1:25,20:45:99:228,0
+ch11	140030	.	C	T	94	.	AC=1;AF=1.00;AN=1;DP=8;Dels=0.00;FS=0.000;HaplotypeScore=5.6673;MLEAC=1;MLEAF=1.00;MQ=121.89;MQ0=0;QD=11.75;SOR=1.863	GT:AD:DP:GQ:PL	1:0,8:8:99:124,0
+ch11	140097	.	A	T	473	.	AC=1;AF=1.00;AN=1;DP=22;Dels=0.00;FS=0.000;HaplotypeScore=6.4588;MLEAC=1;MLEAF=1.00;MQ=133.12;MQ0=0;QD=21.50;SOR=0.874	GT:AD:DP:GQ:PL	1:0,22:22:99:503,0
+ch11	513250	.	G	A	55	.	AC=1;AF=1.00;AN=1;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=1.9559;MLEAC=1;MLEAF=1.00;MQ=142.22;MQ0=1;QD=13.75;SOR=2.833	GT:AD:DP:GQ:PL	1:1,3:4:85:85,0
+ch11	850192	.	A	C	33.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=175.14;MQ0=0;QD=16.50;SOR=0.693	GT:AD:DP:GQ:PL	1:0,2:2:63:63,0
+ch11	1098481	.	A	C	56	.	AC=1;AF=1.00;AN=1;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=90.66;MQ0=0;QD=14.00;SOR=3.258	GT:AD:DP:GQ:PL	1:0,4:4:86:86,0
+ch11	1098485	.	A	T	69	.	AC=1;AF=1.00;AN=1;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=90.66;MQ0=0;QD=17.25;SOR=3.258	GT:AD:DP:GQ:PL	1:0,4:4:99:99,0
+ch11	1098487	.	A	T	69	.	AC=1;AF=1.00;AN=1;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=90.66;MQ0=0;QD=17.25;SOR=3.258	GT:AD:DP:GQ:PL	1:0,4:4:99:99,0
+ch11	1098489	.	A	C	70	.	AC=1;AF=1.00;AN=1;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=90.66;MQ0=0;QD=17.50;SOR=3.258	GT:AD:DP:GQ:PL	1:0,4:4:99:100,0
+ch11	2029730	.	G	A	409	.	AC=1;AF=1.00;AN=1;BaseQRankSum=-1.171;DP=26;Dels=0.00;FS=4.809;HaplotypeScore=2.5946;MLEAC=1;MLEAF=1.00;MQ=172.31;MQ0=0;MQRankSum=0.781;QD=15.73;ReadPosRankSum=-0.911;SOR=0.300	GT:AD:DP:GQ:PL	1:5,21:26:99:439,0
+ch12	126464	.	A	T	36.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.736;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=182.41;MQ0=0;MQRankSum=0.736;QD=12.00;ReadPosRankSum=0.736;SOR=2.225	GT:AD:DP:GQ:PL	1:1,2:3:66:66,0
+ch12	203620	.	A	T	34.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=115.38;MQ0=0;QD=17.00;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:64:64,0
+ch12	219630	.	C	A	41	.	AC=1;AF=1.00;AN=1;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=16.3582;MLEAC=1;MLEAF=1.00;MQ=153.73;MQ0=0;QD=8.20;SOR=1.022	GT:AD:DP:GQ:PL	1:0,5:5:71:71,0
+ch12	253128	.	T	A	58	.	AC=1;AF=1.00;AN=1;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=7.7321;MLEAC=1;MLEAF=1.00;MQ=148.00;MQ0=0;QD=11.60;SOR=1.022	GT:AD:DP:GQ:PL	1:0,5:5:88:88,0
+ch12	323109	.	G	T	39	.	AC=1;AF=1.00;AN=1;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=84.88;MQ0=0;QD=7.80;SOR=1.981	GT:AD:DP:GQ:PL	1:0,5:5:69:69,0
+ch12	323112	.	A	T	35.01	.	AC=1;AF=1.00;AN=1;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=84.88;MQ0=0;QD=7.00;SOR=1.981	GT:AD:DP:GQ:PL	1:0,5:5:65:65,0
+ch12	661156	.	G	T	44	.	AC=1;AF=1.00;AN=1;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.9159;MLEAC=1;MLEAF=1.00;MQ=78.87;MQ0=0;QD=11.00;SOR=0.693	GT:AD:DP:GQ:PL	1:0,4:4:74:74,0
+ch12	959490	.	A	T	69	.	AC=1;AF=1.00;AN=1;BaseQRankSum=-0.934;DP=14;Dels=0.00;FS=0.000;HaplotypeScore=1.7333;MLEAC=1;MLEAF=1.00;MQ=155.27;MQ0=0;MQRankSum=1.868;QD=4.93;ReadPosRankSum=-0.311;SOR=1.179	GT:AD:DP:GQ:PL	1:3,11:14:99:99,0
+ch12	959505	.	A	T	57	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.747;DP=9;Dels=0.00;FS=0.000;HaplotypeScore=1.7825;MLEAC=1;MLEAF=1.00;MQ=132.37;MQ0=0;MQRankSum=-0.747;QD=6.33;ReadPosRankSum=0.747;SOR=0.693	GT:AD:DP:GQ:PL	1:1,8:9:87:87,0
+ch12	1181262	.	A	T	34.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.727;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=185.03;MQ0=0;MQRankSum=0.727;QD=8.50;ReadPosRankSum=0.727;SOR=0.446	GT:AD:DP:GQ:PL	1:1,3:4:64:64,0
+ch12	1184773	.	A	G	31.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.026;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.7340;MLEAC=1;MLEAF=1.00;MQ=145.65;MQ0=0;MQRankSum=0.000;QD=7.75;ReadPosRankSum=-1.026;SOR=2.209	GT:AD:DP:GQ:PL	1:2,2:4:61:61,0
+ch12	1330326	.	A	T	34.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.754;DP=7;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=142.06;MQ0=0;MQRankSum=-1.754;QD=4.86;ReadPosRankSum=-1.754;SOR=1.402	GT:AD:DP:GQ:PL	1:3,4:7:64:64,0
+ch12	1770575	.	A	G	165	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.751;DP=9;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=118.67;MQ0=0;MQRankSum=0.751;QD=18.33;ReadPosRankSum=0.751;SOR=0.223	GT:AD:DP:GQ:PL	1:1,8:9:99:195,0
+ch12	1980104	.	T	A	587	.	AC=1;AF=1.00;AN=1;DP=23;Dels=0.00;FS=0.000;HaplotypeScore=0.8941;MLEAC=1;MLEAF=1.00;MQ=182.27;MQ0=0;QD=25.52;SOR=0.776	GT:AD:DP:GQ:PL	1:0,23:23:99:617,0
+ch12	2175835	.	C	A	188	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.368;DP=52;Dels=0.02;FS=0.000;HaplotypeScore=15.3800;MLEAC=1;MLEAF=1.00;MQ=166.92;MQ0=0;MQRankSum=0.123;QD=3.62;ReadPosRankSum=-0.708;SOR=0.633	GT:AD:DP:GQ:PL	1:24,27:51:99:218,0
+ch12	2199563	.	A	G	86	.	AC=1;AF=1.00;AN=1;BaseQRankSum=1.225;DP=20;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=18.09;MQ0=1;MQRankSum=2.324;QD=4.30;ReadPosRankSum=1.902;SOR=1.179	GT:AD:DP:GQ:PL	1:13,7:20:99:116,0
+ch12	2199573	.	A	T	72	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.434;DP=24;Dels=0.00;FS=0.000;HaplotypeScore=0.6651;MLEAC=1;MLEAF=1.00;MQ=16.75;MQ0=1;MQRankSum=2.706;QD=3.00;ReadPosRankSum=2.038;SOR=1.270	GT:AD:DP:GQ:PL	1:17,7:24:99:102,0
+ch13	179117	.	A	T	76	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.922;DP=7;Dels=0.00;FS=5.441;HaplotypeScore=0.8667;MLEAC=1;MLEAF=1.00;MQ=90.35;MQ0=0;MQRankSum=0.198;QD=10.86;ReadPosRankSum=-0.198;SOR=3.611	GT:AD:DP:GQ:PL	1:2,5:7:99:106,0
+ch13	179119	.	A	T	128	.	AC=1;AF=1.00;AN=1;DP=6;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=97.18;MQ0=0;QD=21.33;SOR=2.303	GT:AD:DP:GQ:PL	1:0,6:6:99:158,0
+ch13	179133	.	C	T	83	.	AC=1;AF=1.00;AN=1;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=105.72;MQ0=0;QD=16.60;SOR=1.981	GT:AD:DP:GQ:PL	1:0,5:5:99:113,0
+ch13	179139	.	G	T	91	.	AC=1;AF=1.00;AN=1;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=105.72;MQ0=0;QD=18.20;SOR=1.981	GT:AD:DP:GQ:PL	1:0,5:5:99:121,0
+ch13	179161	.	A	T	59	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.727;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=3.5665;MLEAC=1;MLEAF=1.00;MQ=117.36;MQ0=0;MQRankSum=0.727;QD=14.75;ReadPosRankSum=-0.727;SOR=0.446	GT:AD:DP:GQ:PL	1:1,3:4:89:89,0
+ch13	179163	.	A	T	60	.	AC=1;AF=1.00;AN=1;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=135.39;MQ0=0;QD=20.00;SOR=1.179	GT:AD:DP:GQ:PL	1:0,3:3:90:90,0
+ch13	292852	.	C	A	32.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=168.59;MQ0=0;QD=16.00;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:62:62,0
+ch13	410637	.	C	T	36.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.736;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.8941;MLEAC=1;MLEAF=1.00;MQ=149.11;MQ0=0;MQRankSum=0.736;QD=9.00;ReadPosRankSum=-0.736;SOR=1.179	GT:AD:DP:GQ:PL	1:1,2:4:66:66,0
+ch13	529400	.	T	G	37.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.000;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=121.67;MQ0=0;MQRankSum=1.026;QD=9.25;ReadPosRankSum=-1.026;SOR=2.209	GT:AD:DP:GQ:PL	1:2,2:4:67:67,0
+ch13	829282	.	G	T	112	.	AC=1;AF=1.00;AN=1;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=181.63;MQ0=0;QD=22.40;SOR=1.022	GT:AD:DP:GQ:PL	1:0,5:5:99:142,0
+ch13	871116	.	A	C	53	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.727;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=164.30;MQ0=0;MQRankSum=0.727;QD=13.25;ReadPosRankSum=-0.727;SOR=1.609	GT:AD:DP:GQ:PL	1:1,3:4:83:83,0
+ch13	958381	.	T	C	33.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=169.11;MQ0=0;QD=16.50;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:63:63,0
+ch13	1142309	.	C	A	80	.	AC=1;AF=1.00;AN=1;DP=5;Dels=0.00;FS=0.000;HaplotypeScore=0.9665;MLEAC=1;MLEAF=1.00;MQ=147.85;MQ0=0;QD=16.00;SOR=1.981	GT:AD:DP:GQ:PL	1:0,5:5:99:110,0
+ch13	2237281	.	A	G	30.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.988;DP=6;Dels=0.00;FS=0.000;HaplotypeScore=0.9789;MLEAC=1;MLEAF=1.00;MQ=143.00;MQ0=0;MQRankSum=0.406;QD=5.00;ReadPosRankSum=0.406;SOR=0.693	GT:AD:DP:GQ:PL	1:3,3:6:60:60,0
+ch13	2429307	.	C	G	30.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=156.08;MQ0=0;QD=15.00;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:60:60,0
+ch13	2578923	.	C	A	89	.	AC=1;AF=1.00;AN=1;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=159.50;MQ0=0;QD=22.25;SOR=1.609	GT:AD:DP:GQ:PL	1:0,4:4:99:119,0
+ch14	98450	.	T	A	30.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=150.50;MQ0=0;QD=15.00;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:60:60,0
+ch14	197132	.	T	C	37.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.736;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.8941;MLEAC=1;MLEAF=1.00;MQ=138.03;MQ0=0;MQRankSum=0.736;QD=12.34;ReadPosRankSum=-0.736;SOR=2.225	GT:AD:DP:GQ:PL	1:1,2:3:67:67,0
+ch14	498631	.	C	T	35.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=2.262;DP=11;Dels=0.00;FS=0.000;HaplotypeScore=1.7870;MLEAC=1;MLEAF=1.00;MQ=147.75;MQ0=0;MQRankSum=-1.531;QD=3.18;ReadPosRankSum=1.106;SOR=2.776	GT:AD:DP:GQ:PL	1:8,3:11:65:65,0
+ch14	550063	.	T	A	33.01	.	AC=1;AF=1.00;AN=1;BaseQRankSum=0.736;DP=3;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=174.69;MQ0=0;MQRankSum=0.736;QD=11.00;ReadPosRankSum=-0.736;SOR=2.225	GT:AD:DP:GQ:PL	1:1,2:3:63:63,0
+ch14	888897	.	T	C	32.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=142.09;MQ0=0;QD=16.00;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:62:62,0
+ch14	942925	.	G	A	37.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=133.01;MQ0=0;QD=18.50;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:67:67,0
+ch14	1163661	.	A	T	36.01	.	AC=1;AF=1.00;AN=1;DP=2;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=131.75;MQ0=0;QD=18.00;SOR=2.303	GT:AD:DP:GQ:PL	1:0,2:2:66:66,0
+ch14	2158689	.	A	T	58	.	AC=1;AF=1.00;AN=1;DP=4;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=129.62;MQ0=0;QD=14.50;SOR=0.693	GT:AD:DP:GQ:PL	1:0,4:4:88:88,0
+ch14	2760112	.	C	A	125	.	AC=1;AF=1.00;AN=1;DP=8;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=40.42;MQ0=0;QD=15.63;SOR=0.941	GT:AD:DP:GQ:PL	1:0,7:8:99:155,0
+ch14	3285958	.	C	T	41	.	AC=1;AF=1.00;AN=1;BaseQRankSum=-0.727;DP=8;Dels=0.00;FS=0.000;HaplotypeScore=0.0000;MLEAC=1;MLEAF=1.00;MQ=12.26;MQ0=4;MQRankSum=0.727;QD=5.13;ReadPosRankSum=-0.727;SOR=1.609	GT:AD:DP:GQ:PL	1:5,3:8:71:71,0

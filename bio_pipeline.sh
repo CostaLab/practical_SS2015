@@ -122,9 +122,9 @@ do
             MINQ="$2"
             shift
             ;;
-	-skip-fastqc)
-	    SKIP_FASTQC=true
-	    ;;
+	    -skip-fastqc)
+	       SKIP_FASTQC=true
+	       ;;
         *)
             # unknown option
             echo "## Unknown option: $key" | tee -a $LOG
@@ -305,11 +305,17 @@ echo "Genome length: ${GENOME_LENGTH}" | tee -a ${READS}.bam.stats $LOG
 samtools depth -Q${MAPQ} ${READS}.bam | awk -v glen="$GENOME_LENGTH" '{if(min==""){min=max=$3}; if($3>max) {max=$3}; if($3< min) {min=$3}; sum+=$3; sumsq+=$3*$3} END { print "min = ",min; print "max = ",max; print "% cov. = ",(NR/glen)*100; print "Avg. base cov. = ",sum/glen; print "Stdev base cov. = ",sqrt(sumsq/glen - (sum/glen)**2)}' | tee -a ${READS}.bam.stats $LOG
 echo | tee -a ${READS}.bam.stats $LOG
 
+echo "Reads length (MAPQ >= ${MAPQ}):" | tee -a ${READS}.bam.stats $LOG
+echo "min-max avg stdev" | tee -a ${READS}.bam.stats $LOG
+samtools view -q $MAPQ ${READS}.bam | awk '{len=length($10); if(max==""){max=min=len}; if(max<len){max=len}; if (min>len){min=len}; sum+=len; sumsq+=len*len} END {avg=sum/NR;sdev=sqrt(sumsq/NR - avg**2);print min"-"max" "avg" +- "sdev}' | tee -a ${READS}.bam.stats $LOG
+echo | tee -a ${READS}.bam.stats $LOG
+
 echo "flagstats:"                       | tee -a ${READS}.bam.stats $LOG
 samtools flagstat ${READS}.bam         |& tee -a ${READS}.bam.stats $LOG
 echo -e "\nidxstats:"                   | tee -a ${READS}.bam.stats $LOG
 echo -e "Chr\tlength\tmapped\tunmapped" | tee -a ${READS}.bam.stats $LOG
 samtools idxstats ${READS}.bam         |& tee -a ${READS}.bam.stats $LOG
+echo | tee -a ${READS}.bam.stats $LOG
 
 if [ $SKIP_FASTQC == false ]
 then

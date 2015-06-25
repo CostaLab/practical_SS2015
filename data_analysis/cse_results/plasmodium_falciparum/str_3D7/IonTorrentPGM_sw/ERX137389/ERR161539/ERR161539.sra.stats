@@ -1,0 +1,41 @@
+<Run accession="/home/fabio/ncbi/public/sra/ERR161539.sra" read_length="variable" spot_count="1636684" base_count="252051144" base_count_bio="245504408" spot_count_mates="0" base_count_bio_mates="0" spot_count_bad="0" base_count_bio_bad="0" spot_count_filtered="0" base_count_bio_filtered="0">
+  <Size value="622962681" units="bytes"/>
+  <Bases cs_native="false" count="252051144">
+    <Base value="A" count="86719306"/>
+    <Base value="C" count="44413414"/>
+    <Base value="G" count="41723865"/>
+    <Base value="T" count="79194559"/>
+    <Base value="N" count="0"/>
+  </Bases>
+  <Statistics nreads="2" nspots="1636684">
+    <Read index="0" count="1636684" average="4" stdev="0"/>
+    <Read index="1" count="1636684" average="150.00" stdev="19.21"/>
+  </Statistics>
+  <QualityCount>
+    <Quality value="5" count="2952277"/>
+    <Quality value="6" count="1250118"/>
+    <Quality value="7" count="10983699"/>
+    <Quality value="8" count="2360972"/>
+    <Quality value="9" count="1507728"/>
+    <Quality value="10" count="8682577"/>
+    <Quality value="11" count="14523335"/>
+    <Quality value="12" count="9031655"/>
+    <Quality value="13" count="6867926"/>
+    <Quality value="14" count="9660699"/>
+    <Quality value="15" count="8237174"/>
+    <Quality value="16" count="10016520"/>
+    <Quality value="17" count="9158544"/>
+    <Quality value="18" count="8751712"/>
+    <Quality value="19" count="8044459"/>
+    <Quality value="20" count="8924434"/>
+    <Quality value="21" count="10368682"/>
+    <Quality value="22" count="8742993"/>
+    <Quality value="23" count="11030824"/>
+    <Quality value="24" count="12822081"/>
+    <Quality value="25" count="11730162"/>
+    <Quality value="26" count="14087837"/>
+    <Quality value="27" count="16398693"/>
+    <Quality value="28" count="16287589"/>
+    <Quality value="29" count="29628454"/>
+  </QualityCount>
+</Run>
