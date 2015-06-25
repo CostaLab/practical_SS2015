@@ -19,7 +19,7 @@ $1 <<EOF
 ### Job name
 #BSUB -J $name
 
-##BSUB -P lect0008
+#BSUB -P lect0008
  
 ### File / path where STDOUT & STDERR will be written
 ### %J is the job ID, %I is the array ID
