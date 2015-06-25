@@ -6,7 +6,7 @@ then
     exit -1
 fi
 
-command -v $4 >/dev/null 2>&1 || { echo >&2 "Command '$1' not available"; exit -1; }
+command -v $4 >/dev/null 2>&1 || { echo >&2 "Command '$2' not available"; exit -1; }
 
 bin=`which $4`
 args="${*:5}"
