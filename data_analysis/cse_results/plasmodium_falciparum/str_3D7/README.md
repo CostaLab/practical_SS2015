@@ -36,4 +36,3 @@
 | Ion Torrent PGM (mem)     | consensus     | *         | 84.4491 | 45060791 |           0 |  7132295 | 14-1803 | N       | 10439 |
 | PacBio RS                 | consensus     | *         | 86.9751 |    68493 |           0 |    94023 | 1-3344  | N       |   169 |
 | 454 GS FLX Titanium       | consensus     | *         | 63.7536 |   588081 |           2 |  1542896 | 1-1196  | N       |  1186 |
-| 454 GS FLX Titanium (mem) | consensus     | *         | 63.7536 |   588081 |           2 |  1542896 | 1-1196  | N       |  1186 |
