@@ -1,0 +1,74 @@
+Sender: LSF System <lsfadmin@linuxbmc0148>
+Subject: Job 22653649: <setyphhiseq8q4n> in cluster <rcc> Done
+
+Job <setyphhiseq8q4n> was submitted from host <cluster> by user <ft583445> in cluster <rcc>.
+Job was executed on host(s) <linuxbmc0148>, in queue <normal>, as user <ft583445> in cluster <rcc>.
+</home/ft583445> was used as the home directory.
+</home/ft583445/costalab/data_analysis/cse_results/salmonella_enterica_enterica/serovar_typhimurium_str_DT104/HiSeq2000/ERX186531/ERR211866> was used as the working directory.
+Started at Fri Jun 26 00:26:58 2015
+Results reported on Fri Jun 26 00:49:15 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+### Job name
+#BSUB -J setyphhiseq8q4n
+
+##BSUB -P lect0008
+ 
+### File / path where STDOUT & STDERR will be written
+### %J is the job ID, %I is the array ID
+#BSUB -o setyphhiseq8q4n.log.%J.%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 8:0
+ 
+### Request memory you need for your job in TOTAL in MB
+#BSUB -M 15000
+ 
+### Change to the work directory
+C=$LSB_JOBINDEX
+cd /home/ft583445/costalab/data_analysis/cse_results/salmonella_enterica_enterica/serovar_typhimurium_str_DT104/HiSeq2000/ERX186531/ERR211866
+
+source /home/ft583445/.zshrc
+
+### Execute your application
+/home/ft583445/.local/bin/cse_indel.py ../../../NC_022569.1.fasta ERR211866.bam 8 4 -d 0 --only-indels -s genome.pickle > results_indel/results_8-grams_4n.data
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   1332.45 sec.
+    Max Memory :                                 1201 MB
+    Average Memory :                             700.00 MB
+    Total Requested Memory :                     15000.00 MB
+    Delta Memory :                               13799.00 MB
+    Max Processes :                              5
+    Max Threads :                                6
+
+The output (if any) follows:
+
+(OK) Loading gcc 4.9.2
+(!!) in order to see the source code in actual debuggers, add to the compile line:
+(!!)    -g -gdwarf-2 
+Annotating (parsing) genome...
+1000000 reads considered for genome annotation 
+2000000 reads considered for genome annotation 
+3000000 reads considered for genome annotation 
+4000000 reads considered for genome annotation 
+5000000 reads considered for genome annotation 
+Dumping serialized object in 3 seconds...
+Searching position is motif[last + 0]
+Warning: 0 q-grams of 4933624 contain other letters than A,C,G and T, ignore these             q-grams
+Number of in-, del keys before all_results [should match!]:  65487 65487 65487
+Start Strand Bias Score calculation
+Start Strand Bias Score calculation
+Start Strand Bias Score calculation
+Number of in-, del keys after all_results [should match!]:  386511 386511 386511
