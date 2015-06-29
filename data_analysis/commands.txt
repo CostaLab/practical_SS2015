@@ -1,3 +1,35 @@
-for from in merged commonstrict; do to="merged"; if [ $to == "commonstrict" ]; then opts=""; else opts="-r simple"; fi; dir="${to}_bp_ec_se_vc_pf_from_${from}"; mkdir -p $dir; shopt -s nullglob; for tech in gaii-x miseq hiseq ion-torrent pacbio; do egrep -c "^[^# ]" cse_results/{bordetella_pertussis,escherichia_coli,salmonella_enterica_enterica,vibrio_cholerae,plasmodium_falciparum}/*/*/${tech}_${from}_*_d*.data ${dir}/${tech}_counts.txt; for d in 0 0.05; do d2=`echo $d | tr -d .`; n=2; for q in 4 8 10; do simple_motif_merger.py $q $n cse_results/{bordetella_pertussis,escherichia_coli,salmonella_enterica_enterica,vibrio_cholerae,plasmodium_falciparum}/*/*/${tech}_${from}_results_${q}-grams_${n}n_d0.data -d $d $opts > ${dir}/${tech}_${to}_results_${q}-grams_${n}n_d${d2}.data; done; n=4; q=8; simple_motif_merger.py $q $n cse_results/{bordetella_pertussis,escherichia_coli,salmonella_enterica_enterica,vibrio_cholerae,plasmodium_falciparum}/*/*/${tech}_${from}_results_${q}-grams_${n}n_d0.data -d $d $opts > ${dir}/${tech}_${to}_results_${q}-grams_${n}n_d${d2}.data; done; done; shopt -u nullglob; done
 
-from="merged"; output="bp_ec_se_vc_pf_from_${from}"; for tech in gaii-x miseq hiseq ion-torrent pacbio; do echo "# of common motifs for $tech"; file="${tech}_${output}.txt"; rm $file; n=2; for q in 4 8 10; do union=`egrep -c "^[^#]" merged_${output}/${tech}_merged_results_${q}-grams_${n}n_d005.data`; inters=`egrep -c "^[^#]" commonstrict_${output}/${tech}_commonstrict_results_${q}-grams_${n}n_d005.data`; if [[ $union != 0 ]]; then echo -e "$q $n\t| U: $union I: $inters JC: "`echo $inters / $union | bc -l` | tee -a $file; else echo -e "$q $n\t| U: $union I: $inters JC: -" | tee -a $file; fi; done; n=4; q=8; union=`egrep -c "^[^#]" merged_${output}/gaii-x_merged_results_${q}-grams_${n}n_d005.data`; inters=`egrep -c "^[^#]" commonstrict_${output}/${tech}_commonstrict_results_${q}-grams_${n}n_d005.data`; if [[ $union != 0 ]]; then echo -e "$q $n\t| U: $union I: $inters JC: "`echo $inters / $union | bc -l` | tee -a $file; else echo -e "$q $n\t| U: $union I: $inters JC: -" | tee -a $file; fi; echo; done
+# Generate a all four combinations of "from" and "to" by putting together
+# data files for a specific set of organisms. Will be used by the next one to
+# create a summary comparison.
+
+for from in merged commonstrict; do for to in merged commonstrict; do if [ $to == "commonstrict" ]; then opts=""; else opts="-r simple"; fi; dir="${to}_bp_ec_se_vc_pf_from_${from}"; mkdir -p $dir; shopt -s nullglob; for tech in gaii-x miseq hiseq ion-torrent pacbio; do egrep -c "^[^# ]" cse_results/{bordetella_pertussis,escherichia_coli,salmonella_enterica_enterica,vibrio_cholerae,plasmodium_falciparum}/*/*/${tech}_${from}_*_d*.data > ${dir}/${tech}_counts.txt; for d in 0 0.05; do d2=`echo $d | tr -d .`; n=2; for q in 4 8 10; do simple_motif_merger.py $q $n cse_results/{bordetella_pertussis,escherichia_coli,salmonella_enterica_enterica,vibrio_cholerae,plasmodium_falciparum}/*/*/${tech}_${from}_results_${q}-grams_${n}n_d0.data -d $d $opts > ${dir}/${tech}_${to}_results_${q}-grams_${n}n_d${d2}.data; done; n=4; q=8; simple_motif_merger.py $q $n cse_results/{bordetella_pertussis,escherichia_coli,salmonella_enterica_enterica,vibrio_cholerae,plasmodium_falciparum}/*/*/${tech}_${from}_results_${q}-grams_${n}n_d0.data -d $d $opts > ${dir}/${tech}_${to}_results_${q}-grams_${n}n_d${d2}.data; done; done; shopt -u nullglob; done; done
+
+topdir="ec_se_vc_pf"; mkdir -p $topdir; for from in merged commonstrict; do for to in merged commonstrict; do if [ $to == "commonstrict" ]; then opts=""; else opts="-r simple"; fi; dir="${topdir}/${to}_from_${from}"; mkdir -p $dir; shopt -s nullglob; for tech in gaii-x miseq hiseq ion-torrent pacbio; do egrep -c "^[^# ]" cse_results/{escherichia_coli,salmonella_enterica_enterica,vibrio_cholerae,plasmodium_falciparum}/*/*/${tech}_${from}_*_d*.data > ${dir}/${tech}_counts.txt; for d in 0 0.05; do d2=`echo $d | tr -d .`; n=2; for q in 4 8 10; do simple_motif_merger.py $q $n cse_results/{escherichia_coli,salmonella_enterica_enterica,vibrio_cholerae,plasmodium_falciparum}/*/*/${tech}_${from}_results_${q}-grams_${n}n_d0.data -d $d $opts > ${dir}/${tech}_${to}_results_${q}-grams_${n}n_d${d2}.data; done; n=4; q=8; simple_motif_merger.py $q $n cse_results/{escherichia_coli,salmonella_enterica_enterica,vibrio_cholerae,plasmodium_falciparum}/*/*/${tech}_${from}_results_${q}-grams_${n}n_d0.data -d $d $opts > ${dir}/${tech}_${to}_results_${q}-grams_${n}n_d${d2}.data; done; done; shopt -u nullglob; done; done
+
+# Generate final summary for multiple-organisms/single-platform combinations.
+# For every platform, it calculates the Jaccard Coefficient by dividing the
+# "commonstrict" (intersection) by the "merged" (union) data files.
+# The JC is a measure of set similarity: it's 0 for disjoint sets,
+# 1 for equal sets, and it varies smoothly inbetween for different
+# intersection areas.
+#
+# With the above being fixed, we still have two choices: the union (merged)
+# can come from either "merged" or "commonstrict" data files, and so can the
+# the intersection (commonstrict). This is so because those final files are
+# the result of multiple organisms' files being put together themselves.
+# "from merged" files were generated by merging together the sub-files within
+# a specific organism. "from commonstrict" were generated by selecting only
+# the common motifs from the sub-files within a specific organism.
+#
+# So at the end we actually calculate two different JCs:
+#
+# - from merged: we take the "commonstrict_from_merged" file as the
+# intersection, and divide its size by the "merged_from_merged" size.
+# A JC is readily calculated for each q and n combination.
+#
+# - from commonstrict: we take the "commonstrict_from_commonstrict" file
+# as the intersection, and divide its size by the "merged_from_commonstrict"
+# size. Again, JC is easily calculated.
+
+for from in merged commonstrict; do output="from_${from}"; for tech in gaii-x miseq hiseq ion-torrent pacbio; do file="${tech}_${output}.txt"; rm $file; echo "# of common motifs for $tech, from $from" | tee -a $file; n=2; for q in 4 8 10; do union=`egrep -c "^[^#]" merged_${output}/${tech}_merged_results_${q}-grams_${n}n_d005.data`; inters=`egrep -c "^[^#]" commonstrict_${output}/${tech}_commonstrict_results_${q}-grams_${n}n_d005.data`; if [[ $union != 0 ]]; then echo -e "$q $n\t| U: $union I: $inters JC: "`echo $inters / $union | bc -l` | tee -a $file; else echo -e "$q $n\t| U: $union I: $inters JC: -" | tee -a $file; fi; done; n=4; q=8; union=`egrep -c "^[^#]" merged_${output}/${tech}_merged_results_${q}-grams_${n}n_d005.data`; inters=`egrep -c "^[^#]" commonstrict_${output}/${tech}_commonstrict_results_${q}-grams_${n}n_d005.data`; if [[ $union != 0 ]]; then echo -e "$q $n\t| U: $union I: $inters JC: "`echo $inters / $union | bc -l` | tee -a $file; else echo -e "$q $n\t| U: $union I: $inters JC: -" | tee -a $file; fi; echo; done; done

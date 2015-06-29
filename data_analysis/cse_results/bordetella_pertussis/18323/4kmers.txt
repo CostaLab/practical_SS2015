@@ -1,4 +1,7 @@
-
+# calculating 4-mers for gi|408414082|ref|NC_018518.1|..
+# seq length: 4043846
+# found 4-mers: 256 out of 256 (100.000000%)
+# dumping to file in lexicographic order
 AAAA
 AAAC
 AAAG

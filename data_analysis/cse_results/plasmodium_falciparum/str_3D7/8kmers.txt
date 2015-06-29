@@ -1,4 +1,33 @@
-
+# calculating 8-mers for ch1..
+# seq length: 643292
+# calculating 8-mers for ch2..
+# seq length: 947102
+# calculating 8-mers for ch3..
+# seq length: 1060087
+# calculating 8-mers for ch4..
+# seq length: 1204112
+# calculating 8-mers for ch5..
+# seq length: 1343552
+# calculating 8-mers for ch6..
+# seq length: 1418244
+# calculating 8-mers for ch7..
+# seq length: 1501717
+# calculating 8-mers for ch8..
+# seq length: 1419563
+# calculating 8-mers for ch9..
+# seq length: 1541723
+# calculating 8-mers for ch10..
+# seq length: 1687655
+# calculating 8-mers for ch11..
+# seq length: 2038337
+# calculating 8-mers for ch12..
+# seq length: 2271478
+# calculating 8-mers for ch13..
+# seq length: 2895605
+# calculating 8-mers for ch14..
+# seq length: 3291871
+# found 8-mers: 65392 out of 65536 (99.780273%)
+# dumping to file in lexicographic order
 AAAAAAAA
 AAAAAAAC
 AAAAAAAG

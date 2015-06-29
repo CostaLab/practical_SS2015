@@ -1,4 +1,7 @@
-
+# calculating 8-mers for gi|749298409|ref|NZ_CP007321.1|..
+# seq length: 4774402
+# found 8-mers: 65490 out of 65536 (99.929810%)
+# dumping to file in lexicographic order
 AAAAAAAA
 AAAAAAAC
 AAAAAAAG

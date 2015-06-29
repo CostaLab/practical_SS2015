@@ -1,0 +1,5 @@
+# of common motifs for miseq, from commonstrict
+4 2	| U: 0 I: 0 JC: -
+8 2	| U: 361 I: 2 JC: .00554016620498614958
+10 2	| U: 11406 I: 0 JC: 0
+8 4	| U: 369 I: 3 JC: .00813008130081300813

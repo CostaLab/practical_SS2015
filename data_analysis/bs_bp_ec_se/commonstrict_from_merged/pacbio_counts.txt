@@ -1,0 +1,16 @@
+cse_results/bordetella_pertussis/18323/PacBioRS/pacbio_merged_results_10-grams_2n_d005.data:0
+cse_results/bordetella_pertussis/18323/PacBioRS/pacbio_merged_results_10-grams_2n_d0.data:0
+cse_results/bordetella_pertussis/18323/PacBioRS/pacbio_merged_results_4-grams_2n_d005.data:0
+cse_results/bordetella_pertussis/18323/PacBioRS/pacbio_merged_results_4-grams_2n_d0.data:6
+cse_results/bordetella_pertussis/18323/PacBioRS/pacbio_merged_results_8-grams_2n_d005.data:0
+cse_results/bordetella_pertussis/18323/PacBioRS/pacbio_merged_results_8-grams_2n_d0.data:0
+cse_results/bordetella_pertussis/18323/PacBioRS/pacbio_merged_results_8-grams_4n_d005.data:0
+cse_results/bordetella_pertussis/18323/PacBioRS/pacbio_merged_results_8-grams_4n_d0.data:2
+cse_results/escherichia_coli/K-12_substr_MG1655/PacBioRS/pacbio_merged_results_10-grams_2n_d005.data:0
+cse_results/escherichia_coli/K-12_substr_MG1655/PacBioRS/pacbio_merged_results_10-grams_2n_d0.data:0
+cse_results/escherichia_coli/K-12_substr_MG1655/PacBioRS/pacbio_merged_results_4-grams_2n_d005.data:0
+cse_results/escherichia_coli/K-12_substr_MG1655/PacBioRS/pacbio_merged_results_4-grams_2n_d0.data:58
+cse_results/escherichia_coli/K-12_substr_MG1655/PacBioRS/pacbio_merged_results_8-grams_2n_d005.data:0
+cse_results/escherichia_coli/K-12_substr_MG1655/PacBioRS/pacbio_merged_results_8-grams_2n_d0.data:0
+cse_results/escherichia_coli/K-12_substr_MG1655/PacBioRS/pacbio_merged_results_8-grams_4n_d005.data:0
+cse_results/escherichia_coli/K-12_substr_MG1655/PacBioRS/pacbio_merged_results_8-grams_4n_d0.data:27

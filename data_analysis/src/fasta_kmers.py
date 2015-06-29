@@ -46,8 +46,8 @@ for ref in ffile.references:
 
 	length = len(seq)
 
-	print("Calculating %d-mers for %s.." % (k, ref), file = sys.stderr)
-	print("Seq length:", length, file = sys.stderr)
+	print("# calculating %d-mers for %s.." % (k, ref))
+	print("# seq length:", length)
 	revseq = reverse_complement(seq)
 	
 	for i in range(len(seq) - k + 1):
@@ -71,9 +71,8 @@ ffile.close()
 tot_kmers = len(s)
 perc = (float(tot_kmers) / float(max_kmers)) * 100
 
-print()
-print("Found %d-mers: %d out of %d (%f%%)" % (k, tot_kmers, max_kmers, perc), file = sys.stderr)
-print("Dumping to file in lexicographic order", file = sys.stderr)
+print("# found %d-mers: %d out of %d (%f%%)" % (k, tot_kmers, max_kmers, perc))
+print("# dumping to file in lexicographic order")
 
 for motif in sorted(s):
-	print("%s" % motif)
+	print(motif)
