@@ -1,0 +1,19 @@
+bitkey	hashvalue	hash_pos	cur_key	hash_bit_key
+0 	50
+100000 	64
+200000 	78
+300000 	93
+400000 	107
+500000 	121
+600000 	136
+700000 	150
+800000 	164
+900000 	179
+1000000 	193
+{'peak': 309472, 'rss': 200532}
+#qgrams not added 0
+#qgrams in hash table: 1048576
+#qgrams that were processed: 1048576
+
+real    1m0.714s
+
