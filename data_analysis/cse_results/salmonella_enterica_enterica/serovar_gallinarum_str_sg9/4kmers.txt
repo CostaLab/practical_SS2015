@@ -1,6 +1,8 @@
 # calculating 4-mers for gi|375122115|ref|NZ_CM001153.1|..
 # seq length: 4658698
 # found 4-mers: 256 out of 256 (100.000000%)
+## Total ##
+# found 4-mers: 256 out of 256 (100.000000%)
 # dumping to file in lexicographic order
 AAAA
 AAAC

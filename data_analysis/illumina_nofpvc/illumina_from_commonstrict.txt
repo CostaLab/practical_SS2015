@@ -1,0 +1,5 @@
+# of common motifs for illumina, from commonstrict
+4 2	| U: 0 I: 0 JC: -
+8 2	| U: 487 I: 168 JC: .34496919917864476386
+10 2	| U: 44713 I: 1503 JC: .03361438507816518685
+8 4	| U: 501 I: 177 JC: .35329341317365269461

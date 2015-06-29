@@ -1,6 +1,8 @@
 # calculating 8-mers for gi|255767013|ref|NC_000964.3|..
 # seq length: 4215606
 # found 8-mers: 65536 out of 65536 (100.000000%)
+## Total ##
+# found 8-mers: 65536 out of 65536 (100.000000%)
 # dumping to file in lexicographic order
 AAAAAAAA
 AAAAAAAC

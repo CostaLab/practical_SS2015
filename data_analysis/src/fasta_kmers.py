@@ -50,13 +50,14 @@ for ref in ffile.references:
 	print("# seq length:", length)
 	revseq = reverse_complement(seq)
 	
+	temp = set()
 	for i in range(len(seq) - k + 1):
 		motif = seq[i:i+k]
 
 		if "N" in motif:
 			continue
 
-		s.add(motif)
+		temp.add(motif)
 
 	for i in range(len(revseq) - k + 1):
 		motif = revseq[i:i+k]
@@ -64,13 +65,21 @@ for ref in ffile.references:
 		if "N" in motif:
 			continue
 
-		s.add(motif)
+		temp.add(motif)
+
+	s |= temp
+
+	tot_kmers = len(temp)
+	perc = (float(tot_kmers) / float(max_kmers)) * 100
+
+	print("# found %d-mers: %d out of %d (%f%%)" % (k, tot_kmers, max_kmers, perc))
 
 ffile.close()
 
 tot_kmers = len(s)
 perc = (float(tot_kmers) / float(max_kmers)) * 100
 
+print("## Total ##")
 print("# found %d-mers: %d out of %d (%f%%)" % (k, tot_kmers, max_kmers, perc))
 print("# dumping to file in lexicographic order")
 

@@ -1,31 +1,46 @@
 # calculating 8-mers for ch1..
 # seq length: 643292
+# found 8-mers: 53515 out of 65536 (81.657410%)
 # calculating 8-mers for ch2..
 # seq length: 947102
+# found 8-mers: 55830 out of 65536 (85.189819%)
 # calculating 8-mers for ch3..
 # seq length: 1060087
+# found 8-mers: 57005 out of 65536 (86.982727%)
 # calculating 8-mers for ch4..
 # seq length: 1204112
+# found 8-mers: 59329 out of 65536 (90.528870%)
 # calculating 8-mers for ch5..
 # seq length: 1343552
+# found 8-mers: 58112 out of 65536 (88.671875%)
 # calculating 8-mers for ch6..
 # seq length: 1418244
+# found 8-mers: 58845 out of 65536 (89.790344%)
 # calculating 8-mers for ch7..
 # seq length: 1501717
+# found 8-mers: 59926 out of 65536 (91.439819%)
 # calculating 8-mers for ch8..
 # seq length: 1419563
+# found 8-mers: 59958 out of 65536 (91.488647%)
 # calculating 8-mers for ch9..
 # seq length: 1541723
+# found 8-mers: 58324 out of 65536 (88.995361%)
 # calculating 8-mers for ch10..
 # seq length: 1687655
+# found 8-mers: 59189 out of 65536 (90.315247%)
 # calculating 8-mers for ch11..
 # seq length: 2038337
+# found 8-mers: 60251 out of 65536 (91.935730%)
 # calculating 8-mers for ch12..
 # seq length: 2271478
+# found 8-mers: 61310 out of 65536 (93.551636%)
 # calculating 8-mers for ch13..
 # seq length: 2895605
+# found 8-mers: 61596 out of 65536 (93.988037%)
 # calculating 8-mers for ch14..
 # seq length: 3291871
+# found 8-mers: 61196 out of 65536 (93.377686%)
+## Total ##
 # found 8-mers: 65392 out of 65536 (99.780273%)
 # dumping to file in lexicographic order
 AAAAAAAA

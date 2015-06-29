@@ -1,9 +1,13 @@
 # calculating 8-mers for gi|749293670|ref|NZ_CP007634.1|..
 # seq length: 3043139
+# found 8-mers: 65535 out of 65536 (99.998474%)
 # calculating 8-mers for gi|749293683|ref|NZ_CP007635.1|..
 # seq length: 1047617
+# found 8-mers: 65459 out of 65536 (99.882507%)
 # calculating 8-mers for gi|749293690|ref|NZ_CP007636.1|..
 # seq length: 167267
+# found 8-mers: 61709 out of 65536 (94.160461%)
+## Total ##
 # found 8-mers: 65536 out of 65536 (100.000000%)
 # dumping to file in lexicographic order
 AAAAAAAA
