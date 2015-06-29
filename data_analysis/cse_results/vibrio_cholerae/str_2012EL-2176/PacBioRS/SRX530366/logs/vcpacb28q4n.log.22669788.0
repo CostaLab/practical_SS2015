@@ -1,0 +1,183 @@
+Sender: LSF System <lsfadmin@linuxbcsc66>
+Subject: Job 22669788: <vcpacb28q4n> in cluster <rcc> Done
+
+Job <vcpacb28q4n> was submitted from host <cluster> by user <ft583445> in cluster <rcc>.
+Job was executed on host(s) <linuxbcsc66>, in queue <normal>, as user <ft583445> in cluster <rcc>.
+</home/ft583445> was used as the home directory.
+</home/ft583445/costalab/data_analysis/cse_results/vibrio_cholerae/str_2012EL-2176/PacBioRS/SRX530366> was used as the working directory.
+Started at Sat Jun 27 00:58:35 2015
+Results reported on Sat Jun 27 01:44:24 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+### Job name
+#BSUB -J vcpacb28q4n
+
+##BSUB -P lect0008
+ 
+### File / path where STDOUT & STDERR will be written
+### %J is the job ID, %I is the array ID
+#BSUB -o vcpacb28q4n.log.%J.%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 12:0
+ 
+### Request memory you need for your job in TOTAL in MB
+#BSUB -M 15000
+ 
+### Change to the work directory
+C=$LSB_JOBINDEX
+cd /home/ft583445/costalab/data_analysis/cse_results/vibrio_cholerae/str_2012EL-2176/PacBioRS/SRX530366
+
+source /home/ft583445/.zshrc
+
+### Execute your application
+/home/ft583445/.local/bin/cse_indel.py ../../complete.fasta SRX530366.bam 8 4 -d 0 --only-indels -s genome_2.pickle -c "gi|749293683|ref|NZ_CP007635.1|" > results_indel/ch2/results_8-grams_4n.data
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2494.38 sec.
+    Max Memory :                                 590 MB
+    Average Memory :                             403.02 MB
+    Total Requested Memory :                     15000.00 MB
+    Delta Memory :                               14410.00 MB
+    Max Processes :                              5
+    Max Threads :                                6
+
+The output (if any) follows:
+
+(OK) Loading gcc 4.9.2
+(!!) in order to see the source code in actual debuggers, add to the compile line:
+(!!)    -g -gdwarf-2 
+Annotating (parsing) genome...
+5 2029
+5 2078
+5 9
+5 6701
+5 2514
+5 4
+5 1760
+5 3339
+5 1375
+5 1693
+5 2008
+5 1334
+5 1
+5 1698
+5 1735
+5 1982
+5 1939
+5 2119
+5 2
+5 1545
+5 1915
+5 1641
+5 1143
+5 2163
+5 3304
+5 2547
+5 569
+5 2616
+5 2044
+5 2196
+5 5
+5 3169
+5 2037
+5 1232
+5 876
+5 62
+5 1302
+5 585
+5 1013
+5 2
+5 1029
+5 2331
+5 2308
+5 2095
+5 2729
+5 2264
+5 3352
+5 1799
+5 2973
+5 2229
+5 1088
+5 2339
+5 3305
+5 2965
+5 1842
+5 1856
+5 1905
+5 865
+5 1422
+5 1
+5 1894
+5 2159
+5 634
+5 1121
+5 1209
+5 2868
+5 2290
+5 2077
+5 2166
+5 1204
+5 1269
+5 2099
+5 2440
+5 1493
+5 2
+5 1186
+5 1922
+5 1365
+5 1731
+5 1196
+5 1773
+5 38
+5 1371
+5 1679
+5 1651
+5 968
+5 1561
+5 2456
+5 539
+5 32
+5 2493
+5 2
+5 967
+5 3196
+5 2011
+5 1640
+5 2358
+5 3681
+5 3234
+5 1800
+5 2806
+5 1927
+5 959
+5 529
+5 2
+5 3322
+5 1
+5 4103
+5 3
+5 1770
+5 3428
+5 1573
+5 4033
+5 3347
+Dumping serialized object in 3 seconds...
+Searching position is motif[last + 0]
+Warning: 0 q-grams of 1047610 contain other letters than A,C,G and T, ignore these             q-grams
+Number of in-, del keys before all_results [should match!]:  65459 65459 65459
+Start Strand Bias Score calculation
+Start Strand Bias Score calculation
+Start Strand Bias Score calculation
+Number of in-, del keys after all_results [should match!]:  386483 386483 386483

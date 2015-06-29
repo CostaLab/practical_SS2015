@@ -1,0 +1,80 @@
+Sender: LSF System <lsfadmin@linuxbsc013>
+Subject: Job 22673797: <pfmiseq3c10q2n> in cluster <rcc> Done
+
+Job <pfmiseq3c10q2n> was submitted from host <cluster> by user <ft583445> in cluster <rcc>.
+Job was executed on host(s) <linuxbsc013>, in queue <normal>, as user <ft583445> in cluster <rcc>.
+</home/ft583445> was used as the home directory.
+</home/ft583445/costalab/data_analysis/cse_results/plasmodium_falciparum/str_3D7/MiSeq/ERX118627/ERR142623> was used as the working directory.
+Started at Sat Jun 27 10:19:21 2015
+Results reported on Sat Jun 27 15:23:52 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+### Job name
+#BSUB -J pfmiseq3c10q2n
+
+##BSUB -P lect0008
+ 
+### File / path where STDOUT & STDERR will be written
+### %J is the job ID, %I is the array ID
+#BSUB -o pfmiseq3c10q2n.log.%J.%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 17:0
+ 
+### Request memory you need for your job in TOTAL in MB
+#BSUB -M 15000
+ 
+### Change to the work directory
+C=$LSB_JOBINDEX
+cd /home/ft583445/costalab/data_analysis/cse_results/plasmodium_falciparum/str_3D7/MiSeq/ERX118627/ERR142623
+
+source /home/ft583445/.zshrc
+
+### Execute your application
+/home/ft583445/.local/bin/cse_indel.py ../../../complete.fasta ERR142623.bam 10 2 -d 0 --only-indels -l genome_3.pickle -c ch3 > results_indel/ch3/results_10-grams_2n.data
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   18481.24 sec.
+    Max Memory :                                 5447 MB
+    Average Memory :                             4187.81 MB
+    Total Requested Memory :                     15000.00 MB
+    Delta Memory :                               9553.00 MB
+    Max Processes :                              5
+    Max Threads :                                6
+
+The output (if any) follows:
+
+(OK) Loading gcc 4.9.2
+(!!) in order to see the source code in actual debuggers, add to the compile line:
+(!!)    -g -gdwarf-2 
+Loading serialized object instead of annotating (parsing) genome...
+Searching position is motif[last + 0]
+Warning: 0 q-grams of 1060078 contain other letters than A,C,G and T, ignore these             q-grams
+Number of in-, del keys before all_results [should match!]:  362822 362822 362822
+Start Strand Bias Score calculation
+ 1000000 / 4594107 Strand Bias Scores calculated
+ 2000000 / 4594107 Strand Bias Scores calculated
+ 3000000 / 4594107 Strand Bias Scores calculated
+ 4000000 / 4594107 Strand Bias Scores calculated
+Start Strand Bias Score calculation
+ 1000000 / 4594118 Strand Bias Scores calculated
+ 2000000 / 4594118 Strand Bias Scores calculated
+ 3000000 / 4594118 Strand Bias Scores calculated
+ 4000000 / 4594118 Strand Bias Scores calculated
+Start Strand Bias Score calculation
+ 1000000 / 4594118 Strand Bias Scores calculated
+ 2000000 / 4594118 Strand Bias Scores calculated
+ 3000000 / 4594118 Strand Bias Scores calculated
+ 4000000 / 4594118 Strand Bias Scores calculated
+Number of in-, del keys after all_results [should match!]:  4594118 4594118 4594118
