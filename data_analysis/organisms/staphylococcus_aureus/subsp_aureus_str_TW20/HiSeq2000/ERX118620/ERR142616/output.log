@@ -1,0 +1,2139 @@
+## Starting pipeline #
+bio_pipeline.sh -ref NC_017331.1.fasta -sra ERR142616.sra -skip-fastqc
+######################
+
+## Saving SRA statistics..
+## Dumping fastq files from ERR142616.sra
+Read 23141606 spots for ERR142616.sra
+Written 23141606 spots for ERR142616.sra
+## Two fastq files generated
+## Creating bwa index for NC_017331.1.fasta
+[bwa_index] Pack FASTA... 0.03 sec
+[bwa_index] Construct BWT for the packed sequence...
+[bwa_index] 0.63 seconds elapse.
+[bwa_index] Update BWT... 0.03 sec
+[bwa_index] Pack forward-only FASTA... 0.02 sec
+[bwa_index] Construct SA from BWT and Occ... 0.35 sec
+[main] Version: 0.7.12-r1039
+[main] CMD: bwa index NC_017331.1.fasta
+[main] Real time: 1.546 sec; CPU: 1.060 sec
+## Generating sam file with bwa-backtrack aligner
+[bwa_aln] 17bp reads: max_diff = 2
+[bwa_aln] 38bp reads: max_diff = 3
+[bwa_aln] 64bp reads: max_diff = 4
+[bwa_aln] 93bp reads: max_diff = 5
+[bwa_aln] 124bp reads: max_diff = 6
+[bwa_aln] 157bp reads: max_diff = 7
+[bwa_aln] 190bp reads: max_diff = 8
+[bwa_aln] 225bp reads: max_diff = 9
+[bwa_aln_core] calculate SA coordinate... 6.22 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 262144 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.66 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 524288 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.70 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 786432 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.00 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 1048576 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.60 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 1310720 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.44 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 1572864 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.42 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 1835008 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.12 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 2097152 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.68 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 2359296 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.46 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 2621440 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 5.98 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 2883584 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 5.86 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 3145728 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.15 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 3407872 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.52 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 3670016 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.47 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 3932160 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.55 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 4194304 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.36 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 4456448 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.51 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 4718592 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.01 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 4980736 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.57 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 5242880 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 5.98 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 5505024 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.27 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 5767168 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.51 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 6029312 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.45 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 6291456 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.28 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 6553600 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 9.02 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 6815744 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.65 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 7077888 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.51 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 7340032 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.72 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 7602176 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.87 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 7864320 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.58 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 8126464 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 5.97 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 8388608 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.53 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 8650752 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.54 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 8912896 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.62 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 9175040 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.64 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 9437184 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.12 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 9699328 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.00 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 9961472 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.10 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 10223616 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.39 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 10485760 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.59 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 10747904 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.50 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 11010048 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.19 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 11272192 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.18 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 11534336 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.07 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 11796480 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 8.08 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 12058624 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.05 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 12320768 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.57 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 12582912 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.42 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 12845056 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.19 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 13107200 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.13 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 13369344 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.44 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 13631488 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.09 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 13893632 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.08 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 14155776 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.90 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 14417920 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.08 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 14680064 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.21 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 14942208 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.67 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 15204352 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.07 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 15466496 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.60 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 15728640 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.38 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 15990784 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.10 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 16252928 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.40 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 16515072 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.56 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 16777216 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 5.94 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 17039360 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.60 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 17301504 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.50 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 17563648 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 5.99 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 17825792 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.08 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 18087936 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.33 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 18350080 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.46 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 18612224 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.27 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 18874368 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.54 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 19136512 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.07 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 19398656 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 5.99 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 19660800 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 5.97 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 19922944 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 5.97 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 20185088 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.03 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 20447232 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.00 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 20709376 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.03 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 20971520 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 5.98 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 21233664 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 5.95 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 21495808 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.35 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 21757952 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 5.94 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 22020096 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 5.97 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 22282240 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 5.52 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 22544384 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 2.25 sec
+[bwa_aln_core] write to the disk... 0.01 sec
+[bwa_aln_core] 22806528 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 1.98 sec
+[bwa_aln_core] write to the disk... 0.01 sec
+[bwa_aln_core] 23068672 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 0.52 sec
+[bwa_aln_core] write to the disk... 0.00 sec
+[bwa_aln_core] 23141606 sequences have been processed.
+[main] Version: 0.7.12-r1039
+[main] CMD: bwa aln -t 4 NC_017331.1.fasta ERR142616_1.fastq
+[main] Real time: 185.922 sec; CPU: 606.984 sec
+[bwa_aln] 17bp reads: max_diff = 2
+[bwa_aln] 38bp reads: max_diff = 3
+[bwa_aln] 64bp reads: max_diff = 4
+[bwa_aln] 93bp reads: max_diff = 5
+[bwa_aln] 124bp reads: max_diff = 6
+[bwa_aln] 157bp reads: max_diff = 7
+[bwa_aln] 190bp reads: max_diff = 8
+[bwa_aln] 225bp reads: max_diff = 9
+[bwa_aln_core] calculate SA coordinate... 7.80 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 262144 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.72 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 524288 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.82 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 786432 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.56 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 1048576 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.48 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 1310720 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.08 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 1572864 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.49 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 1835008 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.67 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 2097152 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.28 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 2359296 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.55 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 2621440 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.18 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 2883584 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.70 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 3145728 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.68 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 3407872 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.13 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 3670016 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.19 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 3932160 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.03 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 4194304 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.66 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 4456448 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.68 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 4718592 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.11 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 4980736 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.17 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 5242880 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.12 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 5505024 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.20 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 5767168 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.48 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 6029312 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.39 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 6291456 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.16 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 6553600 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.46 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 6815744 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.16 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 7077888 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.35 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 7340032 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.31 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 7602176 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.12 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 7864320 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.31 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 8126464 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.89 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 8388608 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.56 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 8650752 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.63 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 8912896 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 9.42 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 9175040 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.32 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 9437184 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.16 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 9699328 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.12 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 9961472 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.62 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 10223616 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.76 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 10485760 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.10 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 10747904 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.60 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 11010048 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.70 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 11272192 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.53 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 11534336 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.08 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 11796480 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.22 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 12058624 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.59 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 12320768 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 8.31 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 12582912 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.62 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 12845056 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.48 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 13107200 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 8.48 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 13369344 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.24 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 13631488 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.05 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 13893632 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.04 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 14155776 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.69 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 14417920 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.64 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 14680064 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 5.94 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 14942208 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.70 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 15204352 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.66 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 15466496 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.41 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 15728640 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.52 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 15990784 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.05 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 16252928 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.65 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 16515072 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.59 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 16777216 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 5.99 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 17039360 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.56 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 17301504 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.60 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 17563648 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.45 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 17825792 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.72 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 18087936 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.36 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 18350080 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.66 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 18612224 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.05 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 18874368 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.29 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 19136512 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.06 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 19398656 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.53 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 19660800 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.72 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 19922944 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.13 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 20185088 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.79 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 20447232 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.01 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 20709376 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.03 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 20971520 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.64 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 21233664 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 7.76 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 21495808 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.56 sec
+[bwa_aln_core] write to the disk... 0.04 sec
+[bwa_aln_core] 21757952 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.03 sec
+[bwa_aln_core] write to the disk... 0.02 sec
+[bwa_aln_core] 22020096 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 6.02 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 22282240 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 5.01 sec
+[bwa_aln_core] write to the disk... 0.03 sec
+[bwa_aln_core] 22544384 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 1.93 sec
+[bwa_aln_core] write to the disk... 0.01 sec
+[bwa_aln_core] 22806528 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 1.77 sec
+[bwa_aln_core] write to the disk... 0.01 sec
+[bwa_aln_core] 23068672 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 0.80 sec
+[bwa_aln_core] write to the disk... 0.00 sec
+[bwa_aln_core] 23141606 sequences have been processed.
+[main] Version: 0.7.12-r1039
+[main] CMD: bwa aln -t 4 NC_017331.1.fasta ERR142616_2.fastq
+[main] Real time: 218.267 sec; CPU: 630.904 sec
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 254588 pairs: 318.849 +/- 114.663
+[infer_isize] skewness: 0.648; kurtosis: 0.036; ap_prior: 1.00e-05
+[infer_isize] inferred maximum insert size: 985 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.39 sec
+[bwa_sai2sam_pe_core] changing coordinates of 13 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2647 out of 6249 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 249 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.21 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.93 sec
+[bwa_sai2sam_pe_core] 262144 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (226, 302, 389)
+[infer_isize] low and high boundaries: 75 and 715 for estimating avg and std
+[infer_isize] inferred external isize from 179491 pairs: 315.228 +/- 112.930
+[infer_isize] skewness: 0.657; kurtosis: 0.071; ap_prior: 1.32e-05
+[infer_isize] inferred maximum insert size: 971 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.67 sec
+[bwa_sai2sam_pe_core] changing coordinates of 7519 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 9767 out of 15330 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 1052 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.48 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.21 sec
+[bwa_sai2sam_pe_core] print alignments... 1.07 sec
+[bwa_sai2sam_pe_core] 524288 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 303, 391)
+[infer_isize] low and high boundaries: 75 and 717 for estimating avg and std
+[infer_isize] inferred external isize from 199570 pairs: 316.726 +/- 113.620
+[infer_isize] skewness: 0.657; kurtosis: 0.062; ap_prior: 2.86e-05
+[infer_isize] inferred maximum insert size: 977 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.65 sec
+[bwa_sai2sam_pe_core] changing coordinates of 11678 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 8449 out of 13478 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 3225 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.54 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.23 sec
+[bwa_sai2sam_pe_core] print alignments... 1.09 sec
+[bwa_sai2sam_pe_core] 786432 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 305, 392)
+[infer_isize] low and high boundaries: 75 and 720 for estimating avg and std
+[infer_isize] inferred external isize from 234002 pairs: 317.933 +/- 114.456
+[infer_isize] skewness: 0.650; kurtosis: 0.059; ap_prior: 2.49e-05
+[infer_isize] inferred maximum insert size: 983 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.58 sec
+[bwa_sai2sam_pe_core] changing coordinates of 2241 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 5948 out of 10103 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 900 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.34 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.20 sec
+[bwa_sai2sam_pe_core] print alignments... 1.00 sec
+[bwa_sai2sam_pe_core] 1048576 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 305, 393)
+[infer_isize] low and high boundaries: 75 and 723 for estimating avg and std
+[infer_isize] inferred external isize from 254210 pairs: 318.525 +/- 114.626
+[infer_isize] skewness: 0.652; kurtosis: 0.059; ap_prior: 2.66e-05
+[infer_isize] inferred maximum insert size: 985 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.50 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2875 out of 5897 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 1101 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.21 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.97 sec
+[bwa_sai2sam_pe_core] 1310720 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 253590 pairs: 318.874 +/- 114.359
+[infer_isize] skewness: 0.652; kurtosis: 0.073; ap_prior: 2.31e-05
+[infer_isize] inferred maximum insert size: 983 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.30 sec
+[bwa_sai2sam_pe_core] changing coordinates of 321 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2576 out of 5647 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 1282 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.20 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.17 sec
+[bwa_sai2sam_pe_core] print alignments... 0.95 sec
+[bwa_sai2sam_pe_core] 1572864 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 394)
+[infer_isize] low and high boundaries: 75 and 724 for estimating avg and std
+[infer_isize] inferred external isize from 254091 pairs: 319.172 +/- 114.678
+[infer_isize] skewness: 0.652; kurtosis: 0.060; ap_prior: 2.17e-05
+[infer_isize] inferred maximum insert size: 985 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.34 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2783 out of 5657 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 1415 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.20 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.17 sec
+[bwa_sai2sam_pe_core] print alignments... 0.94 sec
+[bwa_sai2sam_pe_core] 1835008 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 253778 pairs: 318.582 +/- 114.438
+[infer_isize] skewness: 0.647; kurtosis: 0.062; ap_prior: 2.20e-05
+[infer_isize] inferred maximum insert size: 983 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.38 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2658 out of 5727 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 1623 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.21 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 2097152 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (230, 307, 394)
+[infer_isize] low and high boundaries: 75 and 722 for estimating avg and std
+[infer_isize] inferred external isize from 250557 pairs: 319.349 +/- 114.360
+[infer_isize] skewness: 0.639; kurtosis: 0.042; ap_prior: 2.26e-05
+[infer_isize] inferred maximum insert size: 984 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.37 sec
+[bwa_sai2sam_pe_core] changing coordinates of 1545 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2915 out of 5884 Q17 singletons are mated.
+[bwa_paired_sw] 2 out of 1813 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.22 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 1.04 sec
+[bwa_sai2sam_pe_core] 2359296 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 394)
+[infer_isize] low and high boundaries: 75 and 724 for estimating avg and std
+[infer_isize] inferred external isize from 253243 pairs: 319.111 +/- 114.934
+[infer_isize] skewness: 0.653; kurtosis: 0.065; ap_prior: 2.31e-05
+[infer_isize] inferred maximum insert size: 987 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.70 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2854 out of 5902 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 2046 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.23 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 2621440 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 305, 393)
+[infer_isize] low and high boundaries: 75 and 723 for estimating avg and std
+[infer_isize] inferred external isize from 252810 pairs: 318.351 +/- 114.558
+[infer_isize] skewness: 0.655; kurtosis: 0.069; ap_prior: 2.37e-05
+[infer_isize] inferred maximum insert size: 984 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.33 sec
+[bwa_sai2sam_pe_core] changing coordinates of 240 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2462 out of 5443 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 2402 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.23 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 2883584 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 304, 392)
+[infer_isize] low and high boundaries: 75 and 720 for estimating avg and std
+[infer_isize] inferred external isize from 195987 pairs: 317.641 +/- 114.603
+[infer_isize] skewness: 0.656; kurtosis: 0.060; ap_prior: 2.22e-05
+[infer_isize] inferred maximum insert size: 983 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.48 sec
+[bwa_sai2sam_pe_core] changing coordinates of 4927 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2147 out of 4470 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 2481 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.20 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.99 sec
+[bwa_sai2sam_pe_core] 3145728 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (230, 307, 395)
+[infer_isize] low and high boundaries: 75 and 725 for estimating avg and std
+[infer_isize] inferred external isize from 252735 pairs: 319.713 +/- 114.822
+[infer_isize] skewness: 0.652; kurtosis: 0.070; ap_prior: 2.55e-05
+[infer_isize] inferred maximum insert size: 987 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.33 sec
+[bwa_sai2sam_pe_core] changing coordinates of 1 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2648 out of 5693 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 2685 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.24 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.95 sec
+[bwa_sai2sam_pe_core] 3407872 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 305, 393)
+[infer_isize] low and high boundaries: 75 and 723 for estimating avg and std
+[infer_isize] inferred external isize from 252450 pairs: 318.485 +/- 114.691
+[infer_isize] skewness: 0.657; kurtosis: 0.065; ap_prior: 1.91e-05
+[infer_isize] inferred maximum insert size: 985 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.34 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2785 out of 5830 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 2911 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.25 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.95 sec
+[bwa_sai2sam_pe_core] 3670016 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 252292 pairs: 318.199 +/- 114.318
+[infer_isize] skewness: 0.649; kurtosis: 0.055; ap_prior: 2.22e-05
+[infer_isize] inferred maximum insert size: 982 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.27 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2630 out of 5781 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 3059 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.25 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 1.02 sec
+[bwa_sai2sam_pe_core] 3932160 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 304, 392)
+[infer_isize] low and high boundaries: 75 and 720 for estimating avg and std
+[infer_isize] inferred external isize from 242340 pairs: 317.706 +/- 114.090
+[infer_isize] skewness: 0.652; kurtosis: 0.060; ap_prior: 2.16e-05
+[infer_isize] inferred maximum insert size: 981 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.37 sec
+[bwa_sai2sam_pe_core] changing coordinates of 2329 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2595 out of 5487 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 3297 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.26 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 4194304 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 392)
+[infer_isize] low and high boundaries: 75 and 718 for estimating avg and std
+[infer_isize] inferred external isize from 215062 pairs: 318.399 +/- 114.173
+[infer_isize] skewness: 0.646; kurtosis: 0.049; ap_prior: 2.42e-05
+[infer_isize] inferred maximum insert size: 982 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.58 sec
+[bwa_sai2sam_pe_core] changing coordinates of 5269 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2590 out of 5220 Q17 singletons are mated.
+[bwa_paired_sw] 2 out of 3484 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.26 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.97 sec
+[bwa_sai2sam_pe_core] 4456448 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 305, 392)
+[infer_isize] low and high boundaries: 75 and 720 for estimating avg and std
+[infer_isize] inferred external isize from 218873 pairs: 318.386 +/- 114.507
+[infer_isize] skewness: 0.652; kurtosis: 0.054; ap_prior: 2.12e-05
+[infer_isize] inferred maximum insert size: 984 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.47 sec
+[bwa_sai2sam_pe_core] changing coordinates of 3682 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2326 out of 5001 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 3594 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.25 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.17 sec
+[bwa_sai2sam_pe_core] print alignments... 0.95 sec
+[bwa_sai2sam_pe_core] 4718592 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 249342 pairs: 318.726 +/- 114.785
+[infer_isize] skewness: 0.651; kurtosis: 0.064; ap_prior: 2.08e-05
+[infer_isize] inferred maximum insert size: 986 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.39 sec
+[bwa_sai2sam_pe_core] changing coordinates of 1194 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2638 out of 5487 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 3865 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.28 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 4980736 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 394)
+[infer_isize] low and high boundaries: 75 and 724 for estimating avg and std
+[infer_isize] inferred external isize from 250842 pairs: 319.309 +/- 114.859
+[infer_isize] skewness: 0.648; kurtosis: 0.054; ap_prior: 2.20e-05
+[infer_isize] inferred maximum insert size: 987 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.45 sec
+[bwa_sai2sam_pe_core] changing coordinates of 372 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2414 out of 5434 Q17 singletons are mated.
+[bwa_paired_sw] 3 out of 4185 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.28 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 5242880 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 251301 pairs: 318.543 +/- 114.704
+[infer_isize] skewness: 0.657; kurtosis: 0.072; ap_prior: 2.26e-05
+[infer_isize] inferred maximum insert size: 985 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.41 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2429 out of 5363 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 4475 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.30 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.97 sec
+[bwa_sai2sam_pe_core] 5505024 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 392)
+[infer_isize] low and high boundaries: 75 and 718 for estimating avg and std
+[infer_isize] inferred external isize from 250428 pairs: 318.243 +/- 114.351
+[infer_isize] skewness: 0.655; kurtosis: 0.063; ap_prior: 2.26e-05
+[infer_isize] inferred maximum insert size: 983 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.39 sec
+[bwa_sai2sam_pe_core] changing coordinates of 315 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2417 out of 5327 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 4690 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.30 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.97 sec
+[bwa_sai2sam_pe_core] 5767168 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 250813 pairs: 318.680 +/- 114.426
+[infer_isize] skewness: 0.650; kurtosis: 0.061; ap_prior: 2.47e-05
+[infer_isize] inferred maximum insert size: 983 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.44 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2637 out of 5494 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 4896 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.31 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.95 sec
+[bwa_sai2sam_pe_core] 6029312 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 394)
+[infer_isize] low and high boundaries: 75 and 724 for estimating avg and std
+[infer_isize] inferred external isize from 250559 pairs: 318.896 +/- 114.634
+[infer_isize] skewness: 0.647; kurtosis: 0.055; ap_prior: 2.36e-05
+[infer_isize] inferred maximum insert size: 985 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.35 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2483 out of 5535 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 5124 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.32 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 6291456 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 394)
+[infer_isize] low and high boundaries: 75 and 724 for estimating avg and std
+[infer_isize] inferred external isize from 249259 pairs: 319.041 +/- 114.747
+[infer_isize] skewness: 0.652; kurtosis: 0.067; ap_prior: 2.57e-05
+[infer_isize] inferred maximum insert size: 986 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.40 sec
+[bwa_sai2sam_pe_core] changing coordinates of 693 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2498 out of 5528 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 5266 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.33 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.94 sec
+[bwa_sai2sam_pe_core] 6553600 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 249955 pairs: 318.507 +/- 114.425
+[infer_isize] skewness: 0.649; kurtosis: 0.047; ap_prior: 2.43e-05
+[infer_isize] inferred maximum insert size: 983 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.31 sec
+[bwa_sai2sam_pe_core] changing coordinates of 136 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2535 out of 5447 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 5437 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.33 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.94 sec
+[bwa_sai2sam_pe_core] 6815744 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 304, 393)
+[infer_isize] low and high boundaries: 75 and 723 for estimating avg and std
+[infer_isize] inferred external isize from 248408 pairs: 318.030 +/- 114.864
+[infer_isize] skewness: 0.661; kurtosis: 0.079; ap_prior: 2.20e-05
+[infer_isize] inferred maximum insert size: 985 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.44 sec
+[bwa_sai2sam_pe_core] changing coordinates of 893 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2405 out of 5360 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 5734 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.33 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.95 sec
+[bwa_sai2sam_pe_core] 7077888 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 249966 pairs: 318.563 +/- 114.442
+[infer_isize] skewness: 0.652; kurtosis: 0.064; ap_prior: 2.36e-05
+[infer_isize] inferred maximum insert size: 983 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.38 sec
+[bwa_sai2sam_pe_core] changing coordinates of 1 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2411 out of 5398 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 5863 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.34 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.95 sec
+[bwa_sai2sam_pe_core] 7340032 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 249664 pairs: 318.578 +/- 114.561
+[infer_isize] skewness: 0.651; kurtosis: 0.059; ap_prior: 2.29e-05
+[infer_isize] inferred maximum insert size: 984 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.43 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2610 out of 5614 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 5973 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.35 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 1.03 sec
+[bwa_sai2sam_pe_core] 7602176 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 304, 392)
+[infer_isize] low and high boundaries: 75 and 718 for estimating avg and std
+[infer_isize] inferred external isize from 249516 pairs: 317.694 +/- 113.903
+[infer_isize] skewness: 0.652; kurtosis: 0.067; ap_prior: 2.42e-05
+[infer_isize] inferred maximum insert size: 979 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.35 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2339 out of 5260 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 6365 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.35 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.95 sec
+[bwa_sai2sam_pe_core] 7864320 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 248907 pairs: 318.389 +/- 114.668
+[infer_isize] skewness: 0.654; kurtosis: 0.061; ap_prior: 2.38e-05
+[infer_isize] inferred maximum insert size: 985 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.40 sec
+[bwa_sai2sam_pe_core] changing coordinates of 53 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2636 out of 5612 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 6593 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.37 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.94 sec
+[bwa_sai2sam_pe_core] 8126464 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 248861 pairs: 318.769 +/- 114.581
+[infer_isize] skewness: 0.657; kurtosis: 0.072; ap_prior: 2.35e-05
+[infer_isize] inferred maximum insert size: 984 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.46 sec
+[bwa_sai2sam_pe_core] changing coordinates of 55 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2581 out of 5473 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 6744 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.38 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 1.01 sec
+[bwa_sai2sam_pe_core] 8388608 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 247696 pairs: 318.130 +/- 114.292
+[infer_isize] skewness: 0.655; kurtosis: 0.070; ap_prior: 2.31e-05
+[infer_isize] inferred maximum insert size: 982 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.36 sec
+[bwa_sai2sam_pe_core] changing coordinates of 247 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2472 out of 5459 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 6875 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.38 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 1.00 sec
+[bwa_sai2sam_pe_core] 8650752 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 394)
+[infer_isize] low and high boundaries: 75 and 724 for estimating avg and std
+[infer_isize] inferred external isize from 248700 pairs: 319.233 +/- 114.956
+[infer_isize] skewness: 0.654; kurtosis: 0.078; ap_prior: 2.36e-05
+[infer_isize] inferred maximum insert size: 987 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.57 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2468 out of 5398 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 7157 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.38 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.95 sec
+[bwa_sai2sam_pe_core] 8912896 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 305, 392)
+[infer_isize] low and high boundaries: 75 and 720 for estimating avg and std
+[infer_isize] inferred external isize from 238485 pairs: 317.865 +/- 114.306
+[infer_isize] skewness: 0.650; kurtosis: 0.066; ap_prior: 2.30e-05
+[infer_isize] inferred maximum insert size: 982 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.53 sec
+[bwa_sai2sam_pe_core] changing coordinates of 2808 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2375 out of 5180 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 7401 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.38 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.94 sec
+[bwa_sai2sam_pe_core] 9175040 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 246141 pairs: 318.659 +/- 114.461
+[infer_isize] skewness: 0.644; kurtosis: 0.051; ap_prior: 2.16e-05
+[infer_isize] inferred maximum insert size: 984 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.36 sec
+[bwa_sai2sam_pe_core] changing coordinates of 859 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2396 out of 5318 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 7422 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.39 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 9437184 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 247981 pairs: 318.692 +/- 114.567
+[infer_isize] skewness: 0.651; kurtosis: 0.058; ap_prior: 2.24e-05
+[infer_isize] inferred maximum insert size: 984 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.39 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2470 out of 5485 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 7678 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.40 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.94 sec
+[bwa_sai2sam_pe_core] 9699328 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 247966 pairs: 318.614 +/- 114.254
+[infer_isize] skewness: 0.650; kurtosis: 0.061; ap_prior: 2.31e-05
+[infer_isize] inferred maximum insert size: 982 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.32 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2445 out of 5344 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 7809 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.40 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 9961472 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 394)
+[infer_isize] low and high boundaries: 75 and 724 for estimating avg and std
+[infer_isize] inferred external isize from 247509 pairs: 318.874 +/- 114.807
+[infer_isize] skewness: 0.652; kurtosis: 0.058; ap_prior: 2.36e-05
+[infer_isize] inferred maximum insert size: 986 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.41 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2418 out of 5333 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 8353 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.43 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 10223616 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 304, 392)
+[infer_isize] low and high boundaries: 75 and 720 for estimating avg and std
+[infer_isize] inferred external isize from 236206 pairs: 317.786 +/- 114.419
+[infer_isize] skewness: 0.657; kurtosis: 0.068; ap_prior: 2.46e-05
+[infer_isize] inferred maximum insert size: 983 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.52 sec
+[bwa_sai2sam_pe_core] changing coordinates of 3386 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2284 out of 5125 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 8583 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.43 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 10485760 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 394)
+[infer_isize] low and high boundaries: 75 and 724 for estimating avg and std
+[infer_isize] inferred external isize from 245877 pairs: 318.830 +/- 114.760
+[infer_isize] skewness: 0.650; kurtosis: 0.055; ap_prior: 2.36e-05
+[infer_isize] inferred maximum insert size: 986 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.46 sec
+[bwa_sai2sam_pe_core] changing coordinates of 866 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2421 out of 5385 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 8375 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.43 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.98 sec
+[bwa_sai2sam_pe_core] 10747904 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 306, 393)
+[infer_isize] low and high boundaries: 75 and 723 for estimating avg and std
+[infer_isize] inferred external isize from 239541 pairs: 318.680 +/- 114.820
+[infer_isize] skewness: 0.652; kurtosis: 0.061; ap_prior: 2.26e-05
+[infer_isize] inferred maximum insert size: 986 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.43 sec
+[bwa_sai2sam_pe_core] changing coordinates of 4412 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2525 out of 5404 Q17 singletons are mated.
+[bwa_paired_sw] 3 out of 8424 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.43 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.97 sec
+[bwa_sai2sam_pe_core] 11010048 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 394)
+[infer_isize] low and high boundaries: 75 and 724 for estimating avg and std
+[infer_isize] inferred external isize from 239483 pairs: 319.096 +/- 114.710
+[infer_isize] skewness: 0.650; kurtosis: 0.064; ap_prior: 2.29e-05
+[infer_isize] inferred maximum insert size: 986 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.49 sec
+[bwa_sai2sam_pe_core] changing coordinates of 3136 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2370 out of 5127 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 8771 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.43 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 11272192 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 394)
+[infer_isize] low and high boundaries: 75 and 724 for estimating avg and std
+[infer_isize] inferred external isize from 246968 pairs: 319.238 +/- 114.854
+[infer_isize] skewness: 0.646; kurtosis: 0.050; ap_prior: 2.17e-05
+[infer_isize] inferred maximum insert size: 987 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.35 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2517 out of 5369 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 8843 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.43 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.94 sec
+[bwa_sai2sam_pe_core] 11534336 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 245619 pairs: 318.700 +/- 114.692
+[infer_isize] skewness: 0.660; kurtosis: 0.080; ap_prior: 2.22e-05
+[infer_isize] inferred maximum insert size: 985 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.33 sec
+[bwa_sai2sam_pe_core] changing coordinates of 410 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2466 out of 5411 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 9316 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.46 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 11796480 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 245570 pairs: 318.741 +/- 114.749
+[infer_isize] skewness: 0.654; kurtosis: 0.069; ap_prior: 2.35e-05
+[infer_isize] inferred maximum insert size: 985 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.45 sec
+[bwa_sai2sam_pe_core] changing coordinates of 337 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2364 out of 5308 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 9537 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.46 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.98 sec
+[bwa_sai2sam_pe_core] 12058624 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 246202 pairs: 318.690 +/- 114.417
+[infer_isize] skewness: 0.650; kurtosis: 0.063; ap_prior: 2.26e-05
+[infer_isize] inferred maximum insert size: 983 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.34 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2359 out of 5271 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 9743 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.48 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.19 sec
+[bwa_sai2sam_pe_core] print alignments... 1.00 sec
+[bwa_sai2sam_pe_core] 12320768 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 236033 pairs: 318.537 +/- 114.780
+[infer_isize] skewness: 0.650; kurtosis: 0.050; ap_prior: 2.19e-05
+[infer_isize] inferred maximum insert size: 985 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.51 sec
+[bwa_sai2sam_pe_core] changing coordinates of 2758 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2272 out of 4948 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 9906 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.46 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.95 sec
+[bwa_sai2sam_pe_core] 12582912 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 245704 pairs: 318.890 +/- 114.616
+[infer_isize] skewness: 0.657; kurtosis: 0.071; ap_prior: 2.05e-05
+[infer_isize] inferred maximum insert size: 985 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.50 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2533 out of 5393 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 9985 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.49 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 1.01 sec
+[bwa_sai2sam_pe_core] 12845056 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 199188 pairs: 318.504 +/- 114.710
+[infer_isize] skewness: 0.654; kurtosis: 0.063; ap_prior: 2.16e-05
+[infer_isize] inferred maximum insert size: 985 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.54 sec
+[bwa_sai2sam_pe_core] changing coordinates of 1815 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2055 out of 4460 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 10093 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.45 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.99 sec
+[bwa_sai2sam_pe_core] 13107200 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 233603 pairs: 318.976 +/- 114.394
+[infer_isize] skewness: 0.650; kurtosis: 0.063; ap_prior: 2.13e-05
+[infer_isize] inferred maximum insert size: 984 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.40 sec
+[bwa_sai2sam_pe_core] changing coordinates of 4843 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2542 out of 5342 Q17 singletons are mated.
+[bwa_paired_sw] 4 out of 10452 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.49 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 13369344 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 394)
+[infer_isize] low and high boundaries: 75 and 724 for estimating avg and std
+[infer_isize] inferred external isize from 245532 pairs: 319.019 +/- 114.932
+[infer_isize] skewness: 0.650; kurtosis: 0.054; ap_prior: 2.13e-05
+[infer_isize] inferred maximum insert size: 987 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.49 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2361 out of 5252 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 10462 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.49 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.19 sec
+[bwa_sai2sam_pe_core] print alignments... 1.01 sec
+[bwa_sai2sam_pe_core] 13631488 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 245128 pairs: 319.010 +/- 114.686
+[infer_isize] skewness: 0.653; kurtosis: 0.063; ap_prior: 2.31e-05
+[infer_isize] inferred maximum insert size: 985 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.36 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2460 out of 5392 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 10657 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.50 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.97 sec
+[bwa_sai2sam_pe_core] 13893632 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 304, 391)
+[infer_isize] low and high boundaries: 75 and 717 for estimating avg and std
+[infer_isize] inferred external isize from 214638 pairs: 317.518 +/- 114.040
+[infer_isize] skewness: 0.652; kurtosis: 0.065; ap_prior: 2.40e-05
+[infer_isize] inferred maximum insert size: 980 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.59 sec
+[bwa_sai2sam_pe_core] changing coordinates of 12094 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2224 out of 4904 Q17 singletons are mated.
+[bwa_paired_sw] 2 out of 11086 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.50 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.99 sec
+[bwa_sai2sam_pe_core] 14155776 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (227, 303, 391)
+[infer_isize] low and high boundaries: 75 and 719 for estimating avg and std
+[infer_isize] inferred external isize from 220693 pairs: 316.860 +/- 114.124
+[infer_isize] skewness: 0.659; kurtosis: 0.088; ap_prior: 2.14e-05
+[infer_isize] inferred maximum insert size: 980 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.46 sec
+[bwa_sai2sam_pe_core] changing coordinates of 7666 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2096 out of 4753 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 11633 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.51 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 14417920 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 233284 pairs: 318.381 +/- 114.657
+[infer_isize] skewness: 0.658; kurtosis: 0.078; ap_prior: 2.16e-05
+[infer_isize] inferred maximum insert size: 985 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.43 sec
+[bwa_sai2sam_pe_core] changing coordinates of 2457 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2285 out of 5090 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 11287 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.54 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.19 sec
+[bwa_sai2sam_pe_core] print alignments... 1.00 sec
+[bwa_sai2sam_pe_core] 14680064 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 305, 393)
+[infer_isize] low and high boundaries: 75 and 723 for estimating avg and std
+[infer_isize] inferred external isize from 206605 pairs: 318.108 +/- 114.487
+[infer_isize] skewness: 0.655; kurtosis: 0.072; ap_prior: 2.16e-05
+[infer_isize] inferred maximum insert size: 983 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.54 sec
+[bwa_sai2sam_pe_core] changing coordinates of 9878 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2258 out of 4843 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 11250 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.50 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 1.03 sec
+[bwa_sai2sam_pe_core] 14942208 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 243718 pairs: 318.491 +/- 114.473
+[infer_isize] skewness: 0.654; kurtosis: 0.077; ap_prior: 2.12e-05
+[infer_isize] inferred maximum insert size: 984 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.48 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2587 out of 5559 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 11846 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.54 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.95 sec
+[bwa_sai2sam_pe_core] 15204352 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 392)
+[infer_isize] low and high boundaries: 75 and 718 for estimating avg and std
+[infer_isize] inferred external isize from 241605 pairs: 318.050 +/- 114.239
+[infer_isize] skewness: 0.655; kurtosis: 0.068; ap_prior: 2.18e-05
+[infer_isize] inferred maximum insert size: 982 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.40 sec
+[bwa_sai2sam_pe_core] changing coordinates of 1229 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2339 out of 5267 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 12203 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.54 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.95 sec
+[bwa_sai2sam_pe_core] 15466496 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 304, 391)
+[infer_isize] low and high boundaries: 75 and 717 for estimating avg and std
+[infer_isize] inferred external isize from 186882 pairs: 316.912 +/- 113.777
+[infer_isize] skewness: 0.654; kurtosis: 0.066; ap_prior: 2.36e-05
+[infer_isize] inferred maximum insert size: 978 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.53 sec
+[bwa_sai2sam_pe_core] changing coordinates of 4462 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 1813 out of 4158 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 12636 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.52 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 1.00 sec
+[bwa_sai2sam_pe_core] 15728640 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 242985 pairs: 318.391 +/- 114.896
+[infer_isize] skewness: 0.656; kurtosis: 0.068; ap_prior: 2.20e-05
+[infer_isize] inferred maximum insert size: 986 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.29 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2680 out of 5599 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 12624 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.57 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 15990784 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 304, 392)
+[infer_isize] low and high boundaries: 75 and 720 for estimating avg and std
+[infer_isize] inferred external isize from 221573 pairs: 317.176 +/- 114.280
+[infer_isize] skewness: 0.651; kurtosis: 0.061; ap_prior: 2.46e-05
+[infer_isize] inferred maximum insert size: 981 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.51 sec
+[bwa_sai2sam_pe_core] changing coordinates of 6437 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2111 out of 4770 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 13203 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.56 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 16252928 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 304, 391)
+[infer_isize] low and high boundaries: 75 and 717 for estimating avg and std
+[infer_isize] inferred external isize from 232427 pairs: 317.204 +/- 114.427
+[infer_isize] skewness: 0.660; kurtosis: 0.069; ap_prior: 2.38e-05
+[infer_isize] inferred maximum insert size: 982 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.58 sec
+[bwa_sai2sam_pe_core] changing coordinates of 3048 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2273 out of 5080 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 13285 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.57 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.95 sec
+[bwa_sai2sam_pe_core] 16515072 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 394)
+[infer_isize] low and high boundaries: 75 and 724 for estimating avg and std
+[infer_isize] inferred external isize from 242604 pairs: 319.085 +/- 114.738
+[infer_isize] skewness: 0.655; kurtosis: 0.061; ap_prior: 2.67e-05
+[infer_isize] inferred maximum insert size: 986 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.44 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2301 out of 5316 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 13261 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.58 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.95 sec
+[bwa_sai2sam_pe_core] 16777216 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 305, 392)
+[infer_isize] low and high boundaries: 75 and 720 for estimating avg and std
+[infer_isize] inferred external isize from 207418 pairs: 317.821 +/- 114.303
+[infer_isize] skewness: 0.653; kurtosis: 0.060; ap_prior: 2.42e-05
+[infer_isize] inferred maximum insert size: 982 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.56 sec
+[bwa_sai2sam_pe_core] changing coordinates of 5912 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2031 out of 4496 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 12817 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.54 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 17039360 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 394)
+[infer_isize] low and high boundaries: 75 and 724 for estimating avg and std
+[infer_isize] inferred external isize from 242900 pairs: 319.097 +/- 114.861
+[infer_isize] skewness: 0.657; kurtosis: 0.084; ap_prior: 2.34e-05
+[infer_isize] inferred maximum insert size: 986 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.47 sec
+[bwa_sai2sam_pe_core] changing coordinates of 2 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2369 out of 5134 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 13131 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.60 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.19 sec
+[bwa_sai2sam_pe_core] print alignments... 1.05 sec
+[bwa_sai2sam_pe_core] 17301504 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 394)
+[infer_isize] low and high boundaries: 75 and 724 for estimating avg and std
+[infer_isize] inferred external isize from 241679 pairs: 319.003 +/- 114.733
+[infer_isize] skewness: 0.648; kurtosis: 0.047; ap_prior: 2.10e-05
+[infer_isize] inferred maximum insert size: 986 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.49 sec
+[bwa_sai2sam_pe_core] changing coordinates of 313 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2509 out of 5482 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 13421 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.59 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.98 sec
+[bwa_sai2sam_pe_core] 17563648 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 237490 pairs: 318.372 +/- 114.373
+[infer_isize] skewness: 0.651; kurtosis: 0.065; ap_prior: 2.16e-05
+[infer_isize] inferred maximum insert size: 983 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.86 sec
+[bwa_sai2sam_pe_core] changing coordinates of 882 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2380 out of 5241 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 13569 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.62 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.19 sec
+[bwa_sai2sam_pe_core] print alignments... 1.01 sec
+[bwa_sai2sam_pe_core] 17825792 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 304, 392)
+[infer_isize] low and high boundaries: 75 and 720 for estimating avg and std
+[infer_isize] inferred external isize from 191502 pairs: 317.132 +/- 113.796
+[infer_isize] skewness: 0.647; kurtosis: 0.068; ap_prior: 2.29e-05
+[infer_isize] inferred maximum insert size: 978 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.67 sec
+[bwa_sai2sam_pe_core] changing coordinates of 12728 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2088 out of 4498 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 13673 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.58 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.99 sec
+[bwa_sai2sam_pe_core] 18087936 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 241792 pairs: 318.739 +/- 114.732
+[infer_isize] skewness: 0.658; kurtosis: 0.073; ap_prior: 2.25e-05
+[infer_isize] inferred maximum insert size: 985 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.74 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2330 out of 5105 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 14320 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.62 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.97 sec
+[bwa_sai2sam_pe_core] 18350080 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 394)
+[infer_isize] low and high boundaries: 75 and 724 for estimating avg and std
+[infer_isize] inferred external isize from 241827 pairs: 319.226 +/- 114.754
+[infer_isize] skewness: 0.649; kurtosis: 0.061; ap_prior: 2.16e-05
+[infer_isize] inferred maximum insert size: 986 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.40 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2515 out of 5408 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 13941 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.62 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.97 sec
+[bwa_sai2sam_pe_core] 18612224 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 392)
+[infer_isize] low and high boundaries: 75 and 718 for estimating avg and std
+[infer_isize] inferred external isize from 241370 pairs: 318.046 +/- 114.280
+[infer_isize] skewness: 0.652; kurtosis: 0.062; ap_prior: 2.38e-05
+[infer_isize] inferred maximum insert size: 982 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.42 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2410 out of 5270 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 14484 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.63 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 18874368 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 240204 pairs: 318.620 +/- 114.279
+[infer_isize] skewness: 0.651; kurtosis: 0.061; ap_prior: 2.26e-05
+[infer_isize] inferred maximum insert size: 983 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.47 sec
+[bwa_sai2sam_pe_core] changing coordinates of 504 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2405 out of 5241 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 14491 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.62 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.97 sec
+[bwa_sai2sam_pe_core] 19136512 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 394)
+[infer_isize] low and high boundaries: 75 and 724 for estimating avg and std
+[infer_isize] inferred external isize from 237138 pairs: 319.113 +/- 114.848
+[infer_isize] skewness: 0.644; kurtosis: 0.043; ap_prior: 2.58e-05
+[infer_isize] inferred maximum insert size: 986 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.44 sec
+[bwa_sai2sam_pe_core] changing coordinates of 2339 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2196 out of 4916 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 14945 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.63 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.97 sec
+[bwa_sai2sam_pe_core] 19398656 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 240842 pairs: 318.315 +/- 114.479
+[infer_isize] skewness: 0.647; kurtosis: 0.056; ap_prior: 2.47e-05
+[infer_isize] inferred maximum insert size: 983 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.39 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2563 out of 5429 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 14949 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.64 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.97 sec
+[bwa_sai2sam_pe_core] 19660800 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 392)
+[infer_isize] low and high boundaries: 75 and 718 for estimating avg and std
+[infer_isize] inferred external isize from 240770 pairs: 318.364 +/- 114.541
+[infer_isize] skewness: 0.654; kurtosis: 0.068; ap_prior: 2.41e-05
+[infer_isize] inferred maximum insert size: 984 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.43 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2379 out of 5141 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 15263 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.65 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 1.05 sec
+[bwa_sai2sam_pe_core] 19922944 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 239661 pairs: 318.728 +/- 114.380
+[infer_isize] skewness: 0.653; kurtosis: 0.061; ap_prior: 2.16e-05
+[infer_isize] inferred maximum insert size: 983 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.53 sec
+[bwa_sai2sam_pe_core] changing coordinates of 193 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2556 out of 5449 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 15067 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.67 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 1.00 sec
+[bwa_sai2sam_pe_core] 20185088 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 305, 392)
+[infer_isize] low and high boundaries: 75 and 720 for estimating avg and std
+[infer_isize] inferred external isize from 231720 pairs: 318.031 +/- 114.623
+[infer_isize] skewness: 0.659; kurtosis: 0.076; ap_prior: 2.48e-05
+[infer_isize] inferred maximum insert size: 984 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.47 sec
+[bwa_sai2sam_pe_core] changing coordinates of 3092 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2254 out of 5030 Q17 singletons are mated.
+[bwa_paired_sw] 2 out of 15784 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.68 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.98 sec
+[bwa_sai2sam_pe_core] 20447232 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 240118 pairs: 318.575 +/- 114.311
+[infer_isize] skewness: 0.649; kurtosis: 0.064; ap_prior: 2.23e-05
+[infer_isize] inferred maximum insert size: 983 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.58 sec
+[bwa_sai2sam_pe_core] changing coordinates of 199 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2355 out of 5241 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 15452 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.68 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.20 sec
+[bwa_sai2sam_pe_core] print alignments... 1.00 sec
+[bwa_sai2sam_pe_core] 20709376 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (230, 307, 395)
+[infer_isize] low and high boundaries: 75 and 725 for estimating avg and std
+[infer_isize] inferred external isize from 239736 pairs: 319.760 +/- 114.985
+[infer_isize] skewness: 0.650; kurtosis: 0.064; ap_prior: 2.27e-05
+[infer_isize] inferred maximum insert size: 988 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.46 sec
+[bwa_sai2sam_pe_core] changing coordinates of 81 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2591 out of 5434 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 15487 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.67 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 20971520 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 304, 392)
+[infer_isize] low and high boundaries: 75 and 720 for estimating avg and std
+[infer_isize] inferred external isize from 231284 pairs: 317.729 +/- 114.394
+[infer_isize] skewness: 0.649; kurtosis: 0.051; ap_prior: 2.30e-05
+[infer_isize] inferred maximum insert size: 982 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.29 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 4217 out of 13942 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 15980 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.85 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.97 sec
+[bwa_sai2sam_pe_core] 21233664 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 239639 pairs: 318.531 +/- 114.505
+[infer_isize] skewness: 0.658; kurtosis: 0.068; ap_prior: 2.61e-05
+[infer_isize] inferred maximum insert size: 984 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.42 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2452 out of 5347 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 16207 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.70 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 21495808 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 393)
+[infer_isize] low and high boundaries: 75 and 721 for estimating avg and std
+[infer_isize] inferred external isize from 239434 pairs: 318.605 +/- 114.714
+[infer_isize] skewness: 0.650; kurtosis: 0.060; ap_prior: 2.56e-05
+[infer_isize] inferred maximum insert size: 985 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.48 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2487 out of 5398 Q17 singletons are mated.
+[bwa_paired_sw] 1 out of 16290 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.69 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.19 sec
+[bwa_sai2sam_pe_core] print alignments... 0.99 sec
+[bwa_sai2sam_pe_core] 21757952 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 305, 394)
+[infer_isize] low and high boundaries: 75 and 724 for estimating avg and std
+[infer_isize] inferred external isize from 239819 pairs: 319.043 +/- 114.802
+[infer_isize] skewness: 0.659; kurtosis: 0.086; ap_prior: 2.37e-05
+[infer_isize] inferred maximum insert size: 986 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.45 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2505 out of 5396 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 15988 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.67 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.95 sec
+[bwa_sai2sam_pe_core] 22020096 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (229, 306, 394)
+[infer_isize] low and high boundaries: 75 and 724 for estimating avg and std
+[infer_isize] inferred external isize from 238263 pairs: 318.915 +/- 114.866
+[infer_isize] skewness: 0.651; kurtosis: 0.059; ap_prior: 2.48e-05
+[infer_isize] inferred maximum insert size: 986 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 1.37 sec
+[bwa_sai2sam_pe_core] changing coordinates of 532 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 2302 out of 5016 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 17029 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.70 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.18 sec
+[bwa_sai2sam_pe_core] print alignments... 0.96 sec
+[bwa_sai2sam_pe_core] 22282240 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] (25, 50, 75) percentile: (228, 305, 393)
+[infer_isize] low and high boundaries: 75 and 723 for estimating avg and std
+[infer_isize] inferred external isize from 138593 pairs: 318.409 +/- 114.731
+[infer_isize] skewness: 0.653; kurtosis: 0.069; ap_prior: 2.54e-05
+[infer_isize] inferred maximum insert size: 985 (5.81 sigma)
+[bwa_sai2sam_pe_core] time elapses: 0.94 sec
+[bwa_sai2sam_pe_core] changing coordinates of 2767 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 1700 out of 3453 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 11576 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.45 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.13 sec
+[bwa_sai2sam_pe_core] print alignments... 0.70 sec
+[bwa_sai2sam_pe_core] 22544384 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] fail to infer insert size: too few good pairs
+[bwa_sai2sam_pe_core] time elapses: 0.07 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 0 out of 0 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 0 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.01 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.04 sec
+[bwa_sai2sam_pe_core] print alignments... 0.27 sec
+[bwa_sai2sam_pe_core] 22806528 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] fail to infer insert size: too few good pairs
+[bwa_sai2sam_pe_core] time elapses: 0.07 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 0 out of 0 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 0 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.00 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.04 sec
+[bwa_sai2sam_pe_core] print alignments... 0.27 sec
+[bwa_sai2sam_pe_core] 23068672 sequences have been processed.
+[bwa_sai2sam_pe_core] convert to sequence coordinate... 
+[infer_isize] fail to infer insert size: too few good pairs
+[bwa_sai2sam_pe_core] time elapses: 0.01 sec
+[bwa_sai2sam_pe_core] changing coordinates of 0 alignments.
+[bwa_sai2sam_pe_core] align unmapped mate...
+[bwa_paired_sw] 0 out of 0 Q17 singletons are mated.
+[bwa_paired_sw] 0 out of 0 Q17 discordant pairs are fixed.
+[bwa_sai2sam_pe_core] time elapses: 0.00 sec
+[bwa_sai2sam_pe_core] refine gapped alignments... 0.01 sec
+[bwa_sai2sam_pe_core] print alignments... 0.07 sec
+[bwa_sai2sam_pe_core] 23141606 sequences have been processed.
+[main] Version: 0.7.12-r1039
+[main] CMD: bwa sampe NC_017331.1.fasta tmp1.sai tmp2.sai ERR142616_1.fastq ERR142616_2.fastq
+[main] Real time: 434.559 sec; CPU: 313.580 sec
+## Converting sam file to BAM, sorting and indexing
+[samopen] SAM header is present: 1 sequences.
+[bam_sort_core] merging from 21 files...
+## Removing duplicates
+[bam_rmdup_core] processing reference gi|387141638|ref|NC_017331.1|...
+[bam_rmdup_core] 10 unmatched pairs
+[bam_rmdup_core] 611027 / 22159858 = 0.0276 in library '	'
+## Adding read groups and indexing
+[Tue Jun 30 16:48:38 CEST 2015] picard.sam.AddOrReplaceReadGroups INPUT=tmp.rmdup.sorted.bam OUTPUT=tmp.addrg.rmdup.sorted.bam RGLB=rglib RGPL=rgpl RGPU=rgpu RGSM=rgsm VALIDATION_STRINGENCY=SILENT    RGID=1 VERBOSITY=INFO QUIET=false COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_INDEX=false CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json
+[Tue Jun 30 16:48:38 CEST 2015] Executing as fabio@ahmad-desktop on Linux 3.19.0-22-generic amd64; OpenJDK 64-Bit Server VM 1.7.0_79-b14; Picard version: 1.135(83ec44e03ec8d07ef180ef86b7a62d59a80dedd3_1435607037) IntelDeflater
+INFO	2015-06-30 16:48:39	AddOrReplaceReadGroups	Created read group ID=1 PL=rgpl LB=rglib SM=rgsm
+
+INFO	2015-06-30 16:48:47	AddOrReplaceReadGroups	Processed     1,000,000 records.  Elapsed time: 00:00:08s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:62,780
+INFO	2015-06-30 16:48:55	AddOrReplaceReadGroups	Processed     2,000,000 records.  Elapsed time: 00:00:16s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:117,865
+INFO	2015-06-30 16:49:03	AddOrReplaceReadGroups	Processed     3,000,000 records.  Elapsed time: 00:00:24s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:187,440
+INFO	2015-06-30 16:49:12	AddOrReplaceReadGroups	Processed     4,000,000 records.  Elapsed time: 00:00:33s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:256,621
+INFO	2015-06-30 16:49:20	AddOrReplaceReadGroups	Processed     5,000,000 records.  Elapsed time: 00:00:41s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:326,216
+INFO	2015-06-30 16:49:28	AddOrReplaceReadGroups	Processed     6,000,000 records.  Elapsed time: 00:00:49s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:394,534
+INFO	2015-06-30 16:49:36	AddOrReplaceReadGroups	Processed     7,000,000 records.  Elapsed time: 00:00:57s.  Time for last 1,000,000:    7s.  Last read position: gi|387141638|ref|NC_017331.1|:463,035
+INFO	2015-06-30 16:49:44	AddOrReplaceReadGroups	Processed     8,000,000 records.  Elapsed time: 00:01:05s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:532,724
+INFO	2015-06-30 16:49:53	AddOrReplaceReadGroups	Processed     9,000,000 records.  Elapsed time: 00:01:14s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:603,013
+INFO	2015-06-30 16:50:01	AddOrReplaceReadGroups	Processed    10,000,000 records.  Elapsed time: 00:01:22s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:673,297
+INFO	2015-06-30 16:50:09	AddOrReplaceReadGroups	Processed    11,000,000 records.  Elapsed time: 00:01:30s.  Time for last 1,000,000:    7s.  Last read position: gi|387141638|ref|NC_017331.1|:742,828
+INFO	2015-06-30 16:50:17	AddOrReplaceReadGroups	Processed    12,000,000 records.  Elapsed time: 00:01:38s.  Time for last 1,000,000:    7s.  Last read position: gi|387141638|ref|NC_017331.1|:812,270
+INFO	2015-06-30 16:50:25	AddOrReplaceReadGroups	Processed    13,000,000 records.  Elapsed time: 00:01:46s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:882,222
+INFO	2015-06-30 16:50:33	AddOrReplaceReadGroups	Processed    14,000,000 records.  Elapsed time: 00:01:54s.  Time for last 1,000,000:    7s.  Last read position: gi|387141638|ref|NC_017331.1|:952,696
+INFO	2015-06-30 16:50:41	AddOrReplaceReadGroups	Processed    15,000,000 records.  Elapsed time: 00:02:02s.  Time for last 1,000,000:    7s.  Last read position: gi|387141638|ref|NC_017331.1|:1,023,614
+INFO	2015-06-30 16:50:49	AddOrReplaceReadGroups	Processed    16,000,000 records.  Elapsed time: 00:02:10s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:1,094,249
+INFO	2015-06-30 16:50:57	AddOrReplaceReadGroups	Processed    17,000,000 records.  Elapsed time: 00:02:18s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:1,165,313
+INFO	2015-06-30 16:51:05	AddOrReplaceReadGroups	Processed    18,000,000 records.  Elapsed time: 00:02:26s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:1,236,439
+INFO	2015-06-30 16:51:13	AddOrReplaceReadGroups	Processed    19,000,000 records.  Elapsed time: 00:02:34s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:1,308,094
+INFO	2015-06-30 16:51:21	AddOrReplaceReadGroups	Processed    20,000,000 records.  Elapsed time: 00:02:42s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:1,380,354
+INFO	2015-06-30 16:51:30	AddOrReplaceReadGroups	Processed    21,000,000 records.  Elapsed time: 00:02:50s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:1,452,209
+INFO	2015-06-30 16:51:38	AddOrReplaceReadGroups	Processed    22,000,000 records.  Elapsed time: 00:02:59s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:1,525,002
+INFO	2015-06-30 16:51:46	AddOrReplaceReadGroups	Processed    23,000,000 records.  Elapsed time: 00:03:07s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:1,598,370
+INFO	2015-06-30 16:51:55	AddOrReplaceReadGroups	Processed    24,000,000 records.  Elapsed time: 00:03:16s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:1,670,539
+INFO	2015-06-30 16:52:03	AddOrReplaceReadGroups	Processed    25,000,000 records.  Elapsed time: 00:03:24s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:1,742,461
+INFO	2015-06-30 16:52:11	AddOrReplaceReadGroups	Processed    26,000,000 records.  Elapsed time: 00:03:32s.  Time for last 1,000,000:    7s.  Last read position: gi|387141638|ref|NC_017331.1|:1,814,408
+INFO	2015-06-30 16:52:19	AddOrReplaceReadGroups	Processed    27,000,000 records.  Elapsed time: 00:03:40s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:1,885,998
+INFO	2015-06-30 16:52:27	AddOrReplaceReadGroups	Processed    28,000,000 records.  Elapsed time: 00:03:48s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:1,957,209
+INFO	2015-06-30 16:52:35	AddOrReplaceReadGroups	Processed    29,000,000 records.  Elapsed time: 00:03:56s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:2,028,349
+INFO	2015-06-30 16:52:43	AddOrReplaceReadGroups	Processed    30,000,000 records.  Elapsed time: 00:04:04s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:2,099,266
+INFO	2015-06-30 16:52:52	AddOrReplaceReadGroups	Processed    31,000,000 records.  Elapsed time: 00:04:13s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:2,169,645
+INFO	2015-06-30 16:53:00	AddOrReplaceReadGroups	Processed    32,000,000 records.  Elapsed time: 00:04:21s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:2,239,515
+INFO	2015-06-30 16:53:08	AddOrReplaceReadGroups	Processed    33,000,000 records.  Elapsed time: 00:04:29s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:2,309,108
+INFO	2015-06-30 16:53:17	AddOrReplaceReadGroups	Processed    34,000,000 records.  Elapsed time: 00:04:38s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:2,379,619
+INFO	2015-06-30 16:53:25	AddOrReplaceReadGroups	Processed    35,000,000 records.  Elapsed time: 00:04:46s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:2,450,232
+INFO	2015-06-30 16:53:34	AddOrReplaceReadGroups	Processed    36,000,000 records.  Elapsed time: 00:04:55s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:2,519,788
+INFO	2015-06-30 16:53:43	AddOrReplaceReadGroups	Processed    37,000,000 records.  Elapsed time: 00:05:04s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:2,589,486
+INFO	2015-06-30 16:53:51	AddOrReplaceReadGroups	Processed    38,000,000 records.  Elapsed time: 00:05:12s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:2,658,801
+INFO	2015-06-30 16:54:00	AddOrReplaceReadGroups	Processed    39,000,000 records.  Elapsed time: 00:05:21s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:2,728,175
+INFO	2015-06-30 16:54:08	AddOrReplaceReadGroups	Processed    40,000,000 records.  Elapsed time: 00:05:29s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:2,797,741
+INFO	2015-06-30 16:54:17	AddOrReplaceReadGroups	Processed    41,000,000 records.  Elapsed time: 00:05:38s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:2,867,049
+INFO	2015-06-30 16:54:25	AddOrReplaceReadGroups	Processed    42,000,000 records.  Elapsed time: 00:05:46s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:2,928,622
+INFO	2015-06-30 16:54:34	AddOrReplaceReadGroups	Processed    43,000,000 records.  Elapsed time: 00:05:54s.  Time for last 1,000,000:    8s.  Last read position: gi|387141638|ref|NC_017331.1|:2,997,558
+INFO	2015-06-30 16:54:41	AddOrReplaceReadGroups	Processed    44,000,000 records.  Elapsed time: 00:06:02s.  Time for last 1,000,000:    7s.  Last read position: */*
+INFO	2015-06-30 16:54:48	AddOrReplaceReadGroups	Processed    45,000,000 records.  Elapsed time: 00:06:09s.  Time for last 1,000,000:    7s.  Last read position: */*
+[Tue Jun 30 16:54:49 CEST 2015] picard.sam.AddOrReplaceReadGroups done. Elapsed time: 6.18 minutes.
+Runtime.totalMemory()=242221056
+## Realigning near indels and re-indexing
+[Tue Jun 30 16:55:13 CEST 2015] picard.sam.CreateSequenceDictionary REFERENCE=NC_017331.1.fasta OUTPUT=NC_017331.1.dict    TRUNCATE_NAMES_AT_WHITESPACE=true NUM_SEQUENCES=2147483647 VERBOSITY=INFO QUIET=false VALIDATION_STRINGENCY=STRICT COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_INDEX=false CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json
+[Tue Jun 30 16:55:13 CEST 2015] Executing as fabio@ahmad-desktop on Linux 3.19.0-22-generic amd64; OpenJDK 64-Bit Server VM 1.7.0_79-b14; Picard version: 1.135(83ec44e03ec8d07ef180ef86b7a62d59a80dedd3_1435607037) IntelDeflater
+[Tue Jun 30 16:55:13 CEST 2015] picard.sam.CreateSequenceDictionary done. Elapsed time: 0.00 minutes.
+Runtime.totalMemory()=251658240
+INFO  16:55:15,495 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:55:15,496 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.4-0-g7e26428, Compiled 2015/05/15 03:25:41 
+INFO  16:55:15,497 HelpFormatter - Copyright (c) 2010 The Broad Institute 
+INFO  16:55:15,497 HelpFormatter - For support and documentation go to http://www.broadinstitute.org/gatk 
+INFO  16:55:15,499 HelpFormatter - Program Args: -I tmp.addrg.rmdup.sorted.bam -R NC_017331.1.fasta -T RealignerTargetCreator -o help.intervals -filterNoBases -rf BadCigar 
+INFO  16:55:15,503 HelpFormatter - Executing as fabio@ahmad-desktop on Linux 3.19.0-22-generic amd64; OpenJDK 64-Bit Server VM 1.7.0_79-b14. 
+INFO  16:55:15,503 HelpFormatter - Date/Time: 2015/06/30 16:55:15 
+INFO  16:55:15,503 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:55:15,504 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  16:55:15,602 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  16:55:15,689 GenomeAnalysisEngine - Downsampling Settings: Method: BY_SAMPLE, Target Coverage: 1000 
+INFO  16:55:15,694 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  16:55:15,736 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.01 
+INFO  16:55:16,099 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  16:55:16,194 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  16:55:16,194 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  16:55:16,195 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  16:55:16,196 ProgressMeter -        Location |     sites | elapsed |     sites | completed | runtime |   runtime 
+INFO  16:55:46,198 ProgressMeter - gi|387141638|ref|NC_017331.1|:208109    196608.0    30.0 s       2.5 m        6.8%     7.3 m       6.8 m 
+INFO  16:56:16,199 ProgressMeter - gi|387141638|ref|NC_017331.1|:440985    425984.0    60.0 s       2.3 m       14.5%     6.9 m       5.9 m 
+INFO  16:56:46,200 ProgressMeter - gi|387141638|ref|NC_017331.1|:678345    671744.0    90.0 s       2.2 m       22.3%     6.7 m       5.2 m 
+INFO  16:57:16,201 ProgressMeter - gi|387141638|ref|NC_017331.1|:910221    901120.0   120.0 s       2.2 m       29.9%     6.7 m       4.7 m 
+INFO  16:57:46,201 ProgressMeter - gi|387141638|ref|NC_017331.1|:1146597   1130496.0     2.5 m       2.2 m       37.7%     6.6 m       4.1 m 
+INFO  16:58:16,202 ProgressMeter - gi|387141638|ref|NC_017331.1|:1388457   1376256.0     3.0 m       2.2 m       45.6%     6.6 m       3.6 m 
+INFO  16:58:46,203 ProgressMeter - gi|387141638|ref|NC_017331.1|:1637617   1622016.0     3.5 m       2.2 m       53.8%     6.5 m       3.0 m 
+INFO  16:59:16,204 ProgressMeter - gi|387141638|ref|NC_017331.1|:1885961   1884160.0     4.0 m       2.1 m       62.0%     6.5 m       2.5 m 
+INFO  16:59:46,206 ProgressMeter - gi|387141638|ref|NC_017331.1|:2129437   2113536.0     4.5 m       2.1 m       70.0%     6.4 m     115.0 s 
+INFO  17:00:16,206 ProgressMeter - gi|387141638|ref|NC_017331.1|:2371497   2359296.0     5.0 m       2.1 m       77.9%     6.4 m      84.0 s 
+INFO  17:00:46,207 ProgressMeter - gi|387141638|ref|NC_017331.1|:2604573   2588672.0     5.5 m       2.1 m       85.6%     6.4 m      55.0 s 
+INFO  17:01:16,209 ProgressMeter - gi|387141638|ref|NC_017331.1|:2837833   2834432.0     6.0 m       2.1 m       93.3%     6.4 m      26.0 s 
+INFO  17:01:43,443 ProgressMeter -            done   3043210.0     6.5 m       2.1 m      100.0%     6.5 m       0.0 s 
+INFO  17:01:43,443 ProgressMeter - Total runtime 387.25 secs, 6.45 min, 0.11 hours 
+INFO  17:01:43,443 MicroScheduler - 1203087 reads were filtered out during the traversal out of approximately 43857356 total reads (2.74%) 
+INFO  17:01:43,443 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  17:01:43,444 MicroScheduler -   -> 0 reads (0.00% of total) failing BadMateFilter 
+INFO  17:01:43,444 MicroScheduler -   -> 0 reads (0.00% of total) failing DuplicateReadFilter 
+INFO  17:01:43,444 MicroScheduler -   -> 0 reads (0.00% of total) failing FailsVendorQualityCheckFilter 
+INFO  17:01:43,444 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+INFO  17:01:43,445 MicroScheduler -   -> 0 reads (0.00% of total) failing MappingQualityUnavailableFilter 
+INFO  17:01:43,445 MicroScheduler -   -> 1202998 reads (2.74% of total) failing MappingQualityZeroFilter 
+INFO  17:01:43,445 MicroScheduler -   -> 0 reads (0.00% of total) failing NotPrimaryAlignmentFilter 
+INFO  17:01:43,445 MicroScheduler -   -> 0 reads (0.00% of total) failing Platform454Filter 
+INFO  17:01:43,462 MicroScheduler -   -> 89 reads (0.00% of total) failing UnmappedReadFilter 
+INFO  17:01:44,971 GATKRunReport - Uploaded run statistics report to AWS S3 
+INFO  17:01:46,303 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  17:01:46,304 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.4-0-g7e26428, Compiled 2015/05/15 03:25:41 
+INFO  17:01:46,304 HelpFormatter - Copyright (c) 2010 The Broad Institute 
+INFO  17:01:46,305 HelpFormatter - For support and documentation go to http://www.broadinstitute.org/gatk 
+INFO  17:01:46,307 HelpFormatter - Program Args: -I tmp.addrg.rmdup.sorted.bam -R NC_017331.1.fasta -T IndelRealigner -targetIntervals help.intervals -o ERR142616.bam -filterNoBases -rf BadCigar 
+INFO  17:01:46,311 HelpFormatter - Executing as fabio@ahmad-desktop on Linux 3.19.0-22-generic amd64; OpenJDK 64-Bit Server VM 1.7.0_79-b14. 
+INFO  17:01:46,311 HelpFormatter - Date/Time: 2015/06/30 17:01:46 
+INFO  17:01:46,311 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  17:01:46,311 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  17:01:46,408 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  17:01:46,439 GenomeAnalysisEngine - Downsampling Settings: No downsampling 
+INFO  17:01:46,445 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  17:01:46,459 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.01 
+INFO  17:01:46,517 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  17:01:46,520 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  17:01:46,520 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  17:01:46,520 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  17:01:46,521 ProgressMeter -        Location |     reads | elapsed |     reads | completed | runtime |   runtime 
+INFO  17:01:46,612 ReadShardBalancer$1 - Loading BAM index data 
+INFO  17:01:46,613 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  17:02:16,523 ProgressMeter - gi|387141638|ref|NC_017331.1|:64645   1000108.0    30.0 s      29.0 s        2.1%    23.5 m      23.0 m 
+INFO  17:02:46,523 ProgressMeter - gi|387141638|ref|NC_017331.1|:101888   1700168.0    60.0 s      35.0 s        3.3%    29.9 m      28.9 m 
+INFO  17:03:16,524 ProgressMeter - gi|387141638|ref|NC_017331.1|:241790   3700297.0    90.0 s      24.0 s        7.9%    18.9 m      17.4 m 
+INFO  17:03:46,525 ProgressMeter - gi|387141638|ref|NC_017331.1|:384157   5800439.0   120.0 s      20.0 s       12.6%    15.8 m      13.8 m 
+INFO  17:04:16,526 ProgressMeter - gi|387141638|ref|NC_017331.1|:528625   7900596.0     2.5 m      18.0 s       17.4%    14.4 m      11.9 m 
+INFO  17:04:56,527 ProgressMeter - gi|387141638|ref|NC_017331.1|:725791   1.0700778E7     3.2 m      17.0 s       23.8%    13.3 m      10.1 m 
+INFO  17:05:26,528 ProgressMeter - gi|387141638|ref|NC_017331.1|:869326   1.2800973E7     3.7 m      17.0 s       28.6%    12.8 m       9.2 m 
+INFO  17:05:56,528 ProgressMeter - gi|387141638|ref|NC_017331.1|:1014127   1.4801117E7     4.2 m      16.0 s       33.3%    12.5 m       8.3 m 
+INFO  17:06:26,529 ProgressMeter - gi|387141638|ref|NC_017331.1|:1162863   1.6901334E7     4.7 m      16.0 s       38.2%    12.2 m       7.5 m 
+INFO  17:07:06,530 ProgressMeter - gi|387141638|ref|NC_017331.1|:1365349   1.970153E7     5.3 m      16.0 s       44.9%    11.9 m       6.6 m 
+INFO  17:07:36,530 ProgressMeter - gi|387141638|ref|NC_017331.1|:1517019   2.1801678E7     5.8 m      16.0 s       49.8%    11.7 m       5.9 m 
+INFO  17:08:06,531 ProgressMeter - gi|387141638|ref|NC_017331.1|:1673723   2.4001862E7     6.3 m      15.0 s       55.0%    11.5 m       5.2 m 
+INFO  17:08:46,532 ProgressMeter - gi|387141638|ref|NC_017331.1|:1880808   2.690211E7     7.0 m      15.0 s       61.8%    11.3 m       4.3 m 
+INFO  17:09:16,532 ProgressMeter - gi|387141638|ref|NC_017331.1|:2033015   2.9002281E7     7.5 m      15.0 s       66.8%    11.2 m       3.7 m 
+INFO  17:09:46,533 ProgressMeter - gi|387141638|ref|NC_017331.1|:2183041   3.1102456E7     8.0 m      15.0 s       71.7%    11.2 m       3.2 m 
+INFO  17:10:26,534 ProgressMeter - gi|387141638|ref|NC_017331.1|:2379322   3.3902719E7     8.7 m      15.0 s       78.2%    11.1 m       2.4 m 
+INFO  17:10:56,534 ProgressMeter - gi|387141638|ref|NC_017331.1|:2526370   3.6002851E7     9.2 m      15.0 s       83.0%    11.0 m     112.0 s 
+INFO  17:11:26,535 ProgressMeter - gi|387141638|ref|NC_017331.1|:2671951   3.8102974E7     9.7 m      15.0 s       87.8%    11.0 m      80.0 s 
+INFO  17:12:06,571 ProgressMeter - gi|387141638|ref|NC_017331.1|:2867341   4.0903239E7    10.3 m      15.0 s       94.2%    11.0 m      38.0 s 
+INFO  17:12:36,571 ProgressMeter - gi|387141638|ref|NC_017331.1|:2963183   4.2403379E7    10.8 m      15.0 s       97.4%    11.1 m      17.0 s 
+INFO  17:13:05,340 ProgressMeter -            done   4.5061168E7    11.3 m      15.0 s      100.0%    11.3 m       0.0 s 
+INFO  17:13:05,341 ProgressMeter - Total runtime 678.82 secs, 11.31 min, 0.19 hours 
+INFO  17:13:05,343 MicroScheduler - 0 reads were filtered out during the traversal out of approximately 45061168 total reads (0.00%) 
+INFO  17:13:05,343 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  17:13:05,343 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+INFO  17:13:06,532 GATKRunReport - Uploaded run statistics report to AWS S3 
+
+##################
+# Reads coverage #
+##################
+(only counts reads where MAPQ >= 1)
+Genome length: 3043210
+min =  1
+max =  6060
+% cov. =  99.2401
+Avg. base cov. =  1045.53
+Stdev base cov. =  210.753
+
+Reads length (MAPQ >= 1):
+min-max avg stdev
+75-75 75 +- 0
+
+flagstats:
+45061168 + 0 in total (QC-passed reads + QC-failed reads)
+0 + 0 duplicates
+43381382 + 0 mapped (96.27%:-nan%)
+45061168 + 0 paired in sequencing
+22530586 + 0 read1
+22530582 + 0 read2
+41606330 + 0 properly paired (92.33%:-nan%)
+43101344 + 0 with itself and mate mapped
+280038 + 0 singletons (0.62%:-nan%)
+0 + 0 with mate mapped to a different chr
+0 + 0 with mate mapped to a different chr (mapQ>=5)
+
+idxstats:
+Chr	length	mapped	unmapped
+gi|387141638|ref|NC_017331.1|	3043210	43381382	280038
+*	0	0	1399748
+
+## SNP calling with GATK
+INFO  17:16:42,915 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  17:16:42,916 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.4-0-g7e26428, Compiled 2015/05/15 03:25:41 
+INFO  17:16:42,917 HelpFormatter - Copyright (c) 2010 The Broad Institute 
+INFO  17:16:42,917 HelpFormatter - For support and documentation go to http://www.broadinstitute.org/gatk 
+INFO  17:16:42,919 HelpFormatter - Program Args: -ploidy 1 -I ERR142616.bam -R NC_017331.1.fasta -T UnifiedGenotyper -o ERR142616-snps.vcf -filterNoBases -rf BadCigar 
+INFO  17:16:42,923 HelpFormatter - Executing as fabio@ahmad-desktop on Linux 3.19.0-22-generic amd64; OpenJDK 64-Bit Server VM 1.7.0_79-b14. 
+INFO  17:16:42,924 HelpFormatter - Date/Time: 2015/06/30 17:16:42 
+INFO  17:16:42,924 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  17:16:42,924 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  17:16:43,027 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  17:16:43,138 GenomeAnalysisEngine - Downsampling Settings: Method: BY_SAMPLE, Target Coverage: 250 
+INFO  17:16:43,144 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  17:16:43,159 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.01 
+INFO  17:16:43,221 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  17:16:43,256 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  17:16:43,256 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  17:16:43,257 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  17:16:43,257 ProgressMeter -        Location |     sites | elapsed |     sites | completed | runtime |   runtime 
+INFO  17:16:43,284 StrandBiasTest - SAM/BAM data was found. Attempting to use read data to calculate strand bias annotations values. 
+INFO  17:16:43,284 StrandBiasTest - SAM/BAM data was found. Attempting to use read data to calculate strand bias annotations values. 
+INFO  17:17:13,259 ProgressMeter - gi|387141638|ref|NC_017331.1|:180825    180224.0    30.0 s       2.8 m        5.9%     8.4 m       7.9 m 
+INFO  17:17:43,260 ProgressMeter - gi|387141638|ref|NC_017331.1|:374749    360448.0    60.0 s       2.8 m       12.3%     8.1 m       7.1 m 
+INFO  17:18:13,261 ProgressMeter - gi|387141638|ref|NC_017331.1|:572357    557056.0    90.0 s       2.7 m       18.8%     8.0 m       6.5 m 
+INFO  17:18:43,262 ProgressMeter - gi|387141638|ref|NC_017331.1|:763465    753664.0   120.0 s       2.7 m       25.1%     8.0 m       6.0 m 
+INFO  17:19:13,263 ProgressMeter - gi|387141638|ref|NC_017331.1|:952373    950272.0     2.5 m       2.6 m       31.3%     8.0 m       5.5 m 
+INFO  17:19:53,264 ProgressMeter - gi|387141638|ref|NC_017331.1|:1212917   1212416.0     3.2 m       2.6 m       39.9%     7.9 m       4.8 m 
+INFO  17:20:33,265 ProgressMeter - gi|387141638|ref|NC_017331.1|:1472977   1458176.0     3.8 m       2.6 m       48.4%     7.9 m       4.1 m 
+INFO  17:21:03,266 ProgressMeter - gi|387141638|ref|NC_017331.1|:1669785   1654784.0     4.3 m       2.6 m       54.9%     7.9 m       3.6 m 
+INFO  17:21:33,269 ProgressMeter - gi|387141638|ref|NC_017331.1|:1864393   1851392.0     4.8 m       2.6 m       61.3%     7.9 m       3.1 m 
+INFO  17:22:03,270 ProgressMeter - gi|387141638|ref|NC_017331.1|:2056801   2048000.0     5.3 m       2.6 m       67.6%     7.9 m       2.6 m 
+INFO  17:22:33,270 ProgressMeter - gi|387141638|ref|NC_017331.1|:2252109   2244608.0     5.8 m       2.6 m       74.0%     7.9 m       2.0 m 
+INFO  17:23:03,271 ProgressMeter - gi|387141638|ref|NC_017331.1|:2439233   2424832.0     6.3 m       2.6 m       80.2%     7.9 m      94.0 s 
+INFO  17:23:33,272 ProgressMeter - gi|387141638|ref|NC_017331.1|:2629141   2621440.0     6.8 m       2.6 m       86.4%     7.9 m      64.0 s 
+INFO  17:24:03,273 ProgressMeter - gi|387141638|ref|NC_017331.1|:2818949   2818048.0     7.3 m       2.6 m       92.6%     7.9 m      35.0 s 
+INFO  17:24:33,274 ProgressMeter - gi|387141638|ref|NC_017331.1|:3008773   2998272.0     7.8 m       2.6 m       98.9%     7.9 m       5.0 s 
+INFO  17:24:38,543 ProgressMeter -            done   3043210.0     7.9 m       2.6 m      100.0%     7.9 m       0.0 s 
+INFO  17:24:38,544 ProgressMeter - Total runtime 475.29 secs, 7.92 min, 0.13 hours 
+INFO  17:24:38,544 MicroScheduler - 280038 reads were filtered out during the traversal out of approximately 43857356 total reads (0.64%) 
+INFO  17:24:38,544 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  17:24:38,544 MicroScheduler -   -> 0 reads (0.00% of total) failing BadMateFilter 
+INFO  17:24:38,545 MicroScheduler -   -> 0 reads (0.00% of total) failing DuplicateReadFilter 
+INFO  17:24:38,545 MicroScheduler -   -> 0 reads (0.00% of total) failing FailsVendorQualityCheckFilter 
+INFO  17:24:38,545 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+INFO  17:24:38,546 MicroScheduler -   -> 0 reads (0.00% of total) failing MappingQualityUnavailableFilter 
+INFO  17:24:38,546 MicroScheduler -   -> 0 reads (0.00% of total) failing NotPrimaryAlignmentFilter 
+INFO  17:24:38,546 MicroScheduler -   -> 280038 reads (0.64% of total) failing UnmappedReadFilter 
+INFO  17:24:39,482 GATKRunReport - Uploaded run statistics report to AWS S3 
+SNPs found: 39

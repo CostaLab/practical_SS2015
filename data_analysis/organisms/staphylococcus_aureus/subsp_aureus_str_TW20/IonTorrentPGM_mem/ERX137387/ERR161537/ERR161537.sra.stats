@@ -1,0 +1,41 @@
+<Run accession="ERR161537.sra" read_length="variable" spot_count="2716711" base_count="416367980" base_count_bio="405501136" spot_count_mates="0" base_count_bio_mates="0" spot_count_bad="0" base_count_bio_bad="0" spot_count_filtered="0" base_count_bio_filtered="0">
+  <Size value="1023689777" units="bytes"/>
+  <Bases cs_native="false" count="416367980">
+    <Base value="A" count="134860551"/>
+    <Base value="C" count="81823872"/>
+    <Base value="G" count="76842194"/>
+    <Base value="T" count="122841363"/>
+    <Base value="N" count="0"/>
+  </Bases>
+  <Statistics nreads="2" nspots="2716711">
+    <Read index="0" count="2716711" average="4" stdev="0"/>
+    <Read index="1" count="2716711" average="149.26" stdev="13.96"/>
+  </Statistics>
+  <QualityCount>
+    <Quality value="5" count="4288554"/>
+    <Quality value="6" count="1761497"/>
+    <Quality value="7" count="13406372"/>
+    <Quality value="8" count="3521855"/>
+    <Quality value="9" count="2349773"/>
+    <Quality value="10" count="11194011"/>
+    <Quality value="11" count="20345764"/>
+    <Quality value="12" count="12235876"/>
+    <Quality value="13" count="9629883"/>
+    <Quality value="14" count="14675924"/>
+    <Quality value="15" count="13040889"/>
+    <Quality value="16" count="16239161"/>
+    <Quality value="17" count="14897627"/>
+    <Quality value="18" count="14611091"/>
+    <Quality value="19" count="14425071"/>
+    <Quality value="20" count="16328796"/>
+    <Quality value="21" count="19754508"/>
+    <Quality value="22" count="16269855"/>
+    <Quality value="23" count="21292967"/>
+    <Quality value="24" count="24359727"/>
+    <Quality value="25" count="23341357"/>
+    <Quality value="26" count="26914212"/>
+    <Quality value="27" count="31414641"/>
+    <Quality value="28" count="28941231"/>
+    <Quality value="29" count="41127338"/>
+  </QualityCount>
+</Run>
