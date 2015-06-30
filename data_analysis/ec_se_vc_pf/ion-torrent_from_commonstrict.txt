@@ -1,5 +1,0 @@
-# of common motifs for ion-torrent, from commonstrict
-4 2	| U: 0 I: 0 JC: -
-8 2	| U: 0 I: 0 JC: -
-10 2	| U: 1 I: 0 JC: 0
-8 4	| U: 0 I: 0 JC: -
