@@ -1,10 +1,5 @@
 # of common motifs
-4 2	| U: 0 I: 0 JC: -
-8 2	| U: 0 I: 0 JC: -
-10 2	| U: 0 I: 0 JC: -
-8 4	| U: 0 I: 0 JC: -
-# of common motifs
-4 2	| U: 0 I: 0 JC: -
-8 2	| U: 0 I: 0 JC: -
-10 2	| U: 0 I: 0 JC: -
-8 4	| U: 0 I: 0 JC: -
+4 2	| U: 0 I: 0 JC: - Udist: - Idist: -
+8 2	| U: 0 I: 0 JC: - Udist: - Idist: -
+10 2	| U: 0 I: 0 JC: - Udist: - Idist: -
+8 4	| U: 0 I: 0 JC: - Udist: - Idist: -

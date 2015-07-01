@@ -17,6 +17,9 @@ mlen = 0
 d = []
 with open(sys.argv[1], "r") as f:
 	for line in f:
+		if line[0] == "#" or line[0] == " ":
+			continue
+		
 		motif = line.split()[0]
 		if mlen == 0:
 			mlen = len(motif)
@@ -29,4 +32,7 @@ for i in range(len(d)):
 		tot += dist(d[i], d[j])
 		n += 1
 
-print float(tot) / (n*mlen)
+if n == 0:
+	print "-"
+else:
+	print float(tot) / (n*mlen)
