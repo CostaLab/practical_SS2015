@@ -25,7 +25,7 @@
 set -o pipefail
 
 # early fail if programs not installed
-for c in bwa sra-stat fastq-dump samtools picard-tools gatk fastqc
+for c in bwa sra-stat fastq-dump samtools picard-tools gatk
 do
     command -v $c >/dev/null 2>&1 || { echo >&2 "I require \"$c\" (named in this exact way!) but it's not installed. Aborting."; exit 1; }
 done
@@ -47,6 +47,7 @@ MINQ="0"
 SRANOCHECK=false
 LOG="output.log"
 SKIP_FASTQC=false
+INDEL=false
 
 if [ $# == 0 ]
 then
@@ -125,6 +126,9 @@ do
 	    -skip-fastqc)
 	       SKIP_FASTQC=true
 	       ;;
+        -indels|-do-indel-calling)
+            INDEL=true
+            ;;
         *)
             # unknown option
             echo "## Unknown option: $key" | tee -a $LOG
@@ -134,6 +138,11 @@ do
     esac
     shift
 done
+
+if [ $SKIP_FASTQC == false ]
+then
+    command -v fastqc >/dev/null 2>&1 || { echo >&2 "I require \"fastqc\" (named in this exact way!) but it's not installed. Aborting. (use option -skip-fastqc if you don't need it)"; exit 1; }
+fi
 
 if [ -z $FASTA ] || [ ! -f $FASTA ]
 then
@@ -328,4 +337,10 @@ fi
 echo "## SNP calling with GATK" | tee -a $LOG
 gatk -ploidy $PLOIDY -I ${READS}.bam -R $FASTA -T UnifiedGenotyper -o ${READS}-snps.vcf $GATKOPT |& tee -a $LOG || exit 1
 
-echo "SNPs found: "`egrep -c "^[^#]" *.vcf` |& tee -a $LOG
+echo "SNPs found: "`egrep -c "^[^#]" *-snps.vcf` |& tee -a $LOG
+
+# Indel calling
+echo "## INDELS calling with GATK" | tee -a $LOG
+gatk -ploidy $PLOIDY -I ${READS}.bam -R $FASTA -T UnifiedGenotyper -o ${READS}-indels.vcf -glm INDEL $GATKOPT |& tee -a $LOG || exit 1
+
+echo "INDELS found: "`egrep -c "^[^#]" *-indels.vcf` |& tee -a $LOG
