@@ -25,6 +25,13 @@ with open(sys.argv[1], "r") as f:
 			mlen = len(motif)
 		d.append(motif)
 
+if len(d) == 0:
+	print "-"
+	exit(0)
+elif len(d) == 1:
+	print "0"
+	exit(0)
+
 tot = 0
 n   = 0
 for i in range(len(d)):
@@ -32,7 +39,4 @@ for i in range(len(d)):
 		tot += dist(d[i], d[j])
 		n += 1
 
-if n == 0:
-	print "-"
-else:
-	print float(tot) / (n*mlen)
+print float(tot) / (n*mlen)
