@@ -20,7 +20,7 @@ for filename in sys.argv[1:]:
 	print "# plotting distance matrix for", filename
 	mlen = 0
 	d = []
-	with open(sys.argv[1], "r") as f:
+	with open(filename, "r") as f:
 		for line in f:
 			if line[0] == "#" or line[0] == " ":
 				continue
@@ -30,7 +30,7 @@ for filename in sys.argv[1:]:
 				mlen = len(motif)
 			d.append(motif)
 
-	if len(d) == 0:
+	if len(d) < 2:
 		continue
 
 	m = np.empty((len(d), len(d)), dtype=float)
@@ -44,8 +44,9 @@ for filename in sys.argv[1:]:
 			else:
 				m[i][j] = float(dist(d[i], d[j])) / mlen
 
+	plt.figure()
 	im = plt.imshow(m)
 	im.set_cmap('autumn')
 	plt.colorbar()
-	plt.savefig(sys.argv[1] + ".png", bbox_inches='tight')
+	plt.savefig(filename + ".png", bbox_inches='tight')
 	plt.close()
