@@ -1,0 +1,203 @@
+## Starting pipeline #
+bio_pipeline.sh -ref NC_017331.1.fasta -sra ERR160063.sra -mem-pacbio -dbq 0 -nofix -skip-fastqc -indels
+######################
+
+## Saving SRA statistics..
+## Dumping fastq files from ERR160063.sra
+Rejected 76189 READS because READLEN < 1
+Read 81741 spots for ERR160063.sra
+Written 5552 spots for ERR160063.sra
+## One fastq file generated
+## Creating bwa index for NC_017331.1.fasta
+[bwa_index] Pack FASTA... 0.02 sec
+[bwa_index] Construct BWT for the packed sequence...
+[bwa_index] 0.58 seconds elapse.
+[bwa_index] Update BWT... 0.02 sec
+[bwa_index] Pack forward-only FASTA... 0.01 sec
+[bwa_index] Construct SA from BWT and Occ... 0.28 sec
+[main] Version: 0.7.12-r1039
+[main] CMD: bwa index NC_017331.1.fasta
+[main] Real time: 1.498 sec; CPU: 0.908 sec
+## Generating sam file with bwa-mem aligner
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 5552 sequences (4453227 bp)...
+[M::mem_process_seqs] Processed 5552 reads in 13.928 CPU sec, 3.485 real sec
+[main] Version: 0.7.12-r1039
+[main] CMD: bwa mem -t 4 -x pacbio NC_017331.1.fasta ERR160063_1.fastq
+[main] Real time: 3.723 sec; CPU: 13.952 sec
+## Converting sam file to BAM, sorting and indexing
+[samopen] SAM header is present: 1 sequences.
+## Removing duplicates
+[bam_rmdup_core] processing reference gi|387141638|ref|NC_017331.1|...
+## Adding read groups and indexing
+[Thu Jul 02 11:16:50 CEST 2015] picard.sam.AddOrReplaceReadGroups INPUT=tmp.rmdup.sorted.bam OUTPUT=tmp.addrg.rmdup.sorted.bam RGLB=rglib RGPL=rgpl RGPU=rgpu RGSM=rgsm VALIDATION_STRINGENCY=SILENT    RGID=1 VERBOSITY=INFO QUIET=false COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_INDEX=false CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json
+[Thu Jul 02 11:16:50 CEST 2015] Executing as fabio@ahmad-desktop on Linux 3.19.0-22-generic amd64; OpenJDK 64-Bit Server VM 1.7.0_79-b14; Picard version: 1.135(83ec44e03ec8d07ef180ef86b7a62d59a80dedd3_1435607037) IntelDeflater
+INFO	2015-07-02 11:16:51	AddOrReplaceReadGroups	Created read group ID=1 PL=rgpl LB=rglib SM=rgsm
+
+[Thu Jul 02 11:16:51 CEST 2015] picard.sam.AddOrReplaceReadGroups done. Elapsed time: 0.01 minutes.
+Runtime.totalMemory()=251658240
+## Realigning near indels and re-indexing
+[Thu Jul 02 11:16:51 CEST 2015] picard.sam.CreateSequenceDictionary REFERENCE=NC_017331.1.fasta OUTPUT=NC_017331.1.dict    TRUNCATE_NAMES_AT_WHITESPACE=true NUM_SEQUENCES=2147483647 VERBOSITY=INFO QUIET=false VALIDATION_STRINGENCY=STRICT COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_INDEX=false CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json
+[Thu Jul 02 11:16:51 CEST 2015] Executing as fabio@ahmad-desktop on Linux 3.19.0-22-generic amd64; OpenJDK 64-Bit Server VM 1.7.0_79-b14; Picard version: 1.135(83ec44e03ec8d07ef180ef86b7a62d59a80dedd3_1435607037) IntelDeflater
+[Thu Jul 02 11:16:52 CEST 2015] picard.sam.CreateSequenceDictionary done. Elapsed time: 0.00 minutes.
+Runtime.totalMemory()=251658240
+INFO  11:16:53,269 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  11:16:53,270 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.4-0-g7e26428, Compiled 2015/05/15 03:25:41 
+INFO  11:16:53,270 HelpFormatter - Copyright (c) 2010 The Broad Institute 
+INFO  11:16:53,271 HelpFormatter - For support and documentation go to http://www.broadinstitute.org/gatk 
+INFO  11:16:53,274 HelpFormatter - Program Args: -I tmp.addrg.rmdup.sorted.bam -R NC_017331.1.fasta -T RealignerTargetCreator -o help.intervals -filterNoBases -rf BadCigar --allow_potentially_misencoded_quality_scores 
+INFO  11:16:53,278 HelpFormatter - Executing as fabio@ahmad-desktop on Linux 3.19.0-22-generic amd64; OpenJDK 64-Bit Server VM 1.7.0_79-b14. 
+INFO  11:16:53,278 HelpFormatter - Date/Time: 2015/07/02 11:16:53 
+INFO  11:16:53,278 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  11:16:53,278 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  11:16:53,318 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  11:16:53,391 GenomeAnalysisEngine - Downsampling Settings: Method: BY_SAMPLE, Target Coverage: 1000 
+INFO  11:16:53,397 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  11:16:53,412 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.02 
+INFO  11:16:53,471 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  11:16:53,500 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  11:16:53,501 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  11:16:53,501 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  11:16:53,501 ProgressMeter -        Location |     sites | elapsed |     sites | completed | runtime |   runtime 
+INFO  11:16:56,246 ProgressMeter -            done   3043210.0     2.0 s       0.0 s      100.0%     2.0 s       0.0 s 
+INFO  11:16:56,246 ProgressMeter - Total runtime 2.75 secs, 0.05 min, 0.00 hours 
+INFO  11:16:56,249 MicroScheduler - 68 reads were filtered out during the traversal out of approximately 4891 total reads (1.39%) 
+INFO  11:16:56,249 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  11:16:56,249 MicroScheduler -   -> 0 reads (0.00% of total) failing BadMateFilter 
+INFO  11:16:56,249 MicroScheduler -   -> 0 reads (0.00% of total) failing DuplicateReadFilter 
+INFO  11:16:56,249 MicroScheduler -   -> 0 reads (0.00% of total) failing FailsVendorQualityCheckFilter 
+INFO  11:16:56,250 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+INFO  11:16:56,250 MicroScheduler -   -> 0 reads (0.00% of total) failing MappingQualityUnavailableFilter 
+INFO  11:16:56,250 MicroScheduler -   -> 68 reads (1.39% of total) failing MappingQualityZeroFilter 
+INFO  11:16:56,250 MicroScheduler -   -> 0 reads (0.00% of total) failing NotPrimaryAlignmentFilter 
+INFO  11:16:56,250 MicroScheduler -   -> 0 reads (0.00% of total) failing Platform454Filter 
+INFO  11:16:56,251 MicroScheduler -   -> 0 reads (0.00% of total) failing UnmappedReadFilter 
+INFO  11:16:57,187 GATKRunReport - Uploaded run statistics report to AWS S3 
+INFO  11:16:58,403 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  11:16:58,405 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.4-0-g7e26428, Compiled 2015/05/15 03:25:41 
+INFO  11:16:58,405 HelpFormatter - Copyright (c) 2010 The Broad Institute 
+INFO  11:16:58,405 HelpFormatter - For support and documentation go to http://www.broadinstitute.org/gatk 
+INFO  11:16:58,408 HelpFormatter - Program Args: -I tmp.addrg.rmdup.sorted.bam -R NC_017331.1.fasta -T IndelRealigner -targetIntervals help.intervals -o ERR160063.bam -filterNoBases -rf BadCigar --allow_potentially_misencoded_quality_scores --defaultBaseQualities 0 
+INFO  11:16:58,412 HelpFormatter - Executing as fabio@ahmad-desktop on Linux 3.19.0-22-generic amd64; OpenJDK 64-Bit Server VM 1.7.0_79-b14. 
+INFO  11:16:58,412 HelpFormatter - Date/Time: 2015/07/02 11:16:58 
+INFO  11:16:58,413 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  11:16:58,413 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  11:16:58,522 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  11:16:58,554 GenomeAnalysisEngine - Downsampling Settings: No downsampling 
+INFO  11:16:58,559 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  11:16:58,574 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.01 
+INFO  11:16:58,631 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  11:16:58,634 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  11:16:58,635 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  11:16:58,635 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  11:16:58,635 ProgressMeter -        Location |     reads | elapsed |     reads | completed | runtime |   runtime 
+INFO  11:16:58,650 ReadShardBalancer$1 - Loading BAM index data 
+INFO  11:16:58,651 ReadShardBalancer$1 - Done loading BAM index data 
+INFO  11:16:59,865 ProgressMeter -            done      5727.0     1.0 s       3.6 m       99.5%     1.0 s       0.0 s 
+INFO  11:16:59,866 ProgressMeter - Total runtime 1.23 secs, 0.02 min, 0.00 hours 
+INFO  11:16:59,868 MicroScheduler - 0 reads were filtered out during the traversal out of approximately 5727 total reads (0.00%) 
+INFO  11:16:59,868 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  11:16:59,869 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+INFO  11:17:00,869 GATKRunReport - Uploaded run statistics report to AWS S3 
+
+##################
+# Reads coverage #
+##################
+(only counts reads where MAPQ >= 1)
+Genome length: 3043210
+min =  0
+max =  7
+% cov. =  63.6762
+Avg. base cov. =  1.02724
+Stdev base cov. =  1.06067
+
+Reads length (MAPQ >= 1):
+min-max avg stdev
+83-2904 773.151 +- 359.718
+
+flagstats:
+5727 + 0 in total (QC-passed reads + QC-failed reads)
+0 + 0 duplicates
+4722 + 0 mapped (82.45%:-nan%)
+0 + 0 paired in sequencing
+0 + 0 read1
+0 + 0 read2
+0 + 0 properly paired (-nan%:-nan%)
+0 + 0 with itself and mate mapped
+0 + 0 singletons (-nan%:-nan%)
+0 + 0 with mate mapped to a different chr
+0 + 0 with mate mapped to a different chr (mapQ>=5)
+
+idxstats:
+Chr	length	mapped	unmapped
+gi|387141638|ref|NC_017331.1|	3043210	4722	0
+*	0	0	1005
+
+## SNP calling with GATK
+INFO  11:17:03,672 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  11:17:03,674 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.4-0-g7e26428, Compiled 2015/05/15 03:25:41 
+INFO  11:17:03,674 HelpFormatter - Copyright (c) 2010 The Broad Institute 
+INFO  11:17:03,674 HelpFormatter - For support and documentation go to http://www.broadinstitute.org/gatk 
+INFO  11:17:03,677 HelpFormatter - Program Args: -ploidy 1 -I ERR160063.bam -R NC_017331.1.fasta -T UnifiedGenotyper -o ERR160063-snps.vcf -filterNoBases -rf BadCigar --allow_potentially_misencoded_quality_scores 
+INFO  11:17:03,681 HelpFormatter - Executing as fabio@ahmad-desktop on Linux 3.19.0-22-generic amd64; OpenJDK 64-Bit Server VM 1.7.0_79-b14. 
+INFO  11:17:03,681 HelpFormatter - Date/Time: 2015/07/02 11:17:03 
+INFO  11:17:03,681 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  11:17:03,682 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  11:17:03,748 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  11:17:03,819 GenomeAnalysisEngine - Downsampling Settings: Method: BY_SAMPLE, Target Coverage: 250 
+INFO  11:17:03,824 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  11:17:03,840 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.02 
+INFO  11:17:03,901 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  11:17:03,930 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  11:17:03,931 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  11:17:03,931 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  11:17:03,931 ProgressMeter -        Location |     sites | elapsed |     sites | completed | runtime |   runtime 
+INFO  11:17:03,958 StrandBiasTest - SAM/BAM data was found. Attempting to use read data to calculate strand bias annotations values. 
+INFO  11:17:03,958 StrandBiasTest - SAM/BAM data was found. Attempting to use read data to calculate strand bias annotations values. 
+INFO  11:17:22,968 ProgressMeter -            done   3043210.0    19.0 s       6.0 s      100.0%    19.0 s       0.0 s 
+INFO  11:17:22,969 ProgressMeter - Total runtime 19.04 secs, 0.32 min, 0.01 hours 
+INFO  11:17:22,969 MicroScheduler - 0 reads were filtered out during the traversal out of approximately 4891 total reads (0.00%) 
+INFO  11:17:22,969 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  11:17:22,969 MicroScheduler -   -> 0 reads (0.00% of total) failing BadMateFilter 
+INFO  11:17:22,970 MicroScheduler -   -> 0 reads (0.00% of total) failing DuplicateReadFilter 
+INFO  11:17:22,970 MicroScheduler -   -> 0 reads (0.00% of total) failing FailsVendorQualityCheckFilter 
+INFO  11:17:22,970 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+INFO  11:17:22,970 MicroScheduler -   -> 0 reads (0.00% of total) failing MappingQualityUnavailableFilter 
+INFO  11:17:22,970 MicroScheduler -   -> 0 reads (0.00% of total) failing NotPrimaryAlignmentFilter 
+INFO  11:17:22,971 MicroScheduler -   -> 0 reads (0.00% of total) failing UnmappedReadFilter 
+INFO  11:17:24,004 GATKRunReport - Uploaded run statistics report to AWS S3 
+SNPs found: 56
+## INDELS calling with GATK
+INFO  11:17:25,272 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  11:17:25,274 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.4-0-g7e26428, Compiled 2015/05/15 03:25:41 
+INFO  11:17:25,274 HelpFormatter - Copyright (c) 2010 The Broad Institute 
+INFO  11:17:25,274 HelpFormatter - For support and documentation go to http://www.broadinstitute.org/gatk 
+INFO  11:17:25,276 HelpFormatter - Program Args: -ploidy 1 -I ERR160063.bam -R NC_017331.1.fasta -T UnifiedGenotyper -o ERR160063-indels.vcf -glm INDEL -filterNoBases -rf BadCigar --allow_potentially_misencoded_quality_scores 
+INFO  11:17:25,281 HelpFormatter - Executing as fabio@ahmad-desktop on Linux 3.19.0-22-generic amd64; OpenJDK 64-Bit Server VM 1.7.0_79-b14. 
+INFO  11:17:25,281 HelpFormatter - Date/Time: 2015/07/02 11:17:25 
+INFO  11:17:25,281 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  11:17:25,281 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  11:17:25,364 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  11:17:25,432 GenomeAnalysisEngine - Downsampling Settings: Method: BY_SAMPLE, Target Coverage: 250 
+INFO  11:17:25,437 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  11:17:25,453 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.02 
+INFO  11:17:25,517 GenomeAnalysisEngine - Preparing for traversal over 1 BAM files 
+INFO  11:17:25,547 GenomeAnalysisEngine - Done preparing for traversal 
+INFO  11:17:25,548 ProgressMeter - [INITIALIZATION COMPLETE; STARTING PROCESSING] 
+INFO  11:17:25,548 ProgressMeter -                 | processed |    time |    per 1M |           |   total | remaining 
+INFO  11:17:25,548 ProgressMeter -        Location |     sites | elapsed |     sites | completed | runtime |   runtime 
+INFO  11:17:25,575 StrandBiasTest - SAM/BAM data was found. Attempting to use read data to calculate strand bias annotations values. 
+INFO  11:17:25,575 StrandBiasTest - SAM/BAM data was found. Attempting to use read data to calculate strand bias annotations values. 
+INFO  11:17:29,902 ProgressMeter -            done   3043210.0     4.0 s       1.0 s      100.0%     4.0 s       0.0 s 
+INFO  11:17:29,902 ProgressMeter - Total runtime 4.35 secs, 0.07 min, 0.00 hours 
+INFO  11:17:29,905 MicroScheduler - 0 reads were filtered out during the traversal out of approximately 4891 total reads (0.00%) 
+INFO  11:17:29,905 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter 
+INFO  11:17:29,905 MicroScheduler -   -> 0 reads (0.00% of total) failing BadMateFilter 
+INFO  11:17:29,905 MicroScheduler -   -> 0 reads (0.00% of total) failing DuplicateReadFilter 
+INFO  11:17:29,906 MicroScheduler -   -> 0 reads (0.00% of total) failing FailsVendorQualityCheckFilter 
+INFO  11:17:29,906 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter 
+INFO  11:17:29,906 MicroScheduler -   -> 0 reads (0.00% of total) failing MappingQualityUnavailableFilter 
+INFO  11:17:29,906 MicroScheduler -   -> 0 reads (0.00% of total) failing NotPrimaryAlignmentFilter 
+INFO  11:17:29,907 MicroScheduler -   -> 0 reads (0.00% of total) failing UnmappedReadFilter 
+INFO  11:17:30,946 GATKRunReport - Uploaded run statistics report to AWS S3 
+INDELS found: 0
