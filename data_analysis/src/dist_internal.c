@@ -74,8 +74,6 @@ int main(int argc, char * argv[])
         }
     }
 
-    printf("tot: %lu, strings: %d, len: %d, n: %lu\n", tot, istring, len, n);
-
     printf("%f", ((double) tot) / (double)(len * n));
 
     fclose(f1);
