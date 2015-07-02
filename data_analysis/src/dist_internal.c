@@ -63,7 +63,7 @@ int main(int argc, char * argv[])
     }
 
     unsigned long tot = 0;
-    int n = 0;
+    unsigned long n = 0;
     for (i = 0; i < istring; i++)
     {
         for (ii = i+1; ii < istring; ii++)
@@ -74,7 +74,7 @@ int main(int argc, char * argv[])
         }
     }
 
-    printf("tot: %lu, strings: %d, len: %d, n: %d\n", tot, istring, len, n);
+    printf("tot: %lu, strings: %d, len: %d, n: %lu\n", tot, istring, len, n);
 
     printf("%f", ((double) tot) / (double)(len * n));
 
