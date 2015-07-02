@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <libgen.h>
 
-int dist(char * s1, char * s2, int len);
+unsigned long dist(char * s1, char * s2, int len);
 
 int main(int argc, char * argv[])
 {
@@ -62,8 +62,8 @@ int main(int argc, char * argv[])
         return 0;
     }
 
-    int tot = 0;
-    int n   = 0;
+    unsigned long tot = 0;
+    int n = 0;
     for (i = 0; i < istring; i++)
     {
         for (ii = i+1; ii < istring; ii++)
@@ -74,16 +74,18 @@ int main(int argc, char * argv[])
         }
     }
 
-    printf("%f", ((float) tot) / (len * n));
+    printf("tot: %lu, strings: %d, len: %d, n: %d\n", tot, istring, len, n);
+
+    printf("%f", ((double) tot) / (double)(len * n));
 
     fclose(f1);
 
     return 0;
 }
 
-int dist(char * s1, char * s2, int len)
+unsigned long dist(char * s1, char * s2, int len)
 {
-    int count = 0;
+    unsigned long count = 0;
     
     for (int i = 0; i < len; i++)
     {

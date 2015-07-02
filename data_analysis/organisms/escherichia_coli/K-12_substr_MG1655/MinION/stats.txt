@@ -1,0 +1,5 @@
+# of common motifs
+4 2	| U: 0 I: 0 JC: - Udist: - Idist: -
+8 2	| U: 12 I: 0 JC: 0 Udist: 0.638258 Idist: -
+10 2	| U: 1305 I: 0 JC: 0 Udist: 0.563408 Idist: -
+8 4	| U: 12 I: 0 JC: 0 Udist: 0.638258 Idist: -
