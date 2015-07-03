@@ -1,17 +1,13 @@
 #!/usr/bin/python
 
 import sys
+from ctypes import *
 
 if len(sys.argv) != 2:
 	print "must provide exactly 1 .data file"
 	exit(1)
 
-def dist(m1, m2):
-	count = 0
-	for i in range(len(m1)):
-		if m1[i] != m2[i] and m1[i] != 'N' and m2[i] != 'N':
-			count += 1
-	return count
+lib = cdll.LoadLibrary("./libdistint.so.1.0")
 
 mlen = 0
 d = []
@@ -32,11 +28,12 @@ elif len(d) == 1:
 	print "0"
 	exit(0)
 
-tot = 0
-n   = 0
-for i in range(len(d)):
-	for j in range(i+1, len(d)):
-		tot += dist(d[i], d[j])
-		n += 1
+array   = (c_char_p * len(d))(*d)
+array_l = c_uint(len(d))
+motif_l = c_uint(mlen)
 
-print float(tot) / (n*mlen)
+dist = lib.get_internal_distance
+
+dist.restype = c_double
+
+print dist(array, array_l, motif_l)

@@ -1,1 +1,3 @@
-organism,platform,BAMs,reads-mean,reads-stdev,cov-mean,cov-stdev,depth-mean,depth-stdev,snps,indels,motifs-snps,motifs-indels
+Organism,Strain,Genome Length,%GC,%CpG,CpG Obs/Exp,Q,N,Max Kmers,Covered Kmers,%Cov Kmers,Platform,Tot Motifs,Common Motifs,JC,BAM,Tot Reads,HCov,Avg Read Depth,Avg Read Length,SNPs,Indels
+bacillus_subtilis,str_168,4215606,43.5144,4.90032,1.03519,10,2,1048576,988368,94.258118,gaii-x,3421,3421,1.00000000,DRR000852,3253856,99.9957,57.541,75,7,13
+bordetella_pertussis,18323,4043846,67.6862,13.1741,1.15023,10,2,1048576,743794,70.933723,gaii-x,29671,29671,1.00000000,ERR316402,1546523,99.9968,28.4967,76,2,0

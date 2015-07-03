@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <libgen.h>
 
-unsigned long dist(char * s1, char * s2, int len);
+unsigned dist(char * s1, char * s2, unsigned len);
 
 int main(int argc, char * argv[])
 {
@@ -21,11 +21,11 @@ int main(int argc, char * argv[])
 
     char ** strings = (char **) malloc(sizeof(char *) * 500000);
 
-    int len = 0;
+    unsigned len = 0;
 
-    int i, ii;
+    unsigned i, ii;
 
-    int istring = 0;
+    unsigned istring = 0;
     while (fgets(buf, 256, f1) != NULL)
     {
         if (buf[0] == '#' || buf[0] == ' ' || buf[0] == '\t' || buf[0] == '\n')
@@ -74,18 +74,18 @@ int main(int argc, char * argv[])
         }
     }
 
-    printf("%f", ((double) tot) / (double)(len * n));
+    printf("%lf\n", ((double) tot) / (double)(len * n));
 
     fclose(f1);
 
     return 0;
 }
 
-unsigned long dist(char * s1, char * s2, int len)
+unsigned dist(char * s1, char * s2, unsigned len)
 {
-    unsigned long count = 0;
+    unsigned count = 0;
     
-    for (int i = 0; i < len; i++)
+    for (unsigned i = 0; i < len; i++)
     {
         if (s1[i] != s2[i] && s1[i] != 'N' && s2[i] != 'N')
             count++;

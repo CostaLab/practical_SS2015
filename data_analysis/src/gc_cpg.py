@@ -39,7 +39,8 @@ for filename in sys.argv[1:]:
 				prev = c
 
 	print filename
-	print "tot:", tot, "GC%", (float(GC) / tot) * 100.0, "CpG%", (float(CpG)*2.0 / tot) * 100.0
+	GC = C+G
+	print "tot:", tot, "GC%", (float(GC) / tot) * 100.0, "CpG%", (float(CpG) / (tot - 1)) * 100.0
 	GC = G + C
 	GC_perc = 0 if tot == 0 else (float(GC) / tot) * 100.0
 	CpG_perc = 0 if tot == 0 else (float(CpG) / tot) * 100.0

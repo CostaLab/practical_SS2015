@@ -6,6 +6,10 @@ then
 	exit 1
 fi
 
+FILE="${PWD}/stats.csv"
+
+echo "Organism,Strain,Genome Length,%GC,%CpG,CpG Obs/Exp,Q,N,Max Kmers,Covered Kmers,%Cov Kmers,Platform,Tot Motifs,Common Motifs,JC,BAM,Tot Reads,HCov,Avg Read Depth,Avg Read Length,SNPs,Indels" | tee $FILE
+
 q=10
 n=2
 
@@ -28,6 +32,8 @@ do
 	max_kmers=`grep "## Total ##" ${q}kmers.txt -A 1 | tail -n 1 | awk '{print $7}'`
 	cov_kmers=`grep "## Total ##" ${q}kmers.txt -A 1 | tail -n 1 | awk '{print $4}'`
 	per_kmers=`grep "## Total ##" ${q}kmers.txt -A 1 | tail -n 1 | awk '{print $8}' | tr -d "()%"`
+
+	gc_stats=`tail -n +2 gc_out.txt | awk '{gc+=$2;cpg+=$3;oer+=$4} END {print (gc/NR)","(cpg/NR)","(oer/NR)}'`
 
 	#bnum=`echo $BAMS | wc -l`
 
@@ -66,6 +72,13 @@ do
 		common_motifs_file="${platform}_commonstrict_results_${q}-grams_${n}n_d005.data"
 		intersection=`egrep -c "^[^#]" $common_motifs_file`
 
+		if [[ $tot_motifs == 0 ]]
+		then
+			JC=0
+		else
+			JC=`echo "scale=8; $intersection / $tot_motifs" | bc -l`
+		fi
+
 		BAMS=`find . -name "*.bam" | grep -v -E "(staph|454_|_old|_sw)"`
 
 		for bam in $BAMS
@@ -91,8 +104,9 @@ do
 			dir=`dirname $bam`
 			name=`basename $bam .bam`
 			snps_count=`egrep -c "^[^#]" ${dir}/${name}-snps.vcf`
+			indel_count=`egrep -c "^[^#]" ${dir}/${name}-indels.vcf`
 
-			echo $org_name $org_strain,$glen,$q,$n,$max_kmers,$cov_kmers,$per_kmers,$platform,$tot_motifs,$intersection,$name,$rtot,$hcov,$rdavg,$rlavg,$snps_count
+			echo $org_name,$org_strain,$glen,$gc_stats,$q,$n,$max_kmers,$cov_kmers,$per_kmers,$platform,$tot_motifs,$intersection,$JC,$name,$rtot,$hcov,$rdavg,$rlavg,$snps_count,$indel_count | tee -a $FILE
 		done
 
 		cd $org_base

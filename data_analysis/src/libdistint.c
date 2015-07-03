@@ -1,13 +1,8 @@
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <libgen.h>
 
-float get_internal_distance(char ** strings, unsigned nstrings, unsigned slen);
+double get_internal_distance(char ** strings, unsigned nstrings, unsigned slen);
 unsigned hamming_n(char * s1, char * s2, unsigned len);
 
-float get_internal_distance(char ** strings, unsigned nstrings, unsigned slen)
+double get_internal_distance(char ** strings, unsigned nstrings, unsigned slen)
 {
     if (nstrings == 0)
     {
@@ -18,8 +13,8 @@ float get_internal_distance(char ** strings, unsigned nstrings, unsigned slen)
         return 0.0f;
     }
 
-    unsigned tot = 0;
-    unsigned n   = 0;
+    unsigned long tot = 0;
+    unsigned long n   = 0;
     unsigned i, ii;
     for (i = 0; i < nstrings; i++)
     {
@@ -31,7 +26,7 @@ float get_internal_distance(char ** strings, unsigned nstrings, unsigned slen)
         }
     }
 
-    return ((float) tot) / (slen * n);
+    return ((double) tot) / (double)(slen * n);
 }
 
 unsigned hamming_n(char * s1, char * s2, unsigned slen)
