@@ -1,0 +1,74 @@
+##fileformat=VCFv4.1
+##FILTER=<ID=LowQual,Description="Low quality">
+##FORMAT=<ID=AD,Number=.,Type=Integer,Description="Allelic depths for the ref and alt alleles in the order listed">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth (reads with MQ=255 or with bad mates are filtered)">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=MLPSAC,Number=A,Type=Integer,Description="Maximum likelihood expectation (MLE) for the alternate allele count, in the same order as listed, for each individual sample">
+##FORMAT=<ID=MLPSAF,Number=A,Type=Float,Description="Maximum likelihood expectation (MLE) for the alternate allele fraction, in the same order as listed, for each individual sample">
+##FORMAT=<ID=PL,Number=G,Type=Integer,Description="Normalized, Phred-scaled likelihoods for genotypes as defined in the VCF specification">
+##GATKCommandLine.UnifiedGenotyper=<ID=UnifiedGenotyper,Version=3.4-0-g7e26428,Date="Fri Jul 03 16:27:12 CEST 2015",Epoch=1435933632231,CommandLineOptions="analysis_type=UnifiedGenotyper input_file=[SRR360459.bam] showFullBamList=false read_buffer_size=null phone_home=AWS gatk_key=null tag=NA read_filter=[BadCigar] disable_read_filter=[] intervals=null excludeIntervals=null interval_set_rule=UNION interval_merging=ALL interval_padding=0 reference_sequence=NZ_CP009685.1.fasta nonDeterministicRandomSeed=false disableDithering=false maxRuntime=-1 maxRuntimeUnits=MINUTES downsampling_type=BY_SAMPLE downsample_to_fraction=null downsample_to_coverage=250 baq=OFF baqGapOpenPenalty=40.0 refactor_NDN_cigar_string=false fix_misencoded_quality_scores=false allow_potentially_misencoded_quality_scores=true useOriginalQualities=false defaultBaseQualities=0 performanceLog=null BQSR=null quantize_quals=0 disable_indel_quals=false emit_original_quals=false preserve_qscores_less_than=6 globalQScorePrior=-1.0 validation_strictness=SILENT remove_program_records=false keep_program_records=false sample_rename_mapping_file=null unsafe=null disable_auto_index_creation_and_locking_when_reading_rods=false no_cmdline_in_header=false sites_only=false never_trim_vcf_format_field=false bcf=false bam_compression=null simplifyBAM=false disable_bam_indexing=false generate_md5=false num_threads=1 num_cpu_threads_per_data_thread=1 num_io_threads=0 monitorThreadEfficiency=false num_bam_file_handles=null read_group_black_list=null pedigree=[] pedigreeString=[] pedigreeValidationType=STRICT allow_intervals_with_unindexed_bam=false generateShadowBCF=false variant_index_type=DYNAMIC_SEEK variant_index_parameter=-1 logging_level=INFO log_to_file=null help=false version=false genotype_likelihoods_model=INDEL pcr_error_rate=1.0E-4 computeSLOD=false pair_hmm_implementation=LOGLESS_CACHING min_base_quality_score=17 max_deletion_fraction=0.05 min_indel_count_for_genotyping=5 min_indel_fraction_per_sample=0.25 indelGapContinuationPenalty=10 indelGapOpenPenalty=45 indelHaplotypeSize=80 indelDebug=false ignoreSNPAlleles=false allReadsSP=false ignoreLaneInfo=false reference_sample_calls=(RodBinding name= source=UNBOUND) reference_sample_name=null min_quality_score=1 max_quality_score=40 site_quality_prior=20 min_power_threshold_for_calling=0.95 annotateNDA=false heterozygosity=0.001 indel_heterozygosity=1.25E-4 standard_min_confidence_threshold_for_calling=30.0 standard_min_confidence_threshold_for_emitting=30.0 max_alternate_alleles=6 input_prior=[] sample_ploidy=1 genotyping_mode=DISCOVERY alleles=(RodBinding name= source=UNBOUND) contamination_fraction_to_filter=0.0 contamination_fraction_per_sample_file=null p_nonref_model=null exactcallslog=null output_mode=EMIT_VARIANTS_ONLY allSitePLs=false dbsnp=(RodBinding name= source=UNBOUND) comp=[] out=/home/fabio/costalab/data_analysis/organisms/escherichia_coli/K-12_substr_MG1655/GAII/SRX104059/SRR360459/SRR360459-indels.vcf onlyEmitSamples=[] debug_file=null metrics_file=null annotation=[] excludeAnnotation=[] filter_reads_with_N_cigar=false filter_mismatching_base_and_quals=false filter_bases_not_stored=true">
+##INFO=<ID=AC,Number=A,Type=Integer,Description="Allele count in genotypes, for each ALT allele, in the same order as listed">
+##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency, for each ALT allele, in the same order as listed">
+##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
+##INFO=<ID=BaseQRankSum,Number=1,Type=Float,Description="Z-score from Wilcoxon rank sum test of Alt Vs. Ref base qualities">
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth; some reads may have been filtered">
+##INFO=<ID=DS,Number=0,Type=Flag,Description="Were any of the samples downsampled?">
+##INFO=<ID=Dels,Number=1,Type=Float,Description="Fraction of Reads Containing Spanning Deletions">
+##INFO=<ID=FS,Number=1,Type=Float,Description="Phred-scaled p-value using Fisher's exact test to detect strand bias">
+##INFO=<ID=HaplotypeScore,Number=1,Type=Float,Description="Consistency of the site with at most two segregating haplotypes">
+##INFO=<ID=InbreedingCoeff,Number=1,Type=Float,Description="Inbreeding coefficient as estimated from the genotype likelihoods per-sample when compared against the Hardy-Weinberg expectation">
+##INFO=<ID=MLEAC,Number=A,Type=Integer,Description="Maximum likelihood expectation (MLE) for the allele counts (not necessarily the same as the AC), for each ALT allele, in the same order as listed">
+##INFO=<ID=MLEAF,Number=A,Type=Float,Description="Maximum likelihood expectation (MLE) for the allele frequency (not necessarily the same as the AF), for each ALT allele, in the same order as listed">
+##INFO=<ID=MQ,Number=1,Type=Float,Description="RMS Mapping Quality">
+##INFO=<ID=MQ0,Number=1,Type=Integer,Description="Total Mapping Quality Zero Reads">
+##INFO=<ID=MQRankSum,Number=1,Type=Float,Description="Z-score From Wilcoxon rank sum test of Alt vs. Ref read mapping qualities">
+##INFO=<ID=QD,Number=1,Type=Float,Description="Variant Confidence/Quality by Depth">
+##INFO=<ID=RPA,Number=.,Type=Integer,Description="Number of times tandem repeat unit is repeated, for each allele (including reference)">
+##INFO=<ID=RU,Number=1,Type=String,Description="Tandem repeat unit (bases)">
+##INFO=<ID=ReadPosRankSum,Number=1,Type=Float,Description="Z-score from Wilcoxon rank sum test of Alt vs. Ref read position bias">
+##INFO=<ID=SOR,Number=1,Type=Float,Description="Symmetric Odds Ratio of 2x2 contingency table to detect strand bias">
+##INFO=<ID=STR,Number=0,Type=Flag,Description="Variant is a short tandem repeat">
+##contig=<ID=gi|749204315|ref|NZ_CP009685.1|,length=4636831>
+##reference=file:///home/fabio/costalab/data_analysis/organisms/escherichia_coli/K-12_substr_MG1655/GAII/SRX104059/SRR360459/NZ_CP009685.1.fasta
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	rgsm
+gi|749204315|ref|NZ_CP009685.1|	142	.	CA	C	2075.97	.	AC=1;AF=1.00;AN=1;DP=61;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=50.68;MQ0=0;QD=34.03;RPA=2,1;RU=A;SOR=0.773;STR	GT:AD:DP:GQ:PL	1:0,50:61:99:2115,0
+gi|749204315|ref|NZ_CP009685.1|	361	.	GT	G	2116.97	.	AC=1;AF=1.00;AN=1;DP=60;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=45.32;MQ0=0;QD=30.92;RPA=2,1;RU=T;SOR=0.813;STR	GT:AD:DP:GQ:PL	1:0,51:60:99:2156,0
+gi|749204315|ref|NZ_CP009685.1|	436	.	AC	A	1441.97	.	AC=1;AF=1.00;AN=1;DP=47;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=39.81;MQ0=0;QD=30.68;RPA=2,1;RU=C;SOR=1.002;STR	GT:AD:DP:GQ:PL	1:0,35:47:99:1481,0
+gi|749204315|ref|NZ_CP009685.1|	443	.	A	AC	1564.97	.	AC=1;AF=1.00;AN=1;DP=43;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=41.45;MQ0=0;QD=31.71;RPA=1,2;RU=C;SOR=0.914;STR	GT:AD:DP:GQ:PL	1:0,38:43:99:1604,0
+gi|749204315|ref|NZ_CP009685.1|	546	.	GT	G	2112.97	.	AC=1;AF=1.00;AN=1;DP=62;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=50.30;MQ0=0;QD=34.08;RPA=2,1;RU=T;SOR=1.702;STR	GT:AD:DP:GQ:PL	1:0,51:62:99:2152,0
+gi|749204315|ref|NZ_CP009685.1|	625	.	C	CG	2605.97	.	AC=1;AF=1.00;AN=1;DP=83;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=53.57;MQ0=0;QD=31.40;RPA=1,2;RU=G;SOR=1.366;STR	GT:AD:DP:GQ:PL	1:0,63:83:99:2645,0
+gi|749204315|ref|NZ_CP009685.1|	948	.	CA	C	803.97	.	AC=1;AF=1.00;AN=1;DP=49;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=39.08;MQ0=0;QD=16.41;RPA=7,6;RU=A;SOR=2.494;STR	GT:AD:DP:GQ:PL	1:0,24:45:99:843,0
+gi|749204315|ref|NZ_CP009685.1|	1010	.	GA	G	946.97	.	AC=1;AF=1.00;AN=1;DP=38;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=35.50;MQ0=0;QD=24.92;RPA=4,3;RU=A;SOR=1.358;STR	GT:AD:DP:GQ:PL	1:0,25:37:99:986,0
+gi|749204315|ref|NZ_CP009685.1|	1044	.	G	GC	1395.97	.	AC=1;AF=1.00;AN=1;DP=44;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=42.77;MQ0=0;QD=31.73;RPA=1,2;RU=C;SOR=0.941;STR	GT:AD:DP:GQ:PL	1:0,34:44:99:1435,0
+gi|749204315|ref|NZ_CP009685.1|	1273	.	C	CG	2258.97	.	AC=1;AF=1.00;AN=1;DP=79;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=54.04;MQ0=0;QD=28.59;RPA=2,3;RU=G;SOR=1.047;STR	GT:AD:DP:GQ:PL	1:0,57:79:99:2298,0
+gi|749204315|ref|NZ_CP009685.1|	1479	.	T	TC	1994.97	.	AC=1;AF=1.00;AN=1;DP=81;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=53.63;MQ0=0;QD=24.63;RPA=2,3;RU=C;SOR=0.859;STR	GT:AD:DP:GQ:PL	1:0,50:81:99:2034,0
+gi|749204315|ref|NZ_CP009685.1|	1727	.	C	CG	2596.97	.	AC=1;AF=1.00;AN=1;DP=79;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=54.51;MQ0=0;QD=32.87;RPA=1,2;RU=G;SOR=0.724;STR	GT:AD:DP:GQ:PL	1:0,63:79:99:2636,0
+gi|749204315|ref|NZ_CP009685.1|	2794	.	C	CG	2434.97	.	AC=1;AF=1.00;AN=1;DP=79;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=53.85;MQ0=0;QD=30.82;RPA=1,2;RU=G;SOR=0.726;STR	GT:AD:DP:GQ:PL	1:0,59:79:99:2474,0
+gi|749204315|ref|NZ_CP009685.1|	60277	.	GA	G	2184.97	.	AC=1;AF=1.00;AN=1;DP=89;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=55.40;MQ0=0;QD=24.55;RPA=9,8;RU=A;SOR=0.750;STR	GT:AD:DP:GQ:PL	1:0,70:89:99:2224,0
+gi|749204315|ref|NZ_CP009685.1|	139702	.	G	GC	2315.97	.	AC=1;AF=1.00;AN=1;DP=74;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=52.40;MQ0=0;QD=31.30;SOR=1.136	GT:AD:DP:GQ:PL	1:0,52:74:99:2355,0
+gi|749204315|ref|NZ_CP009685.1|	337298	.	T	TG	2385.97	.	AC=1;AF=1.00;AN=1;DP=79;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=55.62;MQ0=0;QD=30.20;RPA=4,5;RU=G;SOR=1.033;STR	GT:AD:DP:GQ:PL	1:0,66:79:99:2425,0
+gi|749204315|ref|NZ_CP009685.1|	455021	.	GA	G	756.97	.	AC=1;AF=1.00;AN=1;DP=53;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=48.80;MQ0=0;QD=14.28;RPA=9,8;RU=A;SOR=2.584;STR	GT:AD:DP:GQ:PL	1:0,25:53:99:796,0
+gi|749204315|ref|NZ_CP009685.1|	522648	.	C	CG	886.97	.	AC=1;AF=1.00;AN=1;DP=42;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=42.53;MQ0=0;QD=21.12;RPA=5,6;RU=G;SOR=1.697;STR	GT:AD:DP:GQ:PL	1:0,26:42:99:926,0
+gi|749204315|ref|NZ_CP009685.1|	709233	.	C	CG	1411.97	.	AC=1;AF=1.00;AN=1;DP=53;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=52.60;MQ0=0;QD=26.64;RPA=5,6;RU=G;SOR=0.843;STR	GT:AD:DP:GQ:PL	1:0,41:53:99:1451,0
+gi|749204315|ref|NZ_CP009685.1|	828051	.	C	CG	872.97	.	AC=1;AF=1.00;AN=1;DP=43;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=48.65;MQ0=0;QD=20.30;RPA=6,7;RU=G;SOR=1.781;STR	GT:AD:DP:GQ:PL	1:0,27:42:99:912,0
+gi|749204315|ref|NZ_CP009685.1|	930506	.	A	AG	1660.97	.	AC=1;AF=1.00;AN=1;DP=59;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=56.30;MQ0=0;QD=28.15;RPA=5,6;RU=G;SOR=0.776;STR	GT:AD:DP:GQ:PL	1:0,48:59:99:1700,0
+gi|749204315|ref|NZ_CP009685.1|	937506	.	T	TG	2225.97	.	AC=1;AF=1.00;AN=1;DP=77;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=56.30;MQ0=0;QD=28.91;RPA=4,5;RU=G;SOR=1.107;STR	GT:AD:DP:GQ:PL	1:0,61:77:99:2265,0
+gi|749204315|ref|NZ_CP009685.1|	1098135	.	A	AG	1726.97	.	AC=1;AF=1.00;AN=1;DP=73;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=54.32;MQ0=0;QD=23.66;RPA=6,7;RU=G;SOR=1.244;STR	GT:AD:DP:GQ:PL	1:0,52:73:99:1766,0
+gi|749204315|ref|NZ_CP009685.1|	1526787	.	CGG	C	2571.97	.	AC=1;AF=1.00;AN=1;DP=74;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=45.39;MQ0=0;QD=34.76;RPA=4,2;RU=G;SOR=2.137;STR	GT:AD:DP:GQ:PL	1:0,54:74:99:2611,0
+gi|749204315|ref|NZ_CP009685.1|	1583410	.	C	CG	1083.97	.	AC=1;AF=1.00;AN=1;DP=46;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=53.71;MQ0=0;QD=23.56;RPA=4,5;RU=G;SOR=1.329;STR	GT:AD:DP:GQ:PL	1:0,30:46:99:1123,0
+gi|749204315|ref|NZ_CP009685.1|	2101024	.	T	TG	1222.97	.	AC=1;AF=1.00;AN=1;DP=63;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=55.65;MQ0=0;QD=19.41;RPA=7,8;RU=G;SOR=1.236;STR	GT:AD:DP:GQ:PL	1:0,39:63:99:1262,0
+gi|749204315|ref|NZ_CP009685.1|	2445486	.	A	AC	1391.97	.	AC=1;AF=1.00;AN=1;DP=50;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=53.83;MQ0=0;QD=27.84;RPA=3,4;RU=C;SOR=0.746;STR	GT:AD:DP:GQ:PL	1:0,37:50:99:1431,0
+gi|749204315|ref|NZ_CP009685.1|	2628619	.	C	CG	292.97	.	AC=1;AF=1.00;AN=1;DP=17;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=49.34;MQ0=0;QD=17.23;RPA=4,5;RU=G;SOR=0.892;STR	GT:AD:DP:GQ:PL	1:0,9:17:99:332,0
+gi|749204315|ref|NZ_CP009685.1|	3436783	.	A	AC	355.97	.	AC=1;AF=1.00;AN=1;DP=19;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=39.11;MQ0=0;QD=18.74;SOR=4.047	GT:AD:DP:GQ:PL	1:0,15:19:99:395,0
+gi|749204315|ref|NZ_CP009685.1|	3440284	.	C	CG	2486.97	.	AC=1;AF=1.00;AN=1;DP=96;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=56.13;MQ0=0;QD=25.91;RPA=5,6;RU=G;SOR=1.042;STR	GT:AD:DP:GQ:PL	1:0,71:95:99:2526,0
+gi|749204315|ref|NZ_CP009685.1|	3482643	.	T	TC	1054.97	.	AC=1;AF=1.00;AN=1;DP=55;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=54.36;MQ0=0;QD=19.18;RPA=5,6;RU=C;SOR=0.892;STR	GT:AD:DP:GQ:PL	1:0,31:55:99:1094,0
+gi|749204315|ref|NZ_CP009685.1|	3622622	.	C	CG	1818.97	.	AC=1;AF=1.00;AN=1;DP=63;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=56.28;MQ0=0;QD=28.87;RPA=2,3;RU=G;SOR=1.329;STR	GT:AD:DP:GQ:PL	1:0,46:63:99:1858,0
+gi|749204315|ref|NZ_CP009685.1|	3685540	.	T	TC	667.97	.	AC=1;AF=1.00;AN=1;DP=36;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=33.86;MQ0=0;QD=18.55;RPA=5,6;RU=C;SOR=1.402;STR	GT:AD:DP:GQ:PL	1:0,20:36:99:707,0
+gi|749204315|ref|NZ_CP009685.1|	3685549	.	C	CG	737.97	.	AC=1;AF=1.00;AN=1;DP=40;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=39.45;MQ0=0;QD=18.45;RPA=5,6;RU=G;SOR=1.329;STR	GT:AD:DP:GQ:PL	1:0,22:39:99:777,0
+gi|749204315|ref|NZ_CP009685.1|	3727769	.	C	CG	1041.97	.	AC=1;AF=1.00;AN=1;DP=43;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=51.13;MQ0=0;QD=24.23;RPA=6,7;RU=G;SOR=0.818;STR	GT:AD:DP:GQ:PL	1:0,32:43:99:1081,0
+gi|749204315|ref|NZ_CP009685.1|	3731010	.	T	TC	929.97	.	AC=1;AF=1.00;AN=1;DP=46;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=47.27;MQ0=0;QD=20.22;RPA=7,8;RU=C;SOR=4.548;STR	GT:AD:DP:GQ:PL	1:0,30:46:99:969,0
+gi|749204315|ref|NZ_CP009685.1|	4463166	.	T	TC	1631.97	.	AC=1;AF=1.00;AN=1;DP=59;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=47.14;MQ0=0;QD=27.66;RPA=3,4;RU=C;SOR=0.739;STR	GT:AD:DP:GQ:PL	1:0,43:59:99:1671,0
+gi|749204315|ref|NZ_CP009685.1|	4569228	.	G	GC	1552.97	.	AC=1;AF=1.00;AN=1;DP=62;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=53.18;MQ0=0;QD=25.05;RPA=5,6;RU=C;SOR=1.038;STR	GT:AD:DP:GQ:PL	1:0,45:62:99:1592,0
+gi|749204315|ref|NZ_CP009685.1|	4628441	.	C	CG	446.97	.	AC=1;AF=1.00;AN=1;DP=17;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=30.57;MQ0=0;QD=26.29;RPA=4,5;RU=G;SOR=3.767;STR	GT:AD:DP:GQ:PL	1:0,13:16:99:486,0
+gi|749204315|ref|NZ_CP009685.1|	4628608	.	C	CG	744.97	.	AC=1;AF=1.00;AN=1;DP=28;FS=0.000;MLEAC=1;MLEAF=1.00;MQ=40.92;MQ0=0;QD=26.61;RPA=4,5;RU=G;SOR=1.828;STR	GT:AD:DP:GQ:PL	1:0,21:27:99:784,0

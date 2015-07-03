@@ -156,7 +156,7 @@ if __name__ == '__main__':
     parser.add_argument("-e", dest="epsilon", default=0.03, type=float, help="background error rate cutoff epsilon, default: 0.03")
     parser.add_argument("-d", dest="delta", default=0.05, type=float, help="error rate difference cutoff delta, default: 0.05")
     parser.add_argument("-r", dest="rule", default="strict", type=str, help="Merge rule. strict: takes the common motifs, loose: takes common motifs using N"
-                                                                               " as wildcard, simple: takes all motifs [default: default]")    
+                                                                            " as wildcard, simple: takes all motifs [default: strict]")    
     args = parser.parse_args()
 
     q = args.q[0]

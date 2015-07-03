@@ -8,7 +8,7 @@ fi
 
 FILE="${PWD}/stats.csv"
 
-echo "Organism,Strain,Genome Length,%GC,%CpG,CpG Obs/Exp,Q,N,Max Kmers,Covered Kmers,%Cov Kmers,Platform,Tot Motifs,Common Motifs,JC,BAM,Tot Reads,HCov,Avg Read Depth,Avg Read Length,SNPs,Indels" | tee $FILE
+echo "Organism,Strain,Genome Length,%GC,%CpG,CpG Obs/Exp,Q,N,Max Kmers,Covered Kmers,%Cov Kmers,Platform,Tot Motifs,Common Motifs,JC,BAM,Tot Reads,HCov,Avg Read Depth,StdDev Read Depth,Avg Read Length,StdDev Read Length,SNPs,Indels" | tee $FILE
 
 q=10
 n=2
@@ -106,7 +106,7 @@ do
 			snps_count=`egrep -c "^[^#]" ${dir}/${name}-snps.vcf`
 			indel_count=`egrep -c "^[^#]" ${dir}/${name}-indels.vcf`
 
-			echo $org_name,$org_strain,$glen,$gc_stats,$q,$n,$max_kmers,$cov_kmers,$per_kmers,$platform,$tot_motifs,$intersection,$JC,$name,$rtot,$hcov,$rdavg,$rlavg,$snps_count,$indel_count | tee -a $FILE
+			echo $org_name,$org_strain,$glen,$gc_stats,$q,$n,$max_kmers,$cov_kmers,$per_kmers,$platform,$tot_motifs,$intersection,$JC,$name,$rtot,$hcov,$rdavg,$rdstd,$rlavg,$rlstd,$snps_count,$indel_count | tee -a $FILE
 		done
 
 		cd $org_base
