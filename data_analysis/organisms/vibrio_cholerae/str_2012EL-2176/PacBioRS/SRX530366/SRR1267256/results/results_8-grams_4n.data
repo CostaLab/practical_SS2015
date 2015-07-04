@@ -1,0 +1,3 @@
+#Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
+CCNNCANN	1823	8701	8962	271	159	7.64555646954	0.0302050824788	0.01743229909	0.0127727833888
+CNANCNNG	1678	8326	8558	261	156	6.95364005056	0.0303947828112	0.0179022263025	0.0124925565087
