@@ -1,0 +1,2 @@
+#Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
+NTNNTNTT	89723	56695	58101	1915	1637	6.92706069595	0.0326736051868	0.0274029930697	0.00527061211709

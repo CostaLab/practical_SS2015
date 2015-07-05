@@ -6,12 +6,18 @@ then
 	exit 1
 fi
 
-FILE="${PWD}/stats.csv"
+if [[ $# < 2 ]]
+then
+    echo "$0 Q N"
+    exit 1
+fi
 
-echo "Organism,Strain,Genome Length,%GC,%CpG,CpG Obs/Exp,Q,N,Max Kmers,Covered Kmers,%Cov Kmers,Platform,Tot Motifs,Common Motifs,JC,BAM,Tot Reads,HCov,Avg Read Depth,StdDev Read Depth,Avg Read Length,StdDev Read Length,SNPs,Indels" | tee $FILE
+q=$1
+n=$2
 
-q=10
-n=2
+FILE="${PWD}/stats_by_exp_${q}_${n}.csv"
+
+echo "Organism,Strain,Genome Length,%GC,%CpG,CpG Obs/Exp,Max Kmers,Covered Kmers,%Cov Kmers,Platform,BAM,Tot Reads,HCov,Avg Read Depth,StdDev Read Depth,Avg Read Length,StdDev Read Length,SNPs,Indels,SNPs-motifs,SNPs-motifs 0.05" | tee $FILE
 
 cd organisms
 
@@ -44,6 +50,8 @@ do
 	shopt -s nullglob
 	for platform in `ls *{GAII,HiSeq,PGM_mem,MiSeq,PacBio,MinIon}* -d`
 	do
+        echo "Platform: $platform"
+
 		cd $platform
 
 		if [[ $platform == GAII* ]]
@@ -66,20 +74,20 @@ do
 			platform=minion
 		fi
 
-		total_motifs_file="${platform}_merged_results_${q}-grams_${n}n_d005.data"
-		tot_motifs=`egrep -c "^[^#]" $total_motifs_file`
+		#total_motifs_file="${platform}_merged_results_${q}-grams_${n}n_d005.data"
+		#tot_motifs=`egrep -c "^[^#]" $total_motifs_file`
 
-		common_motifs_file="${platform}_commonstrict_results_${q}-grams_${n}n_d005.data"
-		intersection=`egrep -c "^[^#]" $common_motifs_file`
+		#common_motifs_file="${platform}_commonstrict_results_${q}-grams_${n}n_d005.data"
+		#intersection=`egrep -c "^[^#]" $common_motifs_file`
 
-		if [[ $tot_motifs == 0 ]]
-		then
-			JC=0
-		else
-			JC=`echo "scale=8; $intersection / $tot_motifs" | bc -l`
-		fi
+		#if [[ $tot_motifs == 0 ]]
+		#then
+		#	JC=0
+		#else
+		#	JC=`echo "scale=8; $intersection / $tot_motifs" | bc -l`
+		#fi
 
-		BAMS=`find . -name "*.bam" | grep -v -E "(staph|454_|_old|_sw)"`
+		BAMS=`find . -name "*.bam"`
 
 		for bam in $BAMS
 		do
@@ -105,8 +113,10 @@ do
 			name=`basename $bam .bam`
 			snps_count=`egrep -c "^[^#]" ${dir}/${name}-snps.vcf`
 			indel_count=`egrep -c "^[^#]" ${dir}/${name}-indels.vcf`
+            snps_motifs_count=`egrep -c "^[^ #]" ${dir}/results/results_${q}-grams_${n}n.data`
+            snps_motifs_count_005=`egrep "^[^ #]" ${dir}/results/results_${q}-grams_${n}n.data | awk '{if ($10 > 0.05) print $0}' | wc -l`
 
-			echo $org_name,$org_strain,$glen,$gc_stats,$q,$n,$max_kmers,$cov_kmers,$per_kmers,$platform,$tot_motifs,$intersection,$JC,$name,$rtot,$hcov,$rdavg,$rdstd,$rlavg,$rlstd,$snps_count,$indel_count | tee -a $FILE
+			echo $org_name,$org_strain,$glen,$gc_stats,$max_kmers,$cov_kmers,$per_kmers,$platform,$name,$rtot,$hcov,$rdavg,$rdstd,$rlavg,$rlstd,$snps_count,$indel_count,$snps_motifs_count,$snps_motifs_count_005 | tee -a $FILE
 		done
 
 		cd $org_base
