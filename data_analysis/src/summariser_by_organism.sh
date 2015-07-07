@@ -8,7 +8,7 @@ fi
 
 if [[ $# < 2 ]]
 then
-    echo "$0 Q N"
+    echo "`basename $0` Q N"
     exit 1
 fi
 
@@ -17,7 +17,13 @@ n=$2
 
 FILE="${PWD}/stats_by_organism_${q}_${n}.csv"
 
-echo "Organism,Strain,Genome Length,%GC,%CpG,CpG Obs/Exp,Max Kmers,Covered Kmers,%Cov Kmers,Platform,BAMs,Avg Reads,StdDev Reads,Avg HCov,StdDev HCov,Avg Read Depth,StdDev Read Depth,Avg Read Length,StdDev Read Length,SNPs,Indels,SNPs-motifs,SNPs-motifs 0.05" | tee $FILE
+TMP="${PWD}/.tmp_`basename $0 .sh`"
+rm $TMP.* &> /dev/null
+
+echo \
+"Organism,Strain,Genome Length,%GC,%CpG,CpG Obs/Exp,Max Kmers,Covered Kmers,%Cov Kmers,Platform,\
+BAMs,Tot %HCov,WAvg Reads,PStdDev Reads,WAvg Read Depth,PStdDev Read Depth,WAvg Read Length,\
+PStdDev Read Length,Avg SNPs,StdDev SNPs,Avg Indels,StdDev Indels,Tot SNPs-motifs 0.05" | tee $FILE
 
 cd organisms
 
@@ -41,8 +47,6 @@ do
 
 	gc_stats=`tail -n +2 gc_out.txt | awk '{gc+=$2;cpg+=$3;oer+=$4} END {print (gc/NR)","(cpg/NR)","(oer/NR)}'`
 
-	#bnum=`echo $BAMS | wc -l`
-
 	# glen: genome length
 	# bnum: number of bam files considered
 
@@ -50,6 +54,7 @@ do
 	shopt -s nullglob
 	for platform in `ls *{GAII,HiSeq,PGM_mem,MiSeq,PacBio,MinIon}* -d`
 	do
+		rm $TMP.* &> /dev/null
         echo "Platform: $platform"
 
 		cd $platform
@@ -74,50 +79,96 @@ do
 			platform=minion
 		fi
 
-		#total_motifs_file="${platform}_merged_results_${q}-grams_${n}n_d005.data"
-		#tot_motifs=`egrep -c "^[^#]" $total_motifs_file`
-
-		#common_motifs_file="${platform}_commonstrict_results_${q}-grams_${n}n_d005.data"
-		#intersection=`egrep -c "^[^#]" $common_motifs_file`
-
-		#if [[ $tot_motifs == 0 ]]
-		#then
-		#	JC=0
-		#else
-		#	JC=`echo "scale=8; $intersection / $tot_motifs" | bc -l`
-		#fi
+		total_motifs_file="${platform}_merged_results_${q}-grams_${n}n_d005.data"
+		tot_motifs=`egrep -c "^[^#]" $total_motifs_file`
 
 		BAMS=`find . -name "*.bam"`
+		bnum=`echo $BAMS | wc -l`
 
 		for bam in $BAMS
 		do
 			echo $bam
-			res=`samtools depth -Q0 $bam | awk -v glen="$glen" '{if(min==""){min=max=$3};if($3>max){max=$3};if($3< min){min=$3};sum+=$3;sumsq+=$3*$3} END {print "hcov="(NR/glen)*100;print "rdmin="min;print "rdmax="max;print "rdavg="sum/glen;print "rdstd="sqrt(sumsq/glen - (sum/glen)**2)}'`
+
+			# we accumulate the bases covered, so that at the end we will
+			# have the total breadth of coverage for all bams
+			# (it will have to be uniquely sorted to remove duplicates)
+			samtools depth -Q0 $bam > ${TMP}.hcov.new
+
+			if [[ `cat ${TMP}.hcov.new | wc -l` == 0 ]]
+			then
+				# if the bam doesn't have mapped reads,
+				# we don't include it
+				bnum=$((bnum - 1))
+				continue
+			fi
+
+			cat ${TMP}.hcov.new | awk '{print $2}' >> ${TMP}.hcov
+
+			# we then re-use the extracted read depth data from two commands above
+			res=`cat ${TMP}.hcov.new | awk -v glen="$glen" '{sum+=$3;sumsq+=$3*$3} END {print "rdsize="NR;print "rdavg="sum/glen;print "rdstd="sqrt(sumsq/glen - (sum/glen)**2)}'`
 			for r in $res
 			do
 				eval $r
 			done
 
-			res2=`samtools view -F 4 $bam | awk '{len=length($10);if(max==""){max=min=len};if(max<len){max=len};if(min>len){min=len};sum+=len;sumsq+=len*len;rtot+=1} END {avg=sum/NR;sdev=sqrt(sumsq/NR - avg**2);print "rlmin="min,"rlmax="max,"rlavg="avg,"rlstd="sdev;print "rtot="rtot}'`
+			res2=`samtools view -F 4 $bam | awk '{len=length($10);sum+=len;sumsq+=len*len} END {avg=sum/NR;sdev=sqrt(sumsq/NR - avg**2);print "rlavg="avg,"rlstd="sdev;print "rtot="NR}'`
 			for r in $res2
 			do
 				eval $r
 			done
 
-			# hcov: horizontal coverage
+			# rdsize: number of bases covered by at least 1 read
+			# rdavg, rdstd: read depth
 			# rtot: number of reads
-			# rdmin, rdmax, rdavg, rdstd: basic stats of read depth
-			# rlmin, rlmax, rlavg, rlstd: basic stats of read length
+			# rlavg, rlstd: read length
 
 			dir=`dirname $bam`
 			name=`basename $bam .bam`
 			snps_count=`egrep -c "^[^#]" ${dir}/${name}-snps.vcf`
 			indel_count=`egrep -c "^[^#]" ${dir}/${name}-indels.vcf`
-            snps_motifs_count=`egrep -c "^[^ #]" ${dir}/results/results_${q}-grams_${n}n.data`
-            snps_motifs_count_005=`egrep "^[^ #]" ${dir}/results/results_${q}-grams_${n}n.data | awk '{if ($10 > 0.05) print $0}' | wc -l`
 
-			echo $org_name,$org_strain,$glen,$gc_stats,$max_kmers,$cov_kmers,$per_kmers,$platform,$name,$rtot,$hcov,$rdavg,$rdstd,$rlavg,$rlstd,$snps_count,$indel_count,$snps_motifs_count,$snps_motifs_count_005 | tee -a $FILE
+            # for read depth and read length, we need to calculate the combined variance.
+            # we need to accumulate sample size, avg and std
+            echo "$rdsize $rdavg $rdstd" >> ${TMP}.rd
+            echo "$rtot $rlavg $rlstd" >> ${TMP}.rl
+            echo "$snps_count $indel_count" >> ${TMP}.snpind
+
 		done
+
+		# number of bases covered by at least 1 read, in at least 1 bam,
+		# over the length of the genome. Should be 100% most of the times
+		hcov=`cat ${TMP}.hcov | sort -u | wc -l`
+		hcovperc=`echo "scale=8; ($hcov / $glen)*100" | bc -l`
+
+		res=`cat ${TMP}.rd | awk '{wavgi+=($1*$2);sizes+=$1;pvar+=(($1 - 1)*$3*$3)} END {print "wavgrd="(wavgi/sizes);print "pstdrd="sqrt(pvar/(sizes - NR))}'`
+		for r in $res
+		do
+			eval $r
+		done
+		# wavgrd: weighted average of read depths
+		# pstdrd: pooled standard deviation of read depths
+
+		res=`cat ${TMP}.rl | awk '{sum+=$1;sumsq+=$1*$1;wavgi+=$1*$2;sizes+=$1;pvar+=(($1 - 1)*$3*$3)} END {avg=sum/NR;print "rtotavg="avg; print "rtotstd="sqrt(sumsq/NR - avg**2);print "wavgrl="(wavgi/sizes);print "pstdrl="sqrt(pvar/(sizes - NR))}'`
+		for r in $res
+		do
+			eval $r
+		done
+		# rtotavg: average of number of reads
+		# rtotstd: standard deviation of number of reads
+		# wavgrl: weighted average of read lengths
+		# pstdrl: pooled standard deviation of read lengths
+
+		res=`cat ${TMP}.snpind | awk '{snpsum+=$1;snpsumsq+=$1*$1;indsum+=$2;indsumsq+=$2*$2} END {snpavg=snpsum/NR;indavg=indsum/NR;print "snpavg="snpavg;print "snpstd="sqrt(snpsumsq/NR - snpavg**2);print "indavg="indavg;print "indstd="sqrt(indsumsq/NR - indavg**2)}'`
+		for r in $res
+		do
+			eval $r
+		done
+		# snpavg: average of snp count
+		# snpstd: st. dev. of snp count
+		# indavg: average of indel count
+		# indstd: st. dev. of indel count
+
+		echo $org_name,$org_strain,$glen,$gc_stats,$max_kmers,$cov_kmers,$per_kmers,$platform,$bnum,$hcovperc,$rtotavg,$rtotstd,$wavgrd,$pstdrd,$wavgrl,$pstdrl,$snpavg,$snpstd,$indavg,$indstd,$tot_motifs | tee -a $FILE
 
 		cd $org_base
 	done
