@@ -23,7 +23,7 @@ rm $TMP.* &> /dev/null
 echo \
 "Organism,Strain,Genome Length,%GC,%CpG,CpG Obs/Exp,Max Kmers,Covered Kmers,%Cov Kmers,Platform,\
 BAMs,Tot %HCov,WAvg Reads,PStdDev Reads,WAvg Read Depth,PStdDev Read Depth,WAvg Read Length,\
-PStdDev Read Length,Avg SNPs,StdDev SNPs,Avg Indels,StdDev Indels,Tot SNPs-motifs 0.05" | tee $FILE
+PStdDev Read Length,Avg SNPs,StdDev SNPs,Avg Indels,StdDev Indels,Tot SNPs-motifs,Tot SNPs-motifs 0.05" | tee $FILE
 
 cd organisms
 
@@ -79,11 +79,14 @@ do
 			platform=minion
 		fi
 
-		total_motifs_file="${platform}_merged_results_${q}-grams_${n}n_d005.data"
+		total_motifs_file="${platform}_merged_results_${q}-grams_${n}n_d0.data"
 		tot_motifs=`egrep -c "^[^#]" $total_motifs_file`
 
+		total_motifs005_file="${platform}_merged_results_${q}-grams_${n}n_d005.data"
+		tot_motifs005=`egrep -c "^[^#]" $total_motifs005_file`
+
 		BAMS=`find . -name "*.bam"`
-		bnum=`echo $BAMS | wc -l`
+		bnum=`ls $BAMS | wc -l`
 
 		for bam in $BAMS
 		do
@@ -168,7 +171,7 @@ do
 		# indavg: average of indel count
 		# indstd: st. dev. of indel count
 
-		echo $org_name,$org_strain,$glen,$gc_stats,$max_kmers,$cov_kmers,$per_kmers,$platform,$bnum,$hcovperc,$rtotavg,$rtotstd,$wavgrd,$pstdrd,$wavgrl,$pstdrl,$snpavg,$snpstd,$indavg,$indstd,$tot_motifs | tee -a $FILE
+		echo $org_name,$org_strain,$glen,$gc_stats,$max_kmers,$cov_kmers,$per_kmers,$platform,$bnum,$hcovperc,$rtotavg,$rtotstd,$wavgrd,$pstdrd,$wavgrl,$pstdrl,$snpavg,$snpstd,$indavg,$indstd,$tot_motifs,$tot_motifs005 | tee -a $FILE
 
 		cd $org_base
 	done
