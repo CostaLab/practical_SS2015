@@ -105,7 +105,7 @@ do
 				continue
 			fi
 
-			cat ${TMP}.hcov.new | awk '{print $2}' >> ${TMP}.hcov
+			cat ${TMP}.hcov.new | awk '{print $1" "$2}' >> ${TMP}.hcov
 
 			# we then re-use the extracted read depth data from two commands above
 			res=`cat ${TMP}.hcov.new | awk -v glen="$glen" '{sum+=$3;sumsq+=$3*$3} END {print "rdsize="NR;print "rdavg="sum/glen;print "rdstd="sqrt(sumsq/glen - (sum/glen)**2)}'`
@@ -140,7 +140,7 @@ do
 
 		# number of bases covered by at least 1 read, in at least 1 bam,
 		# over the length of the genome. Should be 100% most of the times
-		hcov=`cat ${TMP}.hcov | sort -u | wc -l`
+		hcov=`cat ${TMP}.hcov | sort -k 1,2 -u | wc -l`
 		hcovperc=`echo "scale=8; ($hcov / $glen)*100" | bc -l`
 
 		res=`cat ${TMP}.rd | awk '{wavgi+=($1*$2);sizes+=$1;pvar+=(($1 - 1)*$3*$3)} END {print "wavgrd="(wavgi/sizes);print "pstdrd="sqrt(pvar/(sizes - NR))}'`
