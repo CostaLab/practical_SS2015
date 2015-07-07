@@ -41,10 +41,7 @@ do
 
 	gc_stats=`tail -n +2 gc_out.txt | awk '{gc+=$2;cpg+=$3;oer+=$4} END {print (gc/NR)","(cpg/NR)","(oer/NR)}'`
 
-	#bnum=`echo $BAMS | wc -l`
-
 	# glen: genome length
-	# bnum: number of bam files considered
 
 	org_base="$PWD"
 	shopt -s nullglob
@@ -74,31 +71,18 @@ do
 			platform=minion
 		fi
 
-		#total_motifs_file="${platform}_merged_results_${q}-grams_${n}n_d005.data"
-		#tot_motifs=`egrep -c "^[^#]" $total_motifs_file`
-
-		#common_motifs_file="${platform}_commonstrict_results_${q}-grams_${n}n_d005.data"
-		#intersection=`egrep -c "^[^#]" $common_motifs_file`
-
-		#if [[ $tot_motifs == 0 ]]
-		#then
-		#	JC=0
-		#else
-		#	JC=`echo "scale=8; $intersection / $tot_motifs" | bc -l`
-		#fi
-
 		BAMS=`find . -name "*.bam"`
 
 		for bam in $BAMS
 		do
 			echo $bam
-			res=`samtools depth -Q0 $bam | awk -v glen="$glen" '{if(min==""){min=max=$3};if($3>max){max=$3};if($3< min){min=$3};sum+=$3;sumsq+=$3*$3} END {print "hcov="(NR/glen)*100;print "rdmin="min;print "rdmax="max;print "rdavg="sum/glen;print "rdstd="sqrt(sumsq/glen - (sum/glen)**2)}'`
+			res=`samtools depth -Q0 $bam | awk -v glen="$glen" '{sum+=$3;sumsq+=$3*$3} END {print "hcov="(NR/glen)*100,"rdavg="sum/glen,"rdstd="sqrt(sumsq/glen - (sum/glen)**2)}'`
 			for r in $res
 			do
 				eval $r
 			done
 
-			res2=`samtools view -F 4 $bam | awk '{len=length($10);if(max==""){max=min=len};if(max<len){max=len};if(min>len){min=len};sum+=len;sumsq+=len*len;rtot+=1} END {avg=sum/NR;sdev=sqrt(sumsq/NR - avg**2);print "rlmin="min,"rlmax="max,"rlavg="avg,"rlstd="sdev;print "rtot="rtot}'`
+			res2=`samtools view -F 4 $bam | awk '{len=length($10);sum+=len;sumsq+=len*len;rtot+=1} END {avg=sum/NR;sdev=sqrt(sumsq/NR - avg**2);print "rlavg="avg,"rlstd="sdev,"rtot="rtot}'`
 			for r in $res2
 			do
 				eval $r
