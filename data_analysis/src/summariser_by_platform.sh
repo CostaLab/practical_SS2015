@@ -17,6 +17,8 @@ n=$2
 
 FILE="${PWD}/stats_by_platform_${q}_${n}.csv"
 
+DIR="${PWD}/final_results/bs_bp_ec_sa_se_vc_pf"
+
 TMP="${PWD}/.tmp_`basename $0 .sh`"
 rm $TMP.* &> /dev/null
 
@@ -27,7 +29,6 @@ Tot SNPs-motifs,Tot SNPs-motifs 0.05" | tee $FILE
 
 cd organisms
 
-base="$PWD"
 for platform in GAII HiSeq PGM_mem MiSeq PacBio MinIon
 do
 	if [[ $platform == GAII ]]
@@ -59,17 +60,18 @@ do
 	rm $TMP.* &> /dev/null
 
 	shopt -s nullglob
+	base="$PWD"
 	for f in `ls -d */*/*${platform}*`
 	do
 		cd $f
 
 		orgnum=$((orgnum + 1))
 
-		total_motifs_file="../final_results/bs_bp_ec_sa_se_vc_pf/${platform}_merged_results_${q}-grams_${n}n_d"
+		total_motifs_file="${DIR}/merged_from_merged/${platform2}_merged_results_${q}-grams_${n}n_d"
 		tot_motifs=`egrep -c "^[^#]" ${total_motifs_file}0.data`
 		tot_motifs005=`egrep -c "^[^#]" ${total_motifs_file}005.data`
 
-		common_motifs_file="../final_results/bs_bp_ec_sa_se_vc_pf/${platform}_commonstrict_results_${q}-grams_${n}n_d"
+		common_motifs_file="${DIR}/commonstrict_from_merged/${platform2}_commonstrict_results_${q}-grams_${n}n_d"
 		common_motifs=`egrep -c "^[^#]" ${common_motifs_file}0.data`
 		common_motifs005=`egrep -c "^[^#]" ${common_motifs_file}005.data`
 
@@ -99,6 +101,8 @@ do
             echo "$rtot $rlavg $rlstd" >> ${TMP}.rl
             echo "$snps_count $indel_count" >> ${TMP}.snpind
 		done
+
+		cd $base
 	done
 	shopt -u nullglob
 
@@ -124,7 +128,5 @@ do
 	# indavg: average of indel count
 	# indstd: st. dev. of indel count
 
-	echo $platform,$orgnum,$bnumtot,$rtotavg,$rtotstd,$wavgrl,$pstdrl,$snpavg,$snpstd,$indavg,$indstd,$tot_motifs,$tot_motifs005,$common_motifs,$common_motifs005 | tee -a $FILE
-
-	cd $base
+	echo $platform2,$orgnum,$bnumtot,$rtotavg,$rtotstd,$wavgrl,$pstdrl,$snpavg,$snpstd,$indavg,$indstd,$tot_motifs,$tot_motifs005,$common_motifs,$common_motifs005 | tee -a $FILE
 done
