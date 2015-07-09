@@ -29,7 +29,8 @@ Tot SNPs-motifs,Tot SNPs-motifs 0.05" | tee $FILE
 
 cd organisms
 
-for platform in GAII HiSeq PGM_mem MiSeq PacBio MinIon
+for platform in GAII HiSeq PGM_mem MiSeq PacBio MinION
+#for platform in MinION
 do
 	if [[ $platform == GAII ]]
 	then
@@ -46,7 +47,7 @@ do
 	elif [[ $platform == PacBio ]]
 	then
 		platform2=pacbio
-	elif [[ $platform == MinIon ]]
+	elif [[ $platform == MinION ]]
 	then
 		platform2=minion
 	fi

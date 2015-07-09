@@ -30,7 +30,7 @@ do
 
 	org_base="$PWD"
 	shopt -s nullglob
-	for platform in `ls *{GAII,HiSeq,PGM_mem,MiSeq,PacBio,MinIon}* -d`
+	for platform in `ls *{GAII,HiSeq,PGM_mem,MiSeq,PacBio,MinION}* -d`
 	do
         echo "Platform: $platform"
 
@@ -51,7 +51,7 @@ do
 		elif [[ $platform == PacB* ]]
 		then
 			platform=pacbio
-		elif [[ $platform == MinIon ]]
+		elif [[ $platform == MinION ]]
 		then
 			platform=minion
 		fi
