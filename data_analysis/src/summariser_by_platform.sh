@@ -25,7 +25,7 @@ rm $TMP.* &> /dev/null
 echo \
 "Platform,Organisms,BAMs,WAvg Reads,PStdDev Reads,WAvg Read Length,\
 PStdDev Read Length,Avg SNPs,StdDev SNPs,Avg Indels,StdDev Indels,\
-Tot SNPs-motifs,Tot SNPs-motifs 0.05" | tee $FILE
+Tot SNPs-motifs,Tot SNPs-motifs 0.05,Common SNPs-motifs,Common SNPs-motifs 0.05" | tee $FILE
 
 cd organisms
 
@@ -60,11 +60,14 @@ do
 	bnumtot=0
 	rm $TMP.* &> /dev/null
 
+    bnum=0
 	shopt -s nullglob
 	base="$PWD"
 	for f in `ls -d */*/*${platform}*`
 	do
 		cd $f
+
+        echo $f
 
 		orgnum=$((orgnum + 1))
 
@@ -83,7 +86,15 @@ do
 		do
 			echo $bam
 
-			res2=`samtools view -F 4 $bam | awk '{len=length($10);sum+=len;sumsq+=len*len} END {avg=sum/NR;sdev=sqrt(sumsq/NR - avg**2);print "rlavg="avg,"rlstd="sdev;print "rtot="NR}'`
+            samtools view -F 4 $bam > ${TMP}.viewmapped
+
+            if [[ `cat ${TMP}.viewmapped | wc -l` == 0 ]]
+            then
+                bnum=$((bnum - 1))
+                continue
+            fi
+
+			res2=`cat ${TMP}.viewmapped | awk '{len=length($10);sum+=len;sumsq+=len*len} END {avg=sum/NR;sdev=sqrt(sumsq/NR - avg**2);print "rlavg="avg,"rlstd="sdev;print "rtot="NR}'`
 			for r in $res2
 			do
 				eval $r
@@ -103,11 +114,11 @@ do
             echo "$snps_count $indel_count" >> ${TMP}.snpind
 		done
 
+        bnumtot=$((bnumtot + $bnum))
+
 		cd $base
 	done
 	shopt -u nullglob
-
-	bnumtot=$((bnumtot + bnum))
 
 	res=`cat ${TMP}.rl | awk '{sum+=$1;sumsq+=$1*$1;wavgi+=$1*$2;sizes+=$1;pvar+=(($1 - 1)*$3*$3)} END {avg=sum/NR;print "rtotavg="avg; print "rtotstd="sqrt(sumsq/NR - avg**2);print "wavgrl="(wavgi/sizes);print "pstdrl="sqrt(pvar/(sizes - NR))}'`
 	for r in $res

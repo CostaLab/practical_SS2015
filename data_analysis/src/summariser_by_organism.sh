@@ -17,7 +17,7 @@ n=$2
 
 FILE="${PWD}/stats_by_organism_${q}_${n}.csv"
 
-TMP="${PWD}/.tmp_`basename $0 .sh`"
+TMP="${PWD}/.tmp_`basename $0 .sh`_${q}_${n}"
 rm $TMP.* &> /dev/null
 
 echo \
