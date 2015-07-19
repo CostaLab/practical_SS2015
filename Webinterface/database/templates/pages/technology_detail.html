@@ -1,0 +1,35 @@
+{% extends 'pages/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+	<div class="technology">
+
+		<h2><a href="{% url 'database.views.technology_detail' tech_id=technology.pk %}">{{ technology.technology }}</a></h2>
+		
+		<h3>Your input sequence: </h3>
+		<hr>
+		<p><b>{{technology.sequence}}</b></p>
+		<hr>
+
+		<h3>Graphical Overview </h3>
+		<img class="fancybox" src="/{{ technology.barGraph }}" />
+		<p><b>Download original file with motifs:</b> 
+		<a href='{{MEDIA_URL}}{{technology.motif_file}}'>{{ technology.motif_file.name }}</a>
+		</p>
+		
+		<p><h3>Explanation: </h3></p>
+		<img src="{% static "graphics/ex_1.png" %}" width="70%" height="70%" />
+		<p>Each nucleobase in the base is colored differently. Nucleobase are colored as follows: <br/>
+		 	<font color="##FF0000">Nucleotide A</font> <br/>
+		 	<font color="#E98D31">Nucleotide T</font> <br/>
+		 	<font color="#04772E">Nucleotide G</font> <br/>
+		 	<font color="#032FCB">Nucleotide C</font> <br/>
+		</p>
+		<p> If a snp variant has been detected, it will be displayed as follows: <br/>
+		<img src="{% static "graphics/ex_2.png" %}" width="70%" height="70%" /> <br/>
+		Additionally, the error difference rate of the motif is given.
+	</div>
+	
+	
+{% endblock content %}

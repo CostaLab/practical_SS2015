@@ -1,0 +1,57 @@
+{% extends 'pages/base.html' %}
+
+{% block content %}
+
+<h4><b> Step 2: Input Sequence and choose Platform </b></h4>
+<font color="##FF0000">Plotting the graph will take some time</font> <br/>
+<p><h5><b> Step 2.1: Input Sequence  </b></h5></p>
+<hr>
+<form method="POST" action="/search/" enctype="multipart/form-data">
+{% csrf_token %}
+<input type="text" size="100" name="sequence">
+
+<p><h5><b> Step 2.2 (Optional): Upload SNP-Variant file  </b></h5></p>
+It is possible to upload a SNP-Variant file to view snp-variants within the motifs. The file has to be in vcf-format!
+			<p>{{ form.non_field_errors }}</p>
+			<p>
+				{{ form.docfile.errors }}
+				{{ form.docfile }}
+			</p>
+
+<p><h5><b> Step 2.3: Choose Platform  </b></h5></p>
+
+	{% for technology in technologies %}
+	
+	<div class="technology">
+		<p><button type="submit" name="action" value="{{technology.pk}}">{{technology.technology}} </button></p>
+	</div>
+	
+	{% endfor %}
+	
+</form>	
+<hr>
+
+<h4><b> Alternatively: Compare two Platforms with each other </b></h4>
+<font color="##FF0000">Plotting the graph will take some time</font> <br/>
+<form method="POST" action="/common_search/" enctype="multipart/form-data">
+{% csrf_token %}
+	<p><h5><b> Step 2.1: Input Sequence  </b></h5></p>
+	<input type="text" size="100" name="sequence">	
+	
+	<p><h5><b> Step 2.2 (Optional): Upload SNP-Variant file  </b></h5></p>
+	It is possible to upload a SNP-Variant file to view snp-variants within the motifs. The file has to be in vcf-format!
+	<p>{{ form.non_field_errors }}</p>
+	<p>	{{ form.docfile.errors }}
+		{{ form.docfile }}
+	</p>
+	
+	<p><h5><b> Step 2.3: Choose 2 Platforms to compare with each other  </b></h5></p>
+	{% for technology in technologies %}
+		<h5><p><input type="checkbox" name="checks" value="{{technology.pk}}" > {{technology.technology}} </p></h5>
+	{% endfor %}
+	<h5><input type="submit" value="Submit"></h5>
+	
+	
+</form>	
+<hr>
+{% endblock content %}

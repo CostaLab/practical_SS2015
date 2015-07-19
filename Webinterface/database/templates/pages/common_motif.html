@@ -1,0 +1,42 @@
+{% extends 'pages/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+	<div class="technology">
+
+		<h2><a href="{% url 'database.views.technology_detail' tech_id=technology.pk %}">{{ technology.technology }}</a></h2>
+		
+		<h3>Your input sequence: </h3>
+		<hr>
+		<p><b>{{technology.sequence}}</b></p>
+		<hr>	
+		<h3>Graphical Overview of compared technologies: {{ technology.technology }} and {{ technology.compared_with }}</h3>
+		
+		<h5>Graphical Overview of different motifs</h5>
+		Motifs of <font color="#000000"> {{ technology.technology }}</font> are colored in black <br/>
+		Motifs of <font color="##848484">{{ technology.compared_with }}</font> are colored in grey <br/>
+		<p><img class="fancybox" src="/{{ technology.differGraph }}" /></p>
+		
+		
+		
+		<h5>Graphical Overview of common motifs</h5>
+		<p><img class="fancybox" src="/{{ technology.commonGraph }}" /></p>
+		
+		<p><h3>Explanation: </h3></p>
+		<img src="{% static "graphics/ex_1.png" %}" width="70%" height="70%" />
+		<p>Each nucleobase in the base is colored differently. Nucleobase are colored as follows: <br/>
+		 	<font color="#FF0000">Nucleotide A</font> <br/>
+		 	<font color="#E98D31">Nucleotide T</font> <br/>
+		 	<font color="#04772E">Nucleotide G</font> <br/>
+		 	<font color="#032FCB">Nucleotide C</font> <br/>
+		</p>
+		<p> If a snp variant has been detected, it will be displayed as follows: <br/>
+		<img src="{% static "graphics/ex_2.png" %}" width="70%" height="70%" /> <br/>
+		Additionally, the error difference rate of the motif is given, and the platform which with the snp-variant has been detected
+		is given. If both platforms have detect the snp-variant, both platforms are displayed in the information text </n>
+		
+	</div>
+
+
+{% endblock content %}

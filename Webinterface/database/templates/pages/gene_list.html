@@ -1,0 +1,31 @@
+{% extends 'pages/base.html' %}
+
+{% block content %}
+<h4><b> Information: </b></h4>
+<p>
+Motif scanning means finding all known motifs that occur in a sequence. This web-tool allows you to display all known motifs
+that occur within a sequence. If snp-variant has been detected within a motif, it will also be displayed
+</p>
+
+<hr>
+<h4><b> How To: </b></h4>
+In order to display the motifs that occur in a sequence, there are two steps necessary. </br>
+First choose the gene </br>
+Second step is to input the sequence and then choose a platform. Different platforms has been used to analyze the gene and to 
+find motifs. Additionally, it is possible to display common motifs between two platforms. Required steps are an input sequence, 
+and to select two platform.
+<hr>
+<h4><b> Step 1: From the following, choose a gene which you want to analyze </b></h4>
+
+
+{% for gene in genes %}
+	<div class="gene">
+	
+		<h5><a href="{% url 'database.views.technology_list' gene_id=gene.pk %}">{{ gene.gene_name }}</a></h5>
+		
+	</div>
+{% endfor %}
+<hr>
+
+
+{% endblock content %}
