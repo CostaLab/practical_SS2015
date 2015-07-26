@@ -5,7 +5,7 @@ from .models import Gene, Technology
 
 class TechnologyInline (admin.StackedInline):
     model = Technology
-    fields = ['technology', 'motif_file', 'snp_file', 'gene']
+    fields = ['technology', 'motif_file', 'gene']
     extra = 1
  
 class TechnologyAdmin(admin.ModelAdmin):   
