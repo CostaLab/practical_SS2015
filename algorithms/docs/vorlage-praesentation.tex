@@ -1,0 +1,292 @@
+% Vorlage zur Verwendung mit LuaTeX (Infos dazu gibt es unter http://de.wikipedia.org/wiki/LuaTeX).
+
+\documentclass[nenglish]{beamer}
+\usepackage[utf8]{luainputenc}
+% \usepackage{algorithmic}
+\usepackage{algpseudocode}
+\usepackage{times}
+\usepackage{mathptmx}
+\usepackage{caption}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{array}
+\usepackage{textpos}
+\usepackage[textfont={scriptsize}]{subcaption} 
+\usepackage{amssymb,
+  amsmath,
+  amsfonts,
+  amsthm}
+  
+  \definecolor{keywords}{RGB}{255,0,90}
+\definecolor{comments}{RGB}{0,0,113}
+% \definecolor{red}{RGB}{180,0,0}
+\definecolor{green}{RGB}{0,150,0}
+ 
+\lstset{language=Python, 
+        basicstyle=\ttfamily\small, 
+        keywordstyle=\color{keywords},
+        commentstyle=\color{comments},
+        stringstyle=\color{red},
+        showstringspaces=false,
+        identifierstyle=\color{black},
+        procnamekeys={def,class}}
+\setbeamertemplate{footline}[frame number]
+\mode<presentation>
+{
+  \usecolortheme{default}
+
+  \useinnertheme{rounded}
+  \useinnertheme{circles}
+  \setbeamertemplate{navigation symbols}{}
+}
+
+\title{Extensions to CSE Discovery}
+
+\author{Barna Zajzon}
+
+\date{Practical Course in Bioinformatics\\
+  \textsc{rwth} Aachen\\[1ex] 
+\today}
+
+ \begin{document}
+
+ \begin{frame}{}
+   \maketitle
+ \end{frame}
+%  \begin{frame}{Roadmap}
+%    \tableofcontents
+%  \end{frame}
+
+\begin{frame}{Outline}
+\begin{enumerate}
+ \item Goals
+ \item Implementation Details
+ \item Results
+ \item Summary
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Goals}
+\begin{enumerate}
+ \item \textcolor{blue}{Initial Improvements}
+ \item \textcolor{blue}{Indel Detection}
+ \item \textcolor{blue}{Higher Order Errors}
+ \item \textcolor{orange}{Hashing - Memory Usage}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Initial Improvements}
+{Bugs}
+\begin{itemize}
+  \itemsep0.5cm
+ \item Index error on forward strands $\rightarrow$ motif inconsistency:
+
+\begin{lstlisting}               
+  qgram = genome [i : i+q]      # pos 10-19
+  ... genome_annotate[0][i + q] # trying pos 20
+ \end{lstlisting}
+\textcolor{blue}{Changed to}
+\begin{lstlisting}                 
+  genome_annotate[0][i + q - 1] # trying pos 19
+ \end{lstlisting}
+\pause
+  \item Last motif in genome was missed:
+  \begin{lstlisting}                 
+  for i in range(len(genome) - q):
+ \end{lstlisting}
+\textcolor{blue}{Changed to}
+ \begin{lstlisting}                 
+  for i in range(len(genome) - q + 1):
+ \end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Initial Improvements}
+{Bugs}
+\begin{itemize}
+  \itemsep0.5cm
+ \item Error while merging (F + R strands) annotated qgrams \\$\rightarrow$ motifs only on REV strand missed:
+
+\begin{lstlisting}                 
+     for qgram in qgram_last:
+         qgram_rev = reverse(qgram)
+         if qgram_rev in qgram_first:
+             ...
+
+\end{lstlisting}
+\textcolor{blue}{Solution}
+\begin{itemize}
+ \item pack motifs on F-strand in result
+ \item iterate over motifs on R-strand 
+ \item merge or add if not present
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Initial Improvements}
+{Speedup}
+\begin{itemize}
+  \itemsep0.5cm
+  \item Use SciPy's \emph{chi squared test} for large tables
+  \item Keep R's \emph{Fisher's test}
+  \item Intermediate counts for motifs instead of regex
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Indel Detection}
+\begin{itemize}
+  \itemsep0.5cm
+  \item Create similar contingency tables during genome annotate
+%   \begin{center}
+\begin{table}[h]
+% \centering
+\footnotesize
+\hspace*{-0cm}
+\begin{tabular}{llllll}
+  & 8 & 9 & 10 &- & 11  \\ \cline{1-6}
+  & A & G & C&x & T  \\ \cline{1-6}
+F-strand & A & G&-   & C  & T   \\
+F-strand & A & G  &- & - & G \\
+R-strand & A & C &A  & C & T \\
+R-strand & A & A &-  & - & T \\
+F-strand & A &G & -  & A & T \\ \cline{1-6}
+\end{tabular}
+\end{table}
+\vspace*{0.2cm}
+\begin{table}
+  \tiny
+
+\begin{tabular}{l|ll}
+\textcolor{red}{Deletion Table(10)} &Match & Mismatch   \\ \hline
+F-strand   & 3 & 0 \\
+R-strand   & 1 & 1 \\ 
+\end{tabular}
+\quad
+\begin{tabular}{l|ll}
+\textcolor{red}{Insertion Table(10)} &Match & Mismatch   \\ \hline
+F-strand   & 2 & 1 \\
+R-strand   & 1 & 1 \\ 
+\end{tabular}
+\end{table}
+\pause
+  \item Parse cigars for \emph{I} and \emph{D}
+  \item Tripled annotation dictionary (qgram) and array (genome)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Higher Order Errors}
+ \begin{itemize}
+  \item Flexible offset during qgram annotation
+  \item Arbitrary position after motif (before on R-strand)
+  \item Drawback: one run = one position
+ \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Efficient Hashing}
+ \[
+  \overbrace{
+%     \underbrace{x}_\text{real} +
+    A\textcolor{red}{C}T\textcolor{red}{C}
+   }^\text{k=4}
+   \rightarrow \overbrace{\underbrace{0\ 0}_\text{2*k-l (key)}\underbrace{\textcolor{red}{0\ 1}\ 1\ 1\ \textcolor{red}{0\ 1}}_\text{l (position)}}^\text{2*k=8} = m
+ \] 
+ \begin{itemize}
+  \item Size of hash table: $M = 2^l$
+  \item Binary, $2k \times 2k$ invertible matrix $A$
+ \pause
+ \begin{gather}
+ f(m) = A * m = 10\textcolor{blue}{110010}\\
+ hash(m) = f(m)\ \%\ M  = \textcolor{blue}{110010}\\
+ pos(m,i) = (hash(m) + reprobe(i))\ \%\ M
+ \end{gather}
+ \pause
+  \item $i+1$ is concatenated to the higher $2*k - l$ bits
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Efficient Hashing}
+ \begin{gather}
+ f(m) = A * m = \textcolor{red}{10}\textcolor{blue}{110010}\\
+ hash(m) = f(m)\ \%\ M  = \textcolor{blue}{110010}\\
+ pos(m,i) = (hash(m) + reprobe(i))\ \%\ M
+ \end{gather}
+ \pause
+  \begin{table}
+  \footnotesize
+  \centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+hashtable pos & 49 & 50 = \textcolor{blue}{110010} & 51 \\ \hline
+key   &  & 1\textcolor{red}{10} &  \\ \hline
+value   &  & [fm, rm, fmm, rmm] &  \\ \hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}[fragile]{Efficient Hashing}
+  Problems / Tricks
+ \begin{itemize}
+  \itemsep0.2cm
+  \item With ``N'', $3*k$ needed for encoding
+  \item Numpy arrays: 1 byte * \#bits
+  \item Integers \& operations on bits instead ``bitvectors''
+  \item One list as hash table entry
+  \item Matrix A actually not needed?
+  \item Memory improvement, but terrible speed 
+ \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Results}{CSE Discovery}
+ \begin{table}
+ \scriptsize
+  \begin{tabular}{| >{\centering\arraybackslash}m{1.5cm} | >{\centering\arraybackslash}m{1.5cm} | >{\centering\arraybackslash}m{1.5cm} | >{\centering\arraybackslash}m{1.5cm} | >{\centering\arraybackslash}m{1.5cm} |}
+  \hline
+  & \multicolumn{2}{c|}{Original} & \multicolumn{2}{c|}{All improvements} \\ \hline
+bsubtilis & Time (s) & Memory Max (MB) & Time (s) & Memory Max (MB)  \\ \hline
+Q=4, N=2  & 421.289  & 223 & 235.481 & 231\\ \hline
+Q=8, N=2  & 4083.274 & 251 & 367.882 & 265 \\ \hline
+  \end{tabular}
+ \end{table}
+ 
+  \begin{table}
+ \scriptsize
+  \begin{tabular}{| >{\centering\arraybackslash}m{1.5cm} | >{\centering\arraybackslash}m{1.5cm} | >{\centering\arraybackslash}m{1.5cm} | >{\centering\arraybackslash}m{1.5cm} | >{\centering\arraybackslash}m{1.5cm} |}
+  \hline
+  & \multicolumn{2}{c|}{Original} & \multicolumn{2}{c|}{All improvements} \\ \hline
+bordetella & Time (s) & Memory Max (MB) & Time (s) & Memory Max (MB)  \\ \hline
+Q=4, N=2  & 132.779  & 217 & 58.059 & 225 \\ \hline
+Q=8, N=2  & 870.690 & 242 & 357.841 & 254 \\ \hline
+  \end{tabular}
+ \end{table}
+\end{frame}
+
+\begin{frame}[fragile]{Results}{Hashing}
+ \begin{table}
+ \scriptsize
+  \begin{tabular}{| >{\centering\arraybackslash}m{1.5cm} | >{\centering\arraybackslash}m{1cm} | >{\centering\arraybackslash}m{1cm} | >{\centering\arraybackslash}m{1cm} | >{\centering\arraybackslash}m{1cm} | >{\centering\arraybackslash}m{1cm} | >{\centering\arraybackslash}m{1cm} |}
+  \hline
+  & \multicolumn{2}{c|}{Dictionary} & \multicolumn{2}{c|}{Key encoding} & \multicolumn{2}{c|}{C++ with Python} \\ \hline
+bsubtilis & Time & Memory& Time & Memory& Time & Memory \\ \hline
+Q=10, N=0  & 4s  & 335 & 60s & 309 &16s &125\\ \hline
+Q=10, N=1  & 14s  & 664 & 159s & 535 &x &x\\ \hline
+Q=10, N=2  & 32s  & 1.257 & 302s & 914 &x &x\\ \hline
+
+  \end{tabular}
+ \end{table}
+
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{itemize}
+ \itemsep0.3cm
+ \item Major and initial goals achieved
+ \item Hashing only proof-of-concept
+ \item Better possible (merge data structures, parallelization)
+ \item More \emph{testing} required, especially for indels
+ \item Is k-mer hashing worth it as pure Python?
+\end{itemize}
+\end{frame}
+
+
+\end{document}

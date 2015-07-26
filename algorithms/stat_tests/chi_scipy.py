@@ -11,15 +11,15 @@ import copy
 import scipy.stats as sps
 import numpy as np
 
-forward_match   = 0
-reverse_match   = 1574
-forward_mismatch= 0
-reverse_mismatch= 77
+forward_match   = 18474
+reverse_match   = 15741
+forward_mismatch= 1
+reverse_mismatch= 0
 
 #scipy chi squared test
 arr         = np.array([[forward_match, forward_mismatch],[reverse_match, reverse_mismatch]])
 print(arr)
-for i in range (10):
+for i in range (1):
     if (True) and not (forward_match == 0 and forward_mismatch == 0):
         sc_chi2, sc_p, sc_dof, sc_expected = sps.chi2_contingency(arr)
     else:
