@@ -47,8 +47,8 @@ class HelpfulOptionParser(OptionParser):
 
 def get_annotate_qgram(genome, genome_annotate, q, search_pos):
     """Compute for each q-gram in the genome its (composed) strand bias table. 
-    Consider therefore the q-gram as well as its reverse complement."""
-    """#barni returns a dictionary with a 2x2 table for each qgram"""
+    Consider therefore the q-gram as well as its reverse complement.
+    Returns a dictionary with a 2x2 table for each qgram"""
     #consider separately pileups of q-grams last and first positions
     qgram_counts    = {}
     qgram_first     = {}
@@ -81,8 +81,6 @@ def get_annotate_qgram(genome, genome_annotate, q, search_pos):
             l += 1
 
         qgram_counts[qgram] = qgram_counts[qgram] + 1 if qgram_counts.has_key(qgram) else 1
-        #barni: #fm, #fmm, ... on the last position of the qgram
-        #barni: list of 4 elem = 2x2 table for position i+q
         offset     = 1 #proper indexing on forward strands
         genome_pos = i + q - offset + search_pos #base position in genome to build cont. table
         qgram_effect_last = [
@@ -121,11 +119,19 @@ def get_annotate_qgram(genome, genome_annotate, q, search_pos):
                 genome_annotate[3][genome_pos], 
                 genome_annotate[2][genome_pos] ]
         #indels reverse direction
+        #because the insertion cont.tables are stored @one position but they 
+        #actually belong to 2 consecutive ones, we must substract 1 for rev. strands
         qgram_ins_effect_first = [
+                genome_annotate[5][genome_pos - 1], 
+                genome_annotate[4][genome_pos - 1], 
+                max(0, genome_annotate[7][genome_pos] - genome_annotate[5][genome_pos - 1] + genome_annotate[5][genome_pos]), 
+                max(0, genome_annotate[6][genome_pos] - genome_annotate[4][genome_pos - 1] + genome_annotate[4][genome_pos])] if genome_pos > 0 else [
+
                 genome_annotate[5][genome_pos], 
                 genome_annotate[4][genome_pos], 
                 genome_annotate[7][genome_pos], 
-                genome_annotate[6][genome_pos] ]
+                genome_annotate[6][genome_pos] ] 
+
         qgram_del_effect_first = [
                 genome_annotate[9] [genome_pos], 
                 genome_annotate[8] [genome_pos], 
@@ -174,6 +180,17 @@ def get_annotate_qgram(genome, genome_annotate, q, search_pos):
 
     print("Warning: %s q-grams of %s contain other letters than A,C,G and T, ignore these \
             q-grams" % (k, l) ,file=sys.stderr)
+    if DEBUG_INDEL:
+        print("Indel debugging enabled. Outputting contingency tables for SNPS and indels.\n\nqgram SNPS")
+        for q in qgram_annotate:
+            print("qgram: ", q, str(qgram_annotate[q][0]),str(qgram_annotate[q][1]),str(qgram_annotate[q][2]),str(qgram_annotate[q][3]))
+        print("qgram Insertions")
+        for q in qgram_ins_annotate:
+            print("qgram ins: ", q, str(qgram_ins_annotate[q][0]),str(qgram_ins_annotate[q][1]),str(qgram_ins_annotate[q][2]),str(qgram_ins_annotate[q][3]))
+        print("qgram Deletions")
+        for q in qgram_del_annotate:
+            print("qgram del: ", q, str(qgram_del_annotate[q][0]),str(qgram_del_annotate[q][1]),str(qgram_del_annotate[q][2]),str(qgram_del_annotate[q][3]))
+        exit(0)
     return (qgram_annotate, qgram_ins_annotate, qgram_del_annotate, qgram_counts)
 
 
@@ -262,6 +279,8 @@ def get_annotate_genome(genome, bampath, learn_chrom):
     f_del_mm = array.array('H',[0] * len_genome)
     r_del_m = array.array('H',[0] * len_genome)
     r_del_mm = array.array('H',[0] * len_genome)
+    #helper list with positions in insert arrays that must be checked for negative values at the end
+    make_positive = []
     
     j = 0 #counter for status info
     #consider each read
@@ -305,16 +324,19 @@ def get_annotate_genome(genome, bampath, learn_chrom):
                     # we only care about the first indel, so no loop required
                     # pos = last position in the genome where the read had M or D
                     if read.is_reverse:
-                        pos = ref_pos + bias + current_pos_ref
-                        r_ins_m[pos]    += 1
-                        # insert actually belongs to previous pos so delete error
-                        if (bias != 0 or current_pos_ref != 0):# and r_ins_mm[pos] > 0: 
-                            r_ins_mm[pos] -= 1 
+                        pos = ref_pos + bias + current_pos_ref - 1
+                        r_ins_m[pos]  += 1
+                        r_ins_mm[pos] -= 1 
+                        #add to list to make sure it's positive (minimum 0) in the end
+                        #the only case mm[pos] is negative is when the Insert is at end of reverse strand
+                        if r_ins_mm[pos] < 0:
+                            make_positive.append(pos)
                     else:
-                        pos = ref_pos + bias + current_pos_ref
-                        f_ins_m[pos - 1] += 1
-                        if (bias != 0 or current_pos_ref != 0) and f_ins_mm[pos - 1] > 0: 
-                            f_ins_mm[pos - 1] -= 1
+                        pos = ref_pos + bias + current_pos_ref - 1
+                        f_ins_m[pos] += 1
+                        f_ins_mm[pos] -= 1
+                        if f_ins_mm[pos] < 0:
+                            make_positive.append(pos)
                     current_pos_read += length #manuel
 
                 elif code is cigar_codes['D']: 
@@ -332,24 +354,10 @@ def get_annotate_genome(genome, bampath, learn_chrom):
                 else:
                     print(code, length, file=sys.stderr)
     
-    if DEBUG_ASSERTIONS:
-        print("Starting debug assertions...", file=sys.stderr)
-        for i in range(len_genome):
-            if (f_ins_m[i] <= 0 and f_ins_mm[i] <= 0) or (r_ins_m[i] <= 0 and r_ins_mm[i] <= 0):
-                print("Assertion INSERTION failed: match = mismatch = 0. Genome pos:",str(i),
-                        "(f_ins_m, f_ins_mm, r_ins_m, r_ins_mm): ",
-                        str(f_ins_m[i]),str(f_ins_mm[i]),str(r_ins_m[i]),str(r_ins_mm[i]), file=sys.stderr)
-
-            if (f_del_m[i] <= 0 and f_del_mm[i] <= 0) or (r_del_m[i] <= 0 and r_del_mm[i] <= 0):
-                print("Assertion DELETION failed: match = mismatch = 0. Genome pos:",str(i),
-                        "(f_del_m, f_del_mm, r_del_m, r_del_mm): ",
-                        str(f_del_m[i]),str(f_del_mm[i]),str(r_del_m[i]),str(r_del_mm[i]), file=sys.stderr)
-
-            if (fm[i] == 0 and fmm[i] == 0) or (rm[i] == 0 and rmm[i] == 0):
-                print("Assertion SNP (original fm, fmm, rm, rmm) failed: match = mismatch = 0. Genome pos:",str(i),
-                        "(fm, fmm, rm, rmm): ", str(fm[i]),str(fmm[i]),str(rm[i]),str(rmm[i]), file=sys.stderr)
-        print("All debug assertions passed!", file=sys.stderr)
-        exit(-1)
+    # make sure all positions are non-negative
+    for p in make_positive:
+        f_ins_mm[p] = max(0, f_ins_mm[p])
+        r_ins_mm[p] = max(0, r_ins_mm[p])
 
     return (fm, rm, fmm, rmm, 
             f_ins_m, r_ins_m, f_ins_mm, r_ins_mm, 
@@ -649,15 +657,16 @@ if __name__ == '__main__':
     if file_indel_log != "":
         print("Warning! Dumping indel details will take a long time...",file=sys.stderr)
 
-    print("Insertions")
-    for i in range(len(genome_annotate[4])):
-        print(str(genome_annotate[4][i]),str(genome_annotate[5][i]),str(genome_annotate[6][i]),str(genome_annotate[7][i]), "pos: ",str(i))
+    #TODO maybe remove? prints snps and indel tables along the genome
+    if DEBUG_INDEL:
+        print("Insertions")
+        for i in range(len(genome_annotate[4])):
+            print(str(genome_annotate[4][i]),str(genome_annotate[5][i]),str(genome_annotate[6][i]),str(genome_annotate[7][i]), "pos: ",str(i))
 
-    print("Deletions")
-    for i in range(len(genome_annotate[4])):
-        print(str(genome_annotate[8][i]),str(genome_annotate[9][i]),str(genome_annotate[10][i]),str(genome_annotate[11][i]), "pos: ",str(i))
+        print("Deletions")
+        for i in range(len(genome_annotate[4])):
+            print(str(genome_annotate[8][i]),str(genome_annotate[9][i]),str(genome_annotate[10][i]),str(genome_annotate[11][i]), "pos: ",str(i))
 
-    exit(0)
     print("Searching position is motif[last + %s]" % options.position, file=sys.stderr) 
     ident(genome, genome_annotate, q, n, options.alpha, options.epsilon, 
             options.delta, int(options.position),options.only_indels)

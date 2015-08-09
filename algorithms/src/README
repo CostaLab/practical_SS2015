@@ -1,0 +1,13 @@
+README for .cse scripts.
+
+To find out the available parameters and options for each script, run 
+    `*.py -h`.
+
+* reference.py
+    - contains the original implementation (+ corrections) of Manuel which can 
+    be accessed via the '-f' option. By default (without -f), the script runs
+    all corrections AND speed optimizations (pvalue calculation, count function),
+
+* cse_indel.py
+    - this script contains all corrections and optimizations but no fallback
+    mode. Additionally, it calculate insertions and deletions along SNPS. 

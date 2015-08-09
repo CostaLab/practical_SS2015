@@ -28,6 +28,7 @@ class Khmer:
             self.A_list.append(v)
 
     def getBitArray(self, key):
+        """Convert key from string to binary representation: 3*k, with k = len(key)"""
         bitarray = 0
         for i, c in enumerate(key):
             bitarray = bitarray << 3 
@@ -45,6 +46,7 @@ class Khmer:
 
     
     def __len__(self):
+        """Return number of entries in hash table"""
         l = 0
         for v in self.table:
             if v != None:

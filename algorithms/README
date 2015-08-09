@@ -1,5 +1,18 @@
+*******************************************************************************
+* This directory (algorithms) contains the extended and refactored source     *
+* code created and used during the Bioinformatics Lab at the IZKF Institute.  *
+* The original code belongs to Manuel Allhoff et. al.                         *
+*                                                                             *
+* Authors :                                                                   *
+*   Barna Zajzon                                                              *
+*   Fabio Ticconi                                                             *
+*******************************************************************************
 
-* reference.py defaults to the original implementation with new count function,
-  scipy's chi test and proper indexing for contingency tables.
-
-* use reference.py with -f option to run in fallback mode to original code.
+Directory structure:
+algorithms
+ |
+ |-- benchmarks     // time & memory benchmarks 
+ |-- docs           // final presentation
+ |-- output         // SNPS and indel outputs
+ |-- scripts        // scripts for benchmarking
+ |-- stat_tests     // scripts to verify correctness of contingency tables,etc.
