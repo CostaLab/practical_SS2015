@@ -1,0 +1,84 @@
+Sender: LSF System <lsfadmin@linuxbmc0841>
+Subject: Job 23369122: <bppbind> in cluster <rcc> Done
+
+Job <bppbind> was submitted from host <cluster> by user <ft583445> in cluster <rcc>.
+Job was executed on host(s) <linuxbmc0841>, in queue <lecture>, as user <ft583445> in cluster <rcc>.
+</home/ft583445> was used as the home directory.
+</home/ft583445/costalab/data_analysis/organisms/bordetella_pertussis/18323/PacBioRS/ERX135945> was used as the working directory.
+Started at Wed Aug 12 18:24:10 2015
+Results reported on Wed Aug 12 18:53:17 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+### Job name
+#BSUB -J bppbind
+
+#BSUB -P lect0008
+ 
+### File / path where STDOUT & STDERR will be written
+### %J is the job ID, %I is the array ID
+#BSUB -o bppbind.log.%J.%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 0:30
+ 
+### Request memory you need for your job in TOTAL in MB
+#BSUB -M 5000
+ 
+### Change to the work directory
+C=$LSB_JOBINDEX
+cd /home/ft583445/costalab/data_analysis/organisms/bordetella_pertussis/18323/PacBioRS/ERX135945
+
+source /home/ft583445/.zshrc
+
+### Execute your application
+/home/ft583445/.local/bin/cse_indel.py ../../NC_018518.1.fasta ERX135945.bam 8 4 -d 0 --only-indels -s genome.pickle > results_indel/results_8-grams_4n.data
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   1726.38 sec.
+    Max Memory :                                 787 MB
+    Average Memory :                             671.36 MB
+    Total Requested Memory :                     5000.00 MB
+    Delta Memory :                               4213.00 MB
+    Max Processes :                              5
+    Max Threads :                                6
+
+The output (if any) follows:
+
+(OK) Loading gcc 4.9.2
+(!!) in order to see the source code in actual debuggers, add to the compile line:
+(!!)    -g -gdwarf-2 
+Annotating (parsing) genome...
+5 365
+5 190
+5 502
+5 4
+5 520
+5 24
+5 680
+5 1191
+5 332
+5 2
+5 498
+5 960
+5 5
+5 466
+5 637
+5 419
+5 7
+Dumping serialized object in 3 seconds...
+Searching position is motif[last + 0]
+Warning: 0 q-grams of 4043839 contain other letters than A,C,G and T, ignore these             q-grams
+Start Strand Bias Score calculation
+Start Strand Bias Score calculation
+Start Strand Bias Score calculation
