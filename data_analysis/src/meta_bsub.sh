@@ -1,25 +1,27 @@
 #!/usr/bin/env bash
 
-if (( $# < 4 ))
+if (( $# < 6 ))
 then
-    echo "`basename $0` [cat/bsub] name W command args"
+    echo "`basename $0` [cat/bsub] proj name W M command args"
     exit -1
 fi
 
-command -v $4 >/dev/null 2>&1 || { echo >&2 "Command '$2' not available"; exit -1; }
+command -v $6 >/dev/null 2>&1 || { echo >&2 "Command '$6' not available"; exit -1; }
 
-bin=`which $4`
-args="${*:5}"
+bin=`which $6`
+args="${*:7}"
 
-name="$2"
-W="$3"
+proj="$2"
+name="$3"
+W="$4"
+M="$5"
 
 $1 <<EOF
 #!/usr/bin/env zsh
 ### Job name
 #BSUB -J $name
 
-##BSUB -P lect0008
+##BSUB -P $proj
  
 ### File / path where STDOUT & STDERR will be written
 ### %J is the job ID, %I is the array ID
@@ -31,7 +33,7 @@ $1 <<EOF
 #BSUB -W $W
  
 ### Request memory you need for your job in TOTAL in MB
-#BSUB -M 15000
+#BSUB -M $M
  
 ### Change to the work directory
 C=\$LSB_JOBINDEX
@@ -42,4 +44,3 @@ source /home/${USER}/.zshrc
 ### Execute your application
 $bin $args
 EOF
-

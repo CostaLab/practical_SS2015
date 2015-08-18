@@ -1,4 +1,5 @@
 ############################### insertion #########################
 #Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
+TGAGGCTC	27	1	16	26	0	10.1930953647	0.962962962963	0.0	0.962962962963
 ############################### deletions #########################
 #Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
