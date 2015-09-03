@@ -160,7 +160,9 @@ def get_pvalue(motif, fm, rm, fmm, rmm):
 
     matrix = [fm, rm, fmm, rmm]
     table = robjects.r.matrix(robjects.IntVector(matrix), nrow=2)
+    # fabio setting left-tailed
     p_value_tmp = f(table,alternative="l")[0] if test == 'fisher' else f(table)[2]
+    # /fabio
     p_value = tuple(p_value_tmp)[0] #some necessary magic for r object
 
     return p_value
@@ -344,7 +346,7 @@ def get_sb_score(qgram_annotate):
         #compute negative logarithm (base 10) of p-value or, if necessary, set to maxint
         strand_bias_score = sys.maxint if p_value < 1/10.0**300 else -math.log10(p_value)
         
-        results.append((k, qgram_annotate[k][0], qgram_annotate[k][1], qgram_annotate[k][2], qgram_annotate[k][3], strand_bias_score))
+        results.append((k, qgram_annotate[k][0], qgram_annotate[k][1], qgram_annotate[k][2], qgram_annotate[k][3], p_value, strand_bias_score))
     
     return results
 
@@ -396,24 +398,29 @@ def ident(genome, genome_annotate, q, n, alpha=0.05, epsilon=0.03, delta=0.05):
     """Identify critical <q>-grams (with <n> Ns) with reference to significance and error rate"""
     results = []
     
-    motifspacesize_log = math.log10(get_motifspace_size(q, n))
-    alpha_log = math.log10(float(alpha))
+    # fabio
+    #motifspacesize_log = math.log10(get_motifspace_size(q, n))
+    #alpha_log = math.log10(float(alpha))
+    bnf_threshold = alpha / get_motifspace_size(q,n)
+    # /fabio
+
     #annotate each q-gram with Strand Bias Table
-    qgram_annotate, qgram_counts = get_annotate_qgram(genome, genome_annotate, q) 
+    qgram_annotate, qgram_counts = get_annotate_qgram(genome, genome_annotate, q)
+
     #extend set of q-grams with q-grams containing Ns
     add_n(qgram_annotate, n, q) 
     
     all_results = get_sb_score(qgram_annotate) #annotate each q-gram with Strand Bias Score
-    sig_results = filter(lambda x: x[5] > motifspacesize_log - alpha_log, all_results) #filter statistically significant motifs (Bonferroni Correction)
+    sig_results = filter(lambda x: x[5] < bnf_threshold, all_results) #filter statistically significant motifs (Bonferroni Correction)
 
     #filter motifs with regards to background error rate (epsilon) error rate difference (delta)
-    for seq, forward_match, reverse_match, forward_mismatch, reverse_mismatch, p_value_score in sig_results:
+    for seq, forward_match, reverse_match, forward_mismatch, reverse_mismatch, p_value, score in sig_results:
         fer = float(forward_mismatch) / (forward_match + forward_mismatch) #forward error rate
         rer = float(reverse_mismatch) / (reverse_match + reverse_mismatch) #reverse error rate
         if rer < epsilon: #filter sequences with too high epsilon (background error rate)
             erd = fer - rer #error rate difference
             if erd >= delta: #filter sequences with too low delta (error rate difference cutoff)
-                results.append((seq, forward_match, reverse_match, forward_mismatch, reverse_mismatch, p_value_score, fer, rer, erd)) 
+                results.append((seq, forward_match, reverse_match, forward_mismatch, reverse_mismatch, score, fer, rer, erd)) 
             
     results.sort(key=lambda x: x[8],reverse=True) #sort by erd (error rate difference)
     output(results, genome, qgram_counts)

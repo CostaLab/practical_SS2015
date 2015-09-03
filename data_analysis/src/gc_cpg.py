@@ -15,7 +15,7 @@ for filename in sys.argv[1:]:
 	tot = 0
 	with open(filename, "r") as f:
 		for line in f:
-			if line[0] == '#' or line[0] == ' ':
+			if line[0] == '#' or line[0] == ' ' or line[0] == '>':
 				continue
 
 			motif = line.split()[0]
@@ -41,7 +41,6 @@ for filename in sys.argv[1:]:
 	print filename
 	GC = C+G
 	print "tot:", tot, "GC%", (float(GC) / tot) * 100.0, "CpG%", (float(CpG) / (tot - 1)) * 100.0
-	GC = G + C
 	GC_perc = 0 if tot == 0 else (float(GC) / tot) * 100.0
 	CpG_perc = 0 if tot == 0 else (float(CpG) / tot) * 100.0
 	print "GC%", GC_perc, "CpG%", CpG_perc, "A:", A, "T:", T, "C:", C, "G:", G, "TOT:", tot

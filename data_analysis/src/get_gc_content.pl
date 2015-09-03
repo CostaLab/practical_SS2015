@@ -147,7 +147,14 @@ sub process_it {
 if ($totalcount > 0) {
     $gccontent = 100 * (($gcount + $ccount) / $totalcount);
     $cpgcontent = 100 * ($cpgcount / ($totalcount - 1));
-    $expcpgcont = ($cpgcount * $length) / ($ccount * $gcount);
+    if ($ccount * $gcount > 0)
+    {
+        $expcpgcont = ($cpgcount * $length) / ($ccount * $gcount);
+    }
+    else
+    {
+        $expcpgcont = 0.0
+    }
 }
 
 print OUT "$gccontent\t$cpgcontent\t$expcpgcont\t$totalcount\t$gcount\t$ccount\t$acount\t$tcount\n";

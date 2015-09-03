@@ -64,10 +64,12 @@ def merge_dicts(list_of_dicts, mode):
 
     if mode == "strict":
         d = merge_dicts_strict(list_of_dicts[1:], list_of_dicts[0].copy())
-    else:
+    elif mode == "loose":
+        d = merge_dicts_strict(list_of_dicts[1:], list_of_dicts[0].copy())
+    elif mod == "simple"
         d = merge_dict_simple(list_of_dicts[1:], list_of_dicts[0].copy())
 
-    # merge_dict_* returns a dictionary whose values are lists of lists of numbers.
+    # merge_dict_* return a dictionary whose values are lists of lists of numbers.
     # For every such value, we need to sum its lists together, element by element.
     return {k:[sum(sb) for sb in itertools.izip(*(v))] for k,v in d.iteritems()}
 
@@ -86,6 +88,10 @@ def merge_dicts_strict(list_of_dicts, accumulator):
 
     # recurse over the remaining elements
     return merge_dicts_strict(new_list, accumulator)
+
+def merge_dicts_loose(list_of_dicts, accumulator):
+
+
 
 def merge_dict_simple(list_of_dicts, accumulator):
     if not list_of_dicts:
@@ -155,16 +161,12 @@ if __name__ == '__main__':
     parser.add_argument("-a", dest="alpha", default=0.05, type=float, help="FWER (family-wise error rate) alpha, default: 0.05")
     parser.add_argument("-e", dest="epsilon", default=0.03, type=float, help="background error rate cutoff epsilon, default: 0.03")
     parser.add_argument("-d", dest="delta", default=0.05, type=float, help="error rate difference cutoff delta, default: 0.05")
-    parser.add_argument("-r", dest="rule", default="strict", type=str, help="Merge rule. strict: takes the common motifs, loose: takes common motifs using N"
-                                                                            " as wildcard, simple: takes all motifs [default: strict]")    
+    parser.add_argument("-r", dest="rule", type=str, help="Merge rule. strict: takes the common motifs, loose: takes common motifs using N"
+                                                          " as wildcard, simple: takes all motifs")    
     args = parser.parse_args()
 
     q = args.q[0]
     n = args.n[0]
-
-    if args.rule != "strict" and args.rule != "simple":
-        print("mode %s not supported yet" % rule, file=sys.stderr)
-        exit(-1)
 
     list_of_dicts = [load_file(f) for f in args.files]
 
