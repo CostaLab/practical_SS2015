@@ -351,8 +351,6 @@ def get_annotate_genome(genome, bampath, learn_chrom):
                             f_del_m[pos]    += 1
                             f_ins_mm[pos]   += 1
                     current_pos_ref += length #manuel
-                else:
-                    print(code, length, file=sys.stderr)
     
     # make sure all positions are non-negative
     for p in make_positive:
