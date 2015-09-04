@@ -48,6 +48,8 @@ SRANOCHECK=false
 LOG="output.log"
 SKIP_FASTQC=false
 INDEL=false
+SKIP_REALIGN=false
+SKIP_RMDUP=false
 
 if [ $# == 0 ]
 then
@@ -129,6 +131,12 @@ do
         -indels|-do-indel-calling)
             INDEL=true
             ;;
+        -skip-realign)
+            SKIP_REALIGN=true
+            ;;
+        -skip-rmdup)
+            SKIP_RMDUP=true
+            ;;
         *)
             # unknown option
             echo "## Unknown option: $key" | tee -a $LOG
@@ -165,8 +173,15 @@ then
     sra-stat --xml -s ${SRA} > `basename ${SRA}`.stats || exit 1
 fi
 
-# reference file in FASTA format
+# FASTA pre-processing
 REF=`basename ${FASTA} .fasta`
+DICT=`dirname ${FASTA}`"/${REF}.dict"
+
+if [ ! -f $DICT ]
+then
+    picard-tools CreateSequenceDictionary R=$FASTA O=$DICT |& tee -a $LOG || exit 1
+    samtools faidx $FASTA |& tee -a $LOG || exit 1
+fi
 
 # reads file in SRA format
 READS=`basename ${SRA} .sra`
@@ -284,22 +299,33 @@ samtools view -hbSq $MINQ tmp.sam 2>&1 > tmp.bam | tee -a $LOG || exit 1
 samtools sort tmp.bam tmp.sorted |& tee -a $LOG || exit 1
 samtools index tmp.sorted.bam |& tee -a $LOG || exit 1
 
-# remove duplicates
-echo "## Removing duplicates" | tee -a $LOG
-samtools rmdup tmp.sorted.bam tmp.rmdup.sorted.bam |& tee -a $LOG || exit 1
+if [ $SKIP_REALIGN == false ]
+then
+    # remove duplicates
+    echo "## Removing duplicates" | tee -a $LOG
+    samtools rmdup tmp.sorted.bam tmp.rmdup.sorted.bam |& tee -a $LOG || exit 1
+else
+    # don't remove duplicates, but still we need a different file
+    cp tmp.sorted.bam tmp.rmdup.sorted.bam
+fi
 
-# add readgroup
+# add read groups
 echo "## Adding read groups and indexing" | tee -a $LOG
 picard-tools AddOrReplaceReadGroups INPUT=tmp.rmdup.sorted.bam OUTPUT=tmp.addrg.rmdup.sorted.bam RGLB="rglib" RGPL="rgpl" RGPU="rgpu" RGSM="rgsm" VALIDATION_STRINGENCY=SILENT |& tee -a $LOG || exit 1
 samtools index tmp.addrg.rmdup.sorted.bam |& tee -a $LOG || exit 1
 
-# realign near indels
-echo "## Realigning near indels and re-indexing" | tee -a $LOG
-picard-tools CreateSequenceDictionary R=$FASTA O=${REF}.dict |& tee -a $LOG || exit 1
-samtools faidx $FASTA |& tee -a $LOG || exit 1
+if [ $SKIP_REALIGN == false ]
+then
+    # realign near indels
+    echo "## Realigning near indels and re-indexing" | tee -a $LOG
+    gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T RealignerTargetCreator -o help.intervals $GATKOPT |& tee -a $LOG || exit 1
+    gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T IndelRealigner -targetIntervals help.intervals -o ${READS}.bam $GATKOPT $GATKOPT2 |& tee -a $LOG || exit 1
+else
+    # don't realign - but the next step still expects a final bam
+    cp tmp.addrg.rmdup.sorted.bam ${READS}.bam
+fi
 
-gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T RealignerTargetCreator -o help.intervals $GATKOPT |& tee -a $LOG || exit 1
-gatk -I tmp.addrg.rmdup.sorted.bam -R $FASTA -T IndelRealigner -targetIntervals help.intervals -o ${READS}.bam $GATKOPT $GATKOPT2 |& tee -a $LOG || exit 1
+# create bam index
 samtools index ${READS}.bam |& tee -a $LOG || exit 1
 
 # generate stats for clean BAM
