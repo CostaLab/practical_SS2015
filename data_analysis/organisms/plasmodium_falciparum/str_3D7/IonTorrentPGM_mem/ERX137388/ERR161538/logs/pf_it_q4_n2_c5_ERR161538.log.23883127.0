@@ -1,0 +1,66 @@
+Sender: LSF System <lsfadmin@linuxbcsc66>
+Subject: Job 23883127: <pf_it_q4_n2_c5_ERR161538> in cluster <rcc> Done
+
+Job <pf_it_q4_n2_c5_ERR161538> was submitted from host <cluster> by user <ft583445> in cluster <rcc>.
+Job was executed on host(s) <linuxbcsc66>, in queue <normal>, as user <ft583445> in cluster <rcc>.
+</home/ft583445> was used as the home directory.
+</home/ft583445/costalab/data_analysis/organisms/plasmodium_falciparum/str_3D7/IonTorrentPGM_mem/ERX137388/ERR161538> was used as the working directory.
+Started at Tue Sep  8 13:56:08 2015
+Results reported on Tue Sep  8 13:57:20 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+### Job name
+#BSUB -J pf_it_q4_n2_c5_ERR161538
+
+##BSUB -P none
+ 
+### File / path where STDOUT & STDERR will be written
+### %J is the job ID, %I is the array ID
+#BSUB -o pf_it_q4_n2_c5_ERR161538.log.%J.%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 24:0
+ 
+### Request memory you need for your job in TOTAL in MB
+#BSUB -M 15000
+ 
+### Change to the work directory
+C=$LSB_JOBINDEX
+cd /home/ft583445/costalab/data_analysis/organisms/plasmodium_falciparum/str_3D7/IonTorrentPGM_mem/ERX137388/ERR161538
+
+source /home/ft583445/.zshrc
+
+### Execute your application
+/home/ft583445/.local/bin/cse_indel.py ../../../complete.fasta ERR161538.bam 4 2 -d 0 --only-indels -l genome_5.pickle -c ch5 > results_indel/ch5/results_4-grams_2n.data
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   67.42 sec.
+    Max Memory :                                 241 MB
+    Average Memory :                             108.33 MB
+    Total Requested Memory :                     15000.00 MB
+    Delta Memory :                               14759.00 MB
+    Max Processes :                              5
+    Max Threads :                                6
+
+The output (if any) follows:
+
+(OK) Loading gcc 4.9.2
+(!!) in order to see the source code in actual debuggers, add to the compile line:
+(!!)    -g -gdwarf-2 
+Loading serialized object instead of annotating (parsing) genome...
+Searching position is motif[last + 0]
+Warning: 0 q-grams of 1343549 contain other letters than A,C,G and T, ignore these             q-grams
+Start Strand Bias Score calculation
+Start Strand Bias Score calculation
+Start Strand Bias Score calculation

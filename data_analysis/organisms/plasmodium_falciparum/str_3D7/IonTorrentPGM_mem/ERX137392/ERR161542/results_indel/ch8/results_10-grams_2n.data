@@ -1,0 +1,11 @@
+############################### insertion #########################
+#Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
+############################### deletions #########################
+#Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
+NTNCCCCTGA	2	0	18	20	0	10.5260548327	1.0	0.0	1.0
+ANCCCCCTGA	1	0	18	19	0	10.2473012317	1.0	0.0	1.0
+ATCCCCCTGA	1	0	18	19	0	10.2473012317	1.0	0.0	1.0
+ANNCCCCTGA	1	0	18	19	0	10.2473012317	1.0	0.0	1.0
+NTCCCCCTGA	1	0	18	19	0	10.2473012317	1.0	0.0	1.0
+ATCCCCCNGA	1	0	18	19	0	10.2473012317	1.0	0.0	1.0
+ATNCCCCTGA	1	0	18	19	0	10.2473012317	1.0	0.0	1.0

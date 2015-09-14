@@ -1,0 +1,12 @@
+############################### insertion #########################
+#Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
+AGTTCAGTTT	1	0	10	25	0	8.26382393664	1.0	0.0	1.0
+AGNTCAGTTT	1	0	10	25	0	8.26382393664	1.0	0.0	1.0
+AGTTCAGTNT	1	0	10	25	0	8.26382393664	1.0	0.0	1.0
+############################### deletions #########################
+#Sequence	Occurrence	Forward Match	Backward Match	Forward Mismatch	Backward Mismatch	Strand Bias Score	FER (Forward Error Rate)	RER (Reverse Error Rate), ERD (Error rate Difference)
+TNTCACTCGT	1	0	10	25	0	8.26382393664	1.0	0.0	1.0
+TTTCACTCGN	1	0	10	25	0	8.26382393664	1.0	0.0	1.0
+TTTCACTCGT	1	0	10	25	0	8.26382393664	1.0	0.0	1.0
+GTCAAGTTGA	1	0	20	25	0	12.5010415654	1.0	0.0	1.0
+TAAGCCAACT	1	0	30	10	0	8.92822196035	1.0	0.0	1.0

@@ -1,0 +1,69 @@
+Sender: LSF System <lsfadmin@linuxbsc011>
+Subject: Job 23679147: <ecsk_hs_5_ERR142617> in cluster <rcc> Done
+
+Job <ecsk_hs_5_ERR142617> was submitted from host <cluster> by user <ft583445> in cluster <rcc>.
+Job was executed on host(s) <linuxbsc011>, in queue <normal>, as user <ft583445> in cluster <rcc>.
+</home/ft583445> was used as the home directory.
+</home/ft583445/costalab/data_analysis/organisms/plasmodium_falciparum/str_3D7/HiSeq2000/ERX118621/ERR142617> was used as the working directory.
+Started at Tue Aug 25 15:56:40 2015
+Results reported on Tue Aug 25 16:23:21 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+### Job name
+#BSUB -J ecsk_hs_5_ERR142617
+
+##BSUB -P lect0008
+ 
+### File / path where STDOUT & STDERR will be written
+### %J is the job ID, %I is the array ID
+#BSUB -o ecsk_hs_5_ERR142617.log.%J.%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 24:0
+ 
+### Request memory you need for your job in TOTAL in MB
+#BSUB -M 15000
+ 
+### Change to the work directory
+C=$LSB_JOBINDEX
+cd /home/ft583445/costalab/data_analysis/organisms/plasmodium_falciparum/str_3D7/HiSeq2000/ERX118621/ERR142617
+
+source /home/ft583445/.zshrc
+
+### Execute your application
+/home/ft583445/.local/bin/cse_indel.py ../../../complete.fasta ERR142617.bam 8 4 -d 0 --only-indels -s genome_5.pickle -c ch5 > results_indel/ch5/results_8-grams_4n.data
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   1582.77 sec.
+    Max Memory :                                 2668 MB
+    Average Memory :                             1917.34 MB
+    Total Requested Memory :                     15000.00 MB
+    Delta Memory :                               12332.00 MB
+    Max Processes :                              5
+    Max Threads :                                6
+
+The output (if any) follows:
+
+(OK) Loading gcc 4.9.2
+(!!) in order to see the source code in actual debuggers, add to the compile line:
+(!!)    -g -gdwarf-2 
+Annotating (parsing) genome...
+1000000 reads considered for genome annotation 
+2000000 reads considered for genome annotation 
+Dumping serialized object in 3 seconds...
+Searching position is motif[last + 0]
+Warning: 0 q-grams of 1343545 contain other letters than A,C,G and T, ignore these             q-grams
+Start Strand Bias Score calculation
+Start Strand Bias Score calculation
+Start Strand Bias Score calculation

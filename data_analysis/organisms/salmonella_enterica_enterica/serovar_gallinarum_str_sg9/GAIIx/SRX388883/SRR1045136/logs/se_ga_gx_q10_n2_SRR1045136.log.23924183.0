@@ -1,0 +1,82 @@
+Sender: LSF System <lsfadmin@linuxnc084>
+Subject: Job 23924183: <se_ga_gx_q10_n2_SRR1045136> in cluster <rcc> Done
+
+Job <se_ga_gx_q10_n2_SRR1045136> was submitted from host <cluster> by user <ft583445> in cluster <rcc>.
+Job was executed on host(s) <linuxnc084>, in queue <normal>, as user <ft583445> in cluster <rcc>.
+</home/ft583445> was used as the home directory.
+</home/ft583445/costalab/data_analysis/organisms/salmonella_enterica_enterica/serovar_gallinarum_str_sg9/GAIIx/SRX388883/SRR1045136> was used as the working directory.
+Started at Fri Sep 11 13:34:27 2015
+Results reported on Fri Sep 11 17:57:00 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+### Job name
+#BSUB -J se_ga_gx_q10_n2_SRR1045136
+
+##BSUB -P none
+ 
+### File / path where STDOUT & STDERR will be written
+### %J is the job ID, %I is the array ID
+#BSUB -o se_ga_gx_q10_n2_SRR1045136.log.%J.%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 24:0
+ 
+### Request memory you need for your job in TOTAL in MB
+#BSUB -M 15000
+ 
+### Change to the work directory
+C=$LSB_JOBINDEX
+cd /home/ft583445/costalab/data_analysis/organisms/salmonella_enterica_enterica/serovar_gallinarum_str_sg9/GAIIx/SRX388883/SRR1045136
+
+source /home/ft583445/.zshrc
+
+### Execute your application
+/home/ft583445/.local/bin/cse_indel.py ../../../se_NZ_CM001153.1.fasta SRR1045136.bam 10 2 -d 0 --only-indels -l genome.pickle > results_indel/results_10-grams_2n.data
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   15894.54 sec.
+    Max Memory :                                 8200 MB
+    Average Memory :                             6114.99 MB
+    Total Requested Memory :                     15000.00 MB
+    Delta Memory :                               6800.00 MB
+    Max Processes :                              5
+    Max Threads :                                6
+
+The output (if any) follows:
+
+(OK) Loading gcc 4.9.2
+Loading serialized object instead of annotating (parsing) genome...
+Searching position is motif[last + 0]
+Warning: 112 q-grams of 4658577 contain other letters than A,C,G and T, ignore these             q-grams
+Start Strand Bias Score calculation
+ 1000000 / 6539497 Strand Bias Scores calculated
+ 2000000 / 6539497 Strand Bias Scores calculated
+ 3000000 / 6539497 Strand Bias Scores calculated
+ 4000000 / 6539497 Strand Bias Scores calculated
+ 5000000 / 6539497 Strand Bias Scores calculated
+ 6000000 / 6539497 Strand Bias Scores calculated
+Start Strand Bias Score calculation
+ 1000000 / 6539497 Strand Bias Scores calculated
+ 2000000 / 6539497 Strand Bias Scores calculated
+ 3000000 / 6539497 Strand Bias Scores calculated
+ 4000000 / 6539497 Strand Bias Scores calculated
+ 5000000 / 6539497 Strand Bias Scores calculated
+ 6000000 / 6539497 Strand Bias Scores calculated
+Start Strand Bias Score calculation
+ 1000000 / 6539497 Strand Bias Scores calculated
+ 2000000 / 6539497 Strand Bias Scores calculated
+ 3000000 / 6539497 Strand Bias Scores calculated
+ 4000000 / 6539497 Strand Bias Scores calculated
+ 5000000 / 6539497 Strand Bias Scores calculated
+ 6000000 / 6539497 Strand Bias Scores calculated

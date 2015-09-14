@@ -1,0 +1,69 @@
+Sender: LSF System <lsfadmin@linuxbmc0125>
+Subject: Job 23878617: <pf_it_q8_n4_c7_consensus> in cluster <rcc> Done
+
+Job <pf_it_q8_n4_c7_consensus> was submitted from host <cluster> by user <ft583445> in cluster <rcc>.
+Job was executed on host(s) <linuxbmc0125>, in queue <normal>, as user <ft583445> in cluster <rcc>.
+</home/ft583445> was used as the home directory.
+</home/ft583445/costalab/data_analysis/organisms/plasmodium_falciparum/str_3D7/IonTorrentPGM_mem> was used as the working directory.
+Started at Tue Sep  8 12:05:48 2015
+Results reported on Tue Sep  8 12:28:55 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+### Job name
+#BSUB -J pf_it_q8_n4_c7_consensus
+
+##BSUB -P none
+ 
+### File / path where STDOUT & STDERR will be written
+### %J is the job ID, %I is the array ID
+#BSUB -o pf_it_q8_n4_c7_consensus.log.%J.%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 24:0
+ 
+### Request memory you need for your job in TOTAL in MB
+#BSUB -M 15000
+ 
+### Change to the work directory
+C=$LSB_JOBINDEX
+cd /home/ft583445/costalab/data_analysis/organisms/plasmodium_falciparum/str_3D7/IonTorrentPGM_mem
+
+source /home/ft583445/.zshrc
+
+### Execute your application
+/home/ft583445/.local/bin/cse_indel.py ../complete.fasta consensus.bam 8 4 -c ch7 -d 0 --only-indels -s genome_7.pickle > results_indel/ch7/results_8-grams_4n.data
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   1372.86 sec.
+    Max Memory :                                 2165 MB
+    Average Memory :                             1542.70 MB
+    Total Requested Memory :                     15000.00 MB
+    Delta Memory :                               12835.00 MB
+    Max Processes :                              5
+    Max Threads :                                6
+
+The output (if any) follows:
+
+(OK) Loading gcc 4.9.2
+(!!) in order to see the source code in actual debuggers, add to the compile line:
+(!!)    -g -gdwarf-2 
+Annotating (parsing) genome...
+1000000 reads considered for genome annotation 
+2000000 reads considered for genome annotation 
+Dumping serialized object in 3 seconds...
+Searching position is motif[last + 0]
+Warning: 115 q-grams of 1501595 contain other letters than A,C,G and T, ignore these             q-grams
+Start Strand Bias Score calculation
+Start Strand Bias Score calculation
+Start Strand Bias Score calculation

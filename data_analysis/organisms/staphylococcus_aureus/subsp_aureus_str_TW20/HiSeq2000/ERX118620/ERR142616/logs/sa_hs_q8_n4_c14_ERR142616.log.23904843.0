@@ -1,0 +1,110 @@
+Sender: LSF System <lsfadmin@linuxbmc0147>
+Subject: Job 23904843: <sa_hs_q8_n4_c14_ERR142616> in cluster <rcc> Done
+
+Job <sa_hs_q8_n4_c14_ERR142616> was submitted from host <cluster> by user <ft583445> in cluster <rcc>.
+Job was executed on host(s) <linuxbmc0147>, in queue <normal>, as user <ft583445> in cluster <rcc>.
+</home/ft583445> was used as the home directory.
+</home/ft583445/costalab/data_analysis/organisms/staphylococcus_aureus/subsp_aureus_str_TW20/HiSeq2000/ERX118620/ERR142616> was used as the working directory.
+Started at Thu Sep 10 11:46:47 2015
+Results reported on Thu Sep 10 13:07:38 2015
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/usr/bin/env zsh
+### Job name
+#BSUB -J sa_hs_q8_n4_c14_ERR142616
+
+##BSUB -P none
+ 
+### File / path where STDOUT & STDERR will be written
+### %J is the job ID, %I is the array ID
+#BSUB -o sa_hs_q8_n4_c14_ERR142616.log.%J.%I
+ 
+### Request the time you need for execution in minutes
+### The format for the parameter is: [hour:]minute,
+### that means for 80 minutes you could also use this: 1:20
+#BSUB -W 2:0
+ 
+### Request memory you need for your job in TOTAL in MB
+#BSUB -M 15000
+ 
+### Change to the work directory
+C=$LSB_JOBINDEX
+cd /home/ft583445/costalab/data_analysis/organisms/staphylococcus_aureus/subsp_aureus_str_TW20/HiSeq2000/ERX118620/ERR142616
+
+source /home/ft583445/.zshrc
+
+### Execute your application
+/home/ft583445/.local/bin/cse_indel.py ../../../NC_017331.1.fasta ERR142616.bam 8 4 -d 0 --only-indels -s genome_14.pickle > results_indel/results_8-grams_4n.data
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   4841.85 sec.
+    Max Memory :                                 2886 MB
+    Average Memory :                             1195.51 MB
+    Total Requested Memory :                     15000.00 MB
+    Delta Memory :                               12114.00 MB
+    Max Processes :                              5
+    Max Threads :                                6
+
+The output (if any) follows:
+
+(OK) Loading gcc 4.9.2
+(!!) in order to see the source code in actual debuggers, add to the compile line:
+(!!)    -g -gdwarf-2 
+Annotating (parsing) genome...
+1000000 reads considered for genome annotation 
+2000000 reads considered for genome annotation 
+3000000 reads considered for genome annotation 
+4000000 reads considered for genome annotation 
+5000000 reads considered for genome annotation 
+6000000 reads considered for genome annotation 
+7000000 reads considered for genome annotation 
+8000000 reads considered for genome annotation 
+9000000 reads considered for genome annotation 
+10000000 reads considered for genome annotation 
+11000000 reads considered for genome annotation 
+12000000 reads considered for genome annotation 
+13000000 reads considered for genome annotation 
+14000000 reads considered for genome annotation 
+15000000 reads considered for genome annotation 
+16000000 reads considered for genome annotation 
+17000000 reads considered for genome annotation 
+18000000 reads considered for genome annotation 
+19000000 reads considered for genome annotation 
+20000000 reads considered for genome annotation 
+21000000 reads considered for genome annotation 
+22000000 reads considered for genome annotation 
+23000000 reads considered for genome annotation 
+24000000 reads considered for genome annotation 
+25000000 reads considered for genome annotation 
+26000000 reads considered for genome annotation 
+27000000 reads considered for genome annotation 
+28000000 reads considered for genome annotation 
+29000000 reads considered for genome annotation 
+30000000 reads considered for genome annotation 
+31000000 reads considered for genome annotation 
+32000000 reads considered for genome annotation 
+33000000 reads considered for genome annotation 
+34000000 reads considered for genome annotation 
+35000000 reads considered for genome annotation 
+36000000 reads considered for genome annotation 
+37000000 reads considered for genome annotation 
+38000000 reads considered for genome annotation 
+39000000 reads considered for genome annotation 
+40000000 reads considered for genome annotation 
+41000000 reads considered for genome annotation 
+42000000 reads considered for genome annotation 
+43000000 reads considered for genome annotation 
+Dumping serialized object in 3 seconds...
+Searching position is motif[last + 0]
+Warning: 0 q-grams of 3043203 contain other letters than A,C,G and T, ignore these             q-grams
+Start Strand Bias Score calculation
+Start Strand Bias Score calculation
+Start Strand Bias Score calculation
