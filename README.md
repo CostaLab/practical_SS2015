@@ -1,5 +1,4 @@
-# costalab
-Bioinformatics Lab RWTH Aachen SS '15
+# Bioinformatics Lab RWTH Aachen SS '15
 
 # Align, statistics, SNP calling
 
