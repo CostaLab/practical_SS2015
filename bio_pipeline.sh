@@ -299,7 +299,7 @@ samtools view -hbSq $MINQ tmp.sam 2>&1 > tmp.bam | tee -a $LOG || exit 1
 samtools sort tmp.bam tmp.sorted |& tee -a $LOG || exit 1
 samtools index tmp.sorted.bam |& tee -a $LOG || exit 1
 
-if [ $SKIP_REALIGN == false ]
+if [ $SKIP_RMDUP == false ]
 then
     # remove duplicates
     echo "## Removing duplicates" | tee -a $LOG
